@@ -1,0 +1,7 @@
+## local.properties — git 제외 파일, 이 파일을 복사해서 local.properties로 저장하세요
+
+# Android SDK 경로
+sdk.dir=/Users/yourname/Library/Android/sdk
+
+# Meta Wearables DAT SDK (GitHub Packages 인증용 PAT — read:packages 스코프 필요)
+github_token=YOUR_GITHUB_PAT_HERE

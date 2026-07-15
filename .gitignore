@@ -1,0 +1,19 @@
+# 비밀 값 / 로컬 설정 (절대 커밋 금지: github_token, sdk.dir 포함)
+local.properties
+local.properties.*
+!local.properties.template
+
+# Gradle
+.gradle/
+build/
+**/build/
+
+# Android Studio / IntelliJ
+.idea/
+*.iml
+captures/
+.externalNativeBuild/
+.cxx/
+
+# 시스템
+.DS_Store
