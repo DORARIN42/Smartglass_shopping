@@ -36,10 +36,8 @@ import com.meta.wearable.dat.display.Display
 import com.meta.wearable.dat.display.addDisplay
 import com.meta.wearable.dat.display.removeDisplay
 import com.meta.wearable.dat.display.types.DisplayState
-import com.meta.wearable.dat.display.views.ButtonStyle
 import com.meta.wearable.dat.display.views.Direction
 import com.meta.wearable.dat.display.views.FlexBoxBackground
-import com.meta.wearable.dat.display.views.IconName
 import com.meta.wearable.dat.display.views.ImageSize
 import com.meta.wearable.dat.display.views.TextColor
 import com.meta.wearable.dat.display.views.TextStyle
@@ -103,10 +101,6 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                             flexBox(padding = 24, background = FlexBoxBackground.CARD) {
                                 top?.imageUrl?.let { url -> image(uri = url, sizePreset = ImageSize.FILL) }
                                 text(result.headline, style = TextStyle.BODY)
-                                if (top != null) {
-                                    text(top.price, style = TextStyle.HEADING)
-                                    top.store?.let { text(it, style = TextStyle.BODY, color = TextColor.SECONDARY) }
-                                }
                                 if (result.status == ResultStatus.UNCERTAIN && result.candidates.size > 1) {
                                     text(
                                         "후보 ${result.candidates.size}개 · 폰에서 선택",
@@ -115,13 +109,27 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                                     )
                                 }
                             }
-                            top?.linkUrl?.let { url ->
-                                button(
-                                    label = "폰에서 자세히 보기",
-                                    style = ButtonStyle.PRIMARY,
-                                    iconName = IconName.CHECKMARK,
-                                    onClick = { openUrlOnPhone(url) },
-                                )
+                            // 구매처 후보를 가로로 균등한 3칸으로 나눠 노출 (링크 있는 것만).
+                            // 각 칸: 사이트명 + 가격, 칸 전체를 누르면 폰에서 해당 사이트가 열린다.
+                            // 세 칸 모두 동일한 스타일(flexGrow=1f로 폭 균등).
+                            flexBox(direction = Direction.ROW, gap = 8) {
+                                result.candidates
+                                    .filter { it.linkUrl != null }
+                                    .forEach { candidate ->
+                                        flexBox(
+                                            direction = Direction.COLUMN,
+                                            gap = 4,
+                                            padding = 12,
+                                            background = FlexBoxBackground.CARD,
+                                            flexGrow = 1f,
+                                            onClick = { openUrlOnPhone(candidate.linkUrl!!) },
+                                        ) {
+                                            candidate.store?.let {
+                                                text(it, style = TextStyle.BODY, color = TextColor.SECONDARY)
+                                            }
+                                            text(candidate.price, style = TextStyle.HEADING)
+                                        }
+                                    }
                             }
                         }
                     }

@@ -3,6 +3,7 @@ package com.example.raybanvision.ui
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.Arrangement
@@ -32,10 +33,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import com.example.raybanvision.data.AnalysisResult
 import com.example.raybanvision.session.SessionUiState
 
@@ -339,34 +343,46 @@ private fun ResultScreen(
             )
         }
 
-        // 2번: 가격 정보
-        result.topCandidate?.let { candidate ->
-            Text(
-                candidate.price ?: "가격 정보 없음",
-                style = MaterialTheme.typography.displaySmall,
-                color = Color(0xFF4CAF50),
-                textAlign = TextAlign.Center,
-            )
-
-            // 판매처
-            candidate.store?.let {
-                Text(
-                    it,
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = Color(0xFFBBBBBB),
-                    textAlign = TextAlign.Center,
-                )
+        // 2번: 구매처 3칸 — 각 칸에 사이트명 + 가격, 누르면 해당 사이트가 열림
+        val context = LocalContext.current
+        val buyables = result.candidates.filter { it.linkUrl != null }
+        if (buyables.isNotEmpty()) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                buyables.forEach { candidate ->
+                    Column(
+                        modifier = Modifier
+                            .weight(1f)
+                            .clip(RoundedCornerShape(12.dp))
+                            .background(Color(0xFF1E1E1E))
+                            .clickable {
+                                context.startActivity(
+                                    Intent(Intent.ACTION_VIEW, Uri.parse(candidate.linkUrl)),
+                                )
+                            }
+                            .padding(vertical = 12.dp, horizontal = 8.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.spacedBy(4.dp),
+                    ) {
+                        candidate.store?.let {
+                            Text(
+                                it,
+                                style = MaterialTheme.typography.bodySmall,
+                                color = Color(0xFFBBBBBB),
+                                textAlign = TextAlign.Center,
+                            )
+                        }
+                        Text(
+                            candidate.price,
+                            style = MaterialTheme.typography.titleMedium,
+                            color = Color(0xFF4CAF50),
+                            textAlign = TextAlign.Center,
+                        )
+                    }
+                }
             }
-        }
-
-        // 3번: 후보 수 (여러 개일 때)
-        if (result.candidates.size > 1) {
-            Text(
-                "후보 ${result.candidates.size}개 · 폰에서 선택하기",
-                style = MaterialTheme.typography.bodyMedium,
-                color = Color(0xFF999999),
-                textAlign = TextAlign.Center,
-            )
         }
 
         // 재촬영 버튼
