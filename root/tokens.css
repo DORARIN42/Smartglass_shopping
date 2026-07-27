@@ -116,7 +116,8 @@
   --size-guideline-glasses: 200px;
   --size-camera-status-phone: 16px;
   --size-camera-status-glasses: 10px;
-  --size-card-width: 466px; /* ProductName/ProductInformation/PriceInformation overlay card width */
+  --size-card-width: 466px; /* ProductName/ProductInformation overlay card width */
+  --size-price-card-width: 170.667px; /* PriceInformation compact card width — narrower so multiple vendor cards can sit side by side */
 
   /* ---------- Stroke Colors (Button/Icon Button outline) ---------- */
   --stroke-white-default: rgba(255, 255, 255, 0.5); /* Small transparent outline */
