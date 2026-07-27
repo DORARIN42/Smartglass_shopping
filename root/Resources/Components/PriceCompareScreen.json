@@ -1,0 +1,74 @@
+{
+  "component": "PriceCompareScreen",
+  "figma": {
+    "fileKey": "Oo9W0U9SyNGNZXyD8urNJZ",
+    "nodeId": "82:8583",
+    "url": "https://www.figma.com/design/Oo9W0U9SyNGNZXyD8urNJZ/Shopping-XR?node-id=82-8583"
+  },
+  "tokensFile": "tokens.css",
+  "cssFile": null,
+  "previewFile": "preview/price-compare.html",
+  "description": "CameraViewfinder(Resources/Components/CameraViewfinder.json)의 result 상태에서 '가격 비교' 버튼을 누르면 이동하는 전체 화면. 촬영된 사진을 30% 불투명도 배경으로 깔고 그 위에 상품명 카드 + 판매처 3곳의 가격 카드를 나란히 보여줍니다.",
+  "shape": {
+    "frame": "600x1300 (Android canvas, camera.html/onboarding.html과 동일한 device-viewport/scale(0.8) 셸 재사용)",
+    "background": "var(--sds-color-black-1000)",
+    "children": ["AndroidStatusBar(Dark)", "capturedPhotoBg", "content", "AndroidNavBar(Dark)"]
+  },
+  "capturedPhotoBg": {
+    "description": "ProductInfoScreen.json과 동일한 메커니즘 — camera.html의 capturePhoto()가 sessionStorage['capturedPhoto']에 저장한 JPEG data URL을 읽어 30% 불투명도로 표시합니다.",
+    "handoff": "ProductInfoScreen.json 참고.",
+    "mirroring": "transform: scaleX(-1)",
+    "opacity": "0.3"
+  },
+  "content": {
+    "layout": "column, align-center, gap var(--sds-size-space-600), padding: 0 var(--sds-size-space-800), @ (0, 230), 600x800",
+    "infoColumn": {
+      "layout": "column, align-center, gap var(--sds-size-space-500), flex: 1 0 0",
+      "productName": {
+        "ref": "Resources/Components/ProductName.json",
+        "cssFile": "Resources/Components/ProductName.css",
+        "widthOverride": "ProductInfoScreen.json과 동일하게 width:100%로 콘텐츠 전체 폭에 맞춰 늘어납니다 (기본값 var(--size-card-width) 대신)."
+      },
+      "priceRow": {
+        "layout": "row, gap var(--sds-size-space-200)",
+        "note": "PriceInformation은 이미 고정폭(var(--size-price-card-width), 170.667px)이라 3장이 나란히 들어갑니다 — 별도 오버라이드가 필요 없습니다.",
+        "items": [
+          { "ref": "Resources/Components/PriceInformation.json", "props": { "state": "Focused", "price": "9,900", "vendor": "무신사" } },
+          { "ref": "Resources/Components/PriceInformation.json", "props": { "state": "Default", "price": "10,400", "vendor": "쿠팡" } },
+          { "ref": "Resources/Components/PriceInformation.json", "props": { "state": "Default", "price": "10,900", "vendor": "이마트" } }
+        ]
+      }
+    },
+    "instructionChip": {
+      "text": "가격 검색이 완료되었어요!",
+      "static": true,
+      "padding": "var(--sds-size-space-300) var(--sds-size-space-600)",
+      "radius": "var(--radius-full)",
+      "background": "var(--sds-color-white-200)",
+      "textColor": "var(--sds-color-white-1000)",
+      "textStyle": "TextStyleSingleLineBodySmallStrong"
+    },
+    "actionRow": {
+      "layout": "row, gap var(--sds-size-space-400), each button flex: 1 0 0",
+      "retakeButton": {
+        "ref": "Resources/Components/Button.json",
+        "props": { "variant": "Neutral", "color": "Transparent", "size": "Medium", "state": "Default", "iconStart": "Camera", "label": "다시 찍기" },
+        "action": "camera.html로 이동 (라이브 프레이밍부터 다시 시작)"
+      },
+      "productInfoButton": {
+        "ref": "Resources/Components/Button.json",
+        "props": { "variant": "Primary", "color": "Solid", "size": "Medium", "state": "Default", "iconStart": "Info", "label": "상품 정보" },
+        "action": "product-info.html로 이동",
+        "note": "2026-07-27 Figma 재확인: 브랜드 그라디언트(Primary.Solid)입니다. 예전 노트에는 '이미 비교 화면에 들어왔으니 보조 내비게이션이라 Neutral.Solid(회색)'이라고 적어뒀었는데, 실제 Figma 원본은 CameraViewfinder의 result 화면과 동일하게 Primary.Solid를 쓰고 있어 그 노트가 틀렸던 것으로 확인 — 바로잡았습니다."
+      }
+    }
+  },
+  "newTokensIntroduced": [
+    "이 화면은 새 토큰이 필요하지 않습니다 — --sds-color-black-1000/--sds-size-space-900은 ProductInfoScreen.json 작업 중 추가했고, PriceInformation의 Focused/Default 상태와 Button의 Neutral.Transparent/Solid 상태를 그대로 재사용합니다."
+  ],
+  "notes": [
+    "이 화면은 CameraViewfinder → (가격 비교 클릭) → PriceCompareScreen → (상품 정보 클릭) → ProductInfoScreen 흐름의 한 정거장입니다.",
+    "가격/판매처 데이터는 전부 더미 데이터입니다 — 실제 가격 비교 API 연동은 이후 작업입니다.",
+    "2026-07-27 Figma 업데이트 반영: priceRow의 gap이 12px(var(--sds-size-space-300))에서 8px(var(--sds-size-space-200))로 좁아졌습니다. content/infoColumn/actionRow의 gap은 이번 업데이트에서 변경되지 않았습니다(각각 24/20/16px 그대로)."
+  ]
+}

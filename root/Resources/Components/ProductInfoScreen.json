@@ -1,0 +1,74 @@
+{
+  "component": "ProductInfoScreen",
+  "figma": {
+    "fileKey": "Oo9W0U9SyNGNZXyD8urNJZ",
+    "nodeId": "71:6528",
+    "url": "https://www.figma.com/design/Oo9W0U9SyNGNZXyD8urNJZ/Shopping-XR?node-id=71-6528"
+  },
+  "tokensFile": "tokens.css",
+  "cssFile": null,
+  "previewFile": "preview/product-info.html",
+  "description": "CameraViewfinder(Resources/Components/CameraViewfinder.json)의 result 상태에서 '상품 정보' 버튼을 누르면 이동하는 전체 화면. 촬영된 사진을 30% 불투명도 배경으로 깔고 그 위에 상품명 카드 + 스크롤되는 상품 정보 카드 목록을 보여줍니다.",
+  "shape": {
+    "frame": "600x1300 (Android canvas, camera.html/onboarding.html과 동일한 device-viewport/scale(0.8) 셸 재사용)",
+    "background": "var(--sds-color-black-1000)",
+    "children": ["AndroidStatusBar(Dark)", "capturedPhotoBg", "content", "AndroidNavBar(Dark)"]
+  },
+  "capturedPhotoBg": {
+    "description": "CameraViewfinder에서 촬영 시점에 캡처한 사진을 화면 전체(600x1300) 배경으로 깔되, 30% 불투명도로 어둡게 표시합니다.",
+    "handoff": "camera.html의 capturePhoto()가 video 프레임을 <canvas>로 그려 sessionStorage['capturedPhoto']에 JPEG data URL로 저장하고, 이 페이지는 로드 시 그 값을 읽어 <img>의 src로 사용합니다. 세션 저장소가 비어있으면(직접 URL로 진입 등) 배경을 숨기고 진행합니다.",
+    "mirroring": "camera.html의 라이브 <video>와 동일하게 transform: scaleX(-1)로 좌우 반전 — capturePhoto()는 원본(비반전) 픽셀을 저장하고, 반전은 표시하는 쪽에서 CSS로만 처리합니다.",
+    "opacity": "0.3 (Figma 'opacity-30')"
+  },
+  "content": {
+    "layout": "column, align-center, gap var(--sds-size-space-900), padding: 0 var(--sds-size-space-800), @ (0, 230), 600x800",
+    "infoColumn": {
+      "layout": "column, align-center, gap var(--sds-size-space-400), flex: 1 0 0",
+      "productName": {
+        "ref": "Resources/Components/ProductName.json",
+        "cssFile": "Resources/Components/ProductName.css",
+        "widthOverride": "이 화면에서는 기본값인 var(--size-card-width)(466px) 대신 width:100%로 콘텐츠 전체 폭(536px)에 맞춰 늘어납니다 — AR 오버레이 카드가 아니라 전체 목록 화면의 헤더이기 때문입니다."
+      },
+      "infoList": {
+        "layout": "column, gap var(--sds-size-space-300), flex: 1 0 0, overflow-y: auto, class=\"scroll-fade-edges\" (interactions.css)",
+        "note": "5개의 ProductInformation 카드를 스크롤 가능한 목록으로 표시합니다 (Figma 목업에 스크롤바 표시가 있음). ProductName 헤더는 고정(flex-shrink:0)이고 이 목록만 스크롤됩니다 — 카드 자체도 flex-shrink:0이라 절대 찌그러지거나 텍스트가 잘리지 않고, 넘치는 내용은 이 목록의 스크롤로만 처리됩니다.",
+        "scrollFade": "위쪽 var(--scroll-fade-top)(24px)/아래쪽 var(--scroll-fade-bottom)(80px) 구간이 투명하게 페이드아웃되는 마스크(.scroll-fade-edges, interactions.css) 적용 — Figma에는 없는 효과(디자이너가 피그마에서 구현하지 못함)이며, 다른 스크롤 페이지에도 재사용할 공용 유틸리티입니다. 네이티브 스크롤바는 숨김 처리됩니다.",
+        "scrollFadeEdgeAwareness": "리스트가 맨 위/아래로 스크롤된 상태에서는 해당 방향 페이드가 사라집니다(첫 번째/마지막 카드는 '더 있다'가 아니라 '여기가 끝'으로 읽혀야 하므로) — root/scroll-fade.js가 스크롤 위치를 감지해 .at-top/.at-bottom 클래스를 토글합니다. 이 페이지 <script>에서 `<script src=\"../scroll-fade.js\"></script>`로 로드합니다.",
+        "items": [
+          { "ref": "Resources/Components/ProductInformation.json", "props": { "state": "Default", "heading": "상품 요약" } },
+          { "ref": "Resources/Components/ProductInformation.json", "props": { "state": "Default", "heading": "영양성분" } },
+          { "ref": "Resources/Components/ProductInformation.json", "props": { "state": "Default", "heading": "후기" } },
+          { "ref": "Resources/Components/ProductInformation.json", "props": { "state": "Default", "heading": "주요 성분" } },
+          { "ref": "Resources/Components/ProductInformation.json", "props": { "state": "Default", "heading": "주요 성분" } }
+        ],
+        "figmaInconsistencyNote": "Figma 원본은 이 5개 카드의 border-width가 제각각입니다(상품요약/영양성분/후기=2px, 주요성분×2=1px) — 의미 있는 상태 차이(state=Focused 등)가 아니라 목업 과정에서 생긴 값 불일치로 보여, ProductInformation.json이 정의한 단일 Default 상태(1px, 그림자 없음)로 통일했습니다.",
+        "dummyDataNote": "5번째 카드('주요 성분')는 Figma 원본에도 4번째와 완전히 동일한 텍스트가 중복되어 있습니다 — 실제 상품 데이터가 아직 없어 그대로 재현했습니다."
+      }
+    },
+    "actionRow": {
+      "layout": "row, gap var(--sds-size-space-400), each button flex: 1 0 0",
+      "retakeButton": {
+        "ref": "Resources/Components/Button.json",
+        "props": { "variant": "Neutral", "color": "Transparent", "size": "Medium", "state": "Default", "iconStart": "Camera", "label": "다시 찍기" },
+        "action": "camera.html로 이동 (라이브 프레이밍부터 다시 시작)"
+      },
+      "priceCompareButton": {
+        "ref": "Resources/Components/Button.json",
+        "props": { "variant": "Neutral", "color": "Solid", "size": "Medium", "state": "Default", "iconStart": "Dollar sign", "label": "가격 비교" },
+        "action": "price-compare.html로 이동"
+      }
+    }
+  },
+  "newTokensIntroduced": [
+    "--sds-color-black-1000 (tokens.css) — 화면 배경, 기존 --black-1000 프리미티브에 시맨틱 별칭만 없던 것을 추가. CameraViewfinder가 쓰는 --sds-color-gray-1000(#111111)과는 다른 색(#0C0C0D)이라 별도 토큰입니다.",
+    "--sds-size-space-900 (tokens.css) — infoColumn과 actionRow 사이 40px 간격. 기존 spacing 스케일(...600=24, 800=32)의 다음 단계로 추가했습니다.",
+    "Resources/Components/ProductName.css, Resources/Components/ProductInformation.css — 두 컴포넌트는 JSON 스펙만 있고 컴파일된 CSS가 없었어서, PriceInformation.css와 동일한 컨벤션(state는 클래스 modifier, 그림자는 tokens.css의 EffectStyle* 클래스를 마크업에서 함께 조합)으로 새로 추가했습니다.",
+    "--effect-button-default/--effect-button-selected (tokens.css) — .EffectStyleButtonDefault/.EffectStyleButtonSelected 클래스가 쓰는 box-shadow 값을 커스텀 프로퍼티로도 노출한 리팩터. ProductInformation의 hover/focus는 실제 CSS :hover/:focus-visible 의사 클래스라 JS로 클래스를 갈아끼울 수 없으므로, 값을 var()로 직접 참조합니다.",
+    "--scroll-fade-top/--scroll-fade-bottom (tokens.css) + .scroll-fade-edges (interactions.css) — info-list 스크롤 시 위/아래가 서서히 투명해지는 효과.",
+    "root/scroll-fade.js — .scroll-fade-edges 요소의 스크롤 위치를 감지해 맨 위/아래에서는 해당 방향 페이드를 끄는 공용 스크립트. 새로 만드는 모든 스크롤 페이지에서 재사용하세요."
+  ],
+  "notes": [
+    "이 화면은 CameraViewfinder → (상품 정보 클릭) → ProductInfoScreen → (가격 비교 클릭) → PriceCompareScreen 흐름의 한 정거장입니다. 세 페이지 모두 실제 별도 HTML 파일(camera.html/product-info.html/price-compare.html)이며 sessionStorage로 촬영된 사진만 넘겨받습니다.",
+    "상품명/설명 등은 전부 더미 데이터입니다 — 실제 상품 인식/DB 연동은 이후 작업입니다."
+  ]
+}

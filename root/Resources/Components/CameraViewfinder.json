@@ -104,7 +104,7 @@
             "analyzing": "Neutral.Transparent.Disabled (시각적으로만 비활성 — Button.css의 기존 컨벤션. 클릭 핸들러도 상태 체크로 막아 실제로도 동작하지 않음)",
             "result": "Neutral.Solid.Default — 활성화되지만 보조 액션 톤 (진한 회색)"
           },
-          "action": "화면 범위 밖(가격 비교 후속 플로우) — 현재는 콘솔 로그만 남김"
+          "action": "result 상태에서 클릭 시 preview/price-compare.html(Resources/Components/PriceCompareScreen.json)로 이동"
         },
         "productInfoButton": {
           "ref": "Resources/Components/Button.json",
@@ -113,7 +113,7 @@
             "analyzing": "Neutral.Transparent.Disabled",
             "result": "Primary.Solid.Default — 추천/기본 액션 톤 (브랜드 그라디언트)"
           },
-          "action": "화면 범위 밖(상품 정보 후속 플로우) — 현재는 콘솔 로그만 남김"
+          "action": "result 상태에서 클릭 시 preview/product-info.html(Resources/Components/ProductInfoScreen.json)로 이동"
         }
       }
     }
@@ -138,6 +138,11 @@
       "effect": "screenState → analyzing. video.pause(), 디텍션 루프 정지, guideline 숨김, cameraStatus=No, 안내 문구 변경, 하단 슬롯을 actionRow(둘 다 비활성)로 교체, 스크림+Loading 애니메이션 표시.",
       "then": "실제 AI 분석 API가 아직 없어 ANALYSIS_MS(5000ms) 고정 타이머로 대체 — 타이머가 끝나면 자동으로 screenState=result.",
       "resultRevert": "result 상태에서 '다시 찍기' 클릭 시 screenState=framing으로 복귀 (video.play() 재개, 디텍션 루프 재시작, 모든 표시가 초기화됨)."
+    },
+    "photoHandoff": {
+      "trigger": "screenState=framing → analyzing 전환 시 (enterAnalyzing()) 촬영 즉시 1회",
+      "mechanism": "video 프레임을 600x1300 <canvas>에 object-fit:cover와 동일한 크롭으로 그려 canvas.toDataURL('image/jpeg', 0.85)로 변환 후 sessionStorage['capturedPhoto']에 저장. 원본(비반전) 픽셀 그대로 저장하고, 좌우 반전은 표시하는 쪽(camera.html의 <video>, 그리고 ProductInfoScreen/PriceCompareScreen의 배경 <img>)에서 CSS transform: scaleX(-1)로 동일하게 처리합니다.",
+      "consumers": ["Resources/Components/ProductInfoScreen.json", "Resources/Components/PriceCompareScreen.json"]
     }
   },
   "notes": [

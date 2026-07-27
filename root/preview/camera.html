@@ -459,8 +459,34 @@
    *             action-row buttons become real actions (가격 비교 =
    *             Neutral.Solid, 상품 정보 = Primary.Solid, the recommended one).
    */
+  function capturePhoto() {
+    var videoW = video.videoWidth, videoH = video.videoHeight;
+    if (!videoW || !videoH) return;
+
+    // Full-screen (600x1300) capture for ProductInfoScreen/PriceCompareScreen's
+    // dim photo backdrop — same object-fit:cover crop math as sampleScore(),
+    // just at the full canvas frame size instead of the detection sample size.
+    // Captured un-mirrored; the destination pages mirror it via CSS transform,
+    // same as this page's own <video> (see .camera-frame video above).
+    var OUT_W = 600, OUT_H = 1300;
+    var captureCanvas = document.createElement('canvas');
+    captureCanvas.width = OUT_W;
+    captureCanvas.height = OUT_H;
+    var captureCtx = captureCanvas.getContext('2d');
+    var scale = Math.max(OUT_W / videoW, OUT_H / videoH);
+    var sW = OUT_W / scale, sH = OUT_H / scale;
+    var sx = (videoW - sW) / 2, sy = (videoH - sH) / 2;
+    captureCtx.drawImage(video, sx, sy, sW, sH, 0, 0, OUT_W, OUT_H);
+    try {
+      sessionStorage.setItem('capturedPhoto', captureCanvas.toDataURL('image/jpeg', 0.85));
+    } catch (e) {
+      console.warn('[CameraViewfinder] could not store captured photo', e);
+    }
+  }
+
   function enterAnalyzing() {
     video.pause();
+    capturePhoto();
     if (detectionIntervalId !== null) {
       clearInterval(detectionIntervalId);
       detectionIntervalId = null;
@@ -526,15 +552,13 @@
   priceCompareButton.addEventListener('click', function (event) {
     event.preventDefault();
     if (priceCompareButton.classList.contains('btn--disabled')) return;
-    // Out of scope for this screen — price comparison is a separate follow-up flow.
-    console.log('[CameraViewfinder] 가격 비교 tapped — product =', DUMMY_PRODUCT_NAME);
+    window.location.href = 'price-compare.html';
   });
 
   productInfoButton.addEventListener('click', function (event) {
     event.preventDefault();
     if (productInfoButton.classList.contains('btn--disabled')) return;
-    // Out of scope for this screen — product info is a separate follow-up flow.
-    console.log('[CameraViewfinder] 상품 정보 tapped — product =', DUMMY_PRODUCT_NAME);
+    window.location.href = 'product-info.html';
   });
 
   navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false })

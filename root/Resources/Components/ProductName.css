@@ -1,0 +1,40 @@
+/* ==========================================================================
+   Shopping XR — Product Name
+   Figma: node 72:7426 · spec: Resources/Components/ProductName.json
+   Load order: tokens.css → interactions.css → ProductName.css
+   Single-state component — pair with class="EffectStyleButtonSelected"
+   (tokens.css) in markup for the shadow, same convention as
+   PriceInformation.css (shadow isn't duplicated here as a literal).
+   ========================================================================== */
+
+.product-name-card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sds-size-space-400);
+  padding: var(--sds-size-space-600);
+  width: var(--size-card-width);
+  border-style: solid;
+  border-width: var(--sds-size-stroke-border-thick);
+  border-color: var(--stroke-white-default);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background: var(--ColorButtonTransparentBrandDefault);
+  font-family: "Inter", var(--sds-typography-body-font-family);
+  /* Hugs its own content — never shrunk by a flex parent (e.g.
+     ProductInfoScreen pins this above a separately-scrolling info list). */
+  flex-shrink: 0;
+}
+
+.product-name-card__title {
+  margin: 0;
+  width: 100%;
+  color: var(--sds-color-white-1000);
+}
+
+.product-name-card__subtitle {
+  margin: 0;
+  width: 100%;
+  color: var(--sds-color-white-800);
+}

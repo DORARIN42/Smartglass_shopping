@@ -10,7 +10,7 @@
   flex-direction: column;
   align-items: center;
   gap: var(--sds-size-space-600);
-  padding: var(--sds-size-space-400);
+  padding: var(--sds-size-space-400) var(--sds-size-space-300) var(--sds-size-space-300);
   width: var(--size-price-card-width);
   border-style: solid;
   border-width: var(--sds-size-stroke-border-thick);

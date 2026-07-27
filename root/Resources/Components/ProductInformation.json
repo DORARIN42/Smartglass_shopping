@@ -6,7 +6,9 @@
     "url": "https://www.figma.com/design/Oo9W0U9SyNGNZXyD8urNJZ/Shopping-XR?node-id=72-7417"
   },
   "tokensFile": "tokens.css",
-  "description": "인식된 상품의 요약 설명을 보여주는 카드. state=Focused일 때 테두리가 밝아지고 안쪽 글로우(shadow)가 추가됩니다.",
+  "interactionTokensFile": "interactions.css",
+  "cssFile": "Resources/Components/ProductInformation.css",
+  "description": "인식된 상품의 요약 설명을 보여주는 카드. state=Focused일 때 테두리가 밝아지고 안쪽 글로우(shadow)가 추가됩니다. hover/focus 시에도 동일한 강조가 일시적으로 적용됩니다 (interaction 참고).",
   "shape": {
     "layout": "column",
     "gap": "var(--sds-size-space-300)",
@@ -27,13 +29,23 @@
     "heading": "TextStyleBodyStrong",
     "body": "TextStyleBodySmall"
   },
+  "interaction": {
+    "hoverOrFocus": {
+      "trigger": "pointer :hover, or keyboard/programmatic :focus-visible (카드에 tabindex=\"0\"을 주면 포커스를 받을 수 있습니다)",
+      "effect": "state=Focused과 동일한 border(var(--stroke-white-focused))/shadow(EffectStyleButtonSelected)/텍스트 색(heading→var(--sds-color-white-1000), body→var(--sds-color-white-900))으로 전환됩니다 — 실제 state prop을 바꾸는 것이 아니라 hover/focus 동안만 시각적으로 겹쳐지는 오버레이 성격의 상호작용입니다. 이미 state=Focused인 카드는 값이 같아 시각적으로 아무 변화가 없습니다.",
+      "transitionedProperties": ["border-color", "box-shadow", "heading color", "body color"],
+      "duration": "var(--motion-duration-fast) for border-color/text color, var(--motion-duration-base) for box-shadow",
+      "easing": "var(--motion-easing-standard)",
+      "mechanism": "일반 CSS transition (interactions.css의 모션 토큰 재사용) — Button/IconButton과 달리 배경이 두 상태에서 동일(var(--ColorButtonTransparentWhiteDefault))해서 그라디언트 크로스페이드 문제가 없으므로 .interactive-surface 상태 레이어가 필요 없습니다. box-shadow 값은 tokens.css의 --effect-button-selected 커스텀 프로퍼티를 그대로 참조합니다(.EffectStyleButtonSelected 클래스가 쓰는 값과 동일한 소스)."
+    }
+  },
   "styles": {
     "Default": {
       "background": "var(--ColorButtonTransparentWhiteDefault)",
       "border": "var(--stroke-white-default)",
       "shadow": "none",
-      "headingColor": "var(--sds-color-white-1000)",
-      "bodyColor": "var(--sds-color-white-900)"
+      "headingColor": "var(--sds-color-white-700)",
+      "bodyColor": "var(--sds-color-white-500)"
     },
     "Focused": {
       "background": "var(--ColorButtonTransparentWhiteDefault)",
@@ -45,6 +57,8 @@
   },
   "notes": [
     "body 텍스트는 최대 3줄까지만 노출됩니다(디자인 주석 '상품설명 최대 3줄 보이게' 참고) — 실제 말줄임(ellipsis/line-clamp) 처리는 플랫폼 UI 레이어에서 구현하세요.",
-    "Focused 배경은 Default와 동일한 var(--ColorButtonTransparentWhiteDefault)이며 테두리 색과 그림자만 바뀝니다 — Button.json의 Neutral.Transparent.Hover(배경까지 밝아짐)와는 다른 조합이니 혼동하지 마세요."
+    "Focused 배경은 Default와 동일한 var(--ColorButtonTransparentWhiteDefault)이며 테두리 색과 그림자만 바뀝니다 — Button.json의 Neutral.Transparent.Hover(배경까지 밝아짐)와는 다른 조합이니 혼동하지 마세요.",
+    "2026-07-27 Figma 재확인(node 72:7416/72:7418) 반영: Default 텍스트가 Focused와 동일한 밝기(white-1000/white-900)로 잘못 구현되어 있었습니다 — 실제로는 Default가 더 연합니다(heading=white-700, body=white-500). Focused/hover는 그대로 white-1000/white-900입니다.",
+    "카드는 항상 자기 내용만큼 높이를 차지합니다(flex-shrink: 0) — ProductInfoScreen처럼 스크롤 가능한 목록 안에 놓일 때도 절대 찌그러지거나 잘리지 않고, 넘치는 만큼은 부모 컨테이너가 스크롤로 처리합니다."
   ]
 }

@@ -83,6 +83,7 @@
 
   --sds-color-black-100: var(--black-100);
   --sds-color-black-500: var(--black-500); /* CameraViewfinder analyzing/result scrim over the captured photo */
+  --sds-color-black-1000: var(--black-1000); /* ProductInfoScreen/PriceCompareScreen root background */
 
   --sds-color-icon-default-default: var(--grey-900);
   --sds-color-border-neutral-default: #2E3030;
@@ -101,6 +102,7 @@
   --sds-size-space-500: 20px;  /* Icon Button Medium padding */
   --sds-size-space-600: 24px;  /* Button Medium vertical padding, Button Small horizontal padding */
   --sds-size-space-800: 32px;  /* Button Medium horizontal padding */
+  --sds-size-space-900: 40px;  /* ProductInfoScreen gap between the info-card list and the bottom button row */
 
   /* ---------- Stroke / Border ---------- */
   --sds-size-stroke-border: 1px;        /* Small size outline width */
@@ -144,6 +146,24 @@
   --ColorButtonSolidBrandHover: linear-gradient(249deg, rgba(251, 235, 55, 0.5) 6%, rgba(250, 240, 108, 0.05) 69%), linear-gradient(161deg, rgba(168, 233, 55, 0.5) 13%, rgba(206, 254, 123, 0.05) 74%), var(--grey-100);
   --ColorStrokeWhiteDefault: var(--stroke-white-default);
   --ColorStrokeWhiteFocused: var(--stroke-white-focused);
+
+  /* ---------- Effect Values ----------
+     Same shadow values as .EffectStyleButtonDefault/.EffectStyleButtonSelected
+     below, exposed as custom properties too. The classes are for a static
+     shadow; components that need to bake a shadow into a real CSS
+     pseudo-class rule (:hover, :focus-visible — where JS-driven class
+     toggling doesn't apply, e.g. ProductInformation.json's hover/focus
+     interaction) reference the variable instead of duplicating the literal. */
+  --effect-button-default: inset 0px 4px 24px rgba(255, 255, 255, 0.3);
+  --effect-button-selected: inset 0px 4px 24px rgba(255, 255, 255, 1);
+
+  /* ---------- Scroll Fade ----------
+     Distance over which a scrollable list fades to transparent at its top/
+     bottom edge (see .scroll-fade-edges in interactions.css). Not sourced
+     from Figma (the designer couldn't prototype it there) — requested
+     directly, reused across every scrollable preview page. */
+  --scroll-fade-top: var(--sds-size-space-600); /* 24px */
+  --scroll-fade-bottom: 80px; /* doesn't match an existing spacing step */
 }
 
 /* ---------- Text Styles ---------- */
@@ -320,10 +340,10 @@
 	box-shadow: inset 0px -4px 24.2px #ffffff;
 }
 .EffectStyleButtonSelected {
-	box-shadow: inset 0px 4px 24px rgba(255, 255, 255, 1);
+	box-shadow: var(--effect-button-selected);
 }
 .EffectStyleButtonDefault {
-	box-shadow: inset 0px 4px 24px rgba(255, 255, 255, 0.3);
+	box-shadow: var(--effect-button-default);
 }
 
 /* ==========================================================================

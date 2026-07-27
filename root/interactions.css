@@ -2,8 +2,9 @@
    Shopping XR — Interaction Tokens
    Figma: https://www.figma.com/design/Oo9W0U9SyNGNZXyD8urNJZ/Shopping-XR
    Hover/press motion shared by Resources/Components/Button.css and
-   Resources/Components/IconButton.css. Load this AFTER tokens.css and
-   BEFORE any component CSS.
+   Resources/Components/IconButton.css, plus general scroll-affordance
+   utilities (.scroll-fade-edges) shared by any scrollable preview page.
+   Load this AFTER tokens.css and BEFORE any component CSS.
    ========================================================================== */
 
 :root {
@@ -70,4 +71,74 @@
   .interactive-surface::after {
     transition-duration: 1ms;
   }
+}
+
+/* ---------- Scroll fade edges ----------
+   Apply to any scrollable list (overflow-y: auto/scroll) to fade its
+   content to transparent near the top/bottom edge, as a "there's more to
+   scroll" affordance, and to hide the native scrollbar. Not a Figma-sourced
+   effect (the designer couldn't prototype it there). Reused across every
+   scrollable preview page — see Resources/Components/ProductInfoScreen.json
+   for the first usage.
+
+   The fade is scroll-position-aware via scroll-fade.js, which toggles
+   .at-top/.at-bottom on this element: when the list is scrolled all the way
+   to one edge, that edge's fade is suppressed so the first/last item reads
+   as fully visible (unfaded) — signalling "this is the first/last item",
+   not "there's more below/above". Without scroll-fade.js (script not
+   included on the page) it falls back to the base rule, which always fades
+   both edges. */
+.scroll-fade-edges {
+  scrollbar-width: none;      /* Firefox */
+  -ms-overflow-style: none;   /* legacy Edge/IE */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    black var(--scroll-fade-top),
+    black calc(100% - var(--scroll-fade-bottom)),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    black var(--scroll-fade-top),
+    black calc(100% - var(--scroll-fade-bottom)),
+    transparent 100%
+  );
+}
+.scroll-fade-edges::-webkit-scrollbar {
+  display: none; /* Chrome/Safari/Edge (Chromium) */
+}
+
+.scroll-fade-edges.at-top {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    black 0,
+    black calc(100% - var(--scroll-fade-bottom)),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    black 0,
+    black calc(100% - var(--scroll-fade-bottom)),
+    transparent 100%
+  );
+}
+.scroll-fade-edges.at-bottom {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    black var(--scroll-fade-top),
+    black 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    black var(--scroll-fade-top),
+    black 100%
+  );
+}
+.scroll-fade-edges.at-top.at-bottom {
+  -webkit-mask-image: none; /* short list, nothing to fade in either direction */
+  mask-image: none;
 }
