@@ -1,0 +1,79 @@
+/* ==========================================================================
+   Shopping XR — Saved Link
+   Figma: node 92:9352 · spec: Resources/Components/SavedLink.json
+   Load order: tokens.css → interactions.css → Button.css → SavedLink.css
+   ========================================================================== */
+
+.saved-link {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sds-size-space-600);
+  padding: var(--sds-size-space-400) var(--sds-size-space-600);
+  width: var(--size-list-card-width);
+  border-style: solid;
+  border-width: var(--sds-size-stroke-border);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background: var(--ColorButtonTransparentWhiteDefault);
+  font-family: "Inter", var(--sds-typography-body-font-family);
+}
+
+.saved-link__info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sds-size-space-200);
+  width: 100%;
+}
+
+.saved-link__title {
+  margin: 0;
+  color: var(--sl-title-color);
+}
+
+.saved-link__heading {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sds-size-space-500);
+  width: 100%;
+}
+
+.saved-link__vendor {
+  margin: 0;
+  color: var(--sl-meta-color);
+}
+
+.saved-link__price {
+  display: flex;
+  align-items: center;
+  gap: 4px; /* below tokens.css's smallest spacing step (200 = 8px) — see SavedLink.json notes */
+  margin: 0;
+  color: var(--sl-meta-color);
+}
+
+.saved-link__saved-at {
+  margin: 0;
+  color: var(--sl-saved-at-color);
+}
+
+.saved-link .btn {
+  width: 100%;
+}
+
+/* Default — pair with class="EffectStyleButtonDefault" (tokens.css) in markup for shadow */
+.saved-link--default {
+  border-color: var(--stroke-white-default);
+  --sl-title-color: var(--sds-color-white-700);
+  --sl-meta-color: var(--sds-color-white-500);
+  --sl-saved-at-color: var(--sds-color-white-400);
+}
+
+/* Focused — pair with class="EffectStyleButtonSelected" (tokens.css) in markup for shadow */
+.saved-link--focused {
+  border-color: var(--stroke-white-focused);
+  --sl-title-color: var(--sds-color-white-1000);
+  --sl-meta-color: var(--sds-color-white-900);
+  --sl-saved-at-color: var(--sds-color-white-700);
+}

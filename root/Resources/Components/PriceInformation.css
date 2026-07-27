@@ -45,16 +45,14 @@
   width: 100%;
 }
 
-/* Default */
+/* Default — pair with class="EffectStyleButtonDefault" (tokens.css) in markup for shadow */
 .price-card--default {
   border-color: var(--stroke-white-default);
-  box-shadow: inset 0px 4px 24px rgba(255, 255, 255, 0.3);
   color: var(--sds-color-white-700);
 }
 
-/* Focused */
+/* Focused — pair with class="EffectStyleButtonSelected" (tokens.css) in markup for shadow */
 .price-card--focused {
   border-color: var(--stroke-white-focused);
-  box-shadow: inset 0px 4px 24px rgba(255, 255, 255, 1);
   color: var(--sds-color-white-1000);
 }

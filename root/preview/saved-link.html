@@ -2,14 +2,14 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8" />
-<title>Shoply — PriceInformation</title>
+<title>Shoply — SavedLink</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../tokens.css">
 <link rel="stylesheet" href="../interactions.css">
 <link rel="stylesheet" href="../Resources/Components/Button.css">
-<link rel="stylesheet" href="../Resources/Components/PriceInformation.css">
+<link rel="stylesheet" href="../Resources/Components/SavedLink.css">
 <style>
   * { box-sizing: border-box; }
   body {
@@ -20,12 +20,14 @@
     align-items: center;
     justify-content: center;
     gap: 24px;
+    padding: 24px;
     font-family: 'Inter', var(--sds-typography-body-font-family);
     background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Crect width='40' height='40' fill='%23222'/%3E%3Crect width='20' height='20' fill='%232a2a2a'/%3E%3Crect x='20' y='20' width='20' height='20' fill='%232a2a2a'/%3E%3C/svg%3E") #1c1c1c;
   }
-  .row {
+  .col {
     display: flex;
-    gap: 16px;
+    flex-direction: column;
+    gap: 24px;
   }
   .caption {
     color: rgba(255, 255, 255, 0.6);
@@ -34,14 +36,18 @@
 </style>
 </head>
 <body>
-  <p class="caption">Resources/Components/PriceInformation.json · node 72:7740 · width var(--size-price-card-width)</p>
-  <div class="row">
-    <div class="price-card price-card--focused EffectStyleButtonSelected">
-      <div class="price-card__heading">
-        <div class="price-card__price TextStyleBodyStrong">
-          <span>₩</span><span>19,900</span>
+  <p class="caption">Resources/Components/SavedLink.json · node 92:9352 · width var(--size-list-card-width)</p>
+  <div class="col">
+    <div class="saved-link saved-link--focused EffectStyleButtonSelected">
+      <div class="saved-link__info">
+        <p class="saved-link__title TextStyleSubheading">민티아 드라이하드</p>
+        <div class="saved-link__heading">
+          <p class="saved-link__vendor TextStyleBodyStrong">무신사</p>
+          <div class="saved-link__price TextStyleBodyStrong">
+            <span>₩</span><span>9,900</span>
+          </div>
         </div>
-        <p class="price-card__vendor TextStyleBodyStrong">무신사</p>
+        <p class="saved-link__saved-at TextStyleBodySmall">2026.07.27 저장</p>
       </div>
       <a class="btn btn--small btn--primary-solid interactive-surface" href="#">
         <span class="icon">
@@ -49,16 +55,20 @@
             <path d="M15 7H18C18.6566 7 19.3068 7.12933 19.9134 7.3806C20.52 7.63188 21.0712 8.00017 21.5355 8.46447C21.9998 8.92876 22.3681 9.47996 22.6194 10.0866C22.8707 10.6932 23 11.3434 23 12C23 12.6566 22.8707 13.3068 22.6194 13.9134C22.3681 14.52 21.9998 15.0712 21.5355 15.5355C21.0712 15.9998 20.52 16.3681 19.9134 16.6194C19.3068 16.8707 18.6566 17 18 17H15M9 17H6C5.34339 17 4.69321 16.8707 4.08658 16.6194C3.47995 16.3681 2.92876 15.9998 2.46447 15.5355C1.52678 14.5979 1 13.3261 1 12C1 10.6739 1.52678 9.40215 2.46447 8.46447C3.40215 7.52678 4.67392 7 6 7H9M8 12H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </span>
-        <span class="TextStyleSingleLineBodySmallStrong">링크 저장</span>
+        <span class="TextStyleSingleLineBodySmallStrong">링크 바로가기</span>
       </a>
     </div>
 
-    <div class="price-card price-card--default EffectStyleButtonDefault">
-      <div class="price-card__heading">
-        <div class="price-card__price TextStyleBodyStrong">
-          <span>₩</span><span>19,900</span>
+    <div class="saved-link saved-link--default EffectStyleButtonDefault">
+      <div class="saved-link__info">
+        <p class="saved-link__title TextStyleSubheading">민티아 드라이하드</p>
+        <div class="saved-link__heading">
+          <p class="saved-link__vendor TextStyleBodyStrong">무신사</p>
+          <div class="saved-link__price TextStyleBodyStrong">
+            <span>₩</span><span>9,900</span>
+          </div>
         </div>
-        <p class="price-card__vendor TextStyleBodyStrong">무신사</p>
+        <p class="saved-link__saved-at TextStyleBodySmall">2026.07.27 저장</p>
       </div>
       <a class="btn btn--small btn--primary-solid btn--disabled" href="#">
         <span class="icon">
@@ -66,7 +76,7 @@
             <path d="M15 7H18C18.6566 7 19.3068 7.12933 19.9134 7.3806C20.52 7.63188 21.0712 8.00017 21.5355 8.46447C21.9998 8.92876 22.3681 9.47996 22.6194 10.0866C22.8707 10.6932 23 11.3434 23 12C23 12.6566 22.8707 13.3068 22.6194 13.9134C22.3681 14.52 21.9998 15.0712 21.5355 15.5355C21.0712 15.9998 20.52 16.3681 19.9134 16.6194C19.3068 16.8707 18.6566 17 18 17H15M9 17H6C5.34339 17 4.69321 16.8707 4.08658 16.6194C3.47995 16.3681 2.92876 15.9998 2.46447 15.5355C1.52678 14.5979 1 13.3261 1 12C1 10.6739 1.52678 9.40215 2.46447 8.46447C3.40215 7.52678 4.67392 7 6 7H9M8 12H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </span>
-        <span class="TextStyleSingleLineBodySmallStrong">링크 저장</span>
+        <span class="TextStyleSingleLineBodySmallStrong">링크 바로가기</span>
       </a>
     </div>
   </div>

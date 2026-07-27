@@ -24,6 +24,11 @@
       "duration": "var(--motion-duration-fast) for color/border-color, var(--motion-duration-base) for box-shadow and the state layer",
       "easing": "var(--motion-easing-standard)",
       "mechanism": "apply class=\"interactive-surface\" (interactions.css) alongside the btn classes. The Hover background is drawn on a ::after state layer that fades in via opacity — background/background-image itself is never transitioned directly."
+    },
+    "disabled": {
+      "rule": "state=Disabled must be a full hover no-op — no color/border/shadow/background change on pointer-over.",
+      "trigger": "class=\"btn--disabled\" (visual-only, e.g. PriceInformation's non-focused card — stays tappable) or native :disabled (a real <button disabled>).",
+      "mechanism": "Button.css's Disabled block repeats each selector under :hover with the identical resting values, so it always wins over the variant's own :hover rule regardless of source order elsewhere; --state-layer-bg is also forced to transparent as a second guard. Do not rely on simply omitting class=\"interactive-surface\" — the variant :hover rules (color/border-color/box-shadow) fire independently of that class."
     }
   },
   "props": {

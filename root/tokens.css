@@ -67,9 +67,11 @@
   --sds-color-white-900: var(--white-900);
   --sds-color-white-800: var(--white-800);
   --sds-color-white-700: var(--white-700);
+  --sds-color-white-500: var(--white-500); /* SavedLink vendor/price (metaColor) */
   --sds-color-white-400: var(--white-400);
   --sds-color-white-200: var(--white-200);
 
+  --sds-color-gray-1000: var(--grey-1000); /* Camera viewfinder screen background */
   --sds-color-gray-900: var(--grey-900);
   --sds-color-gray-800: var(--grey-800);
   --sds-color-gray-700: var(--grey-700);
@@ -80,6 +82,7 @@
   --sds-color-gray-100: var(--grey-100);
 
   --sds-color-black-100: var(--black-100);
+  --sds-color-black-500: var(--black-500); /* CameraViewfinder analyzing/result scrim over the captured photo */
 
   --sds-color-icon-default-default: var(--grey-900);
   --sds-color-border-neutral-default: #2E3030;
@@ -106,6 +109,7 @@
   /* ---------- Radius ---------- */
   --radius-full: 999px; /* pill shape used by Button & Icon Button */
   --radius-card: 24px;  /* corner radius used by ProductName/ProductInformation/PriceInformation overlay cards */
+  --radius-camera-frame: 34.56px; /* Camera Frame corner radius (node 55:5534 / 69:6360) — not bound to a named Figma variable, one-off literal */
 
   /* ---------- Icon Sizes ---------- */
   --icon-size-sm: 24px; /* Button leading/trailing icon (both sizes); Icon Button Small */
@@ -118,6 +122,7 @@
   --size-camera-status-glasses: 10px;
   --size-card-width: 466px; /* ProductName/ProductInformation overlay card width */
   --size-price-card-width: 170.667px; /* PriceInformation compact card width — narrower so multiple vendor cards can sit side by side */
+  --size-list-card-width: 480px; /* SavedLink full-width list row — app-screen list item, not an AR overlay card, so it uses the full content width instead of --size-card-width */
 
   /* ---------- Stroke Colors (Button/Icon Button outline) ---------- */
   --stroke-white-default: rgba(255, 255, 255, 0.5); /* Small transparent outline */

@@ -64,6 +64,7 @@
     "price 텍스트 스타일이 TextStyleHeading(36/Medium/120%)에서 TextStyleBodyStrong(24/SemiBold/140%)으로 축소되어, 이제 price와 vendor가 동일한 텍스트 스타일을 공유합니다(둘 다 headingColor 하나를 공유하는 것은 기존과 동일).",
     "padding이 비대칭(top 16 / x 24 / bottom 24)에서 대칭 16px(var(--sds-size-space-400)) 전체 적용으로 바뀌었고, price 텍스트 블록과 vendor 텍스트 사이에 8px(headingGap, var(--sds-size-space-200)) gap이 새로 확인되었습니다. '₩'와 금액 사이 4px(priceGap)는 tokens.css의 공용 spacing 스케일에 없는 값이라 하드코딩했습니다.",
     "state=Default의 카드 그림자가 'none'에서 EffectStyleButtonDefault(inset, 30% 흰색)로 바뀌어, 이제 Default 상태도 은은한 이너 글로우를 항상 유지합니다 — Focused는 기존과 동일하게 EffectStyleButtonSelected(100% 흰색)를 사용합니다.",
+    "그림자 값은 PriceInformation.css에 다시 적지 않고 tokens.css가 이미 제공하는 .EffectStyleButtonDefault / .EffectStyleButtonSelected 클래스를 마크업에서 price-card--default/focused와 함께 조합해서 씁니다 — box-shadow 리터럴을 중복 하드코딩하지 않기 위함.",
     "'링크 저장' 버튼은 새 스타일을 정의하지 않고 Resources/Components/Button.json의 Primary.Solid 변형을 그대로 참조합니다 — 아이콘(Link 2)과 색상 토큰이 정확히 일치합니다.",
     "state=Default에서는 카드가 아직 포커스되지 않은 상태를 나타내며, 내부 Button도 Primary.Solid.Disabled(회색, 비활성처럼 보임)로 렌더링됩니다. state=Focused에서 Button은 Primary.Solid.Default(브랜드 그라디언트, 활성)로 바뀝니다 — 실제로 버튼이 비활성화되는 것이 아니라 카드가 포커스를 받았는지 여부를 나타내는 시각적 상태입니다.",
     "카드 배경은 Default/Focused 모두 동일한 var(--ColorButtonTransparentWhiteDefault)이며, 테두리 색·그림자·내부 Button 상태만 바뀝니다."

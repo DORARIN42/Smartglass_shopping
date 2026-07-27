@@ -16,6 +16,11 @@
   border-color: transparent;
   cursor: pointer;
   text-decoration: none;
+  /* neutralize native <button> UA chrome — earlier instances of this class
+     were all <a>, CameraViewfinder's capture control is the first real
+     <button disabled> user */
+  appearance: none;
+  font: inherit;
 }
 
 .icon-btn svg {
@@ -25,6 +30,11 @@
 }
 
 /* ---------- Size (IconButton.json → sizes) ---------- */
+.icon-btn--large {
+  padding: var(--sds-size-space-800);
+  width: var(--icon-size-md);
+  height: var(--icon-size-md);
+}
 .icon-btn--medium {
   padding: var(--sds-size-space-500);
   width: var(--icon-size-md);
@@ -37,6 +47,7 @@
 }
 /* padding is added on top of the icon's own box, so the element's
    rendered size is icon size + 2×padding — matches Button's box model */
+.icon-btn--large,
 .icon-btn--medium,
 .icon-btn--small {
   box-sizing: content-box;
@@ -136,3 +147,61 @@
   --state-layer-bg: var(--sds-color-black-100);
 }
 /* Subtle.Solid.Hover — state-layer tint only, icon stays gray-700 */
+
+/* ==========================================================================
+   Disabled — mirrors Button.css's *.Disabled treatment (Transparent/Solid
+   grouping, see its comment for the rationale: IconButton.json's Disabled
+   values are identical within each group). This rule fires on either the
+   visual-only ".icon-btn--disabled" class (parity with Button.css, e.g. a
+   static, still-tappable "de-emphasized" instance) OR the native ":disabled"
+   pseudo-class — a real <button disabled> (like CameraViewfinder's capture
+   button, Resources/Components/CameraViewfinder.json) gets pointer-events
+   removed for free by the browser; this only supplies the look.
+
+   Hover must be a full no-op here, same reasoning as Button.css: the hover
+   rules above key off :hover on the variant class alone and don't know
+   about disabled state, so each selector is repeated under :hover with
+   the same resting values (equal-or-higher specificity, later in the
+   cascade → always wins, nothing visibly changes). --state-layer-bg is
+   also reset to transparent as a second guard against .interactive-surface
+   ending up on a disabled instance anyway.
+   ========================================================================== */
+.icon-btn--primary-transparent.icon-btn--disabled,
+.icon-btn--primary-transparent.icon-btn--disabled:hover,
+.icon-btn--primary-transparent:disabled,
+.icon-btn--primary-transparent:disabled:hover,
+.icon-btn--neutral-transparent.icon-btn--disabled,
+.icon-btn--neutral-transparent.icon-btn--disabled:hover,
+.icon-btn--neutral-transparent:disabled,
+.icon-btn--neutral-transparent:disabled:hover,
+.icon-btn--subtle-transparent.icon-btn--disabled,
+.icon-btn--subtle-transparent.icon-btn--disabled:hover,
+.icon-btn--subtle-transparent:disabled,
+.icon-btn--subtle-transparent:disabled:hover {
+  background: var(--sds-color-white-200);
+  border-color: transparent;
+  color: var(--sds-color-white-400);
+  box-shadow: none;
+  --state-layer-bg: transparent;
+}
+.icon-btn--primary-solid.icon-btn--disabled,
+.icon-btn--primary-solid.icon-btn--disabled:hover,
+.icon-btn--primary-solid:disabled,
+.icon-btn--primary-solid:disabled:hover,
+.icon-btn--neutral-solid.icon-btn--disabled,
+.icon-btn--neutral-solid.icon-btn--disabled:hover,
+.icon-btn--neutral-solid:disabled,
+.icon-btn--neutral-solid:disabled:hover,
+.icon-btn--subtle-solid.icon-btn--disabled,
+.icon-btn--subtle-solid.icon-btn--disabled:hover,
+.icon-btn--subtle-solid:disabled,
+.icon-btn--subtle-solid:disabled:hover {
+  background: var(--sds-color-gray-400);
+  color: var(--sds-color-gray-300);
+  box-shadow: none;
+  --state-layer-bg: transparent;
+  cursor: not-allowed;
+}
+.icon-btn.icon-btn--disabled {
+  cursor: not-allowed;
+}
