@@ -1,0 +1,158 @@
+{
+  "component": "Button",
+  "figma": {
+    "fileKey": "Oo9W0U9SyNGNZXyD8urNJZ",
+    "nodeId": "53:361",
+    "url": "https://www.figma.com/design/Oo9W0U9SyNGNZXyD8urNJZ/Shopping-XR?node-id=53-361",
+    "keywords": ["action", "negative", "destructive"]
+  },
+  "tokensFile": "tokens.css",
+  "shape": {
+    "layout": "row",
+    "gap": "var(--sds-size-space-200)",
+    "align": "center",
+    "justify": "center",
+    "radius": "var(--radius-full)",
+    "clip": true
+  },
+  "props": {
+    "variant": { "type": "enum", "values": ["Primary", "Neutral", "Subtle"], "default": "Primary" },
+    "color": { "type": "enum", "values": ["Transparent", "Solid"], "default": "Transparent" },
+    "size": { "type": "enum", "values": ["Medium", "Small"], "default": "Medium" },
+    "state": { "type": "enum", "values": ["Default", "Hover", "Disabled"], "default": "Default" },
+    "label": { "type": "string", "default": "Button" },
+    "iconStart": { "type": "iconRef", "optional": true, "source": "Resources/Icons" },
+    "iconEnd": { "type": "iconRef", "optional": true, "source": "Resources/Icons" }
+  },
+  "sizes": {
+    "Medium": {
+      "paddingX": "var(--sds-size-space-800)",
+      "paddingY": "var(--sds-size-space-600)",
+      "iconSize": "var(--icon-size-sm)",
+      "textStyle": "TextStyleSingleLineBodyBase",
+      "borderWidthTransparent": "var(--sds-size-stroke-border-thick)"
+    },
+    "Small": {
+      "paddingX": "var(--sds-size-space-600)",
+      "paddingY": "var(--sds-size-space-300)",
+      "iconSize": "var(--icon-size-sm)",
+      "textStyle": "TextStyleSingleLineBodySmallStrong",
+      "borderWidthTransparent": "var(--sds-size-stroke-border)"
+    }
+  },
+  "notes": [
+    "iconColor는 각 state의 textColor 토큰과 동일합니다.",
+    "borderColor는 기본적으로 var(--stroke-white-default) 이지만, size=Medium & state=Hover 조합에서만 var(--stroke-white-focused)로 바뀝니다 (Figma 원본의 실제 동작).",
+    "Primary.Solid.Default의 shadow는 Small 사이즈 원본에만 명시적으로 있었으나, 배경 그라디언트에 포함된 하이라이트와 일관되도록 Medium에도 동일 적용했습니다."
+  ],
+  "styles": {
+    "Primary.Transparent.Default": {
+      "background": "var(--ColorButtonTransparentBrandDefault)",
+      "border": "var(--stroke-white-default)",
+      "textColor": "var(--sds-color-white-700)",
+      "shadow": "EffectStyleButtonDefault"
+    },
+    "Primary.Transparent.Hover": {
+      "background": "var(--ColorButtonTransparentBrandFocused)",
+      "border": "var(--stroke-white-default)",
+      "textColor": "var(--sds-color-white-1000)",
+      "shadow": "EffectStyleButtonSelected"
+    },
+    "Primary.Transparent.Disabled": {
+      "background": "var(--sds-color-white-200)",
+      "border": "none",
+      "textColor": "var(--sds-color-white-400)",
+      "shadow": "none"
+    },
+    "Neutral.Transparent.Default": {
+      "background": "var(--ColorButtonTransparentWhiteDefault)",
+      "border": "var(--stroke-white-default)",
+      "textColor": "var(--sds-color-white-700)",
+      "shadow": "EffectStyleButtonDefault"
+    },
+    "Neutral.Transparent.Hover": {
+      "background": "var(--ColorButtonTransparentWhiteFocused)",
+      "border": "var(--stroke-white-default)",
+      "textColor": "var(--sds-color-white-1000)",
+      "shadow": "EffectStyleButtonSelected"
+    },
+    "Neutral.Transparent.Disabled": {
+      "background": "var(--sds-color-white-200)",
+      "border": "none",
+      "textColor": "var(--sds-color-white-400)",
+      "shadow": "none"
+    },
+    "Subtle.Transparent.Default": {
+      "background": "var(--sds-color-white-200)",
+      "border": "none",
+      "textColor": "var(--sds-color-white-700)",
+      "shadow": "none"
+    },
+    "Subtle.Transparent.Hover": {
+      "background": "var(--sds-color-white-200)",
+      "border": "var(--stroke-white-default)",
+      "textColor": "var(--sds-color-white-1000)",
+      "shadow": "EffectStyleButtonSelected"
+    },
+    "Subtle.Transparent.Disabled": {
+      "background": "var(--sds-color-white-200)",
+      "border": "none",
+      "textColor": "var(--sds-color-white-400)",
+      "shadow": "none"
+    },
+    "Primary.Solid.Default": {
+      "background": "var(--ColorButtonSolidBrandDefault)",
+      "border": "none",
+      "textColor": "var(--sds-color-gray-900)",
+      "shadow": "EffectStyleButtonDefault"
+    },
+    "Primary.Solid.Hover": {
+      "background": "var(--ColorButtonSolidBrandHover)",
+      "border": "none",
+      "textColor": "var(--sds-color-gray-600)",
+      "shadow": "none"
+    },
+    "Primary.Solid.Disabled": {
+      "background": "var(--sds-color-gray-400)",
+      "border": "none",
+      "textColor": "var(--sds-color-gray-300)",
+      "shadow": "none"
+    },
+    "Neutral.Solid.Default": {
+      "background": "var(--sds-color-gray-800)",
+      "border": "none",
+      "textColor": "var(--sds-color-gray-100)",
+      "shadow": "none"
+    },
+    "Neutral.Solid.Hover": {
+      "background": "var(--sds-color-gray-600)",
+      "border": "none",
+      "textColor": "var(--sds-color-gray-100)",
+      "shadow": "none"
+    },
+    "Neutral.Solid.Disabled": {
+      "background": "var(--sds-color-gray-400)",
+      "border": "none",
+      "textColor": "var(--sds-color-gray-300)",
+      "shadow": "none"
+    },
+    "Subtle.Solid.Default": {
+      "background": "transparent",
+      "border": "none",
+      "textColor": "var(--sds-color-gray-700)",
+      "shadow": "none"
+    },
+    "Subtle.Solid.Hover": {
+      "background": "var(--sds-color-black-100)",
+      "border": "none",
+      "textColor": "var(--sds-color-gray-700)",
+      "shadow": "none"
+    },
+    "Subtle.Solid.Disabled": {
+      "background": "var(--sds-color-gray-400)",
+      "border": "none",
+      "textColor": "var(--sds-color-gray-300)",
+      "shadow": "none"
+    }
+  }
+}

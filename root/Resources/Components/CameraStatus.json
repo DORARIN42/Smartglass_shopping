@@ -1,0 +1,31 @@
+{
+  "component": "CameraStatus",
+  "figma": {
+    "fileKey": "Oo9W0U9SyNGNZXyD8urNJZ",
+    "nodeId": "69:6452",
+    "url": "https://www.figma.com/design/Oo9W0U9SyNGNZXyD8urNJZ/Shopping-XR?node-id=69-6452"
+  },
+  "tokensFile": "tokens.css",
+  "description": "카메라 활성화 여부를 나타내는 작은 상태 점(dot). 기기(device)에 따라 크기가 다릅니다.",
+  "props": {
+    "device": { "type": "enum", "values": ["Phone", "Glasses"], "default": "Phone" },
+    "cameraOn": { "type": "boolean", "default": true }
+  },
+  "sizes": {
+    "Phone": { "size": "var(--size-camera-status-phone)" },
+    "Glasses": { "size": "var(--size-camera-status-glasses)" }
+  },
+  "assets": {
+    "source": "Resources/CameraStatus",
+    "variants": {
+      "cameraOn=true.device=Phone": "Resources/CameraStatus/CameraOn=Yes,Device=Phone.svg",
+      "cameraOn=true.device=Glasses": "Resources/CameraStatus/CameraOn=Yes,Device=Glasses.svg",
+      "cameraOn=false.device=Phone": "Resources/CameraStatus/CameraOn=No,Device=Phone.svg",
+      "cameraOn=false.device=Glasses": "Resources/CameraStatus/CameraOn=No,Device=Glasses.svg"
+    }
+  },
+  "notes": [
+    "이 컴포넌트는 색상 토큰을 사용하지 않습니다 — on/off 각 상태가 완성된 그래픽(SVG)으로 디자인되어 있어 그대로 표시하면 됩니다.",
+    "sizes의 size 토큰은 SVG의 width/height(정사각형)와 1:1로 대응합니다."
+  ]
+}
