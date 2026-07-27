@@ -18,6 +18,8 @@ data class ProductCandidate(
     val store: String? = null,     // 판매처
     val imageUrl: String? = null,  // 썸네일 URL
     val linkUrl: String? = null,   // 구매/상세 링크
+    val currency: String? = null,
+    val isKoreanMarket: Boolean? = null,
 )
 
 /**
@@ -29,6 +31,20 @@ data class AnalysisResult(
     val headline: String,                                // 글라스 상단 요약 문구
     val candidates: List<ProductCandidate> = emptyList(),
     val message: String? = null,                         // UNCERTAIN/RETRY/ERROR 안내 문구
+    val rawStatus: String? = null,
+    val strategy: String? = null,
+    val productName: String? = null,
+    val originalProductName: String? = null,
+    val brand: String? = null,
+    val originalBrand: String? = null,
+    val modelNumber: String? = null,
+    val category: String? = null,
+    val productDescription: String? = null,
+    val specifications: List<String> = emptyList(),
+    val confidence: Double? = null,
+    val positiveReviews: List<String> = emptyList(),
+    val negativeReviews: List<String> = emptyList(),
+    val averageRating: Double? = null,
 ) {
     /** 최저가(대표) 후보. candidates가 비어 있으면 null. */
     val topCandidate: ProductCandidate? get() = candidates.firstOrNull()

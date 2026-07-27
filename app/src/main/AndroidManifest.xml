@@ -12,6 +12,7 @@
         android:allowBackup="false"
         android:label="@string/app_name"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/Theme.RayBanVision">
 
         <!-- DAT SDK: Developer Mode용으로 0/0 사용. 프로덕션에서는 Wearables Developer Center 값으로 교체. -->

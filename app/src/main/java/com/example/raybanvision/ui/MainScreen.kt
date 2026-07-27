@@ -9,6 +9,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
@@ -55,9 +56,18 @@ fun MainScreen(
     modifier: Modifier = Modifier,
 ) {
     // 검색 결과가 있으면 결과 화면 표시, 없으면 카메라 화면 표시
-    if (uiState.searchResult != null) {
+    if (uiState.awaitingProductConfirmation && uiState.searchResult != null) {
+        ProductConfirmationScreen(
+            result = uiState.searchResult,
+            onAnalyzeClick = onSearchClick,
+            onRetakeClick = onRetakeClick,
+            modifier = modifier,
+        )
+    } else if (uiState.searchResult != null) {
         ResultScreen(
             result = uiState.searchResult!!,
+            isSearching = uiState.isSearching,
+            statusMessage = uiState.statusMessage,
             onRetakeClick = onRetakeClick,
             modifier = modifier,
         )
@@ -72,6 +82,59 @@ fun MainScreen(
             onDisconnect = onDisconnect,
             modifier = modifier,
         )
+    }
+}
+
+@Composable
+private fun ProductConfirmationScreen(
+    result: AnalysisResult,
+    onAnalyzeClick: () -> Unit,
+    onRetakeClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .background(Color.Black)
+            .padding(24.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Spacer(modifier = Modifier.weight(1f))
+
+        Text(
+            "해당 상품이 맞습니까?",
+            style = MaterialTheme.typography.headlineSmall,
+            color = Color.White,
+            textAlign = TextAlign.Center,
+        )
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(10.dp))
+                .background(Color(0xFF151515))
+                .padding(18.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            DetailRow("상품명", result.productName ?: result.originalProductName ?: result.headline)
+            DetailRow("브랜드", result.brand ?: result.originalBrand)
+            DetailRow("카테고리", result.category)
+        }
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+            OutlinedButton(onClick = onRetakeClick, modifier = Modifier.weight(1f)) {
+                Text("재촬영")
+            }
+            Button(onClick = onAnalyzeClick, modifier = Modifier.weight(1f)) {
+                Text("분석")
+            }
+        }
+
+        Spacer(modifier = Modifier.weight(1f))
     }
 }
 
@@ -118,7 +181,7 @@ private fun CameraScreen(
             // 검색 진행 중: 재촬영으로만 빠져나갈 수 있음
             uiState.isSearching -> {
                 OutlinedButton(onClick = onRetakeClick, modifier = Modifier.fillMaxWidth()) {
-                    Text("검색 중... (재촬영하려면 탭)")
+                    Text(uiState.statusMessage ?: "검색 중...")
                 }
             }
             // 라이브: 촬영
@@ -187,7 +250,7 @@ private fun CameraArea(uiState: SessionUiState, previewFrame: Bitmap?) {
                 // 검색 중 안내 텍스트 (이미지 위 중앙)
                 if (uiState.isSearching) {
                     Text(
-                        "AI 검색 중...",
+                        uiState.statusMessage ?: "상품 검색 중...",
                         style = MaterialTheme.typography.titleMedium,
                         color = Color.White,
                         textAlign = TextAlign.Center,
@@ -311,9 +374,12 @@ private fun CameraGuideOverlay(modifier: Modifier = Modifier) {
 @Composable
 private fun ResultScreen(
     result: AnalysisResult,
+    isSearching: Boolean,
+    statusMessage: String?,
     onRetakeClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val context = LocalContext.current
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -329,69 +395,144 @@ private fun ResultScreen(
             textAlign = TextAlign.Center,
         )
 
-        // 1번: 상품 설명 + 후기 (scrollable) - 중간에 배치
-        result.message?.let { msg ->
+        if (isSearching) {
             Text(
-                msg,
-                style = MaterialTheme.typography.bodySmall,
-                color = Color(0xFFCCCCCC),
-                textAlign = TextAlign.Left,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f)
-                    .verticalScroll(rememberScrollState()),
+                statusMessage ?: "상품 검색 중...",
+                style = MaterialTheme.typography.titleSmall,
+                color = Color(0xFF4CAF50),
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth(),
             )
         }
 
-        // 2번: 구매처 3칸 — 각 칸에 사이트명 + 가격, 누르면 해당 사이트가 열림
-        val context = LocalContext.current
-        val buyables = result.candidates.filter { it.linkUrl != null }
-        if (buyables.isNotEmpty()) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
-                buyables.forEach { candidate ->
-                    Column(
-                        modifier = Modifier
-                            .weight(1f)
-                            .clip(RoundedCornerShape(12.dp))
-                            .background(Color(0xFF1E1E1E))
-                            .clickable {
-                                context.startActivity(
-                                    Intent(Intent.ACTION_VIEW, Uri.parse(candidate.linkUrl)),
-                                )
-                            }
-                            .padding(vertical = 12.dp, horizontal = 8.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.spacedBy(4.dp),
-                    ) {
-                        candidate.store?.let {
-                            Text(
-                                it,
-                                style = MaterialTheme.typography.bodySmall,
-                                color = Color(0xFFBBBBBB),
-                                textAlign = TextAlign.Center,
-                            )
-                        }
-                        Text(
-                            candidate.price,
-                            style = MaterialTheme.typography.titleMedium,
-                            color = Color(0xFF4CAF50),
-                            textAlign = TextAlign.Center,
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
+                .verticalScroll(rememberScrollState()),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+            ResultSection("상품정보") {
+                DetailRow("상품명", result.productName ?: result.headline)
+                DetailRow("원본 상품명", result.originalProductName)
+                DetailRow("브랜드", result.brand)
+                DetailRow("원본 브랜드", result.originalBrand)
+            }
+
+            ResultTextSection("상품 설명", result.productDescription)
+            ResultListSection("스펙", result.specifications)
+
+            ResultListSection("긍정 리뷰", result.positiveReviews)
+            ResultListSection("부정 리뷰", result.negativeReviews)
+
+            if (result.candidates.isNotEmpty()) {
+                ResultSection("가격 정보") {
+                    result.candidates.forEachIndexed { index, candidate ->
+                        PriceResultRow(
+                            index = index + 1,
+                            candidate = candidate,
+                            onClick = candidate.linkUrl?.let { url ->
+                                {
+                                    context.startActivity(
+                                        Intent(Intent.ACTION_VIEW, Uri.parse(url)),
+                                    )
+                                }
+                            },
                         )
                     }
                 }
             }
+
+            ResultSection("추가 정보") {
+                DetailRow("상태", result.rawStatus ?: result.status.name)
+                DetailRow("전략", result.strategy)
+                DetailRow("모델 번호", result.modelNumber)
+                DetailRow("카테고리", result.category)
+                DetailRow("신뢰도", result.confidence?.let { "%.2f".format(it) })
+                DetailRow("평점", result.averageRating?.toString())
+            }
         }
 
-        // 재촬영 버튼
         OutlinedButton(
             onClick = onRetakeClick,
             modifier = Modifier.fillMaxWidth(),
         ) {
             Text("다시 촬영")
         }
+    }
+}
+
+@Composable
+private fun ResultSection(
+    title: String,
+    content: @Composable ColumnScope.() -> Unit,
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(10.dp))
+            .background(Color(0xFF151515))
+            .padding(14.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        Text(title, style = MaterialTheme.typography.titleSmall, color = Color.White)
+        content()
+    }
+}
+
+@Composable
+private fun DetailRow(label: String, value: String?) {
+    if (value.isNullOrBlank()) return
+    Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+        Text(label, style = MaterialTheme.typography.labelSmall, color = Color(0xFF9E9E9E))
+        Text(value, style = MaterialTheme.typography.bodyMedium, color = Color(0xFFEFEFEF))
+    }
+}
+
+@Composable
+private fun ResultTextSection(title: String, value: String?) {
+    if (value.isNullOrBlank()) return
+    ResultSection(title) {
+        Text(value, style = MaterialTheme.typography.bodyMedium, color = Color(0xFFEFEFEF))
+    }
+}
+
+@Composable
+private fun ResultListSection(title: String, values: List<String>) {
+    val filtered = values.filter { it.isNotBlank() }
+    if (filtered.isEmpty()) return
+    ResultSection(title) {
+        filtered.forEach { value ->
+            Text("• $value", style = MaterialTheme.typography.bodyMedium, color = Color(0xFFEFEFEF))
+        }
+    }
+}
+
+@Composable
+private fun PriceResultRow(
+    index: Int,
+    candidate: com.example.raybanvision.data.ProductCandidate,
+    onClick: (() -> Unit)?,
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(8.dp))
+            .background(Color(0xFF222222))
+            .then(if (onClick != null) Modifier.clickable(onClick = onClick) else Modifier)
+            .padding(12.dp),
+        verticalArrangement = Arrangement.spacedBy(4.dp),
+    ) {
+        Text(
+            "$index. ${candidate.store ?: "판매처 없음"}",
+            style = MaterialTheme.typography.bodyMedium,
+            color = Color.White,
+        )
+        Text(candidate.price, style = MaterialTheme.typography.titleMedium, color = Color(0xFF4CAF50))
+        DetailRow("상품명", candidate.title)
+        DetailRow("통화", candidate.currency)
+        DetailRow("한국 마켓", candidate.isKoreanMarket?.let { if (it) "예" else "아니오" })
+        DetailRow("링크", candidate.linkUrl)
     }
 }
 
