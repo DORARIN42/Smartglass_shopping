@@ -1,9 +1,3 @@
-<svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="10" height="10" fill="#484848"/>
-<g id="Camera Status">
-<rect x="-19.5" y="-57.5" width="85" height="79" rx="4.5" stroke="#9747FF" stroke-dasharray="10 5"/>
-<g id="Camera On=Yes, Device=Glasses">
-<circle id="Camera Status_2" cx="5" cy="5" r="5" fill="#7BFF72"/>
-</g>
-</g>
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle id="Camera Status" cx="5" cy="5" r="5" fill="#7BFF72"/>
 </svg>
