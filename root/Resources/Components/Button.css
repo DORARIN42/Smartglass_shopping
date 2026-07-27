@@ -39,7 +39,7 @@
 }
 
 .btn--small {
-  padding: var(--sds-size-space-300) var(--sds-size-space-600);
+  padding: var(--sds-size-space-300) var(--sds-size-space-400);
 }
 .btn--small .icon {
   width: var(--icon-size-sm);

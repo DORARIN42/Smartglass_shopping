@@ -49,7 +49,7 @@
       "borderWidthTransparent": "var(--sds-size-stroke-border-thick)"
     },
     "Small": {
-      "paddingX": "var(--sds-size-space-600)",
+      "paddingX": "var(--sds-size-space-400)",
       "paddingY": "var(--sds-size-space-300)",
       "iconSize": "var(--icon-size-sm)",
       "textStyle": "TextStyleSingleLineBodySmallStrong",
@@ -61,7 +61,8 @@
     "borderColor는 기본적으로 var(--stroke-white-default) 이지만, size=Medium & state=Hover 조합에서만 var(--stroke-white-focused)로 바뀝니다 (Figma 원본의 실제 동작).",
     "Primary.Solid.Default의 shadow는 Small 사이즈 원본에만 명시적으로 있었으나, 배경 그라디언트에 포함된 하이라이트와 일관되도록 Medium에도 동일 적용했습니다.",
     "Hover 배경(ColorButtonTransparentBrandFocused, ColorButtonSolidBrandHover 등)은 그라디언트라 background-image 전환이 브라우저에서 보간되지 않습니다 — Button.css는 이를 ::after 상태 레이어의 opacity 크로스페이드로 처리합니다 (interactions.css 참고). 편이 없는 조합(Neutral.Solid, Subtle.Solid)도 동일 메커니즘을 재사용해 일관성을 유지합니다.",
-    "shadow가 'none' ↔ EffectStyle* 사이를 오가는 조합(Subtle.Transparent, Primary.Solid)은 'none' 쪽을 동일한 형태의 0-alpha 그림자(예: inset 0px 4px 24px rgba(255,255,255,0))로 대체해 자연스럽게 페이드되도록 했습니다."
+    "shadow가 'none' ↔ EffectStyle* 사이를 오가는 조합(Subtle.Transparent, Primary.Solid)은 'none' 쪽을 동일한 형태의 0-alpha 그림자(예: inset 0px 4px 24px rgba(255,255,255,0))로 대체해 자연스럽게 페이드되도록 했습니다.",
+    "sizes.Small.paddingX가 24px(var(--sds-size-space-600))에서 16px(var(--sds-size-space-400))로 줄었습니다 — Figma에서는 20px(var(--sds-size-space-500))까지만 확인됐으나 실사용 중 라벨 여백이 더 타이트해야 한다는 피드백으로 16px까지 추가로 줄인 상태입니다. size=Medium의 paddingX(32px)와 두 사이즈의 paddingY는 변경되지 않았습니다."
   ],
   "styles": {
     "Primary.Transparent.Default": {
