@@ -1,0 +1,138 @@
+/* ==========================================================================
+   Shopping XR — Icon Button
+   Figma: node 69:5652 · spec: Resources/Components/IconButton.json
+   Load order: tokens.css → interactions.css → IconButton.css
+   ========================================================================== */
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sds-size-space-200);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  border-style: solid;
+  border-width: 0;
+  border-color: transparent;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.icon-btn svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ---------- Size (IconButton.json → sizes) ---------- */
+.icon-btn--medium {
+  padding: var(--sds-size-space-500);
+  width: var(--icon-size-md);
+  height: var(--icon-size-md);
+}
+.icon-btn--small {
+  padding: var(--sds-size-space-300);
+  width: var(--icon-size-sm);
+  height: var(--icon-size-sm);
+}
+/* padding is added on top of the icon's own box, so the element's
+   rendered size is icon size + 2×padding — matches Button's box model */
+.icon-btn--medium,
+.icon-btn--small {
+  box-sizing: content-box;
+}
+
+/* *.Transparent.* only: border is drawn (Solid variants stay border:none) */
+.icon-btn--primary-transparent,
+.icon-btn--neutral-transparent,
+.icon-btn--subtle-transparent {
+  border-width: var(--sds-size-stroke-border-thick); /* Medium */
+}
+.icon-btn--small.icon-btn--primary-transparent,
+.icon-btn--small.icon-btn--neutral-transparent,
+.icon-btn--small.icon-btn--subtle-transparent {
+  border-width: var(--sds-size-stroke-border); /* Small */
+}
+
+/* ==========================================================================
+   Variant × Color — Default state (background is drawn directly; the Hover
+   background lives on --state-layer-bg and fades in via .interactive-surface)
+   ========================================================================== */
+
+/* Primary.Transparent.Default */
+.icon-btn--primary-transparent {
+  background: var(--ColorButtonTransparentBrandDefault);
+  border-color: var(--stroke-white-default);
+  color: var(--sds-color-white-700);
+  box-shadow: inset 0px 4px 24px rgba(255, 255, 255, 0.3);
+  --state-layer-bg: var(--ColorButtonTransparentBrandFocused);
+}
+/* Primary.Transparent.Hover */
+.icon-btn--primary-transparent:hover {
+  color: var(--sds-color-white-1000);
+  box-shadow: inset 0px 4px 24px rgba(255, 255, 255, 1);
+}
+.icon-btn--medium.icon-btn--primary-transparent:hover {
+  border-color: var(--stroke-white-focused);
+}
+
+/* Neutral.Transparent.Default */
+.icon-btn--neutral-transparent {
+  background: var(--ColorButtonTransparentWhiteDefault);
+  border-color: var(--stroke-white-default);
+  color: var(--sds-color-white-700);
+  box-shadow: inset 0px 4px 24px rgba(255, 255, 255, 0.3);
+  --state-layer-bg: var(--ColorButtonTransparentWhiteFocused);
+}
+/* Neutral.Transparent.Hover */
+.icon-btn--neutral-transparent:hover {
+  color: var(--sds-color-white-1000);
+  box-shadow: inset 0px 4px 24px rgba(255, 255, 255, 1);
+}
+.icon-btn--medium.icon-btn--neutral-transparent:hover {
+  border-color: var(--stroke-white-focused);
+}
+
+/* Subtle.Transparent.Default */
+.icon-btn--subtle-transparent {
+  background: var(--sds-color-white-200);
+  border-color: transparent;
+  color: var(--sds-color-white-700);
+  box-shadow: inset 0px 4px 24px rgba(255, 255, 255, 0);
+  --state-layer-bg: var(--sds-color-white-200);
+}
+/* Subtle.Transparent.Hover */
+.icon-btn--subtle-transparent:hover {
+  border-color: var(--stroke-white-default);
+  color: var(--sds-color-white-1000);
+  box-shadow: inset 0px 4px 24px rgba(255, 255, 255, 1);
+}
+
+/* Primary.Solid.Default */
+.icon-btn--primary-solid {
+  background: var(--ColorButtonSolidBrandDefault);
+  color: var(--sds-color-gray-900);
+  box-shadow: inset 0px 4px 24px rgba(255, 255, 255, 0.3);
+  --state-layer-bg: var(--ColorButtonSolidBrandHover);
+}
+/* Primary.Solid.Hover */
+.icon-btn--primary-solid:hover {
+  color: var(--sds-color-gray-600);
+  box-shadow: inset 0px 4px 24px rgba(255, 255, 255, 0);
+}
+
+/* Neutral.Solid.Default */
+.icon-btn--neutral-solid {
+  background: var(--sds-color-gray-800);
+  color: var(--sds-color-gray-100);
+  --state-layer-bg: var(--sds-color-gray-600);
+}
+/* Neutral.Solid.Hover — background darkens via state layer only, icon stays gray-100 */
+
+/* Subtle.Solid.Default */
+.icon-btn--subtle-solid {
+  background: transparent;
+  color: var(--sds-color-gray-700);
+  --state-layer-bg: var(--sds-color-black-100);
+}
+/* Subtle.Solid.Hover — state-layer tint only, icon stays gray-700 */

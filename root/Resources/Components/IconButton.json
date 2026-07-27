@@ -7,6 +7,8 @@
     "keywords": ["action", "negative", "destructive"]
   },
   "tokensFile": "tokens.css",
+  "interactionTokensFile": "interactions.css",
+  "cssFile": "Resources/Components/IconButton.css",
   "shape": {
     "layout": "row",
     "gap": "var(--sds-size-space-200)",
@@ -14,6 +16,15 @@
     "justify": "center",
     "radius": "var(--radius-full)",
     "clip": true
+  },
+  "interaction": {
+    "hover": {
+      "trigger": "state=Default → state=Hover, pointer hover only (no press/focus state defined here)",
+      "transitionedProperties": ["color", "border-color", "box-shadow", "background (via state layer)"],
+      "duration": "var(--motion-duration-fast) for color/border-color, var(--motion-duration-base) for box-shadow and the state layer",
+      "easing": "var(--motion-easing-standard)",
+      "mechanism": "apply class=\"interactive-surface\" (interactions.css) alongside the icon-btn classes. Same state-layer crossfade mechanism as Resources/Components/Button.json — see its interaction notes for the rationale."
+    }
   },
   "props": {
     "variant": { "type": "enum", "values": ["Primary", "Neutral", "Subtle"], "default": "Primary" },

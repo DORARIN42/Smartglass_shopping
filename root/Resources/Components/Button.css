@@ -1,0 +1,168 @@
+/* ==========================================================================
+   Shopping XR — Button
+   Figma: node 53:361 · spec: Resources/Components/Button.json
+   Load order: tokens.css → interactions.css → Button.css
+   ========================================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sds-size-space-200);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  border-style: solid;
+  border-width: 0;
+  border-color: transparent;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: "Inter", var(--sds-typography-body-font-family);
+}
+
+.btn .icon {
+  flex-shrink: 0;
+  display: flex;
+}
+.btn .icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ---------- Size (Button.json → sizes) ---------- */
+.btn--medium {
+  padding: var(--sds-size-space-600) var(--sds-size-space-800);
+}
+.btn--medium .icon {
+  width: var(--icon-size-sm);
+  height: var(--icon-size-sm);
+}
+
+.btn--small {
+  padding: var(--sds-size-space-300) var(--sds-size-space-600);
+}
+.btn--small .icon {
+  width: var(--icon-size-sm);
+  height: var(--icon-size-sm);
+}
+
+/* *.Transparent.* only: border is drawn (Solid variants stay border:none) */
+.btn--primary-transparent,
+.btn--neutral-transparent,
+.btn--subtle-transparent {
+  border-width: var(--sds-size-stroke-border-thick); /* Medium */
+}
+.btn--small.btn--primary-transparent,
+.btn--small.btn--neutral-transparent,
+.btn--small.btn--subtle-transparent {
+  border-width: var(--sds-size-stroke-border); /* Small */
+}
+
+/* ==========================================================================
+   Variant × Color — Default state (background is drawn directly; the Hover
+   background lives on --state-layer-bg and fades in via .interactive-surface)
+   ========================================================================== */
+
+/* Primary.Transparent.Default */
+.btn--primary-transparent {
+  background: var(--ColorButtonTransparentBrandDefault);
+  border-color: var(--stroke-white-default);
+  color: var(--sds-color-white-700);
+  box-shadow: inset 0px 4px 24px rgba(255, 255, 255, 0.3);
+  --state-layer-bg: var(--ColorButtonTransparentBrandFocused);
+}
+/* Primary.Transparent.Hover */
+.btn--primary-transparent:hover {
+  color: var(--sds-color-white-1000);
+  box-shadow: inset 0px 4px 24px rgba(255, 255, 255, 1);
+}
+.btn--medium.btn--primary-transparent:hover {
+  border-color: var(--stroke-white-focused);
+}
+
+/* Neutral.Transparent.Default */
+.btn--neutral-transparent {
+  background: var(--ColorButtonTransparentWhiteDefault);
+  border-color: var(--stroke-white-default);
+  color: var(--sds-color-white-700);
+  box-shadow: inset 0px 4px 24px rgba(255, 255, 255, 0.3);
+  --state-layer-bg: var(--ColorButtonTransparentWhiteFocused);
+}
+/* Neutral.Transparent.Hover */
+.btn--neutral-transparent:hover {
+  color: var(--sds-color-white-1000);
+  box-shadow: inset 0px 4px 24px rgba(255, 255, 255, 1);
+}
+.btn--medium.btn--neutral-transparent:hover {
+  border-color: var(--stroke-white-focused);
+}
+
+/* Subtle.Transparent.Default — border is invisible (transparent) at rest so
+   it can fade in on hover without a layout shift */
+.btn--subtle-transparent {
+  background: var(--sds-color-white-200);
+  border-color: transparent;
+  color: var(--sds-color-white-700);
+  box-shadow: inset 0px 4px 24px rgba(255, 255, 255, 0);
+  --state-layer-bg: var(--sds-color-white-200);
+}
+/* Subtle.Transparent.Hover */
+.btn--subtle-transparent:hover {
+  border-color: var(--stroke-white-default);
+  color: var(--sds-color-white-1000);
+  box-shadow: inset 0px 4px 24px rgba(255, 255, 255, 1);
+}
+
+/* Primary.Solid.Default */
+.btn--primary-solid {
+  background: var(--ColorButtonSolidBrandDefault);
+  color: var(--sds-color-gray-900);
+  box-shadow: inset 0px 4px 24px rgba(255, 255, 255, 0.3);
+  --state-layer-bg: var(--ColorButtonSolidBrandHover);
+}
+/* Primary.Solid.Hover */
+.btn--primary-solid:hover {
+  color: var(--sds-color-gray-600);
+  box-shadow: inset 0px 4px 24px rgba(255, 255, 255, 0);
+}
+
+/* Neutral.Solid.Default */
+.btn--neutral-solid {
+  background: var(--sds-color-gray-800);
+  color: var(--sds-color-gray-100);
+  --state-layer-bg: var(--sds-color-gray-600);
+}
+/* Neutral.Solid.Hover — background darkens via state layer only, text stays gray-100 */
+
+/* Subtle.Solid.Default */
+.btn--subtle-solid {
+  background: transparent;
+  color: var(--sds-color-gray-700);
+  --state-layer-bg: var(--sds-color-black-100);
+}
+/* Subtle.Solid.Hover — state-layer tint only, text stays gray-700 */
+
+/* ==========================================================================
+   Disabled — visual-only. Button.json's *.Transparent.Disabled are all
+   identical, and so are *.Solid.Disabled, so each group is one rule.
+   This is not a real interactive-disabled state (no pointer-events change):
+   e.g. PriceInformation.json maps its non-focused card to this purely to
+   signal "not the focused/recommended option", the button stays tappable.
+   Hover is intentionally not overridden here — nothing should look
+   interactive while state=Disabled, so just don't add .interactive-surface
+   to a disabled instance. ========================================== */
+.btn--primary-transparent.btn--disabled,
+.btn--neutral-transparent.btn--disabled,
+.btn--subtle-transparent.btn--disabled {
+  background: var(--sds-color-white-200);
+  border-color: transparent;
+  color: var(--sds-color-white-400);
+  box-shadow: none;
+}
+.btn--primary-solid.btn--disabled,
+.btn--neutral-solid.btn--disabled,
+.btn--subtle-solid.btn--disabled {
+  background: var(--sds-color-gray-400);
+  color: var(--sds-color-gray-300);
+  box-shadow: none;
+}

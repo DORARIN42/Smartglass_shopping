@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<title>Shoply — Button / IconButton Hover Showcase</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../interactions.css">
+<link rel="stylesheet" href="../Resources/Components/Button.css">
+<link rel="stylesheet" href="../Resources/Components/IconButton.css">
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Inter', var(--sds-typography-body-font-family);
+    background: #111;
+    color: var(--sds-color-white-1000);
+  }
+  h1 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+    padding: 24px 32px 8px;
+  }
+  p.hint {
+    margin: 0 0 24px;
+    padding: 0 32px;
+    color: var(--sds-color-white-500, rgba(255,255,255,0.6));
+    font-size: 14px;
+  }
+  section {
+    padding: 32px;
+  }
+  section.solid {
+    background: var(--yellow-50);
+    color: var(--sds-color-gray-900);
+  }
+  section.transparent {
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Crect width='40' height='40' fill='%23222'/%3E%3Crect width='20' height='20' fill='%232a2a2a'/%3E%3Crect x='20' y='20' width='20' height='20' fill='%232a2a2a'/%3E%3C/svg%3E") #1c1c1c;
+  }
+  h2 {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 0 20px;
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .row .label {
+    width: 220px;
+    font-size: 13px;
+    opacity: 0.7;
+  }
+  .btn { width: auto; }
+</style>
+</head>
+<body>
+  <h1>Button / IconButton — Hover Interaction</h1>
+  <p class="hint">마우스를 각 버튼 위에 올려보세요. Default → Hover 전환은 Resources/Components/Button.json·IconButton.json의 값을 interactions.css의 모션 토큰으로 트랜지션합니다.</p>
+
+  <section class="solid">
+    <h2>Solid (앱 기본 화면 배경 위)</h2>
+
+    <div class="row">
+      <span class="label">Primary · Solid · Medium</span>
+      <a class="btn btn--medium btn--primary-solid interactive-surface" href="#">
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="TextStyleSingleLineBodyBase">Primary Solid</span>
+      </a>
+      <a class="icon-btn icon-btn--medium icon-btn--primary-solid interactive-surface" href="#">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
+    <div class="row">
+      <span class="label">Primary · Solid · Small</span>
+      <a class="btn btn--small btn--primary-solid interactive-surface" href="#">
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="TextStyleSingleLineBodySmallStrong">Primary Solid</span>
+      </a>
+      <a class="icon-btn icon-btn--small icon-btn--primary-solid interactive-surface" href="#">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
+    <div class="row">
+      <span class="label">Neutral · Solid · Medium</span>
+      <a class="btn btn--medium btn--neutral-solid interactive-surface" href="#">
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="TextStyleSingleLineBodyBase">Neutral Solid</span>
+      </a>
+      <a class="icon-btn icon-btn--medium icon-btn--neutral-solid interactive-surface" href="#">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
+    <div class="row">
+      <span class="label">Neutral · Solid · Small</span>
+      <a class="btn btn--small btn--neutral-solid interactive-surface" href="#">
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="TextStyleSingleLineBodySmallStrong">Neutral Solid</span>
+      </a>
+      <a class="icon-btn icon-btn--small icon-btn--neutral-solid interactive-surface" href="#">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
+    <div class="row">
+      <span class="label">Subtle · Solid · Medium</span>
+      <a class="btn btn--medium btn--subtle-solid interactive-surface" href="#">
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="TextStyleSingleLineBodyBase">Subtle Solid</span>
+      </a>
+      <a class="icon-btn icon-btn--medium icon-btn--subtle-solid interactive-surface" href="#">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
+    <div class="row">
+      <span class="label">Subtle · Solid · Small</span>
+      <a class="btn btn--small btn--subtle-solid interactive-surface" href="#">
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="TextStyleSingleLineBodySmallStrong">Subtle Solid</span>
+      </a>
+      <a class="icon-btn icon-btn--small icon-btn--subtle-solid interactive-surface" href="#">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <section class="transparent">
+    <h2>Transparent (카메라/글라스 오버레이 배경 위)</h2>
+
+    <div class="row">
+      <span class="label">Primary · Transparent · Medium</span>
+      <a class="btn btn--medium btn--primary-transparent interactive-surface" href="#">
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="TextStyleSingleLineBodyBase">Primary Transparent</span>
+      </a>
+      <a class="icon-btn icon-btn--medium icon-btn--primary-transparent interactive-surface" href="#">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
+    <div class="row">
+      <span class="label">Primary · Transparent · Small</span>
+      <a class="btn btn--small btn--primary-transparent interactive-surface" href="#">
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="TextStyleSingleLineBodySmallStrong">Primary Transparent</span>
+      </a>
+      <a class="icon-btn icon-btn--small icon-btn--primary-transparent interactive-surface" href="#">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
+    <div class="row">
+      <span class="label">Neutral · Transparent · Medium</span>
+      <a class="btn btn--medium btn--neutral-transparent interactive-surface" href="#">
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="TextStyleSingleLineBodyBase">Neutral Transparent</span>
+      </a>
+      <a class="icon-btn icon-btn--medium icon-btn--neutral-transparent interactive-surface" href="#">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
+    <div class="row">
+      <span class="label">Neutral · Transparent · Small</span>
+      <a class="btn btn--small btn--neutral-transparent interactive-surface" href="#">
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="TextStyleSingleLineBodySmallStrong">Neutral Transparent</span>
+      </a>
+      <a class="icon-btn icon-btn--small icon-btn--neutral-transparent interactive-surface" href="#">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
+    <div class="row">
+      <span class="label">Subtle · Transparent · Medium</span>
+      <a class="btn btn--medium btn--subtle-transparent interactive-surface" href="#">
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="TextStyleSingleLineBodyBase">Subtle Transparent</span>
+      </a>
+      <a class="icon-btn icon-btn--medium icon-btn--subtle-transparent interactive-surface" href="#">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
+    <div class="row">
+      <span class="label">Subtle · Transparent · Small</span>
+      <a class="btn btn--small btn--subtle-transparent interactive-surface" href="#">
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="TextStyleSingleLineBodySmallStrong">Subtle Transparent</span>
+      </a>
+      <a class="icon-btn icon-btn--small icon-btn--subtle-transparent interactive-surface" href="#">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </section>
+</body>
+</html>
