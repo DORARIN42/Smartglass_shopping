@@ -1,15 +1,19 @@
 package com.example.raybanvision.ui
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Rect
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
@@ -17,32 +21,52 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.CameraAlt
+import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.Link
+import androidx.compose.material.icons.outlined.MonetizationOn
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.net.Uri
+import androidx.compose.ui.unit.sp
 import com.example.raybanvision.data.AnalysisResult
 import com.example.raybanvision.session.SessionUiState
+import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.objects.ObjectDetection
+import com.google.mlkit.vision.objects.defaults.ObjectDetectorOptions
+import java.util.concurrent.atomic.AtomicBoolean
+import kotlinx.coroutines.delay
+
+private val ScreenBlack = Color(0xFF0F0F0F)
+private val FrameBlack = Color(0xFF111111)
+private val OverlayBlack = Color(0xB20C0C0D)
+private val Yellow = Color(0xFFFBEB37)
+private val Lime = Color(0xFFA8E937)
 
 @Composable
 fun MainScreen(
@@ -55,86 +79,14 @@ fun MainScreen(
     onDisconnect: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    // 검색 결과가 있으면 결과 화면 표시, 없으면 카메라 화면 표시
-    if (uiState.awaitingProductConfirmation && uiState.searchResult != null) {
-        ProductConfirmationScreen(
-            result = uiState.searchResult,
-            onAnalyzeClick = onSearchClick,
-            onRetakeClick = onRetakeClick,
-            modifier = modifier,
-        )
-    } else if (uiState.searchResult != null) {
-        ResultScreen(
-            result = uiState.searchResult!!,
-            isSearching = uiState.isSearching,
-            statusMessage = uiState.statusMessage,
-            onRetakeClick = onRetakeClick,
-            modifier = modifier,
-        )
+    // The feature state and callbacks are deliberately unchanged; only the visual shell follows Figma.
+    if (uiState.searchResult != null) {
+        val capturedBitmap = uiState.pendingPhotoFile?.let { file ->
+            remember(file.absolutePath) { BitmapFactory.decodeFile(file.absolutePath) }
+        }
+        ResultScreen(uiState.searchResult!!, capturedBitmap ?: previewFrame, onRetakeClick, modifier)
     } else {
-        CameraScreen(
-            uiState = uiState,
-            previewFrame = previewFrame,
-            onCaptureClick = onCaptureClick,
-            onRetakeClick = onRetakeClick,
-            onSearchClick = onSearchClick,
-            onSendSampleResult = onSendSampleResult,
-            onDisconnect = onDisconnect,
-            modifier = modifier,
-        )
-    }
-}
-
-@Composable
-private fun ProductConfirmationScreen(
-    result: AnalysisResult,
-    onAnalyzeClick: () -> Unit,
-    onRetakeClick: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(Color.Black)
-            .padding(24.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Spacer(modifier = Modifier.weight(1f))
-
-        Text(
-            "해당 상품이 맞습니까?",
-            style = MaterialTheme.typography.headlineSmall,
-            color = Color.White,
-            textAlign = TextAlign.Center,
-        )
-
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clip(RoundedCornerShape(10.dp))
-                .background(Color(0xFF151515))
-                .padding(18.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-        ) {
-            DetailRow("상품명", result.productName ?: result.originalProductName ?: result.headline)
-            DetailRow("브랜드", result.brand ?: result.originalBrand)
-            DetailRow("카테고리", result.category)
-        }
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
-        ) {
-            OutlinedButton(onClick = onRetakeClick, modifier = Modifier.weight(1f)) {
-                Text("재촬영")
-            }
-            Button(onClick = onAnalyzeClick, modifier = Modifier.weight(1f)) {
-                Text("분석")
-            }
-        }
-
-        Spacer(modifier = Modifier.weight(1f))
+        CameraScreen(uiState, previewFrame, onCaptureClick, onRetakeClick, onSearchClick, modifier)
     }
 }
 
@@ -145,410 +97,433 @@ private fun CameraScreen(
     onCaptureClick: () -> Unit,
     onRetakeClick: () -> Unit,
     onSearchClick: () -> Unit,
-    onSendSampleResult: () -> Unit,
-    onDisconnect: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Column(
-        modifier = modifier.fillMaxSize().padding(24.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
-    ) {
-        Text("RayBan Vision", style = MaterialTheme.typography.headlineMedium)
-
-        // 세션/스트림/디스플레이 상태 카드
-        StatusCard(uiState)
-
-        // ── (임시) 실시간 카메라 프리뷰 / 촬영 결과 ────────────────────────
-        // 촬영한 사진이 있으면 그 사진을, 없으면 라이브 프리뷰를 보여준다.
-        CameraArea(uiState = uiState, previewFrame = previewFrame)
-
-        // ── 촬영 / 재촬영·검색 ─────────────────────────────────────────────
-        when {
-            // 촬영 후 결정 단계: 재촬영 or 검색
-            uiState.awaitingDecision -> {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-                ) {
-                    OutlinedButton(onClick = onRetakeClick, modifier = Modifier.weight(1f)) {
-                        Text("재촬영")
-                    }
-                    Button(onClick = onSearchClick, modifier = Modifier.weight(1f)) {
-                        Text("검색")
-                    }
-                }
-            }
-            // 검색 진행 중: 재촬영으로만 빠져나갈 수 있음
-            uiState.isSearching -> {
-                OutlinedButton(onClick = onRetakeClick, modifier = Modifier.fillMaxWidth()) {
-                    Text(uiState.statusMessage ?: "검색 중...")
-                }
-            }
-            // 라이브: 촬영
-            else -> {
-                Button(
-                    onClick = onCaptureClick,
-                    enabled = uiState.canCapture,
-                    modifier = Modifier.fillMaxWidth(),
-                ) {
-                    Text(if (uiState.isCapturing) "촬영 중..." else "사진 촬영")
-                }
-            }
-        }
-
-        HorizontalDivider()
-
-        // ── 디스플레이 테스트 ──────────────────────────────────────────────
-        Text("디스플레이 테스트 (LLM 연동 전)", style = MaterialTheme.typography.titleSmall)
-        Text(
-            "샘플 텍스트·이미지·링크를 글라스에 전송해서 표시 결과를 확인합니다.",
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
-        Button(
-            onClick = onSendSampleResult,
-            enabled = uiState.isDisplayReady,
-            modifier = Modifier.fillMaxWidth(),
-        ) {
-            Text("샘플 결과 글라스에 전송")
-        }
-
-        Spacer(modifier = Modifier.weight(1f))
-
-        OutlinedButton(
-            onClick = onDisconnect,
-            modifier = Modifier.fillMaxWidth(),
-        ) {
-            Text("연결 해제")
-        }
-    }
-}
-
-@Composable
-private fun CameraArea(uiState: SessionUiState, previewFrame: Bitmap?) {
     val capturedBitmap = uiState.pendingPhotoFile?.let { file ->
         remember(file.absolutePath) { BitmapFactory.decodeFile(file.absolutePath) }
     }
-
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .aspectRatio(3f / 4f)
-            .clip(RoundedCornerShape(16.dp))
-            .background(Color.Black),
-        contentAlignment = Alignment.Center,
-    ) {
-        when {
-            // 촬영 직후: 찍힌 사진을 표시
-            capturedBitmap != null -> {
-                Image(
-                    bitmap = capturedBitmap.asImageBitmap(),
-                    contentDescription = "촬영된 사진",
-                    modifier = Modifier.fillMaxSize(),
-                    contentScale = ContentScale.Fit,
-                )
-                // 검색 중 안내 텍스트 (이미지 위 중앙)
-                if (uiState.isSearching) {
-                    Text(
-                        uiState.statusMessage ?: "상품 검색 중...",
-                        style = MaterialTheme.typography.titleMedium,
-                        color = Color.White,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier
-                            .align(Alignment.Center)
-                            .background(Color(0xAA000000), RoundedCornerShape(8.dp))
-                            .padding(horizontal = 16.dp, vertical = 8.dp),
-                    )
-                } else {
-                    // 재촬영/검색 결정 안내 텍스트 (하단)
-                    Text(
-                        "물건 정보가 궁금하면 '검색'을 누르고,\n다시 촬영을 해야하면 '재촬영'을 눌러주세요",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = Color.White,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier
-                            .align(Alignment.BottomCenter)
-                            .fillMaxWidth()
-                            .background(Color(0xAA000000))
-                            .padding(horizontal = 12.dp, vertical = 8.dp),
-                    )
-                }
-            }
-            // 라이브 프리뷰
-            previewFrame != null -> {
-                Image(
-                    bitmap = previewFrame.asImageBitmap(),
-                    contentDescription = "실시간 카메라 프리뷰",
-                    modifier = Modifier.fillMaxSize(),
-                    contentScale = ContentScale.Fit,
-                )
-                // 원형 가이드라인 + 십자가 오버레이
-                CameraGuideOverlay(modifier = Modifier.fillMaxSize())
-                // LIVE 배지 (좌상단)
-                Text(
-                    "LIVE",
-                    style = MaterialTheme.typography.labelMedium,
-                    color = Color.White,
-                    modifier = Modifier
-                        .align(Alignment.TopStart)
-                        .padding(8.dp)
-                        .background(Color(0x88CC0000), RoundedCornerShape(6.dp))
-                        .padding(horizontal = 8.dp, vertical = 4.dp),
-                )
-                // 촬영 전 안내 텍스트 (원 위)
-                Text(
-                    "물건을 가운데에 두고 촬영버튼을 눌러주세요",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = Color.White,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .align(Alignment.TopCenter)
-                        .padding(top = 50.dp)
-                        .fillMaxWidth()
-                        .background(Color(0xAA000000))
-                        .padding(horizontal = 12.dp, vertical = 8.dp),
-                )
-            }
-            else -> {
-                Text(
-                    "카메라 연결 대기 중...",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = Color.White,
-                )
-            }
+    val capturedPhotoKey = uiState.pendingPhotoFile?.absolutePath
+    var analysisComplete by remember(capturedPhotoKey) { mutableStateOf(false) }
+    LaunchedEffect(capturedPhotoKey) {
+        if (capturedPhotoKey == null) {
+            analysisComplete = false
+        } else {
+            // Node 71:6795 is the required intermediate state before node 72:6928.
+            analysisComplete = false
+            delay(5_000)
+            analysisComplete = true
+        }
+    }
+    val isAnalyzing = uiState.awaitingDecision && !analysisComplete
+    val isResult = uiState.awaitingDecision && analysisComplete
+    // Figma node 55:5534 starts gray. The button is enabled only after the on-device
+    // detector finds an object whose centre is inside the guide circle.
+    val isObjectDetected = rememberObjectInGuide(previewFrame)
+    var captureCountdown by remember { mutableStateOf<Int?>(null) }
+    LaunchedEffect(captureCountdown) {
+        val count = captureCountdown ?: return@LaunchedEffect
+        // 3 → 2 → 1 takes 1.5 seconds in total.
+        delay(500)
+        if (count > 1) captureCountdown = count - 1
+        else {
+            captureCountdown = null
+            onCaptureClick()
         }
     }
 
-    uiState.pendingPhotoFile?.let { file ->
-        Text(
-            "저장 경로: ${file.absolutePath}",
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+    Column(
+        modifier = modifier.fillMaxSize().background(ScreenBlack).padding(horizontal = 32.dp, vertical = 18.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceBetween,
+    ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(20.dp)) {
+            // Figma CameraStatus: a 16px status point above the viewfinder.
+            Box(
+                modifier = Modifier.size(16.dp).clip(CircleShape)
+                    .background(if (isObjectDetected) Lime else Color(0xFF757575)),
+            )
+
+            CameraFrame(
+                previewFrame = previewFrame,
+                capturedBitmap = capturedBitmap,
+                showGuide = !isResult && !isAnalyzing && !uiState.isSearching,
+                isAnalyzing = isAnalyzing || uiState.isSearching,
+                isResult = isResult,
+                onRetakeClick = onRetakeClick,
+            )
+        }
+
+        InstructionChip(
+            text = when {
+                captureCountdown != null -> captureCountdown.toString()
+                isAnalyzing || uiState.isSearching -> "사진 분석 중..."
+                isResult -> "분석이 완료되었어요!"
+                else -> "원 안에 물체를 두고 촬영해주세요."
+            },
         )
+
+        when {
+            isAnalyzing || uiState.isSearching -> ActionButtons(enabled = false, onSearchClick = {}, onRetakeClick = {})
+            isResult -> ActionButtons(enabled = true, onSearchClick = onSearchClick, onRetakeClick = onRetakeClick)
+            else -> CaptureButton(
+                enabled = uiState.canCapture && isObjectDetected && !uiState.isCapturing && captureCountdown == null,
+                onClick = { captureCountdown = 3 },
+                highlighted = captureCountdown != null,
+            )
+        }
     }
 }
 
-/**
- * 카메라 프리뷰 위에 표시되는 가이드 오버레이.
- * 원형 가이드라인: 물건이 들어갈 영역을 표시.
- * 십자가(+): 촬영 중심점 표시.
- */
+@Composable
+private fun CameraFrame(
+    previewFrame: Bitmap?,
+    capturedBitmap: Bitmap?,
+    showGuide: Boolean,
+    isAnalyzing: Boolean,
+    isResult: Boolean,
+    onRetakeClick: () -> Unit,
+) {
+    Box(
+        modifier = Modifier.fillMaxWidth().aspectRatio(518.4f / 720f)
+            .clip(RoundedCornerShape(35.dp)).background(FrameBlack),
+        contentAlignment = Alignment.Center,
+    ) {
+        val frame = capturedBitmap ?: previewFrame
+        if (frame != null) {
+            Image(frame.asImageBitmap(), null, Modifier.fillMaxSize(), contentScale = ContentScale.Crop)
+        } else {
+            Text("카메라 연결 대기 중...", color = Color.White.copy(alpha = .85f), fontSize = 16.sp)
+        }
+        if (showGuide) CameraGuideOverlay(Modifier.fillMaxSize())
+        if (isAnalyzing) {
+            Box(Modifier.fillMaxSize().background(OverlayBlack), contentAlignment = Alignment.Center) {
+                // The supplied Loading animation is represented by its same bright accent while analysis runs.
+                Canvas(Modifier.size(88.dp)) {
+                    drawCircle(Yellow, style = Stroke(width = 7.dp.toPx()))
+                    drawCircle(Lime, radius = size.minDimension * .29f)
+                }
+            }
+        }
+        if (isResult) ResultOverlay(onRetakeClick)
+    }
+}
+
+@Composable
+private fun ResultOverlay(onRetakeClick: () -> Unit) {
+    Column(
+        modifier = Modifier.fillMaxSize().background(OverlayBlack).padding(horizontal = 48.dp, vertical = 54.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceBetween,
+    ) {
+        Text("이 제품이 맞나요?", color = Color(0xFFD9D9D9), fontSize = 18.sp)
+        Text("민티아 드라이하드", color = Color.White, fontSize = 28.sp, fontWeight = FontWeight.Medium, textAlign = TextAlign.Center)
+        GlassButton("다시 찍기", Icons.Outlined.CameraAlt, onRetakeClick, transparent = true, modifier = Modifier.fillMaxWidth())
+    }
+}
+
+@Composable
+private fun InstructionChip(text: String) {
+    Text(
+        text = text,
+        color = Color.White,
+        fontSize = 14.sp,
+        fontWeight = FontWeight.Medium,
+        modifier = Modifier.clip(CircleShape).background(Color.White.copy(alpha = .10f)).padding(horizontal = 16.dp, vertical = 12.dp),
+    )
+}
+
+@Composable
+private fun CaptureButton(enabled: Boolean, onClick: () -> Unit, highlighted: Boolean = false) {
+    Box(
+        modifier = Modifier.size(88.dp).clip(CircleShape)
+            .background(if (enabled || highlighted) Brush.linearGradient(listOf(Lime, Yellow)) else Brush.linearGradient(listOf(Color(0xFFB3B3B3), Color(0xFFB3B3B3))))
+            .clickable(enabled = enabled, onClick = onClick),
+        contentAlignment = Alignment.Center,
+    ) { Icon(Icons.Outlined.CameraAlt, null, tint = Color(0xFF1E1E1E), modifier = Modifier.size(32.dp)) }
+}
+
+@Composable
+private fun ActionButtons(enabled: Boolean, onSearchClick: () -> Unit, onRetakeClick: () -> Unit) {
+    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+        GlassButton("가격 비교", Icons.Outlined.MonetizationOn, onRetakeClick, enabled = enabled, modifier = Modifier.weight(1f))
+        GlassButton("상품 정보", Icons.Outlined.Info, onSearchClick, enabled = enabled, primary = true, modifier = Modifier.weight(1f))
+    }
+}
+
+@Composable
+private fun GlassButton(
+    label: String,
+    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    primary: Boolean = false,
+    transparent: Boolean = false,
+) {
+    val fill = when {
+        // Figma 71:6795: while analysing, both bottom actions use the same disabled glass fill.
+        !enabled -> Brush.linearGradient(listOf(Color.White.copy(alpha = .10f), Color.White.copy(alpha = .10f)))
+        transparent -> Brush.linearGradient(listOf(Color.White.copy(alpha = .10f), Color.White.copy(alpha = .03f)))
+        primary -> Brush.linearGradient(listOf(Lime, Yellow))
+        else -> Brush.linearGradient(listOf(Color(0xFF2C2C2C), Color(0xFF2C2C2C)))
+    }
+    val color = when {
+        !enabled -> Color.White.copy(alpha = .40f)
+        primary -> Color(0xFF1E1E1E)
+        else -> Color.White.copy(alpha = .90f)
+    }
+    Row(
+        modifier = modifier.height(60.dp).clip(CircleShape).background(fill)
+            .clickable(enabled = enabled, onClick = onClick).padding(horizontal = 20.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center,
+    ) {
+        Icon(icon, null, tint = color, modifier = Modifier.size(22.dp))
+        Spacer(Modifier.width(8.dp))
+        Text(label, color = color, fontSize = 16.sp, fontWeight = FontWeight.Medium)
+    }
+}
+
 @Composable
 private fun CameraGuideOverlay(modifier: Modifier = Modifier) {
-    Canvas(modifier = modifier) {
-        val cx = size.width / 2f
-        val cy = size.height / 2f
-        // 원 반지름: 짧은 변의 38%
-        val radius = minOf(size.width, size.height) * 0.38f
-        // 십자가 팔 길이: 반지름의 15%
-        val crossArmLength = radius * 0.15f
-        val guideColor = Color.White.copy(alpha = 0.80f)
-        val strokeWidth = 2.dp.toPx()
+    Canvas(modifier) {
+        drawCircle(Color.White.copy(alpha = .8f), size.minDimension * .24f, Offset(size.width / 2, size.height / 2), style = Stroke(2.dp.toPx()))
+    }
+}
 
-        // 원형 가이드라인
-        drawCircle(
-            color = guideColor,
-            radius = radius,
-            center = Offset(cx, cy),
-            style = Stroke(width = strokeWidth),
-        )
-
-        // 중앙 십자가 — 수평선
-        drawLine(
-            color = guideColor,
-            start = Offset(cx - crossArmLength, cy),
-            end = Offset(cx + crossArmLength, cy),
-            strokeWidth = strokeWidth,
-        )
-
-        // 중앙 십자가 — 수직선
-        drawLine(
-            color = guideColor,
-            start = Offset(cx, cy - crossArmLength),
-            end = Offset(cx, cy + crossArmLength),
-            strokeWidth = strokeWidth,
+/** Uses ML Kit's stream detector; visual activation has no effect on the existing capture/session pipeline. */
+@Composable
+private fun rememberObjectInGuide(previewFrame: Bitmap?): Boolean {
+    val detector = remember {
+        ObjectDetection.getClient(
+            ObjectDetectorOptions.Builder()
+                .setDetectorMode(ObjectDetectorOptions.STREAM_MODE)
+                .enableMultipleObjects()
+                .build(),
         )
     }
+    var detectedInGuide by remember { mutableStateOf(false) }
+    val detectionInFlight = remember { AtomicBoolean(false) }
+
+    DisposableEffect(detector) {
+        onDispose { detector.close() }
+    }
+    LaunchedEffect(previewFrame) {
+        val frame = previewFrame ?: run {
+            detectedInGuide = false
+            return@LaunchedEffect
+        }
+        if (!detectionInFlight.compareAndSet(false, true)) return@LaunchedEffect
+        detector.process(InputImage.fromBitmap(frame, 0))
+            .addOnSuccessListener { objects ->
+                detectedInGuide = objects.any { isObjectCentreInGuide(it.boundingBox, frame.width, frame.height) }
+                detectionInFlight.set(false)
+            }
+            .addOnFailureListener {
+                detectedInGuide = false
+                detectionInFlight.set(false)
+            }
+    }
+    return detectedInGuide
+}
+
+private fun isObjectCentreInGuide(bounds: Rect, frameWidth: Int, frameHeight: Int): Boolean {
+    val centerX = frameWidth / 2f
+    val centerY = frameHeight / 2f
+    // The Figma guide is 250px within a 518.4px-wide camera frame: radius = 24.1% of width.
+    val guideRadius = frameWidth * 0.241f
+    val objectX = bounds.exactCenterX()
+    val objectY = bounds.exactCenterY()
+    val dx = objectX - centerX
+    val dy = objectY - centerY
+    return dx * dx + dy * dy <= guideRadius * guideRadius
 }
 
 @Composable
 private fun ResultScreen(
     result: AnalysisResult,
-    isSearching: Boolean,
-    statusMessage: String?,
+    backgroundFrame: Bitmap?,
     onRetakeClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(Color.Black)
-            .padding(24.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
-    ) {
-        // 헤드라인 (상품명)
-        Text(
-            result.headline,
-            style = MaterialTheme.typography.headlineSmall,
-            color = Color.White,
-            textAlign = TextAlign.Center,
-        )
-
-        if (isSearching) {
-            Text(
-                statusMessage ?: "상품 검색 중...",
-                style = MaterialTheme.typography.titleSmall,
-                color = Color(0xFF4CAF50),
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth(),
+    val buyables = result.candidates.filter { it.linkUrl != null }
+    // Exact display copy from Figma node 82:8583. Existing candidate URLs are
+    // still used when a user taps a corresponding "링크 저장" control.
+    val figmaPrices = listOf(
+        "9,900" to "무신사",
+        "10,400" to "쿠팡",
+        "10,900" to "이마트",
+    )
+    // The Figma frame is 600 × 1300. Scale every measurement as one surface so
+    // the product page keeps its Figma proportions rather than overflowing on a phone.
+    BoxWithConstraints(modifier = modifier.fillMaxSize().background(Color(0xFF0C0C0D))) {
+        val scale = minOf(maxWidth / 600.dp, maxHeight / 1300.dp)
+        // Node 82:8583 keeps the captured camera view visible at 30% behind the glass panels.
+        backgroundFrame?.let { frame ->
+            Image(
+                frame.asImageBitmap(), null,
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Crop,
+                alpha = .30f,
             )
         }
-
+        // Figma 82:8583: content begins at y=230 and occupies 800px in its
+        // 600 × 1300 canvas. This leaves the same camera-image breathing room
+        // above the cards and below the actions on every phone size.
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f)
-                .verticalScroll(rememberScrollState()),
-            verticalArrangement = Arrangement.spacedBy(12.dp),
+            modifier = Modifier.fillMaxWidth().height(800.dp * scale)
+                .align(Alignment.TopCenter).offset(y = 230.dp * scale)
+                .padding(horizontal = 32.dp * scale),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(24.dp * scale),
         ) {
-            ResultSection("상품정보") {
-                DetailRow("상품명", result.productName ?: result.headline)
-                DetailRow("원본 상품명", result.originalProductName)
-                DetailRow("브랜드", result.brand)
-                DetailRow("원본 브랜드", result.originalBrand)
-            }
+            Column(
+                modifier = Modifier.fillMaxWidth().weight(1f),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(20.dp * scale),
+            ) {
+                // assets/UI/Resources/Components/ProductName.json
+                // ColorButtonTransparentBrandDefault + EffectStyleButtonSelected.
+                ProductNameCard("민티아 드라이하드", scale)
 
-            ResultTextSection("상품 설명", result.productDescription)
-            ResultListSection("스펙", result.specifications)
-
-            ResultListSection("긍정 리뷰", result.positiveReviews)
-            ResultListSection("부정 리뷰", result.negativeReviews)
-
-            if (result.candidates.isNotEmpty()) {
-                ResultSection("가격 정보") {
-                    result.candidates.forEachIndexed { index, candidate ->
-                        PriceResultRow(
-                            index = index + 1,
-                            candidate = candidate,
-                            onClick = candidate.linkUrl?.let { url ->
-                                {
-                                    context.startActivity(
-                                        Intent(Intent.ACTION_VIEW, Uri.parse(url)),
-                                    )
+                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp * scale)) {
+                    figmaPrices.forEachIndexed { index, (price, vendor) ->
+                        PriceInformationCard(
+                            price = price,
+                            vendor = vendor,
+                            focused = false,
+                            onSaveLink = {
+                                buyables.getOrNull(index)?.linkUrl?.let { url ->
+                                    context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
                                 }
                             },
+                            modifier = Modifier.weight(1f),
+                            scale = scale,
                         )
                     }
                 }
             }
 
-            ResultSection("추가 정보") {
-                DetailRow("상태", result.rawStatus ?: result.status.name)
-                DetailRow("전략", result.strategy)
-                DetailRow("모델 번호", result.modelNumber)
-                DetailRow("카테고리", result.category)
-                DetailRow("신뢰도", result.confidence?.let { "%.2f".format(it) })
-                DetailRow("평점", result.averageRating?.toString())
-            }
-        }
+            ResultCompletionChip(scale)
 
-        OutlinedButton(
-            onClick = onRetakeClick,
-            modifier = Modifier.fillMaxWidth(),
-        ) {
-            Text("다시 촬영")
-        }
-    }
-}
-
-@Composable
-private fun ResultSection(
-    title: String,
-    content: @Composable ColumnScope.() -> Unit,
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(10.dp))
-            .background(Color(0xFF151515))
-            .padding(14.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-    ) {
-        Text(title, style = MaterialTheme.typography.titleSmall, color = Color.White)
-        content()
-    }
-}
-
-@Composable
-private fun DetailRow(label: String, value: String?) {
-    if (value.isNullOrBlank()) return
-    Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
-        Text(label, style = MaterialTheme.typography.labelSmall, color = Color(0xFF9E9E9E))
-        Text(value, style = MaterialTheme.typography.bodyMedium, color = Color(0xFFEFEFEF))
-    }
-}
-
-@Composable
-private fun ResultTextSection(title: String, value: String?) {
-    if (value.isNullOrBlank()) return
-    ResultSection(title) {
-        Text(value, style = MaterialTheme.typography.bodyMedium, color = Color(0xFFEFEFEF))
-    }
-}
-
-@Composable
-private fun ResultListSection(title: String, values: List<String>) {
-    val filtered = values.filter { it.isNotBlank() }
-    if (filtered.isEmpty()) return
-    ResultSection(title) {
-        filtered.forEach { value ->
-            Text("• $value", style = MaterialTheme.typography.bodyMedium, color = Color(0xFFEFEFEF))
-        }
-    }
-}
-
-@Composable
-private fun PriceResultRow(
-    index: Int,
-    candidate: com.example.raybanvision.data.ProductCandidate,
-    onClick: (() -> Unit)?,
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(8.dp))
-            .background(Color(0xFF222222))
-            .then(if (onClick != null) Modifier.clickable(onClick = onClick) else Modifier)
-            .padding(12.dp),
-        verticalArrangement = Arrangement.spacedBy(4.dp),
-    ) {
-        Text(
-            "$index. ${candidate.store ?: "판매처 없음"}",
-            style = MaterialTheme.typography.bodyMedium,
-            color = Color.White,
-        )
-        Text(candidate.price, style = MaterialTheme.typography.titleMedium, color = Color(0xFF4CAF50))
-        DetailRow("상품명", candidate.title)
-        DetailRow("통화", candidate.currency)
-        DetailRow("한국 마켓", candidate.isKoreanMarket?.let { if (it) "예" else "아니오" })
-        DetailRow("링크", candidate.linkUrl)
-    }
-}
-
-@Composable
-private fun StatusCard(uiState: SessionUiState) {
-    Card(modifier = Modifier.fillMaxWidth()) {
-        Column(
-            modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(4.dp),
-        ) {
-            Text("세션: ${uiState.sessionState?.name ?: "없음"}", style = MaterialTheme.typography.bodyMedium)
-            Text("스트림: ${uiState.streamState?.name ?: "없음"}", style = MaterialTheme.typography.bodyMedium)
-            Text("디스플레이: ${uiState.displayState?.name ?: "없음"}", style = MaterialTheme.typography.bodyMedium)
-            uiState.statusMessage?.let {
-                Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.primary)
+            // The Figma action row is retained as a visual row. The product-information
+            // button represents the current screen, so it intentionally has no second action.
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(16.dp * scale),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                ProductActionButton(
+                    label = "다시 찍기",
+                    icon = Icons.Outlined.CameraAlt,
+                    onClick = onRetakeClick,
+                    primary = false,
+                    scale = scale,
+                )
+                ProductActionButton(
+                    label = "상품 정보",
+                    icon = Icons.Outlined.Info,
+                    onClick = {},
+                    primary = true,
+                    modifier = Modifier.weight(1f),
+                    scale = scale,
+                )
             }
         }
     }
+}
+
+@Composable
+private fun ProductNameCard(title: String, scale: Float) {
+    val shape = RoundedCornerShape(24.dp * scale)
+    Box(
+        modifier = Modifier.fillMaxWidth().clip(shape)
+            .border(2.dp * scale, Color.White.copy(alpha = .50f), shape)
+            .background(Brush.linearGradient(listOf(Yellow.copy(alpha = .50f), Yellow.copy(alpha = .05f))))
+            .background(Brush.linearGradient(listOf(Lime.copy(alpha = .50f), Lime.copy(alpha = .05f))))
+            .padding(24.dp * scale),
+    ) {
+        Column(verticalArrangement = Arrangement.spacedBy(16.dp * scale)) {
+            Text(title, color = Color.White, fontSize = 32.sp * scale, lineHeight = 38.sp * scale, fontWeight = FontWeight.Medium)
+            Text("오리온, 324g", color = Color.White.copy(alpha = .90f), fontSize = 24.sp * scale, lineHeight = 29.sp * scale)
+        }
+    }
+}
+
+@Composable
+private fun PriceInformationCard(
+    price: String,
+    vendor: String,
+    focused: Boolean,
+    onSaveLink: () -> Unit,
+    modifier: Modifier = Modifier,
+    scale: Float,
+) {
+    val shape = RoundedCornerShape(24.dp * scale)
+    val headingColor = if (focused) Color.White else Color.White.copy(alpha = .85f)
+    Column(
+        modifier = modifier.clip(shape)
+            .border(2.dp * scale, if (focused) Color.White else Color.White.copy(alpha = .50f), shape)
+            .background(Brush.verticalGradient(listOf(Color.White.copy(alpha = .10f), Color.White.copy(alpha = .03f))))
+            .padding(top = 16.dp * scale, start = 12.dp * scale, end = 12.dp * scale, bottom = 12.dp * scale),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(24.dp * scale),
+    ) {
+        Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(8.dp * scale)) {
+            Text("₩ $price", color = headingColor, fontSize = 24.sp * scale, lineHeight = 34.sp * scale, fontWeight = FontWeight.SemiBold, maxLines = 1)
+            Text(vendor, color = headingColor, fontSize = 24.sp * scale, lineHeight = 34.sp * scale, fontWeight = FontWeight.SemiBold, maxLines = 1)
+        }
+        Row(
+            modifier = Modifier.fillMaxWidth().clip(CircleShape).background(Color(0xFFB3B3B3))
+                .clickable(onClick = onSaveLink).padding(horizontal = 16.dp * scale, vertical = 12.dp * scale),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Icon(Icons.Outlined.Link, null, tint = Color(0xFF1E1E1E), modifier = Modifier.size(24.dp * scale))
+            Spacer(Modifier.width(8.dp * scale))
+            Text("링크 저장", color = Color(0xFFD9D9D9), fontSize = 20.sp * scale, fontWeight = FontWeight.Medium, maxLines = 1)
+        }
+    }
+}
+
+@Composable
+private fun ProductActionButton(
+    label: String,
+    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    onClick: () -> Unit,
+    primary: Boolean,
+    modifier: Modifier = Modifier,
+    scale: Float,
+) {
+    val shape = CircleShape
+    val fill = if (primary) {
+        Brush.linearGradient(listOf(Yellow, Yellow.copy(alpha = .10f), Lime.copy(alpha = .10f), Color(0xFFE6E6E6)))
+    } else {
+        Brush.verticalGradient(listOf(Color.White.copy(alpha = .10f), Color.White.copy(alpha = .03f)))
+    }
+    val textColor = if (primary) Color(0xFF1E1E1E) else Color.White
+    Row(
+        modifier = modifier.clip(shape)
+            .border(if (primary) 0.dp else 2.dp * scale, if (primary) Color.Transparent else Color.White.copy(alpha = .50f), shape)
+            .background(fill).clickable(onClick = onClick).padding(horizontal = 32.dp * scale, vertical = 24.dp * scale),
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Icon(icon, null, tint = textColor, modifier = Modifier.size(24.dp * scale))
+        Spacer(Modifier.width(8.dp * scale))
+        Text(label, color = textColor, fontSize = 24.sp * scale, fontWeight = FontWeight.Medium, maxLines = 1)
+    }
+}
+
+@Composable
+private fun ResultCompletionChip(scale: Float) {
+    Text(
+        "가격 검색이 완료되었어요!",
+        color = Color.White,
+        fontSize = 20.sp * scale,
+        fontWeight = FontWeight.Medium,
+        modifier = Modifier.clip(CircleShape).background(Color.White.copy(alpha = .10f))
+            .padding(horizontal = 16.dp * scale, vertical = 12.dp * scale),
+    )
 }

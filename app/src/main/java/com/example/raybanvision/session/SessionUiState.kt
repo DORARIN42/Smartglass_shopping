@@ -15,7 +15,6 @@ data class SessionUiState(
     val pendingPhotoFile: File? = null,
     // 검색(LLM 전송) 진행 중 여부.
     val isSearching: Boolean = false,
-    val awaitingProductConfirmation: Boolean = false,
     // 검색 결과 (폰 화면에 표시용).
     val searchResult: AnalysisResult? = null,
     val statusMessage: String? = null,
@@ -25,7 +24,7 @@ data class SessionUiState(
 
     // 촬영본이 있고 아직 검색 전이면 재촬영/검색 선택 단계.
     val awaitingDecision: Boolean
-        get() = pendingPhotoFile != null && !isSearching && !awaitingProductConfirmation
+        get() = pendingPhotoFile != null && !isSearching
 
     val isDisplayReady: Boolean
         get() = displayState == DisplayState.STARTED

@@ -1,0 +1,202 @@
+/* ==========================================================================
+   Shopping XR — Button
+   Figma: node 53:361 · spec: Resources/Components/Button.json
+   Load order: tokens.css → interactions.css → Button.css
+   ========================================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sds-size-space-200);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  border-style: solid;
+  border-width: 0;
+  border-color: transparent;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: "Inter", var(--sds-typography-body-font-family);
+}
+
+.btn .icon {
+  flex-shrink: 0;
+  display: flex;
+}
+.btn .icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ---------- Size (Button.json → sizes) ---------- */
+.btn--medium {
+  padding: var(--sds-size-space-600) var(--sds-size-space-800);
+}
+.btn--medium .icon {
+  width: var(--icon-size-sm);
+  height: var(--icon-size-sm);
+}
+
+.btn--small {
+  padding: var(--sds-size-space-300) var(--sds-size-space-600);
+}
+.btn--small .icon {
+  width: var(--icon-size-sm);
+  height: var(--icon-size-sm);
+}
+
+/* *.Transparent.* only: border is drawn (Solid variants stay border:none) */
+.btn--primary-transparent,
+.btn--neutral-transparent,
+.btn--subtle-transparent {
+  border-width: var(--sds-size-stroke-border-thick); /* Medium */
+}
+.btn--small.btn--primary-transparent,
+.btn--small.btn--neutral-transparent,
+.btn--small.btn--subtle-transparent {
+  border-width: var(--sds-size-stroke-border); /* Small */
+}
+
+/* ==========================================================================
+   Variant × Color — Default state (background is drawn directly; the Hover
+   background lives on --state-layer-bg and fades in via .interactive-surface)
+   ========================================================================== */
+
+/* Primary.Transparent.Default */
+.btn--primary-transparent {
+  background: var(--ColorButtonTransparentBrandDefault);
+  border-color: var(--stroke-white-default);
+  color: var(--sds-color-white-700);
+  box-shadow: inset 0px 4px 24px rgba(255, 255, 255, 0.3);
+  --state-layer-bg: var(--ColorButtonTransparentBrandFocused);
+}
+/* Primary.Transparent.Hover */
+.btn--primary-transparent:hover {
+  color: var(--sds-color-white-1000);
+  box-shadow: inset 0px 4px 24px rgba(255, 255, 255, 1);
+}
+.btn--medium.btn--primary-transparent:hover {
+  border-color: var(--stroke-white-focused);
+}
+
+/* Neutral.Transparent.Default */
+.btn--neutral-transparent {
+  background: var(--ColorButtonTransparentWhiteDefault);
+  border-color: var(--stroke-white-default);
+  color: var(--sds-color-white-700);
+  box-shadow: inset 0px 4px 24px rgba(255, 255, 255, 0.3);
+  --state-layer-bg: var(--ColorButtonTransparentWhiteFocused);
+}
+/* Neutral.Transparent.Hover */
+.btn--neutral-transparent:hover {
+  color: var(--sds-color-white-1000);
+  box-shadow: inset 0px 4px 24px rgba(255, 255, 255, 1);
+}
+.btn--medium.btn--neutral-transparent:hover {
+  border-color: var(--stroke-white-focused);
+}
+
+/* Subtle.Transparent.Default — border is invisible (transparent) at rest so
+   it can fade in on hover without a layout shift */
+.btn--subtle-transparent {
+  background: var(--sds-color-white-200);
+  border-color: transparent;
+  color: var(--sds-color-white-700);
+  box-shadow: inset 0px 4px 24px rgba(255, 255, 255, 0);
+  --state-layer-bg: var(--sds-color-white-200);
+}
+/* Subtle.Transparent.Hover */
+.btn--subtle-transparent:hover {
+  border-color: var(--stroke-white-default);
+  color: var(--sds-color-white-1000);
+  box-shadow: inset 0px 4px 24px rgba(255, 255, 255, 1);
+}
+
+/* Primary.Solid.Default */
+.btn--primary-solid {
+  background: var(--ColorButtonSolidBrandDefault);
+  color: var(--sds-color-gray-900);
+  box-shadow: inset 0px 4px 24px rgba(255, 255, 255, 0.3);
+  --state-layer-bg: var(--ColorButtonSolidBrandHover);
+}
+/* Primary.Solid.Hover */
+.btn--primary-solid:hover {
+  color: var(--sds-color-gray-600);
+  box-shadow: inset 0px 4px 24px rgba(255, 255, 255, 0);
+}
+
+/* Neutral.Solid.Default */
+.btn--neutral-solid {
+  background: var(--sds-color-gray-800);
+  color: var(--sds-color-gray-100);
+  --state-layer-bg: var(--sds-color-gray-600);
+}
+/* Neutral.Solid.Hover — background darkens via state layer only, text stays gray-100 */
+
+/* Subtle.Solid.Default */
+.btn--subtle-solid {
+  background: transparent;
+  color: var(--sds-color-gray-700);
+  --state-layer-bg: var(--sds-color-black-100);
+}
+/* Subtle.Solid.Hover — state-layer tint only, text stays gray-700 */
+
+/* ==========================================================================
+   Disabled — visual-only (no pointer-events change): e.g. PriceInformation
+   maps its non-focused card to this purely to signal "not the focused
+   option", the button stays tappable. Covers both the class modifier
+   (.btn--disabled, used on <a> since it has no real disabled attribute)
+   and the native :disabled pseudo-class (real <button disabled>, e.g.
+   CameraViewfinder's capture button).
+
+   Hover must be a full no-op here. Every hover rule above (including the
+   Medium+Transparent border-focus quirk) is keyed off :hover on the
+   variant class alone, so it has no idea a button is disabled — omitting
+   .interactive-surface only stops the state-layer, not those rules. So
+   each selector below is repeated under :hover with the *same* resting
+   values: equal-or-higher specificity than every rule above it, and it
+   sits later in the cascade, so it always wins and nothing visibly
+   changes on hover. --state-layer-bg is also reset to transparent as a
+   second guard in case .interactive-surface ends up on a disabled
+   instance anyway.
+   ========================================================================== */
+.btn--primary-transparent.btn--disabled,
+.btn--primary-transparent.btn--disabled:hover,
+.btn--primary-transparent:disabled,
+.btn--primary-transparent:disabled:hover,
+.btn--neutral-transparent.btn--disabled,
+.btn--neutral-transparent.btn--disabled:hover,
+.btn--neutral-transparent:disabled,
+.btn--neutral-transparent:disabled:hover,
+.btn--subtle-transparent.btn--disabled,
+.btn--subtle-transparent.btn--disabled:hover,
+.btn--subtle-transparent:disabled,
+.btn--subtle-transparent:disabled:hover {
+  background: var(--sds-color-white-200);
+  border-color: transparent;
+  color: var(--sds-color-white-400);
+  box-shadow: none;
+  --state-layer-bg: transparent;
+}
+.btn--primary-solid.btn--disabled,
+.btn--primary-solid.btn--disabled:hover,
+.btn--primary-solid:disabled,
+.btn--primary-solid:disabled:hover,
+.btn--neutral-solid.btn--disabled,
+.btn--neutral-solid.btn--disabled:hover,
+.btn--neutral-solid:disabled,
+.btn--neutral-solid:disabled:hover,
+.btn--subtle-solid.btn--disabled,
+.btn--subtle-solid.btn--disabled:hover,
+.btn--subtle-solid:disabled,
+.btn--subtle-solid:disabled:hover {
+  background: var(--sds-color-gray-400);
+  color: var(--sds-color-gray-300);
+  box-shadow: none;
+  --state-layer-bg: transparent;
+}
+.btn:disabled,
+.btn.btn--disabled {
+  cursor: default;
+}

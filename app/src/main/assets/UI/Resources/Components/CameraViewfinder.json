@@ -1,0 +1,149 @@
+{
+  "component": "CameraViewfinder",
+  "figma": {
+    "fileKey": "Oo9W0U9SyNGNZXyD8urNJZ",
+    "nodeId": "55:5534",
+    "url": "https://www.figma.com/design/Oo9W0U9SyNGNZXyD8urNJZ/Shopping-XR?node-id=55-5534",
+    "screens": {
+      "framing.objectDetected=false": { "nodeId": "55:5534", "url": "https://www.figma.com/design/Oo9W0U9SyNGNZXyD8urNJZ/Shopping-XR?node-id=55-5534" },
+      "framing.objectDetected=true": { "nodeId": "69:6360", "url": "https://www.figma.com/design/Oo9W0U9SyNGNZXyD8urNJZ/Shopping-XR?node-id=69-6360" },
+      "analyzing": { "nodeId": "71:6795", "url": "https://www.figma.com/design/Oo9W0U9SyNGNZXyD8urNJZ/Shopping-XR?node-id=71-6795" },
+      "result": { "nodeId": "72:6928", "url": "https://www.figma.com/design/Oo9W0U9SyNGNZXyD8urNJZ/Shopping-XR?node-id=72-6928" }
+    }
+  },
+  "tokensFile": "tokens.css",
+  "cssFile": null,
+  "previewFile": "preview/camera.html",
+  "description": "온보딩에서 '스마트폰으로 시작'을 눌렀을 때 이어지는 AR 카메라 뷰파인더 화면. Figma에는 4개의 별도 프레임(55:5534, 69:6360, 71:6795, 72:6928)으로 존재하지만, 실제로는 하나의 화면이 screenState에 따라 오가는 것입니다: framing(감지 전/후) → analyzing(촬영 직후, 분석 중) → result(분석 완료) → (다시 찍기) → framing.",
+  "shape": {
+    "frame": "600x1300 (Android canvas, onboarding.html과 동일한 device-viewport/scale(0.8) 셸 재사용)",
+    "background": "var(--sds-color-gray-1000)",
+    "layout": "column, justify-content: space-between",
+    "children": ["AndroidStatusBar(Dark)", "content", "AndroidNavBar(Dark)"]
+  },
+  "props": {
+    "screenState": { "type": "enum", "values": ["framing", "analyzing", "result"], "default": "framing" },
+    "objectDetected": { "type": "boolean", "default": false, "note": "screenState=framing에서만 의미가 있습니다." },
+    "productName": { "type": "string", "default": "민티아 드라이하드", "note": "실제 인식 API가 아직 없어 임의(dummy) 값입니다 — screenState=result에서만 표시됩니다." }
+  },
+  "content": {
+    "layout": "column, align-center, justify-content: space-between, 518.4x960 @ (40.8, 150)",
+    "camera": {
+      "layout": "column, align-center, gap var(--sds-size-space-500)",
+      "cameraStatus": {
+        "ref": "Resources/Components/CameraStatus.json",
+        "props": { "device": "Phone", "cameraOn": "screenState=framing인 동안에만 {{objectDetected}}, analyzing/result에서는 항상 No" },
+        "note": "이 화면에서 cameraOn=Yes는 CameraStatus.json의 일반적 정의(카메라 하드웨어 on/off)보다 좁은 의미입니다 — '카메라 권한 허용됨 AND 원 안에 물체가 감지됨'을 뜻합니다. CameraStatus.json 자체의 정의는 바꾸지 않고 이 화면 스펙에서만 그렇게 바인딩합니다."
+      },
+      "cameraFrame": {
+        "size": "518.4x720",
+        "radius": "var(--radius-camera-frame)",
+        "clip": true,
+        "pov": "screenState=framing: 실시간 <video>(getUserMedia, facingMode:user). screenState=analyzing/result: 같은 <video> 엘리먼트를 video.pause()로 정지시켜 촬영된 프레임처럼 보이게 함 — 실제 정지 이미지로 캡처/치환하지 않고 재생만 멈춥니다.",
+        "guideline": {
+          "ref": "Resources/Components/Guideline.json",
+          "props": { "phone": "Default", "objectDetected": "{{objectDetected}}" },
+          "position": "카메라 프레임 중앙에 absolute + translate(-50%,-50%)로 정확히 센터",
+          "visibility": "screenState=framing에서만 표시, analyzing/result에서는 숨김"
+        },
+        "overlay": {
+          "description": "screenState=analyzing/result에서 카메라 프레임 위에 덮이는 반투명 스크림. 두 상태 모두 같은 박스(패딩 86.4px/83.52px, 배경 var(--sds-color-black-500))를 쓰고 내부 콘텐츠와 justify-content만 다릅니다.",
+          "analyzing": {
+            "justify": "center",
+            "loadingAnimation": {
+              "size": "150x150",
+              "sourceOfTruth": "Animation/Loading.json (Lottie, node 72:7235 'Loading Animation')",
+              "previewAsset": "Animation/Loading.gif",
+              "note": "브라우저 preview는 npm/CDN 의존성 없이 순수 HTML/CSS/JS만 쓰는 원칙이라, Lottie 플레이어 라이브러리를 새로 붙이는 대신 이미 존재하는 150x150 사전 렌더링 GIF를 그대로 사용합니다. 실제 Android 구현에서는 Loading.json을 Lottie-Android로 재생하면 됩니다."
+            }
+          },
+          "result": {
+            "justify": "space-between",
+            "question": { "text": "이 제품이 맞나요?", "static": true, "textStyle": "TextStyleBodyBase", "color": "var(--sds-color-gray-300)" },
+            "productName": { "text": "{{productName}}", "textStyle": "TextStyleHeading", "color": "var(--sds-color-white-1000)" },
+            "retakeButton": {
+              "ref": "Resources/Components/Button.json",
+              "props": { "variant": "Neutral", "color": "Transparent", "size": "Medium", "state": "Default", "iconStart": "Camera", "label": "다시 찍기" },
+              "action": "screenState을 framing으로 되돌림 (video.play() 재개, 디텍션 루프 재시작, guideline/cameraStatus/안내 문구 초기화)"
+            }
+          }
+        }
+      }
+    },
+    "instructionChip": {
+      "textByState": {
+        "framing": "원 안에 물체를 두고 촬영해주세요.",
+        "analyzing": "사진 분석 중...",
+        "result": "분석이 완료되었어요!"
+      },
+      "padding": "var(--sds-size-space-300) var(--sds-size-space-600)",
+      "radius": "var(--radius-full)",
+      "background": "var(--sds-color-white-200)",
+      "textColor": "var(--sds-color-white-1000)",
+      "textStyle": "TextStyleSingleLineBodySmallStrong"
+    },
+    "bottomSlot": {
+      "description": "화면 하단은 screenState=framing에서 촬영 IconButton 하나, analyzing/result에서 2버튼 actionRow로 서로 대체됩니다 — 동시에 보이지 않습니다.",
+      "captureButton": {
+        "visibleWhen": "framing",
+        "ref": "Resources/Components/IconButton.json",
+        "props": { "variant": "Primary", "color": "Solid", "size": "Large", "icon": "Camera" },
+        "element": "실제 <button type=\"button\" disabled> — 시각 전용인 Button.css/IconButton.css의 기존 .icon-btn--disabled(카드 비강조용)와 달리 여기는 진짜로 탭 불가능해야 하므로 native disabled 속성을 사용합니다.",
+        "stateMap": {
+          "objectDetected=false": "Primary.Solid.Disabled — 회색, 클릭 불가",
+          "objectDetected=true": "Primary.Solid.Default — 브랜드 그라디언트, 클릭 가능, .interactive-surface 추가. 클릭 시 screenState=analyzing으로 전환."
+        }
+      },
+      "actionRow": {
+        "visibleWhen": "analyzing, result",
+        "layout": "row, gap var(--sds-size-space-400), each button flex:1 0 0, padding-x var(--sds-size-space-800)",
+        "priceCompareButton": {
+          "ref": "Resources/Components/Button.json",
+          "props": { "size": "Medium", "iconStart": "Dollar sign", "label": "가격 비교" },
+          "stateMap": {
+            "analyzing": "Neutral.Transparent.Disabled (시각적으로만 비활성 — Button.css의 기존 컨벤션. 클릭 핸들러도 상태 체크로 막아 실제로도 동작하지 않음)",
+            "result": "Neutral.Solid.Default — 활성화되지만 보조 액션 톤 (진한 회색)"
+          },
+          "action": "화면 범위 밖(가격 비교 후속 플로우) — 현재는 콘솔 로그만 남김"
+        },
+        "productInfoButton": {
+          "ref": "Resources/Components/Button.json",
+          "props": { "size": "Medium", "iconStart": "Info", "label": "상품 정보" },
+          "stateMap": {
+            "analyzing": "Neutral.Transparent.Disabled",
+            "result": "Primary.Solid.Default — 추천/기본 액션 톤 (브랜드 그라디언트)"
+          },
+          "action": "화면 범위 밖(상품 정보 후속 플로우) — 현재는 콘솔 로그만 남김"
+        }
+      }
+    }
+  },
+  "newTokensIntroduced": [
+    "--radius-camera-frame (tokens.css) — Camera Frame 코너 반경 34.56px, 어떤 Figma 변수에도 바인딩되지 않은 1회성 리터럴",
+    "--sds-color-gray-1000 (tokens.css) — 화면 배경, 기존 --grey-1000 프리미티브에 시맨틱 별칭만 없던 것을 추가",
+    "--sds-color-black-500 (tokens.css) — analyzing/result 스크림 배경, 기존 --black-500 프리미티브에 시맨틱 별칭만 없던 것을 추가",
+    "IconButton.json sizes.Large — 96px 촬영 버튼 (padding var(--sds-size-space-800) + iconSize var(--icon-size-md), 기존 토큰 재사용, 새 토큰 아님)"
+  ],
+  "interaction": {
+    "objectDetection": {
+      "trigger": "카메라 프레임 중앙의 Guideline 원 영역 내부 픽셀을 주기적으로 샘플링해 분산/에지 대비를 계산하는 경량 휴리스틱. 실제 ML 객체 인식 모델이 아닌 placeholder입니다 (향후 TensorFlow.js/ML Kit 등으로 교체 가능).",
+      "debounce": "약 300~500ms 동안 조건이 유지되어야 상태가 뒤집힘 (깜빡임 방지)",
+      "bidirectional": "물체가 원 밖으로 나가면 다시 감지 전 상태로 되돌아갑니다 — 1회성 락이 아니라 실시간 프레이밍 인디케이터입니다.",
+      "drives": ["cameraStatus.cameraOn", "guideline.objectDetected", "captureButton의 disabled 여부/스타일"],
+      "prerequisite": "카메라 접근 권한이 허용되어야만 objectDetected가 true가 될 수 있습니다 (권한 거부 시 항상 false + 비디오 자리에 안내 메시지).",
+      "activeWhen": "screenState=framing"
+    },
+    "capture": {
+      "trigger": "screenState=framing에서 captureButton 클릭 (objectDetected=true일 때만 가능)",
+      "effect": "screenState → analyzing. video.pause(), 디텍션 루프 정지, guideline 숨김, cameraStatus=No, 안내 문구 변경, 하단 슬롯을 actionRow(둘 다 비활성)로 교체, 스크림+Loading 애니메이션 표시.",
+      "then": "실제 AI 분석 API가 아직 없어 ANALYSIS_MS(5000ms) 고정 타이머로 대체 — 타이머가 끝나면 자동으로 screenState=result.",
+      "resultRevert": "result 상태에서 '다시 찍기' 클릭 시 screenState=framing으로 복귀 (video.play() 재개, 디텍션 루프 재시작, 모든 표시가 초기화됨)."
+    }
+  },
+  "notes": [
+    "이 스펙은 네 개의 컴포넌트가 아니라 하나의 화면입니다 — Figma의 네 node id는 같은 화면의 네 상태 스냅샷입니다.",
+    "AndroidStatusBar/AndroidNavBar는 다른 preview 페이지들과 동일하게 별도 .css 없이 각 preview HTML의 <style> 블록에 인라인으로 구현합니다 (다크 모드 색상/에셋 사용).",
+    "실제 카메라 권한/디텍션 동작 테스트는 브라우저에서 직접 확인해야 합니다 — file:// 로 열면 일부 브라우저가 getUserMedia를 차단할 수 있어, 필요하면 root/preview에서 `python3 -m http.server`로 열어보세요.",
+    "productName/분석 결과는 전부 더미 데이터입니다 — 실제 AI 인식 API 연동은 이후 작업입니다."
+  ]
+}

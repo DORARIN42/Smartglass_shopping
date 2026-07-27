@@ -16,10 +16,9 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.raybanvision.BuildConfig
 import com.example.raybanvision.data.AnalysisResult
+import com.example.raybanvision.data.DISPLAY_SAMPLES
 import com.example.raybanvision.data.ProductCandidate
 import com.example.raybanvision.data.ResultStatus
-import com.example.raybanvision.network.mergeWith
-import com.example.raybanvision.network.ShoppingApiClient
 import com.meta.wearable.dat.camera.Stream
 import com.meta.wearable.dat.camera.addStream
 import com.meta.wearable.dat.camera.types.PhotoData
@@ -47,8 +46,6 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
-import java.net.ConnectException
-import java.net.SocketTimeoutException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -77,10 +74,6 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
     private var stream: Stream? = null
     private var display: Display? = null
     private var previewJob: kotlinx.coroutines.Job? = null
-    private var analysisMessageJob: kotlinx.coroutines.Job? = null
-    private var currentAnalysisJobId: String? = null
-    private var latestAnalysisResult: AnalysisResult? = null
-    private val shoppingApiClient = ShoppingApiClient(BuildConfig.ANALYSIS_BASE_URL)
 
     // ─── LLM 팀 인터페이스 ────────────────────────────────────────────────
     // 사용자가 [검색]을 눌러 LLM 분석을 요청한 사진. LLM 팀은 이 StateFlow를 collect한다.
@@ -275,10 +268,10 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                     it.copy(
                         isCapturing = false,
                         pendingPhotoFile = file,
-                        statusMessage = if (file != null) "상품명 확인 중..." else "파일 저장 실패",
+                        statusMessage = if (file != null) "촬영 완료 — 재촬영 또는 검색" else "파일 저장 실패",
                     )
                 }
-                if (file != null) identifyProduct(file) else startPreview()
+                if (file == null) startPreview()
             }
             return
         }
@@ -292,10 +285,9 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                         it.copy(
                             isCapturing = false,
                             pendingPhotoFile = file,
-                            statusMessage = if (file != null) "상품명 확인 중..." else "파일 저장 실패",
+                            statusMessage = if (file != null) "촬영 완료 — 재촬영 또는 검색" else "파일 저장 실패",
                         )
                     }
-                    if (file != null) identifyProduct(file) else startPreview()
                 }
                 .onFailure { error, _ ->
                     Log.e(TAG, "Photo capture failed: ${error.description}")
@@ -307,26 +299,12 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
 
     // [재촬영] 미리보기 사진을 버리고(캐시 파일 삭제) 라이브 프리뷰로 돌아간다.
     fun retakePhoto() {
-        stopAnalysisMessages()
-        val jobId = currentAnalysisJobId
-        currentAnalysisJobId = null
-        latestAnalysisResult = null
         val file = _uiState.value.pendingPhotoFile
         viewModelScope.launch(Dispatchers.IO) {
-            if (jobId != null) {
-                runCatching { shoppingApiClient.cancelAnalysis(jobId) }
-                    .onFailure { Log.w(TAG, "Failed to cancel analysis job $jobId", it) }
-            }
             if (file?.delete() == false) Log.w(TAG, "Failed to delete ${file.absolutePath}")
         }
         _uiState.update {
-            it.copy(
-                pendingPhotoFile = null,
-                isSearching = false,
-                awaitingProductConfirmation = false,
-                searchResult = null,
-                statusMessage = "다시 촬영해주세요",
-            )
+            it.copy(pendingPhotoFile = null, isSearching = false, searchResult = null, statusMessage = "다시 촬영해주세요")
         }
         startPreview() // 라이브 프리뷰 재개
     }
@@ -334,173 +312,13 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
     // [검색] 미리보기 사진을 LLM 파이프라인으로 전송하고 폰 화면에 결과를 표시한다.
     fun submitForSearch() {
         val file = _uiState.value.pendingPhotoFile ?: return
-        continueAnalysis(file)
-    }
+        _uiState.update { it.copy(isSearching = true, statusMessage = "검색 완료") }
+        _capturedPhotoFile.value = file // LLM 팀이 collect하는 실제 전송 지점
 
-    private fun identifyProduct(file: File) {
-        _capturedPhotoFile.value = file
-        _uiState.update {
-            it.copy(
-                isSearching = true,
-                awaitingProductConfirmation = false,
-                searchResult = null,
-                statusMessage = "상품명 확인 중...",
-            )
+        // 샘플 검색 결과를 폰 화면에 바로 표시
+        DISPLAY_SAMPLES.firstOrNull()?.let { sample ->
+            _uiState.update { it.copy(searchResult = sample.result) }
         }
-        displayLoading()
-
-        viewModelScope.launch(Dispatchers.IO) {
-            runCatching {
-                val jobId = shoppingApiClient.startAnalysis(file)
-                currentAnalysisJobId = jobId
-
-                repeat(40) {
-                    delay(1000)
-                    val update = shoppingApiClient.getAnalysisStatus(jobId)
-                    Log.d(
-                        TAG,
-                        "identity status job=$jobId state=${update.state} stage=${update.stage} " +
-                            "rawStatus=${update.rawStatus} paused=${update.isPausedIdentity} " +
-                            "finished=${update.isFinished} failed=${update.isFailed} " +
-                            "product=${update.result?.productName} original=${update.result?.originalProductName} " +
-                            "brand=${update.result?.brand} message=${update.message}",
-                    )
-                    update.result?.let { partial ->
-                        latestAnalysisResult = latestAnalysisResult.mergeWith(partial)
-                    }
-                    if (update.isPausedIdentity) {
-                        val identified = latestAnalysisResult
-                        if (!identified?.productName.isNullOrBlank() || !identified?.originalProductName.isNullOrBlank()) {
-                            return@runCatching identified!!
-                        }
-                        error("Product identity paused without product_name.")
-                    }
-                    if (update.isFailed) error(update.message ?: "상품 식별 실패")
-                    if (update.isFinished) {
-                        return@runCatching latestAnalysisResult ?: error("상품을 식별하지 못했습니다.")
-                    }
-                }
-                error("상품 식별 시간이 초과되었습니다.")
-            }
-                .onSuccess { identified ->
-                    _uiState.update {
-                        it.copy(
-                            isSearching = false,
-                            awaitingProductConfirmation = true,
-                            searchResult = identified,
-                            statusMessage = "해당 상품이 맞습니까?",
-                        )
-                    }
-                }
-                .onFailure { throwable ->
-                    Log.e(TAG, "Product identification failed", throwable)
-                    val isConnectionError = throwable is SocketTimeoutException || throwable is ConnectException
-                    val result = AnalysisResult(
-                        status = ResultStatus.ERROR,
-                        headline = if (isConnectionError) "서버 연결 실패" else "상품 식별 실패",
-                        message = throwable.message ?: "분석 서버 연결을 확인해주세요.",
-                    )
-                    _uiState.update {
-                        it.copy(
-                            isSearching = false,
-                            awaitingProductConfirmation = false,
-                            searchResult = result,
-                            statusMessage = if (isConnectionError) "서버 연결 실패" else "상품 식별 실패",
-                        )
-                    }
-                }
-        }
-    }
-
-    private fun continueAnalysis(file: File) {
-        startAnalysisMessages()
-        _capturedPhotoFile.value = file
-        displayLoading()
-
-        viewModelScope.launch(Dispatchers.IO) {
-            runCatching {
-                val jobId = currentAnalysisJobId ?: shoppingApiClient.startAnalysis(file).also { currentAnalysisJobId = it }
-                shoppingApiClient.continueAnalysis(jobId)
-                var result = latestAnalysisResult
-
-                repeat(120) {
-                    delay(1500)
-                    val update = shoppingApiClient.getAnalysisStatus(jobId)
-                    update.result?.let { partial ->
-                        result = result.mergeWith(partial)
-                        latestAnalysisResult = result
-                        result?.let { merged ->
-                            _uiState.update {
-                                it.copy(
-                                    isSearching = true,
-                                    awaitingProductConfirmation = false,
-                                    searchResult = merged,
-                                )
-                            }
-                        }
-                    }
-
-                    if (update.isFinished) return@runCatching result ?: error("Analysis completed without result.")
-                    if (update.isFailed) error(update.message ?: "Analysis job failed.")
-                }
-
-                result ?: error("Analysis timed out.")
-            }
-                .onSuccess { result ->
-                    latestAnalysisResult = result
-                    stopAnalysisMessages()
-                    _uiState.update {
-                        it.copy(
-                            isSearching = false,
-                            awaitingProductConfirmation = false,
-                            searchResult = result,
-                            statusMessage = "완료",
-                        )
-                    }
-                    displayResult(result)
-                }
-                .onFailure { throwable ->
-                    stopAnalysisMessages()
-                    Log.e(TAG, "Product analysis failed", throwable)
-                    val result = AnalysisResult(
-                        status = ResultStatus.ERROR,
-                        headline = "분석 실패",
-                        message = throwable.message ?: "분석 서버 연결을 확인해주세요.",
-                    )
-                    _uiState.update {
-                        it.copy(
-                            isSearching = false,
-                            awaitingProductConfirmation = false,
-                            searchResult = result,
-                            statusMessage = "분석 실패",
-                        )
-                    }
-                    displayResult(result)
-                }
-        }
-    }
-
-    private fun startAnalysisMessages() {
-        analysisMessageJob?.cancel()
-        val messages = listOf(
-            "상품 식별 중...",
-            "스펙 검색 중...",
-            "후기 정리 중...",
-            "가격 검색 중...",
-        )
-        analysisMessageJob = viewModelScope.launch {
-            var index = 0
-            while (true) {
-                _uiState.update { it.copy(isSearching = true, statusMessage = messages[index]) }
-                index = (index + 1) % messages.size
-                delay(1800)
-            }
-        }
-    }
-
-    private fun stopAnalysisMessages() {
-        analysisMessageJob?.cancel()
-        analysisMessageJob = null
     }
 
     fun displayLoading() {
@@ -516,9 +334,6 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
     }
 
     fun stopSession() {
-        stopAnalysisMessages()
-        currentAnalysisJobId = null
-        latestAnalysisResult = null
         stopPreview()
         stream?.stop()
         session?.removeDisplay()

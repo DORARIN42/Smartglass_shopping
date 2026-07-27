@@ -1,0 +1,58 @@
+/* ==========================================================================
+   Shopping XR — Price Information
+   Figma: node 72:7740 · spec: Resources/Components/PriceInformation.json
+   Load order: tokens.css → interactions.css → Button.css → PriceInformation.css
+   ========================================================================== */
+
+.price-card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sds-size-space-600);
+  padding: var(--sds-size-space-400);
+  width: var(--size-price-card-width);
+  border-style: solid;
+  border-width: var(--sds-size-stroke-border-thick);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background: var(--ColorButtonTransparentWhiteDefault);
+  font-family: "Inter", var(--sds-typography-body-font-family);
+}
+
+.price-card__heading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sds-size-space-200);
+  width: 100%;
+}
+
+.price-card__price {
+  display: flex;
+  align-items: center;
+  gap: 4px; /* below tokens.css's smallest spacing step (200 = 8px) — see PriceInformation.json notes */
+  margin: 0;
+}
+
+.price-card__vendor {
+  margin: 0;
+}
+
+/* price/vendor don't set their own color — both inherit --headingColor from
+   the state below, same as PriceInformation.json's shared headingColor */
+.price-card .btn {
+  width: 100%;
+}
+
+/* Default — pair with class="EffectStyleButtonDefault" (tokens.css) in markup for shadow */
+.price-card--default {
+  border-color: var(--stroke-white-default);
+  color: var(--sds-color-white-700);
+}
+
+/* Focused — pair with class="EffectStyleButtonSelected" (tokens.css) in markup for shadow */
+.price-card--focused {
+  border-color: var(--stroke-white-focused);
+  color: var(--sds-color-white-1000);
+}

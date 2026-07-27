@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<title>Shoply — Onboarding (Galaxy S25+)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../interactions.css">
+<link rel="stylesheet" href="../Resources/Components/Button.css">
+<style>
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    background: #1a1a1a;
+    font-family: 'Inter', var(--sds-typography-body-font-family);
+  }
+
+  .page-label {
+    color: #999;
+    font-size: 13px;
+    letter-spacing: 0.02em;
+  }
+
+  /* Galaxy S25+ CSS viewport: 480 x 1040 (device pixel ratio 3) */
+  .device-viewport {
+    width: 480px;
+    height: 1040px;
+    overflow: hidden;
+    border-radius: 36px;
+    box-shadow: 0 0 0 10px #000, 0 24px 64px rgba(0, 0, 0, 0.5);
+    position: relative;
+  }
+
+  /* Screen is authored at its native Figma frame size (600x1300) then
+     scaled 0.8x to exactly fill the 480x1040 Galaxy S25+ viewport. */
+  .canvas {
+    width: 600px;
+    height: 1300px;
+    transform: scale(0.8);
+    transform-origin: top left;
+    position: relative;
+    overflow: hidden;
+    background: var(--yellow-50);
+  }
+
+  /* ---------- AndroidStatusBar (Resources/Components/AndroidStatusBar.json, Light) ---------- */
+  .status-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 600px;
+    height: 40px;
+    background: #F5F5F5;
+  }
+  .status-bar .time {
+    position: absolute;
+    left: 3.33%;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Roboto', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 23.333px;
+    letter-spacing: 0.0233px;
+    color: #170E2B;
+    white-space: nowrap;
+  }
+  .status-bar .icons {
+    position: absolute;
+    right: 3.33%;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .status-bar .icons img.cellular { width: 30px; height: 20px; }
+  .status-bar .icons img.wifi { width: 26.667px; height: 20px; }
+  .status-bar .icons img.battery { width: 40px; height: 20px; }
+
+  /* ---------- AndroidNavBar (Resources/Components/AndroidNavBar.json, Light) ---------- */
+  .nav-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 600px;
+    height: 80px;
+    background: #F5F5F5;
+  }
+  .nav-bar .back {
+    position: absolute;
+    left: calc(50% - 168.33px);
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 23.333px;
+  }
+  .nav-bar .home {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 26.667px;
+    height: 26.667px;
+  }
+  .nav-bar .recent {
+    position: absolute;
+    left: calc(50% + 166.67px);
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 23.333px;
+    height: 23.333px;
+    border-radius: 2px;
+    background: #797979;
+  }
+
+  /* ---------- Screen content ---------- */
+  .container {
+    position: absolute;
+    left: 60px;
+    top: 250px;
+    width: 480px;
+    height: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 80px;
+  }
+  .logo-group img.logo {
+    display: block;
+    width: 220.149px;
+    height: 168.061px;
+  }
+  .subtitle {
+    margin: 0;
+    color: var(--sds-color-gray-700);
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+  }
+
+  /* Button visuals (base/size/variant/hover) now live in Resources/Components/Button.css
+     + interactions.css — this page only needs to make each instance full-width. */
+  .button-group .btn {
+    width: 100%;
+  }
+</style>
+</head>
+<body>
+  <p class="page-label">Galaxy S25+ 미리보기 · 480×1040 CSS px</p>
+  <div class="device-viewport">
+    <div class="canvas">
+      <!-- AndroidStatusBar: Light -->
+      <div class="status-bar">
+        <span class="time">12:30</span>
+        <div class="icons">
+          <img class="cellular" src="../Resources/StatusBar/Cellular=Light.svg" alt="" />
+          <img class="wifi" src="../Resources/StatusBar/Wifi=Light.svg" alt="" />
+          <img class="battery" src="../Resources/StatusBar/Battery=Light.svg" alt="" />
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="logo-group">
+          <img class="logo" src="../Resources/Brand/Logo.svg" alt="Shoply" />
+          <p class="subtitle TextStyleSubheading">Shop smarter, Spend wiser</p>
+        </div>
+
+        <div class="button-group">
+          <a class="btn btn--medium btn--primary-solid interactive-surface" href="#">
+            <span class="icon">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10.4 14C10.4 15.7673 8.96731 17.2 7.2 17.2C5.43269 17.2 4 15.7673 4 14C4 12.2327 5.43269 10.8 7.2 10.8C8.96731 10.8 10.4 12.2327 10.4 14ZM10.4 14C10.4 13.5756 10.5686 13.1687 10.8686 12.8686C11.1687 12.5685 11.5757 12.4 12 12.4C12.4243 12.4 12.8313 12.5685 13.1314 12.8686C13.4314 13.1687 13.6 13.5756 13.6 14M13.6 14C13.6 15.7673 15.0327 17.2 16.8 17.2C18.5673 17.2 20 15.7673 20 14C20 12.2327 18.5673 10.8 16.8 10.8C15.0327 10.8 13.6 12.2327 13.6 14ZM4.4 12.4L6.4 7.59997C6.96 6.55997 7.52 5.99997 8.8 5.99997M19.6 12.4L17.6 7.59997C17.04 6.55997 16.4 5.99997 15.2 5.99997" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="TextStyleSingleLineBodyBase">글라스 연동하기</span>
+          </a>
+
+          <a class="btn btn--medium btn--neutral-solid interactive-surface" href="camera.html">
+            <span class="icon">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 18H12.01M7 2H17C18.1046 2 19 2.89543 19 4V20C19 21.1046 18.1046 22 17 22H7C5.89543 22 5 21.1046 5 20V4C5 2.89543 5.89543 2 7 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="TextStyleSingleLineBodyBase">스마트폰으로 시작</span>
+          </a>
+
+          <a class="btn btn--medium btn--subtle-solid interactive-surface" href="#">
+            <span class="icon">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15 7H18C18.6566 7 19.3068 7.12933 19.9134 7.3806C20.52 7.63188 21.0712 8.00017 21.5355 8.46447C21.9998 8.92876 22.3681 9.47996 22.6194 10.0866C22.8707 10.6932 23 11.3434 23 12C23 12.6566 22.8707 13.3068 22.6194 13.9134C22.3681 14.52 21.9998 15.0712 21.5355 15.5355C21.0712 15.9998 20.52 16.3681 19.9134 16.6194C19.3068 16.8707 18.6566 17 18 17H15M9 17H6C5.34339 17 4.69321 16.8707 4.08658 16.6194C3.47995 16.3681 2.92876 15.9998 2.46447 15.5355C1.52678 14.5979 1 13.3261 1 12C1 10.6739 1.52678 9.40215 2.46447 8.46447C3.40215 7.52678 4.67392 7 6 7H9M8 12H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="TextStyleSingleLineBodyBase">저장한 링크 보기</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- AndroidNavBar: Light -->
+      <div class="nav-bar">
+        <img class="back" src="../Resources/NavBar/Back=Light.svg" alt="" />
+        <img class="home" src="../Resources/NavBar/Home=Light.svg" alt="" />
+        <div class="recent"></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

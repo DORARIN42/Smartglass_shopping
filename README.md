@@ -100,7 +100,8 @@ MainScreen
 
 ```properties
 sdk.dir=/Users/yourname/Library/Android/sdk
-github_token=YOUR_GITHUB_PAT_HERE   # read:packages 스코프 필요
+github_username=YOUR_GITHUB_USERNAME
+github_token=YOUR_GITHUB_PAT_HERE   # classic PAT, read:packages 스코프 필요
 ```
 
 ### 2. Meta AI 앱 설정

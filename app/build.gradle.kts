@@ -30,11 +30,6 @@ android {
         manifestPlaceholders["mwdat_client_token"] =
             providers.gradleProperty("mwdat_client_token").orNull
                 ?: localProperties.getProperty("mwdat_client_token", "0")
-
-        val analysisBaseUrl =
-            providers.gradleProperty("analysis_base_url").orNull
-                ?: localProperties.getProperty("analysis_base_url", "http://192.168.1.103:8000/")
-        buildConfigField("String", "ANALYSIS_BASE_URL", "\"$analysisBaseUrl\"")
     }
 
     buildTypes {
@@ -66,9 +61,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.exifinterface)
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.converter.gson)
-    implementation(libs.okhttp)
+    implementation(libs.mlkit.od)
     implementation(libs.mwdat.core)
     implementation(libs.mwdat.camera)
     implementation(libs.mwdat.display)
