@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<title>Shoply — Camera Viewfinder (Galaxy S25+)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../interactions.css">
+<link rel="stylesheet" href="../Resources/Components/Button.css">
+<link rel="stylesheet" href="../Resources/Components/IconButton.css">
+<style>
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    background: #1a1a1a;
+    font-family: 'Inter', var(--sds-typography-body-font-family);
+  }
+
+  .page-label {
+    color: #999;
+    font-size: 13px;
+    letter-spacing: 0.02em;
+  }
+
+  /* Galaxy S25+ CSS viewport: 480 x 1040 (device pixel ratio 3) — same shell as onboarding.html */
+  .device-viewport {
+    width: 480px;
+    height: 1040px;
+    overflow: hidden;
+    border-radius: 36px;
+    box-shadow: 0 0 0 10px #000, 0 24px 64px rgba(0, 0, 0, 0.5);
+    position: relative;
+  }
+
+  /* Screen is authored at its native Figma frame size (600x1300) then
+     scaled 0.8x to exactly fill the 480x1040 Galaxy S25+ viewport. */
+  .canvas {
+    width: 600px;
+    height: 1300px;
+    transform: scale(0.8);
+    transform-origin: top left;
+    position: relative;
+    overflow: hidden;
+    background: var(--sds-color-gray-1000);
+  }
+
+  /* ---------- AndroidStatusBar (Resources/Components/AndroidStatusBar.json, Dark) ---------- */
+  .status-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 600px;
+    height: 40px;
+    background: #0F0F0F;
+  }
+  .status-bar .time {
+    position: absolute;
+    left: 3.33%;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Roboto', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 23.333px;
+    letter-spacing: 0.0233px;
+    color: rgba(255, 255, 255, 0.9);
+    white-space: nowrap;
+  }
+  .status-bar .icons {
+    position: absolute;
+    right: 3.33%;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .status-bar .icons img.cellular { width: 30px; height: 20px; }
+  .status-bar .icons img.wifi { width: 26.667px; height: 20px; }
+  .status-bar .icons img.battery { width: 40px; height: 20px; }
+
+  /* ---------- AndroidNavBar (Resources/Components/AndroidNavBar.json, Dark) ---------- */
+  .nav-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 600px;
+    height: 80px;
+    background: #0F0F0F;
+  }
+  .nav-bar .back {
+    position: absolute;
+    left: calc(50% - 168.33px);
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 23.333px;
+  }
+  .nav-bar .home {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 26.667px;
+    height: 26.667px;
+  }
+  .nav-bar .recent {
+    position: absolute;
+    left: calc(50% + 166.67px);
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 23.333px;
+    height: 23.333px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.9);
+  }
+
+  /* ---------- Screen content (Resources/Components/CameraViewfinder.json) ---------- */
+  .content {
+    position: absolute;
+    left: 40.8px;
+    top: 150px;
+    width: 518.4px;
+    height: 960px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .camera-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sds-size-space-500);
+  }
+
+  .camera-status-dot {
+    width: var(--size-camera-status-phone);
+    height: var(--size-camera-status-phone);
+    display: block;
+  }
+
+  .camera-frame {
+    position: relative;
+    width: 518.4px;
+    height: 720px;
+    border-radius: var(--radius-camera-frame);
+    overflow: hidden;
+    background: var(--sds-color-gray-1000);
+  }
+
+  .camera-frame video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* front camera feeds are natively mirrored on most devices/webcams */
+    transform: scaleX(-1);
+  }
+
+  .camera-permission-message {
+    position: absolute;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: var(--sds-size-space-600);
+    text-align: center;
+    color: var(--sds-color-white-700);
+  }
+  .camera-permission-message.visible { display: flex; }
+
+  .guideline {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: var(--size-guideline-phone);
+    height: var(--size-guideline-phone);
+    pointer-events: none;
+  }
+
+  .instruction-chip {
+    padding: var(--sds-size-space-300) var(--sds-size-space-600);
+    border-radius: var(--radius-full);
+    background: var(--sds-color-white-200);
+    color: var(--sds-color-white-1000);
+    white-space: nowrap;
+  }
+
+  /* capture button visuals (size/variant/color/disabled) live in IconButton.css
+     + interactions.css — nothing to add here beyond centering, which the
+     .content flex column already provides. */
+
+  /* ---------- Analyzing / Result overlay (Figma node 71:6795 / 72:6928) ----------
+     Sits over the frozen photo once a shot is taken. Same scrim box for both
+     sub-states — only its inner content + justify-content differ. */
+  .camera-overlay {
+    display: none;
+    position: absolute;
+    inset: 0;
+    flex-direction: column;
+    align-items: center;
+    padding: 86.4px 83.52px; /* one-off screen geometry, not a spacing-scale step — matches the Figma frame exactly */
+    background: var(--sds-color-black-500);
+  }
+  .camera-overlay.is-visible { display: flex; }
+  .camera-overlay--analyzing { justify-content: center; }
+  .camera-overlay--result { justify-content: space-between; }
+
+  .loading-spinner {
+    width: 150px;
+    height: 150px;
+    display: block;
+  }
+
+  .overlay-question {
+    margin: 0;
+    color: var(--sds-color-gray-300);
+    white-space: nowrap;
+  }
+
+  .overlay-product-name {
+    margin: 0;
+    color: var(--sds-color-white-1000);
+    white-space: nowrap;
+  }
+
+  /* Bottom slot swaps between the capture IconButton (framing) and this
+     two-button row (analyzing/result) — only one is ever visible. */
+  .action-row {
+    display: none;
+    gap: var(--sds-size-space-400);
+    align-items: center;
+    width: 100%;
+    padding: 0 var(--sds-size-space-800);
+  }
+  .action-row.is-visible { display: flex; }
+  .action-row .btn { flex: 1 0 0; }
+</style>
+</head>
+<body>
+  <p class="page-label">Galaxy S25+ 미리보기 · 480×1040 CSS px · 카메라 권한 필요</p>
+  <div class="device-viewport">
+    <div class="canvas">
+      <!-- AndroidStatusBar: Dark -->
+      <div class="status-bar">
+        <span class="time">12:30</span>
+        <div class="icons">
+          <img class="cellular" src="../Resources/StatusBar/Cellular=Dark.svg" alt="" />
+          <img class="wifi" src="../Resources/StatusBar/Wifi=Dark.svg" alt="" />
+          <img class="battery" src="../Resources/StatusBar/Battery=Dark.svg" alt="" />
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="camera-block">
+          <img class="camera-status-dot" id="cameraStatusDot"
+               src="../Resources/CameraStatus/CameraOn=No,Device=Phone.svg" alt="" />
+
+          <div class="camera-frame">
+            <video id="pov" autoplay muted playsinline></video>
+            <p class="camera-permission-message TextStyleBodySmall" id="permissionMessage">
+              카메라 접근 권한이 필요합니다.<br />브라우저의 카메라 권한을 허용해주세요.
+            </p>
+            <img class="guideline" id="guideline"
+                 src="../Resources/Guideline/ObjectDetected=No,Phone=Default.svg" alt="" />
+
+            <!-- Analyzing sub-state (node 71:6795) -->
+            <div class="camera-overlay camera-overlay--analyzing" id="analyzingOverlay">
+              <img class="loading-spinner" src="../Animation/Loading.gif" alt="분석 중" />
+            </div>
+
+            <!-- Result sub-state (node 72:6928) -->
+            <div class="camera-overlay camera-overlay--result" id="resultOverlay">
+              <p class="overlay-question TextStyleBodyBase">이 제품이 맞나요?</p>
+              <p class="overlay-product-name TextStyleHeading" id="resultProductName">민티아 드라이하드</p>
+              <a class="btn btn--medium btn--neutral-transparent interactive-surface" href="#" id="retakeButton">
+                <span class="icon">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M23 19C23 19.5304 22.7893 20.0391 22.4142 20.4142C22.0391 20.7893 21.5304 21 21 21H3C2.46957 21 1.96086 20.7893 1.58579 20.4142C1.21071 20.0391 1 19.5304 1 19V8C1 7.46957 1.21071 6.96086 1.58579 6.58579C1.96086 6.21071 2.46957 6 3 6H7L9 3H15L17 6H21C21.5304 6 22.0391 6.21071 22.4142 6.58579C22.7893 6.96086 23 7.46957 23 8V19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 17C14.2091 17 16 15.2091 16 13C16 10.7909 14.2091 9 12 9C9.79086 9 8 10.7909 8 13C8 15.2091 9.79086 17 12 17Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                <span class="TextStyleSingleLineBodyBase">다시 찍기</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <p class="instruction-chip TextStyleSingleLineBodySmallStrong" id="instructionChip">원 안에 물체를 두고 촬영해주세요.</p>
+
+        <button type="button" class="icon-btn icon-btn--large icon-btn--primary-solid" id="captureButton" disabled>
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M23 19C23 19.5304 22.7893 20.0391 22.4142 20.4142C22.0391 20.7893 21.5304 21 21 21H3C2.46957 21 1.96086 20.7893 1.58579 20.4142C1.21071 20.0391 1 19.5304 1 19V8C1 7.46957 1.21071 6.96086 1.58579 6.58579C1.96086 6.21071 2.46957 6 3 6H7L9 3H15L17 6H21C21.5304 6 22.0391 6.21071 22.4142 6.58579C22.7893 6.96086 23 7.46957 23 8V19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 17C14.2091 17 16 15.2091 16 13C16 10.7909 14.2091 9 12 9C9.79086 9 8 10.7909 8 13C8 15.2091 9.79086 17 12 17Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+
+        <div class="action-row" id="actionRow">
+          <a class="btn btn--medium" href="#" id="priceCompareButton">
+            <span class="icon">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 1V23M17 5H9.5C8.57174 5 7.6815 5.36875 7.02513 6.02513C6.36875 6.6815 6 7.57174 6 8.5C6 9.42826 6.36875 10.3185 7.02513 10.9749C7.6815 11.6312 8.57174 12 9.5 12H14.5C15.4283 12 16.3185 12.3687 16.9749 13.0251C17.6313 13.6815 18 14.5717 18 15.5C18 16.4283 17.6313 17.3185 16.9749 17.9749C16.3185 18.6313 15.4283 19 14.5 19H6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="TextStyleSingleLineBodyBase">가격 비교</span>
+          </a>
+          <a class="btn btn--medium" href="#" id="productInfoButton">
+            <span class="icon">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="TextStyleSingleLineBodyBase">상품 정보</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- AndroidNavBar: Dark -->
+      <div class="nav-bar">
+        <img class="back" src="../Resources/NavBar/Back=Dark.svg" alt="" />
+        <img class="home" src="../Resources/NavBar/Home=Dark.svg" alt="" />
+        <div class="recent"></div>
+      </div>
+    </div>
+  </div>
+
+<script>
+/*
+ * Object-detection placeholder — Resources/Components/CameraViewfinder.json
+ *
+ * There is no real ML model wired up here. This samples the live video
+ * feed inside the guideline circle on a timer and flags "detected" when the
+ * region's luminance variance rises above a plain, mostly-static background
+ * — a hand/object introduces edges + color variation an empty wall/desk
+ * doesn't have. It's a stand-in for a future real detector (e.g. a
+ * TensorFlow.js / ML Kit model); tune SCORE_THRESHOLD against your own
+ * camera if it feels too sensitive or not sensitive enough.
+ */
+(function () {
+  var video = document.getElementById('pov');
+  var permissionMessage = document.getElementById('permissionMessage');
+  var guideline = document.getElementById('guideline');
+  var cameraStatusDot = document.getElementById('cameraStatusDot');
+  var captureButton = document.getElementById('captureButton');
+  var instructionChip = document.getElementById('instructionChip');
+  var analyzingOverlay = document.getElementById('analyzingOverlay');
+  var resultOverlay = document.getElementById('resultOverlay');
+  var resultProductName = document.getElementById('resultProductName');
+  var actionRow = document.getElementById('actionRow');
+  var priceCompareButton = document.getElementById('priceCompareButton');
+  var productInfoButton = document.getElementById('productInfoButton');
+  var retakeButton = document.getElementById('retakeButton');
+
+  var FRAME_W = 518.4, FRAME_H = 720; // must match .camera-frame's CSS size
+  var GUIDELINE_SIZE = 250;           // must match var(--size-guideline-phone)
+  var SAMPLE_W = 130, SAMPLE_H = 180; // downscaled sample canvas, same aspect as the frame
+  var SCORE_THRESHOLD = 380;          // luminance-variance cutoff — tune against a real camera
+  var DEBOUNCE_MS = 400;
+  var TICK_MS = 180;
+  var ANALYSIS_MS = 5000; // no real AI API yet — simulated analysis delay per spec
+  var DUMMY_PRODUCT_NAME = '민티아 드라이하드'; // placeholder result until a real recognition API is wired up
+
+  var detectionIntervalId = null;
+  var analysisTimeoutId = null;
+
+  var sampleCanvas = document.createElement('canvas');
+  sampleCanvas.width = SAMPLE_W;
+  sampleCanvas.height = SAMPLE_H;
+  var ctx = sampleCanvas.getContext('2d', { willReadFrequently: true });
+
+  var confirmedDetected = false;
+  var pendingDetected = false;
+  var pendingSince = 0;
+
+  function setDetected(detected) {
+    confirmedDetected = detected;
+    guideline.src = detected
+      ? '../Resources/Guideline/ObjectDetected=Yes,Phone=Default.svg'
+      : '../Resources/Guideline/ObjectDetected=No,Phone=Default.svg';
+    cameraStatusDot.src = detected
+      ? '../Resources/CameraStatus/CameraOn=Yes,Device=Phone.svg'
+      : '../Resources/CameraStatus/CameraOn=No,Device=Phone.svg';
+    captureButton.disabled = !detected;
+    captureButton.classList.toggle('interactive-surface', detected);
+  }
+
+  function sampleScore() {
+    var videoW = video.videoWidth, videoH = video.videoHeight;
+    if (!videoW || !videoH) return null;
+
+    // Replicate the <video>'s CSS `object-fit: cover` crop so the sample
+    // canvas shows exactly what's visible on screen.
+    var scale = Math.max(SAMPLE_W / videoW, SAMPLE_H / videoH);
+    var sW = SAMPLE_W / scale, sH = SAMPLE_H / scale;
+    var sx = (videoW - sW) / 2, sy = (videoH - sH) / 2;
+    ctx.drawImage(video, sx, sy, sW, sH, 0, 0, SAMPLE_W, SAMPLE_H);
+
+    var data = ctx.getImageData(0, 0, SAMPLE_W, SAMPLE_H).data;
+    var cx = SAMPLE_W / 2, cy = SAMPLE_H / 2;
+    var radius = (GUIDELINE_SIZE / 2) * (SAMPLE_W / FRAME_W);
+    var r2 = radius * radius;
+
+    var sum = 0, sumSq = 0, n = 0;
+    for (var y = 0; y < SAMPLE_H; y++) {
+      var dy = y - cy;
+      if (dy * dy > r2) continue;
+      for (var x = 0; x < SAMPLE_W; x++) {
+        var dx = x - cx;
+        if (dx * dx + dy * dy > r2) continue;
+        var i = (y * SAMPLE_W + x) * 4;
+        var lum = 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2];
+        sum += lum;
+        sumSq += lum * lum;
+        n++;
+      }
+    }
+    if (n === 0) return null;
+    var mean = sum / n;
+    return sumSq / n - mean * mean; // variance
+  }
+
+  function tick() {
+    var score = sampleScore();
+    if (score === null) return;
+
+    var raw = score > SCORE_THRESHOLD;
+    var now = performance.now();
+
+    if (raw !== pendingDetected) {
+      pendingDetected = raw;
+      pendingSince = now;
+    }
+    if (pendingDetected !== confirmedDetected && now - pendingSince >= DEBOUNCE_MS) {
+      setDetected(pendingDetected);
+    }
+  }
+
+  /*
+   * Screen state machine — Resources/Components/CameraViewfinder.json
+   * framing   → live detection loop running (setDetected above), capture
+   *             IconButton is the bottom slot.
+   * analyzing → shot taken: video frozen, detection loop stopped, dark
+   *             scrim + Loading.gif shown, action-row (both buttons
+   *             visually disabled) is the bottom slot. No real AI API yet —
+   *             this is a fixed ANALYSIS_MS timer standing in for one.
+   * result    → scrim shows the (dummy) product name + a "다시 찍기" button;
+   *             action-row buttons become real actions (가격 비교 =
+   *             Neutral.Solid, 상품 정보 = Primary.Solid, the recommended one).
+   */
+  function enterAnalyzing() {
+    video.pause();
+    if (detectionIntervalId !== null) {
+      clearInterval(detectionIntervalId);
+      detectionIntervalId = null;
+    }
+    guideline.style.display = 'none';
+    cameraStatusDot.src = '../Resources/CameraStatus/CameraOn=No,Device=Phone.svg';
+    instructionChip.textContent = '사진 분석 중...';
+
+    captureButton.style.display = 'none';
+    actionRow.classList.add('is-visible');
+    priceCompareButton.className = 'btn btn--medium btn--neutral-transparent btn--disabled';
+    productInfoButton.className = 'btn btn--medium btn--neutral-transparent btn--disabled';
+
+    resultOverlay.classList.remove('is-visible');
+    analyzingOverlay.classList.add('is-visible');
+
+    analysisTimeoutId = setTimeout(enterResult, ANALYSIS_MS);
+  }
+
+  function enterResult() {
+    instructionChip.textContent = '분석이 완료되었어요!';
+    resultProductName.textContent = DUMMY_PRODUCT_NAME;
+
+    analyzingOverlay.classList.remove('is-visible');
+    resultOverlay.classList.add('is-visible');
+
+    priceCompareButton.className = 'btn btn--medium btn--neutral-solid interactive-surface';
+    productInfoButton.className = 'btn btn--medium btn--primary-solid interactive-surface';
+  }
+
+  function enterFraming() {
+    if (analysisTimeoutId !== null) {
+      clearTimeout(analysisTimeoutId);
+      analysisTimeoutId = null;
+    }
+    resultOverlay.classList.remove('is-visible');
+    analyzingOverlay.classList.remove('is-visible');
+    actionRow.classList.remove('is-visible');
+    captureButton.style.display = '';
+    guideline.style.display = '';
+
+    confirmedDetected = false;
+    pendingDetected = false;
+    setDetected(false);
+    instructionChip.textContent = '원 안에 물체를 두고 촬영해주세요.';
+
+    video.play();
+    if (detectionIntervalId === null) {
+      detectionIntervalId = setInterval(tick, TICK_MS);
+    }
+  }
+
+  captureButton.addEventListener('click', function () {
+    if (captureButton.disabled) return;
+    enterAnalyzing();
+  });
+
+  retakeButton.addEventListener('click', function (event) {
+    event.preventDefault();
+    enterFraming();
+  });
+
+  priceCompareButton.addEventListener('click', function (event) {
+    event.preventDefault();
+    if (priceCompareButton.classList.contains('btn--disabled')) return;
+    // Out of scope for this screen — price comparison is a separate follow-up flow.
+    console.log('[CameraViewfinder] 가격 비교 tapped — product =', DUMMY_PRODUCT_NAME);
+  });
+
+  productInfoButton.addEventListener('click', function (event) {
+    event.preventDefault();
+    if (productInfoButton.classList.contains('btn--disabled')) return;
+    // Out of scope for this screen — product info is a separate follow-up flow.
+    console.log('[CameraViewfinder] 상품 정보 tapped — product =', DUMMY_PRODUCT_NAME);
+  });
+
+  navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false })
+    .then(function (stream) {
+      video.srcObject = stream;
+      return video.play();
+    })
+    .then(function () {
+      detectionIntervalId = setInterval(tick, TICK_MS);
+    })
+    .catch(function (err) {
+      console.error('[CameraViewfinder] getUserMedia failed', err);
+      permissionMessage.classList.add('visible');
+    });
+})();
+</script>
+</body>
+</html>
