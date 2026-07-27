@@ -65,6 +65,7 @@
 
   --sds-color-white-1000: var(--white-1000);
   --sds-color-white-900: var(--white-900);
+  --sds-color-white-800: var(--white-800);
   --sds-color-white-700: var(--white-700);
   --sds-color-white-400: var(--white-400);
   --sds-color-white-200: var(--white-200);
@@ -93,6 +94,7 @@
 
   --sds-size-space-200: 8px;   /* Button / Icon Button gap */
   --sds-size-space-300: 12px;  /* Button Small vertical padding, Icon Button Small padding */
+  --sds-size-space-400: 16px;  /* Product Name gap, Product/Price Information vertical padding */
   --sds-size-space-500: 20px;  /* Icon Button Medium padding */
   --sds-size-space-600: 24px;  /* Button Medium vertical padding, Button Small horizontal padding */
   --sds-size-space-800: 32px;  /* Button Medium horizontal padding */
@@ -103,6 +105,7 @@
 
   /* ---------- Radius ---------- */
   --radius-full: 999px; /* pill shape used by Button & Icon Button */
+  --radius-card: 24px;  /* corner radius used by ProductName/ProductInformation/PriceInformation overlay cards */
 
   /* ---------- Icon Sizes ---------- */
   --icon-size-sm: 24px; /* Button leading/trailing icon (both sizes); Icon Button Small */
@@ -113,6 +116,7 @@
   --size-guideline-glasses: 200px;
   --size-camera-status-phone: 16px;
   --size-camera-status-glasses: 10px;
+  --size-card-width: 466px; /* ProductName/ProductInformation/PriceInformation overlay card width */
 
   /* ---------- Stroke Colors (Button/Icon Button outline) ---------- */
   --stroke-white-default: rgba(255, 255, 255, 0.5); /* Small transparent outline */
@@ -285,6 +289,24 @@
 	text-decoration: none;
 	text-transform: none;
 }
+.TextStyleProductTitle {
+	font-size: 32px;
+	font-family: Inter;
+	font-weight: 700;
+	font-style: normal;
+	line-height: 120%;
+	text-decoration: none;
+	text-transform: none;
+}
+.TextStyleProductSubtitle {
+	font-size: 24px;
+	font-family: Inter;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 120%;
+	text-decoration: none;
+	text-transform: none;
+}
 
 /* ---------- Effect Styles ---------- */
 
@@ -307,4 +329,7 @@
    - Button/Solid/brand hover 배경의 회색 베이스   → var(--grey-100) (#F5F5F5)
    - EffectStyleButtonDefault는 원본 Figma 값(#FFFFFF4D, 30% 흰색)에 맞춰
      rgba(255,255,255,0.3)으로 보정했습니다 (기존 내보내기는 불투명 흰색이었음).
+   - TextStyleProductTitle / TextStyleProductSubtitle (node 72:7426 "Product Name")은
+     공용 타입 스케일 텍스트 스타일에 바인딩되어 있지 않은 로컬 스타일이라, 있는 값을
+     억지로 끼워맞추는 대신 이 두 토큰을 새로 추가했습니다.
    ========================================================================== */

@@ -1,0 +1,50 @@
+{
+  "component": "ProductInformation",
+  "figma": {
+    "fileKey": "Oo9W0U9SyNGNZXyD8urNJZ",
+    "nodeId": "72:7417",
+    "url": "https://www.figma.com/design/Oo9W0U9SyNGNZXyD8urNJZ/Shopping-XR?node-id=72-7417"
+  },
+  "tokensFile": "tokens.css",
+  "description": "인식된 상품의 요약 설명을 보여주는 카드. state=Focused일 때 테두리가 밝아지고 안쪽 글로우(shadow)가 추가됩니다.",
+  "shape": {
+    "layout": "column",
+    "gap": "var(--sds-size-space-300)",
+    "paddingX": "var(--sds-size-space-600)",
+    "paddingY": "var(--sds-size-space-400)",
+    "align": "flex-start",
+    "radius": "var(--radius-card)",
+    "borderWidth": "var(--sds-size-stroke-border)",
+    "clip": true,
+    "width": "var(--size-card-width)"
+  },
+  "props": {
+    "state": { "type": "enum", "values": ["Default", "Focused"], "default": "Default" },
+    "heading": { "type": "string", "default": "상품 요약" },
+    "body": { "type": "string", "default": "오리온의 초코파이입니다. 추억의 맛 초콜릿과 마시멜로우의 조화가 매우 맛있으며, 어쩌고저쩌고. 상품설명 최대 3줄 보이게, " }
+  },
+  "textStyles": {
+    "heading": "TextStyleBodyStrong",
+    "body": "TextStyleBodySmall"
+  },
+  "styles": {
+    "Default": {
+      "background": "var(--ColorButtonTransparentWhiteDefault)",
+      "border": "var(--stroke-white-default)",
+      "shadow": "none",
+      "headingColor": "var(--sds-color-white-1000)",
+      "bodyColor": "var(--sds-color-white-900)"
+    },
+    "Focused": {
+      "background": "var(--ColorButtonTransparentWhiteDefault)",
+      "border": "var(--stroke-white-focused)",
+      "shadow": "EffectStyleButtonSelected",
+      "headingColor": "var(--sds-color-white-1000)",
+      "bodyColor": "var(--sds-color-white-900)"
+    }
+  },
+  "notes": [
+    "body 텍스트는 최대 3줄까지만 노출됩니다(디자인 주석 '상품설명 최대 3줄 보이게' 참고) — 실제 말줄임(ellipsis/line-clamp) 처리는 플랫폼 UI 레이어에서 구현하세요.",
+    "Focused 배경은 Default와 동일한 var(--ColorButtonTransparentWhiteDefault)이며 테두리 색과 그림자만 바뀝니다 — Button.json의 Neutral.Transparent.Hover(배경까지 밝아짐)와는 다른 조합이니 혼동하지 마세요."
+  ]
+}

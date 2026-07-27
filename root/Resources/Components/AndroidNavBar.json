@@ -1,0 +1,59 @@
+{
+  "component": "AndroidNavBar",
+  "figma": {
+    "fileKey": "Oo9W0U9SyNGNZXyD8urNJZ",
+    "nodeId": "69:6144",
+    "url": "https://www.figma.com/design/Oo9W0U9SyNGNZXyD8urNJZ/Shopping-XR?node-id=69-6144"
+  },
+  "tokensFile": "tokens.css",
+  "hardcoded": true,
+  "description": "Android 폰 화면 하단의 3버튼 내비게이션 바 (뒤로가기/홈/최근 앱). OS가 그리는 크롬 요소이며 폰 전용입니다 — Meta Ray-Ban Display 글래스 화면에는 렌더링하지 않습니다.",
+  "props": {
+    "darkMode": { "type": "boolean", "default": false }
+  },
+  "shape": {
+    "width": "600px",
+    "height": "80px",
+    "position": "relative"
+  },
+  "layout": {
+    "align": "center",
+    "order": ["Back", "Home", "Recent"],
+    "back": { "position": "left-of-center", "offsetFromCenter": "-168.33px" },
+    "home": { "position": "center", "offsetFromCenter": "0px" },
+    "recent": { "position": "right-of-center", "offsetFromCenter": "166.67px" }
+  },
+  "buttons": {
+    "back": { "size": "20x23.333px" },
+    "home": { "size": "26.667x26.667px" },
+    "recent": { "size": "23.333x23.333px", "radius": "2px" }
+  },
+  "styles": {
+    "Light": {
+      "background": "#F5F5F5",
+      "recentFill": "#797979"
+    },
+    "Dark": {
+      "background": "#0F0F0F",
+      "recentFill": "rgba(255, 255, 255, 0.9)"
+    }
+  },
+  "assets": {
+    "source": "Resources/NavBar",
+    "icons": {
+      "back": {
+        "light": "Resources/NavBar/Back=Light.svg",
+        "dark": "Resources/NavBar/Back=Dark.svg"
+      },
+      "home": {
+        "light": "Resources/NavBar/Home=Light.svg",
+        "dark": "Resources/NavBar/Home=Dark.svg"
+      }
+    }
+  },
+  "notes": [
+    "요청에 따라 이 컴포넌트는 tokens.css 토큰을 쓰지 않고 값을 하드코딩했습니다 — Android OS가 그리는 내비게이션 바 색상은 앱 자체 디자인 시스템과 무관한 플랫폼 크롬이기 때문입니다.",
+    "'최근 앱' 버튼(recent)은 SVG가 아니라 단색 rounded rectangle이라 assets 없이 styles.recentFill 색상으로 직접 그리면 됩니다.",
+    "back/home 아이콘은 라이트/다크 모드별로 이미 색이 입혀진 상태로 내보내져 있어 별도 tint 처리가 필요 없습니다."
+  ]
+}

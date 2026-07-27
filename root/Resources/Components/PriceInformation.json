@@ -1,0 +1,67 @@
+{
+  "component": "PriceInformation",
+  "figma": {
+    "fileKey": "Oo9W0U9SyNGNZXyD8urNJZ",
+    "nodeId": "72:7740",
+    "url": "https://www.figma.com/design/Oo9W0U9SyNGNZXyD8urNJZ/Shopping-XR?node-id=72-7740"
+  },
+  "tokensFile": "tokens.css",
+  "description": "인식된 상품의 최저가/판매처 순위와 '링크 저장' 액션을 보여주는 카드. state=Focused일 때 카드 테두리/그림자가 강조되고 내부 Button도 활성 색상으로 바뀝니다.",
+  "shape": {
+    "layout": "column",
+    "gap": "var(--sds-size-space-600)",
+    "paddingTop": "var(--sds-size-space-400)",
+    "paddingX": "var(--sds-size-space-600)",
+    "paddingBottom": "var(--sds-size-space-600)",
+    "align": "center",
+    "radius": "var(--radius-card)",
+    "borderWidth": "var(--sds-size-stroke-border-thick)",
+    "clip": true,
+    "width": "var(--size-card-width)"
+  },
+  "props": {
+    "state": { "type": "enum", "values": ["Default", "Focused"], "default": "Focused" },
+    "currency": { "type": "string", "default": "₩" },
+    "price": { "type": "string", "default": "19,900" },
+    "rank": { "type": "string", "default": "1." },
+    "vendor": { "type": "string", "default": "무신사" },
+    "actionLabel": { "type": "string", "default": "링크 저장" }
+  },
+  "textStyles": {
+    "price": "TextStyleHeading",
+    "vendor": "TextStyleBodyStrong"
+  },
+  "styles": {
+    "Default": {
+      "background": "var(--ColorButtonTransparentWhiteDefault)",
+      "border": "var(--stroke-white-default)",
+      "shadow": "none",
+      "headingColor": "var(--sds-color-white-700)"
+    },
+    "Focused": {
+      "background": "var(--ColorButtonTransparentWhiteDefault)",
+      "border": "var(--stroke-white-focused)",
+      "shadow": "EffectStyleButtonSelected",
+      "headingColor": "var(--sds-color-white-1000)"
+    }
+  },
+  "action": {
+    "component": "Button",
+    "componentRef": "Resources/Components/Button.json",
+    "variant": "Primary",
+    "color": "Solid",
+    "size": "Small",
+    "label": "{{actionLabel}}",
+    "iconStart": { "ref": "Link 2", "source": "Resources/Icons" },
+    "stateMap": {
+      "Default": "Disabled",
+      "Focused": "Default"
+    }
+  },
+  "notes": [
+    "price(₩ + 금액)는 TextStyleHeading(36/Medium/120%/-2%), rank+vendor는 TextStyleBodyStrong(24/SemiBold/140%)을 재사용합니다. 두 텍스트 모두 headingColor 하나를 공유합니다(Figma에서 둘을 감싸는 컨테이너에 색이 걸려 있음).",
+    "'링크 저장' 버튼은 새 스타일을 정의하지 않고 Resources/Components/Button.json의 Primary.Solid 변형을 그대로 참조합니다 — 아이콘(Link 2)과 색상 토큰이 정확히 일치합니다.",
+    "state=Default에서는 카드가 아직 포커스되지 않은 상태를 나타내며, 내부 Button도 Primary.Solid.Disabled(회색, 비활성처럼 보임)로 렌더링됩니다. state=Focused에서 Button은 Primary.Solid.Default(브랜드 그라디언트, 활성)로 바뀝니다 — 실제로 버튼이 비활성화되는 것이 아니라 카드가 포커스를 받았는지 여부를 나타내는 시각적 상태입니다.",
+    "카드 배경은 Default/Focused 모두 동일한 var(--ColorButtonTransparentWhiteDefault)이며, 테두리 색·그림자·내부 Button 상태만 바뀝니다."
+  ]
+}
