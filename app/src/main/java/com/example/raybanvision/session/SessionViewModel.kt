@@ -130,7 +130,10 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                         val top: ProductCandidate? = result.topCandidate
                         flexBox(direction = Direction.COLUMN, gap = 12) {
                             flexBox(padding = 24, background = FlexBoxBackground.CARD) {
-                                top?.imageUrl?.let { url -> image(uri = url, sizePreset = ImageSize.FILL) }
+                                (result.imageUrl ?: top?.imageUrl)?.let { url ->
+                                    Log.i(TAG, "Displaying result image on glasses: $url")
+                                    image(uri = url, sizePreset = ImageSize.ICON, cornerRadius = CornerRadius.MEDIUM)
+                                }
                                 text(result.headline, style = TextStyle.BODY)
                                 if (result.status == ResultStatus.UNCERTAIN && result.candidates.size > 1) {
                                     text(
@@ -202,8 +205,9 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
             currentDisplay.sendContent {
                 flexBox(direction = Direction.COLUMN, gap = 8) {
                     text(result.headline, style = TextStyle.HEADING)
-                    result.topCandidate?.imageUrl?.let { url ->
-                        image(uri = url, sizePreset = ImageSize.FILL, cornerRadius = CornerRadius.MEDIUM)
+                    (result.imageUrl ?: result.topCandidate?.imageUrl)?.let { url ->
+                        Log.i(TAG, "Displaying detailed result image on glasses: $url")
+                        image(uri = url, sizePreset = ImageSize.ICON, cornerRadius = CornerRadius.MEDIUM)
                     }
                     flexBox(direction = Direction.COLUMN, gap = 4, padding = 14, background = FlexBoxBackground.CARD) {
                         text("상품정보", style = TextStyle.HEADING)
