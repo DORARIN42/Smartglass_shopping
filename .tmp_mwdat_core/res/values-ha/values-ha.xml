@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string gender="unknown" name="dat_error_permission_connection_error">An samu matsalar haɗin intanet a yayin da ake sadarwa da na\'urar</string>
+    <string gender="unknown" name="dat_error_permission_internal_error">An samu wani kuskure na ciki da ba a zata ba</string>
+    <string gender="unknown" name="dat_error_permission_meta_ai_not_installed">Ba a dasa manhajar madadi ta Meta AI kan na\'urar ba</string>
+    <string gender="unknown" name="dat_error_permission_no_device">Babu na\'urar sakawa da aka gano ko aka yi wa rijista</string>
+    <string gender="unknown" name="dat_error_permission_no_device_with_connection">An kashe duk na\'urorin da aka gano ko kuma an cire haɗinsu</string>
+    <string gender="unknown" name="dat_error_permission_request_in_progress">Wata buƙatar izini tuni tana gudana</string>
+    <string gender="unknown" name="dat_error_permission_request_timeout">Buƙatar izinin ta wuce iyakar lokacin da aka amince</string>
+    <string gender="unknown" name="dat_error_registration_already_registered">An riga an yi wa mai amfani rijista a lokacin ƙoƙarin sake yin rijista</string>
+    <string gender="unknown" name="dat_error_registration_configuration_invalid">Tsarin Kayan Aikin Shiga Na\'urorin Sakawa ba shi da inganci ko bai cika ba</string>
+    <string gender="unknown" name="dat_error_registration_meta_ai_not_installed">Ba a dasa manhajar Meta AI kan na\'urar ba, wadda ake buƙata don yin rijista</string>
+    <string gender="unknown" name="dat_error_registration_network_unavailable">Ba a samun haɗin intanet. Daure ka bincika haɗinka sannan ka sake gwadawa</string>
+    <string gender="unknown" name="dat_error_registration_unknown">Wani kuskuren da ba a sani ba ya auku a lokacin yin rijistar</string>
+    <string gender="unknown" name="dat_error_session_already_exists">An riga an samar da zangon amfani ga wannan na\'urar</string>
+    <string gender="unknown" name="dat_error_session_already_stopped">An riga an tsayar da zangon amfani</string>
+    <string gender="unknown" name="dat_error_session_battery_critical">Batirin na\'ura ya yi tsananin ƙasa</string>
+    <string gender="unknown" name="dat_error_session_capability_already_active">Iyawa mai irin wannan nau\'in tuni tana aiki a zangon amfanin</string>
+    <string gender="unknown" name="dat_error_session_capability_not_found">Babu wannan nau\'in iyawa da aka maƙala da zangon amfanin</string>
+    <string gender="unknown" name="dat_error_session_idle">Zangon amfani ba ya cikin aiki. Fara zangon amfani kafin ƙara iyawa</string>
+    <string gender="unknown" name="dat_error_session_no_eligible_device">Ba a samu na\'urar da ta cancanta ba</string>
+    <string gender="unknown" name="dat_error_session_peak_power_shutdown">Kashe na\'ura a lokacin tsanantar wuta</string>
+    <string gender="unknown" name="dat_error_session_thermal_critical">Matakin zafin na\'urar ya yi tsanani</string>
+    <string gender="unknown" name="dat_error_session_thermal_emergency">Matakin zafin na\'urar ya kai na gaggawa — za a kashe ta</string>
+    <string gender="unknown" name="dat_error_unregistration_already_unregistered">Tuni an fasa rijistar mai amfani a lokacin da ake ƙoƙarin sake cire rajista</string>
+    <string gender="unknown" name="dat_error_unregistration_configuration_invalid">Tsarin Kayan Aikin Shiga Na\'urorin Sakawa ba shi da inganci ko kuma bai cika ba</string>
+    <string gender="unknown" name="dat_error_unregistration_meta_ai_not_installed">Ba a dasa manhajar Meta AI kan na\'urar ba, wanda ake buƙata don fasa yin rijista</string>
+    <string gender="unknown" name="dat_error_unregistration_unknown">Wani kuskuren da ba a sani ba ya auku a lokacin sarrafa fasa yin rijistar</string>
+    <string gender="unknown" name="dat_error_voice_action_failed">Aikin ya gaza</string>
+    <string gender="unknown" name="dat_error_voice_channel_setup_failed">An gaza saita tashar AI Actions</string>
+    <string gender="unknown" name="dat_error_voice_connection_not_available">Ba a samun haɗin na\'ura</string>
+    <string gender="unknown" name="dat_error_voice_device_not_found">Ba a samo na\'ura ba</string>
+    <string gender="unknown" name="dat_error_voice_init_request_error">An kasa fara buƙata</string>
+    <string gender="unknown" name="dat_error_voice_invalid_message_proto">Message proto mara Inganci</string>
+    <string gender="unknown" name="dat_error_voice_invalid_wearables_interface">An samar da WearablesInterface da ba ingantacce ba</string>
+    <string gender="unknown" name="dat_error_voice_send_message_error">An gaza aika saƙo</string>
+    <string gender="unknown" name="dat_error_wearables_already_configured">An riga an tsara</string>
+    <string gender="unknown" name="dat_error_wearables_configuration_error">Kuskuren tsarawa</string>
+    <string gender="unknown" name="dat_error_wearables_internal_error">Matsalar ciki</string>
+    <string gender="unknown" name="dat_error_wearables_url_registration_error">Kuskure na yin rijista</string>
+    <string gender="unknown" name="dat_error_wearables_url_unregistration_error">Kuskure na fasa yin rajista</string>
+</resources>

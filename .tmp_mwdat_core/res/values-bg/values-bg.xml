@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string gender="unknown" name="dat_error_permission_connection_error">Възникна грешка с връзката по време на комуникация с устройството</string>
+    <string gender="unknown" name="dat_error_permission_internal_error">Възникна неочаквана вътрешна грешка</string>
+    <string gender="unknown" name="dat_error_permission_meta_ai_not_installed">Придружаващото приложение Meta AI не е инсталирано на устройството</string>
+    <string gender="unknown" name="dat_error_permission_no_device">Няма открити или регистрирани носими устройства</string>
+    <string gender="unknown" name="dat_error_permission_no_device_with_connection">Всички открити устройства са изключени или изключени от захранването</string>
+    <string gender="unknown" name="dat_error_permission_request_in_progress">Вече има заявка за разрешение в процес на изпълнение</string>
+    <string gender="unknown" name="dat_error_permission_request_timeout">Заявката за разрешение превиши разрешения времеви лимит</string>
+    <string gender="unknown" name="dat_error_registration_already_registered">Потребителят вече е регистриран, когато се опита да се регистрира отново</string>
+    <string gender="unknown" name="dat_error_registration_configuration_invalid">Конфигурацията на набора от инструменти за достъп до носими устройства е невалидна или непълна</string>
+    <string gender="unknown" name="dat_error_registration_meta_ai_not_installed">Приложението Meta AI не е инсталирано на устройството, което се изисква за регистрация</string>
+    <string gender="unknown" name="dat_error_registration_network_unavailable">Няма налична интернет връзка. Проверете връзката си и опитайте отново</string>
+    <string gender="unknown" name="dat_error_registration_unknown">Възникна неизвестна грешка по време на процеса по регистрация</string>
+    <string gender="unknown" name="dat_error_session_already_exists">Вече съществува сесия за това устройство</string>
+    <string gender="unknown" name="dat_error_session_already_stopped">Сесията вече е спряна</string>
+    <string gender="unknown" name="dat_error_session_battery_critical">Нивото на батерията на устройството е критично ниско</string>
+    <string gender="unknown" name="dat_error_session_capability_already_active">Възможност от този тип вече е активна в сесията</string>
+    <string gender="unknown" name="dat_error_session_capability_not_found">Към сесията не е прикачена възможност от този тип</string>
+    <string gender="unknown" name="dat_error_session_idle">Сесията е неактивна. Стартирайте сесията, преди да добавяте възможности</string>
+    <string gender="unknown" name="dat_error_session_no_eligible_device">Няма налично допустимо устройство</string>
+    <string gender="unknown" name="dat_error_session_peak_power_shutdown">Устройството е изключено поради пикова консумация на енергия</string>
+    <string gender="unknown" name="dat_error_session_thermal_critical">Топлинното състояние на устройството е критично</string>
+    <string gender="unknown" name="dat_error_session_thermal_emergency">Топлинното състояние на устройството е аварийно – изключва се</string>
+    <string gender="unknown" name="dat_error_unregistration_already_unregistered">Потребителят вече е отменен, когато се опита да се отмени отново</string>
+    <string gender="unknown" name="dat_error_unregistration_configuration_invalid">Конфигурацията на набора от инструменти за достъп до носими устройства е невалидна или непълна</string>
+    <string gender="unknown" name="dat_error_unregistration_meta_ai_not_installed">Приложението Meta AI не е инсталирано на устройството, което се изисква за отмяната на регистрацията</string>
+    <string gender="unknown" name="dat_error_unregistration_unknown">Възникна неизвестна грешка по време на процеса по отмяна на регистрацията</string>
+    <string gender="unknown" name="dat_error_voice_action_failed">Действието е неуспешно</string>
+    <string gender="unknown" name="dat_error_voice_channel_setup_failed">Неуспешно настройване на канала за действия на AI</string>
+    <string gender="unknown" name="dat_error_voice_connection_not_available">Връзката с устройството не е налична</string>
+    <string gender="unknown" name="dat_error_voice_device_not_found">Устройството не е намерено</string>
+    <string gender="unknown" name="dat_error_voice_init_request_error">Неуспешно стартиране на заявката</string>
+    <string gender="unknown" name="dat_error_voice_invalid_message_proto">Невалиден протокол за съобщения</string>
+    <string gender="unknown" name="dat_error_voice_invalid_wearables_interface">Предоставен е невалиден WearablesInterface</string>
+    <string gender="unknown" name="dat_error_voice_send_message_error">Неуспешно изпращане на съобщението</string>
+    <string gender="unknown" name="dat_error_wearables_already_configured">Вече е конфигурирано</string>
+    <string gender="unknown" name="dat_error_wearables_configuration_error">Грешка в конфигурацията</string>
+    <string gender="unknown" name="dat_error_wearables_internal_error">Вътрешна грешка</string>
+    <string gender="unknown" name="dat_error_wearables_url_registration_error">Грешка при регистрация</string>
+    <string gender="unknown" name="dat_error_wearables_url_unregistration_error">Грешка при отмяна на регистрация</string>
+</resources>

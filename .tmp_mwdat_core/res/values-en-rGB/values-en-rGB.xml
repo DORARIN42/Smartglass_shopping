@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string gender="unknown" name="dat_error_registration_network_unavailable">No Internet connection available. Please check your connection and try again</string>
+    <string gender="unknown" name="dat_error_session_thermal_emergency">Device thermal state is emergency – shutting down</string>
+    <string gender="unknown" name="dat_error_voice_channel_setup_failed">Failed to set up AI actions channel</string>
+    <string gender="unknown" name="dat_error_voice_init_request_error">Failed to initialise request</string>
+    <string gender="unknown" name="dat_error_voice_invalid_message_proto">Invalid message proto</string>
+</resources>

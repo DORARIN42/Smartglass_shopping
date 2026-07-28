@@ -5,12 +5,17 @@ import android.app.Application
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.ImageFormat
 import android.graphics.Matrix
+import android.graphics.Paint
 import android.graphics.Rect
 import android.graphics.YuvImage
 import android.net.Uri
+import android.os.SystemClock
 import android.util.Log
+import androidx.core.content.FileProvider
 import androidx.exifinterface.media.ExifInterface
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
@@ -37,9 +42,11 @@ import com.meta.wearable.dat.display.Display
 import com.meta.wearable.dat.display.addDisplay
 import com.meta.wearable.dat.display.removeDisplay
 import com.meta.wearable.dat.display.types.DisplayState
+import com.meta.wearable.dat.display.views.ButtonStyle
 import com.meta.wearable.dat.display.views.Direction
 import com.meta.wearable.dat.display.views.FlexBoxBackground
 import com.meta.wearable.dat.display.views.ImageSize
+import com.meta.wearable.dat.display.views.CornerRadius
 import com.meta.wearable.dat.display.views.TextColor
 import com.meta.wearable.dat.display.views.TextStyle
 import java.io.ByteArrayInputStream
@@ -63,6 +70,9 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
 
     private companion object {
         private const val TAG = "SessionViewModel"
+        private const val CAPTURE_REVIEW_DELAY_MS = 1200L
+        private const val DISPLAY_TEXT_LIMIT = 90
+        private const val PREVIEW_FRAME_INTERVAL_MS = 180L
     }
 
     private val _uiState = MutableStateFlow(SessionUiState())
@@ -78,6 +88,7 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
     private var display: Display? = null
     private var previewJob: kotlinx.coroutines.Job? = null
     private var analysisMessageJob: kotlinx.coroutines.Job? = null
+    private var analysisJob: kotlinx.coroutines.Job? = null
     private var currentAnalysisJobId: String? = null
     private var latestAnalysisResult: AnalysisResult? = null
     private val shoppingApiClient = ShoppingApiClient(BuildConfig.ANALYSIS_BASE_URL)
@@ -94,6 +105,10 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
         val currentDisplay = display ?: run {
             Log.w(TAG, "displayResult called but display is not ready")
             _uiState.update { it.copy(statusMessage = "디스플레이 미준비 — 결과 표시 실패") }
+            return
+        }
+        if (result.status == ResultStatus.MATCHED || result.status == ResultStatus.UNCERTAIN) {
+            displayDetailedResult(currentDisplay, result)
             return
         }
         _uiState.update { it.copy(statusMessage = "결과 표시: ${result.status.name}") }
@@ -171,7 +186,140 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
     }
     // ─────────────────────────────────────────────────────────────────────
 
+    private fun displayDetailedResult(currentDisplay: Display, result: AnalysisResult) {
+        _uiState.update { it.copy(statusMessage = "결과 표시: ${result.status.name}") }
+
+        viewModelScope.launch(Dispatchers.IO) {
+            currentDisplay.sendContent {
+                flexBox(direction = Direction.COLUMN, gap = 8) {
+                    text(result.headline, style = TextStyle.HEADING)
+                    result.topCandidate?.imageUrl?.let { url ->
+                        image(uri = url, sizePreset = ImageSize.FILL, cornerRadius = CornerRadius.MEDIUM)
+                    }
+                    flexBox(direction = Direction.COLUMN, gap = 4, padding = 14, background = FlexBoxBackground.CARD) {
+                        text("상품정보", style = TextStyle.HEADING)
+                        text("상품명: ${result.productName ?: result.headline}", style = TextStyle.BODY)
+                        result.originalProductName?.let { text("원본 상품명: $it", style = TextStyle.BODY, color = TextColor.SECONDARY) }
+                        result.brand?.let { text("브랜드: $it", style = TextStyle.BODY, color = TextColor.SECONDARY) }
+                        result.originalBrand?.let { text("원본 브랜드: $it", style = TextStyle.BODY, color = TextColor.SECONDARY) }
+                    }
+                    result.productDescription?.let {
+                        flexBox(direction = Direction.COLUMN, gap = 4, padding = 14, background = FlexBoxBackground.CARD) {
+                            text("상품 설명", style = TextStyle.HEADING)
+                            text(it, style = TextStyle.BODY)
+                        }
+                    }
+                    if (result.specifications.isNotEmpty()) {
+                        flexBox(direction = Direction.COLUMN, gap = 4, padding = 14, background = FlexBoxBackground.CARD) {
+                            text("스펙", style = TextStyle.HEADING)
+                            result.specifications.forEach {
+                                text("• $it", style = TextStyle.BODY, color = TextColor.SECONDARY)
+                            }
+                        }
+                    }
+                    if (result.positiveReviews.isNotEmpty()) {
+                        flexBox(direction = Direction.COLUMN, gap = 4, padding = 14, background = FlexBoxBackground.CARD) {
+                            text("긍정 리뷰", style = TextStyle.HEADING)
+                            result.positiveReviews.forEach {
+                                text("• $it", style = TextStyle.BODY, color = TextColor.SECONDARY)
+                            }
+                        }
+                    }
+                    if (result.negativeReviews.isNotEmpty()) {
+                        flexBox(direction = Direction.COLUMN, gap = 4, padding = 14, background = FlexBoxBackground.CARD) {
+                            text("부정 리뷰", style = TextStyle.HEADING)
+                            result.negativeReviews.forEach {
+                                text("• $it", style = TextStyle.BODY, color = TextColor.SECONDARY)
+                            }
+                        }
+                    }
+                    if (result.candidates.isNotEmpty()) {
+                        flexBox(direction = Direction.COLUMN, gap = 8, padding = 14, background = FlexBoxBackground.CARD) {
+                            text("가격 정보", style = TextStyle.HEADING)
+                            result.candidates.forEachIndexed { index, candidate ->
+                                flexBox(
+                                    direction = Direction.COLUMN,
+                                    gap = 4,
+                                    padding = 10,
+                                    background = FlexBoxBackground.CARD,
+                                    onClick = candidate.linkUrl?.let { url -> { openUrlOnPhone(url) } },
+                                ) {
+                                    text("${index + 1}. ${candidate.store ?: "판매처 없음"}", style = TextStyle.BODY)
+                                    text(candidate.price, style = TextStyle.HEADING)
+                                    candidate.title?.let { text("상품명: $it", style = TextStyle.BODY, color = TextColor.SECONDARY) }
+                                    candidate.currency?.let { text("통화: $it", style = TextStyle.BODY, color = TextColor.SECONDARY) }
+                                    candidate.isKoreanMarket?.let { text("한국 마켓: ${if (it) "예" else "아니오"}", style = TextStyle.BODY, color = TextColor.SECONDARY) }
+                                    candidate.linkUrl?.let { text("링크: $it", style = TextStyle.BODY, color = TextColor.SECONDARY) }
+                                }
+                            }
+                        }
+                    }
+                    flexBox(direction = Direction.COLUMN, gap = 4, padding = 14, background = FlexBoxBackground.CARD) {
+                        text("추가 정보", style = TextStyle.HEADING)
+                        text("상태: ${result.rawStatus ?: result.status.name}", style = TextStyle.BODY, color = TextColor.SECONDARY)
+                        result.strategy?.let { text("전략: $it", style = TextStyle.BODY, color = TextColor.SECONDARY) }
+                        result.modelNumber?.let { text("모델 번호: $it", style = TextStyle.BODY, color = TextColor.SECONDARY) }
+                        result.category?.let { text("카테고리: $it", style = TextStyle.BODY, color = TextColor.SECONDARY) }
+                        result.confidence?.let { text("신뢰도: %.2f".format(it), style = TextStyle.BODY, color = TextColor.SECONDARY) }
+                        result.averageRating?.let { text("평점: $it", style = TextStyle.BODY, color = TextColor.SECONDARY) }
+                    }
+                    button(
+                        label = "다시 촬영",
+                        style = ButtonStyle.PRIMARY,
+                        onClick = { retakePhoto() },
+                    )
+                }
+            }.onFailure { error, _ ->
+                Log.e(TAG, "displayDetailedResult sendContent failed: ${error.description}")
+                _uiState.update { it.copy(statusMessage = "디스플레이 전송 실패: ${error.description}") }
+            }
+        }
+    }
+
+    private fun displayProductConfirmation(result: AnalysisResult) {
+        val currentDisplay = display ?: return
+        val productName = result.productName ?: result.originalProductName ?: result.headline
+        val brand = result.brand ?: result.originalBrand
+
+        viewModelScope.launch(Dispatchers.IO) {
+            currentDisplay.sendContent {
+                flexBox(direction = Direction.COLUMN, gap = 12) {
+                    flexBox(direction = Direction.COLUMN, gap = 8, padding = 24, background = FlexBoxBackground.CARD) {
+                        text("이 상품이 맞나요?", style = TextStyle.HEADING)
+                        text(productName, style = TextStyle.BODY)
+                        brand?.let {
+                            text(it, style = TextStyle.BODY, color = TextColor.SECONDARY)
+                        }
+                        result.category?.let {
+                            text(it, style = TextStyle.BODY, color = TextColor.SECONDARY)
+                        }
+                        text("폰에서 확인하거나 아래 버튼을 선택하세요", style = TextStyle.BODY, color = TextColor.SECONDARY)
+                    }
+                    flexBox(direction = Direction.ROW, gap = 8) {
+                        button(
+                            label = "재촬영",
+                            style = ButtonStyle.PRIMARY,
+                            onClick = { retakePhoto() },
+                        )
+                        button(
+                            label = "분석",
+                            style = ButtonStyle.PRIMARY,
+                            onClick = { submitForSearch() },
+                        )
+                    }
+                }
+            }.onFailure { error, _ ->
+                Log.e(TAG, "displayProductConfirmation sendContent failed: ${error.description}")
+                _uiState.update { it.copy(statusMessage = "디스플레이 확인 화면 전송 실패: ${error.description}") }
+            }
+        }
+    }
+
     fun startSession(deviceId: DeviceIdentifier) {
+        if (session != null || stream != null || display != null) {
+            Log.i(TAG, "Clearing existing session before starting a new one.")
+            stopSession()
+        }
         _uiState.update { it.copy(statusMessage = "세션 연결 중...") }
 
         Wearables.createSession(SpecificDeviceSelector(deviceId))
@@ -215,6 +363,7 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                 stream = addedStream
                 viewModelScope.launch {
                     addedStream.state.collect { state ->
+                        Log.i(TAG, "Stream state changed: $state")
                         _uiState.update { it.copy(streamState = state) }
                     }
                 }
@@ -245,7 +394,11 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
         // 프레임 → Bitmap. conflate 로 처리 못 따라가면 최신 프레임만 유지.
         // 이전 Bitmap 을 recycle 하면 Compose 렌더링 중 크래시 위험이 있어 GC 에 맡긴다.
         previewJob = viewModelScope.launch(Dispatchers.Default) {
+            var lastPreviewAt = 0L
             currentStream.videoStream.conflate().collect { frame ->
+                val now = SystemClock.elapsedRealtime()
+                if (now - lastPreviewAt < PREVIEW_FRAME_INTERVAL_MS) return@collect
+                lastPreviewAt = now
                 videoFrameToBitmap(frame)?.let { bmp -> _previewFrame.value = bmp }
             }
         }
@@ -257,8 +410,38 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
     }
 
     fun capturePhoto() {
-        val currentStream = stream ?: return
-        if (!_uiState.value.canCapture) return
+        val currentStream = stream ?: run {
+            Log.w(TAG, "Capture ignored: stream is not attached")
+            _uiState.update { it.copy(statusMessage = "Camera stream is not ready.") }
+            return
+        }
+        val previewBitmap = _previewFrame.value
+        if (!_uiState.value.canCapture) {
+            if (
+                _uiState.value.streamState == StreamState.STOPPED &&
+                !_uiState.value.isCapturing &&
+                _uiState.value.pendingPhotoFile == null
+            ) {
+                val fallbackBitmap = previewBitmap ?: createStoppedStreamPlaceholder()
+                Log.i(TAG, "Capturing with fallback image because stream is stopped. hasPreview=${previewBitmap != null}")
+                savePreviewFrameAsCapture(fallbackBitmap)
+                currentStream.start()
+                return
+            }
+            if (_uiState.value.streamState == StreamState.STOPPED) {
+                Log.i(TAG, "Capture requested while stream is stopped; restarting stream.")
+                _uiState.update { it.copy(statusMessage = "Camera stream is restarting. Try again in a moment.") }
+                currentStream.start()
+                return
+            }
+            Log.w(
+                TAG,
+                "Capture ignored: streamState=${_uiState.value.streamState}, " +
+                    "isCapturing=${_uiState.value.isCapturing}, pendingPhoto=${_uiState.value.pendingPhotoFile != null}",
+            )
+            _uiState.update { it.copy(statusMessage = "Capture is not ready yet. Try again in a moment.") }
+            return
+        }
 
         // 캡처 프레임 손상 방지: 촬영 동안 프리뷰(videoStream 수집) 중단.
         stopPreview()
@@ -267,7 +450,6 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
         // 목 디바이스에서는 capturePhoto()가 스트리밍 버퍼와 경합해 찢김/부분 프레임이 발생한다.
         // debug 빌드(목)에서는 이미 깨끗한 현재 프리뷰 프레임을 그대로 저장한다.
         // 실제 글라스(release)는 고화질 capturePhoto()를 사용한다.
-        val previewBitmap = _previewFrame.value
         if (BuildConfig.DEBUG && previewBitmap != null) {
             viewModelScope.launch(Dispatchers.IO) {
                 val file = saveBitmapToCache(previewBitmap)
@@ -278,7 +460,13 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                         statusMessage = if (file != null) "상품명 확인 중..." else "파일 저장 실패",
                     )
                 }
-                if (file != null) identifyProduct(file) else startPreview()
+                if (file != null) {
+                    showCapturedPhoto(file)
+                    delay(CAPTURE_REVIEW_DELAY_MS)
+                    identifyProduct(file)
+                } else {
+                    startPreview()
+                }
             }
             return
         }
@@ -295,7 +483,13 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                             statusMessage = if (file != null) "상품명 확인 중..." else "파일 저장 실패",
                         )
                     }
-                    if (file != null) identifyProduct(file) else startPreview()
+                    if (file != null) {
+                        showCapturedPhoto(file)
+                        delay(CAPTURE_REVIEW_DELAY_MS)
+                        identifyProduct(file)
+                    } else {
+                        startPreview()
+                    }
                 }
                 .onFailure { error, _ ->
                     Log.e(TAG, "Photo capture failed: ${error.description}")
@@ -306,8 +500,53 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
     }
 
     // [재촬영] 미리보기 사진을 버리고(캐시 파일 삭제) 라이브 프리뷰로 돌아간다.
+    private fun savePreviewFrameAsCapture(previewBitmap: Bitmap) {
+        stopPreview()
+        _uiState.update { it.copy(isCapturing = true, statusMessage = "Capturing from last preview frame...") }
+        viewModelScope.launch(Dispatchers.IO) {
+            val file = saveBitmapToCache(previewBitmap)
+            _uiState.update {
+                it.copy(
+                    isCapturing = false,
+                    pendingPhotoFile = file,
+                    statusMessage = if (file != null) "Product identification..." else "Failed to save image",
+                )
+            }
+            if (file != null) {
+                showCapturedPhoto(file)
+                delay(CAPTURE_REVIEW_DELAY_MS)
+                identifyProduct(file)
+            } else {
+                startPreview()
+            }
+        }
+    }
+
+    private fun createStoppedStreamPlaceholder(): Bitmap {
+        val bitmap = Bitmap.createBitmap(720, 960, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        canvas.drawColor(Color.rgb(18, 18, 18))
+
+        val titlePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = Color.WHITE
+            textAlign = Paint.Align.CENTER
+            textSize = 44f
+        }
+        val bodyPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = Color.LTGRAY
+            textAlign = Paint.Align.CENTER
+            textSize = 30f
+        }
+
+        canvas.drawText("Camera stream stopped", bitmap.width / 2f, bitmap.height / 2f - 24f, titlePaint)
+        canvas.drawText("Fallback capture image", bitmap.width / 2f, bitmap.height / 2f + 34f, bodyPaint)
+        return bitmap
+    }
+
     fun retakePhoto() {
         stopAnalysisMessages()
+        analysisJob?.cancel()
+        analysisJob = null
         val jobId = currentAnalysisJobId
         currentAnalysisJobId = null
         latestAnalysisResult = null
@@ -329,6 +568,7 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
             )
         }
         startPreview() // 라이브 프리뷰 재개
+        showReadyScreen()
     }
 
     // [검색] 미리보기 사진을 LLM 파이프라인으로 전송하고 폰 화면에 결과를 표시한다.
@@ -349,7 +589,8 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
         }
         displayLoading()
 
-        viewModelScope.launch(Dispatchers.IO) {
+        analysisJob?.cancel()
+        analysisJob = viewModelScope.launch(Dispatchers.IO) {
             runCatching {
                 val jobId = shoppingApiClient.startAnalysis(file)
                 currentAnalysisJobId = jobId
@@ -365,8 +606,16 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                             "product=${update.result?.productName} original=${update.result?.originalProductName} " +
                             "brand=${update.result?.brand} message=${update.message}",
                     )
+                    displayAnalysisProgress(
+                        message = analysisStageLabel(update.stage, update.message),
+                        partial = latestAnalysisResult,
+                    )
                     update.result?.let { partial ->
                         latestAnalysisResult = latestAnalysisResult.mergeWith(partial)
+                        displayAnalysisProgress(
+                            message = analysisStageLabel(update.stage, update.message),
+                            partial = latestAnalysisResult,
+                        )
                     }
                     if (update.isPausedIdentity) {
                         val identified = latestAnalysisResult
@@ -391,6 +640,7 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                             statusMessage = "해당 상품이 맞습니까?",
                         )
                     }
+                    displayProductConfirmation(identified)
                 }
                 .onFailure { throwable ->
                     Log.e(TAG, "Product identification failed", throwable)
@@ -417,7 +667,8 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
         _capturedPhotoFile.value = file
         displayLoading()
 
-        viewModelScope.launch(Dispatchers.IO) {
+        analysisJob?.cancel()
+        analysisJob = viewModelScope.launch(Dispatchers.IO) {
             runCatching {
                 val jobId = currentAnalysisJobId ?: shoppingApiClient.startAnalysis(file).also { currentAnalysisJobId = it }
                 shoppingApiClient.continueAnalysis(jobId)
@@ -426,6 +677,10 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                 repeat(120) {
                     delay(1500)
                     val update = shoppingApiClient.getAnalysisStatus(jobId)
+                    displayAnalysisProgress(
+                        message = analysisStageLabel(update.stage, update.message),
+                        partial = result,
+                    )
                     update.result?.let { partial ->
                         result = result.mergeWith(partial)
                         latestAnalysisResult = result
@@ -437,6 +692,10 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                                     searchResult = merged,
                                 )
                             }
+                            displayAnalysisProgress(
+                                message = analysisStageLabel(update.stage, update.message),
+                                partial = merged,
+                            )
                         }
                     }
 
@@ -480,6 +739,44 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
+    private fun displayAnalysisProgress(message: String, partial: AnalysisResult? = null) {
+        val currentDisplay = display ?: return
+        viewModelScope.launch(Dispatchers.IO) {
+            currentDisplay.sendContent {
+                flexBox(direction = Direction.COLUMN, gap = 8, padding = 18, background = FlexBoxBackground.CARD) {
+                    text("Analyzing product", style = TextStyle.HEADING)
+                    text(message, style = TextStyle.BODY, color = TextColor.SECONDARY)
+                    partial?.let { result ->
+                        text(result.productName ?: result.headline, style = TextStyle.BODY)
+                        result.brand?.let { text("Brand: $it", style = TextStyle.BODY, color = TextColor.SECONDARY) }
+                        result.category?.let { text("Category: $it", style = TextStyle.BODY, color = TextColor.SECONDARY) }
+                        result.productDescription?.let {
+                            text(it.take(DISPLAY_TEXT_LIMIT), style = TextStyle.BODY, color = TextColor.SECONDARY)
+                        }
+                        result.specifications.take(2).forEach {
+                            text("Spec: ${it.take(DISPLAY_TEXT_LIMIT)}", style = TextStyle.BODY, color = TextColor.SECONDARY)
+                        }
+                    }
+                }
+            }.onFailure { error, _ ->
+                Log.w(TAG, "displayAnalysisProgress sendContent failed: ${error.description}")
+            }
+        }
+    }
+
+    private fun analysisStageLabel(stage: String?, fallback: String?): String {
+        return when (stage?.trim()?.lowercase()) {
+            "uploading_image" -> "Uploading image..."
+            "searching_lens" -> "Finding matching product..."
+            "identifying_product" -> "Checking product name..."
+            "identity_ready" -> "Product identity ready."
+            "searching_specs" -> "Searching specs..."
+            "summarizing_reviews" -> "Summarizing reviews..."
+            "searching_prices" -> "Searching prices..."
+            else -> fallback?.takeIf { it.isNotBlank() } ?: "Analyzing..."
+        }
+    }
+
     private fun startAnalysisMessages() {
         analysisMessageJob?.cancel()
         val messages = listOf(
@@ -492,6 +789,7 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
             var index = 0
             while (true) {
                 _uiState.update { it.copy(isSearching = true, statusMessage = messages[index]) }
+                displayAnalysisProgress(messages[index])
                 index = (index + 1) % messages.size
                 delay(1800)
             }
@@ -517,6 +815,8 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
 
     fun stopSession() {
         stopAnalysisMessages()
+        analysisJob?.cancel()
+        analysisJob = null
         currentAnalysisJobId = null
         latestAnalysisResult = null
         stopPreview()
@@ -535,9 +835,49 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
         val currentDisplay = display ?: return
         viewModelScope.launch(Dispatchers.IO) {
             currentDisplay.sendContent {
-                flexBox(direction = Direction.COLUMN, gap = 8, padding = 24, background = FlexBoxBackground.CARD) {
-                    text("준비 완료", style = TextStyle.HEADING)
-                    text("궁금한 상품을 바라보고 촬영해주세요", style = TextStyle.BODY, color = TextColor.SECONDARY)
+                flexBox(direction = Direction.COLUMN, gap = 12, padding = 16, onClick = { capturePhoto() }) {
+                    flexBox(
+                        direction = Direction.COLUMN,
+                        gap = 8,
+                        padding = 28,
+                        background = FlexBoxBackground.CARD,
+                    ) {
+                        text("+", style = TextStyle.HEADING)
+                        text("Center product here", style = TextStyle.BODY, color = TextColor.SECONDARY)
+                    }
+                    text("상품을 테두리 안에 맞춰주세요", style = TextStyle.BODY, color = TextColor.SECONDARY)
+                    text("Pinch anywhere on this card to capture.", style = TextStyle.BODY, color = TextColor.SECONDARY)
+                    button(
+                        label = "촬영",
+                        style = ButtonStyle.PRIMARY,
+                        onClick = { capturePhoto() },
+                    )
+                }
+            }
+        }
+    }
+
+    private fun showCapturedPhoto(file: File) {
+        val currentDisplay = display ?: return
+        val uri = FileProvider.getUriForFile(
+            getApplication(),
+            "${BuildConfig.APPLICATION_ID}.fileprovider",
+            file,
+        ).toString()
+
+        viewModelScope.launch(Dispatchers.IO) {
+            currentDisplay.sendContent {
+                flexBox(direction = Direction.COLUMN, gap = 8, padding = 12) {
+                    image(uri = uri, sizePreset = ImageSize.FILL, cornerRadius = CornerRadius.MEDIUM)
+                    text("촬영 완료", style = TextStyle.BODY, color = TextColor.SECONDARY)
+                }
+            }.onFailure { error, _ ->
+                Log.w(TAG, "Captured photo display failed: ${error.description}")
+                currentDisplay.sendContent {
+                    flexBox(direction = Direction.COLUMN, gap = 8, padding = 24, background = FlexBoxBackground.CARD) {
+                        text("촬영 완료", style = TextStyle.HEADING)
+                        text("이미지를 분석합니다", style = TextStyle.BODY, color = TextColor.SECONDARY)
+                    }
                 }
             }
         }
@@ -552,9 +892,22 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
     }
 
     private fun onSessionStopped() {
+        stopAnalysisMessages()
+        analysisJob?.cancel()
+        analysisJob = null
+        stopPreview()
         stream = null
         display = null
         session = null
+        _previewFrame.value = null
+        _uiState.update {
+            it.copy(
+                streamState = null,
+                displayState = null,
+                isCapturing = false,
+                statusMessage = "Session stopped. Reconnect the glasses.",
+            )
+        }
     }
 
     // raw VideoFrame → Bitmap. 버퍼 크기로 픽셀 포맷을 추정한다(RGBA_8888 vs NV21/YUV).

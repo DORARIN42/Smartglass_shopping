@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string gender="unknown" name="dat_error_permission_connection_error">デバイスとの通信中に接続エラーが発生しました</string>
+    <string gender="unknown" name="dat_error_permission_internal_error">予期しない内部エラーが発生しました</string>
+    <string gender="unknown" name="dat_error_permission_meta_ai_not_installed">Meta AIコンパニオンアプリがデバイスにインストールされていません</string>
+    <string gender="unknown" name="dat_error_permission_no_device">ウェアラブルデバイスが検出または登録されていません</string>
+    <string gender="unknown" name="dat_error_permission_no_device_with_connection">検出されたすべてのデバイスの電源が切れているか、接続が切断されています</string>
+    <string gender="unknown" name="dat_error_permission_request_in_progress">アクセス許可のリクエストはすでに処理中です</string>
+    <string gender="unknown" name="dat_error_permission_request_timeout">アクセス許可のリクエストが制限時間を超えました</string>
+    <string gender="unknown" name="dat_error_registration_already_registered">再登録しようとしているユーザーが登録済みです</string>
+    <string gender="unknown" name="dat_error_registration_configuration_invalid">Wearables Device Access Toolkitの設定が無効または不完全です</string>
+    <string gender="unknown" name="dat_error_registration_meta_ai_not_installed">Meta AIアプリがデバイスにインストールされていません。登録するにはインストールが必要です</string>
+    <string gender="unknown" name="dat_error_registration_network_unavailable">インターネット接続がありません。接続状況を確認してから、もう一度実行してください</string>
+    <string gender="unknown" name="dat_error_registration_unknown">登録中に不明なエラーが発生しました</string>
+    <string gender="unknown" name="dat_error_session_already_exists">このデバイスのセッションはすでに存在します</string>
+    <string gender="unknown" name="dat_error_session_already_stopped">セッションはすでに停止されています</string>
+    <string gender="unknown" name="dat_error_session_battery_critical">デバイスのバッテリー充電量が非常に低くなっています</string>
+    <string gender="unknown" name="dat_error_session_capability_already_active">このタイプの機能はセッションですでにアクティブになっています</string>
+    <string gender="unknown" name="dat_error_session_capability_not_found">このタイプの機能はセッションに付属されていません</string>
+    <string gender="unknown" name="dat_error_session_idle">セッションが待機状態です。機能を追加する前にセッションを開始してください</string>
+    <string gender="unknown" name="dat_error_session_no_eligible_device">対象のデバイスがありません</string>
+    <string gender="unknown" name="dat_error_session_peak_power_shutdown">デバイスのピーク電力によるシャットダウン</string>
+    <string gender="unknown" name="dat_error_session_thermal_critical">デバイスの温度が危機的状態です</string>
+    <string gender="unknown" name="dat_error_session_thermal_emergency">デバイスの温度が緊急状態です — シャットダウンします</string>
+    <string gender="unknown" name="dat_error_unregistration_already_unregistered">再登録解除しようとしているユーザーが登録解除済みです</string>
+    <string gender="unknown" name="dat_error_unregistration_configuration_invalid">Wearables Device Access Toolkitの設定が無効または不完全です</string>
+    <string gender="unknown" name="dat_error_unregistration_meta_ai_not_installed">Meta AIアプリがデバイスにインストールされていません。登録解除するにはインストールが必要です</string>
+    <string gender="unknown" name="dat_error_unregistration_unknown">登録解除中に不明なエラーが発生しました</string>
+    <string gender="unknown" name="dat_error_voice_action_failed">アクションを実行できませんでした</string>
+    <string gender="unknown" name="dat_error_voice_channel_setup_failed">AIアクションチャンネルを設定できませんでした</string>
+    <string gender="unknown" name="dat_error_voice_connection_not_available">デバイス接続は利用できません</string>
+    <string gender="unknown" name="dat_error_voice_device_not_found">デバイスが見つかりません</string>
+    <string gender="unknown" name="dat_error_voice_init_request_error">リクエストを初期化できませんでした</string>
+    <string gender="unknown" name="dat_error_voice_invalid_message_proto">メッセージのプロトが無効です</string>
+    <string gender="unknown" name="dat_error_voice_invalid_wearables_interface">提供されたウェアラブルインターフェイスが無効です</string>
+    <string gender="unknown" name="dat_error_voice_send_message_error">メッセージを送信できませんでした</string>
+    <string gender="unknown" name="dat_error_wearables_already_configured">すでに設定されています</string>
+    <string gender="unknown" name="dat_error_wearables_configuration_error">設定エラー</string>
+    <string gender="unknown" name="dat_error_wearables_internal_error">内部エラー</string>
+    <string gender="unknown" name="dat_error_wearables_url_registration_error">登録エラー</string>
+    <string gender="unknown" name="dat_error_wearables_url_unregistration_error">登録解除エラー</string>
+</resources>

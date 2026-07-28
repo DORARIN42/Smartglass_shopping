@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string gender="unknown" name="dat_error_permission_connection_error">စက်ပစ္စည်းနဲ့ ချိတ်ဆက်နေတုန်း အမှားတစ်ခု ဖြစ်ပွားခဲ့ပါတယ်</string>
+    <string gender="unknown" name="dat_error_permission_internal_error">မျှော်လင့်မထားတဲ့ စနစ်တွင်း ချွတ်ယွင်းမှု ဖြစ်ပွားခဲ့ပါတယ်</string>
+    <string gender="unknown" name="dat_error_permission_meta_ai_not_installed">Meta AI တွဲဖက်အက်ပ်ကို စက်ပစ္စည်းမှာ ထည့်မထားပါဘူး</string>
+    <string gender="unknown" name="dat_error_permission_no_device">ဝတ်ဆင်နိုင်တဲ့ စက်ပစ္စည်းတွေကို ရှာမတွေ့ခဲ့ပါဘူး (သို့) စာရင်းသွင်းမထားပါဘူး</string>
+    <string gender="unknown" name="dat_error_permission_no_device_with_connection">တွေ့ရှိထားတဲ့ စက်ပစ္စည်းအားလုံး စက်ပိတ်နေပါတယ် (သို့) ချိတ်ဆက်မှု ပြုတ်နေပါတယ်</string>
+    <string gender="unknown" name="dat_error_permission_request_in_progress">ခွင့်ပြုချက် တောင်းဆိုမှုကို လုပ်ဆောင်နေဆဲ ဖြစ်ပါတယ်</string>
+    <string gender="unknown" name="dat_error_permission_request_timeout">အသုံးပြုခွင့် တောင်းဆိုမှုက ခွင့်ပြုထားတဲ့ အချိန်ကန့်သတ်ချက်ကို ကျော်သွားပါပြီ</string>
+    <string gender="unknown" name="dat_error_registration_already_registered">အသုံးပြုသူက ထပ်မံ မှတ်ပုံတင်ဖို့ ကြိုးပမ်းနေပေမဲ့ မှတ်ပုံတင်ပြီးသား ဖြစ်ပါတယ်</string>
+    <string gender="unknown" name="dat_error_registration_configuration_invalid">Wearables Device Access Toolkit စီစဉ်သတ်မှတ်မှုက မမှန်ပါဘူး (သို့) မပြည့်စုံပါဘူး</string>
+    <string gender="unknown" name="dat_error_registration_meta_ai_not_installed">စက်ပစ္စည်းမှာ Meta AI အက်ပ် ထည့်သွင်းမထားပါဘူး။ စာရင်းသွင်း မှတ်ပုံတင်ခြင်းအတွက် ထည့်ပေးဖို့ လိုအပ်ပါတယ်။</string>
+    <string gender="unknown" name="dat_error_registration_network_unavailable">အင်တာနက် ချိတ်ဆက်မှု မရှိပါဘူး။ သင့်ချိတ်ဆက်မှုကို စစ်ဆေးပြီး ပြန်လုပ်ကြည့်ပါ။</string>
+    <string gender="unknown" name="dat_error_registration_unknown">စာရင်းသွင်း မှတ်ပုံတင်ရာမှာ အမျိုးအမည်မသိ အမှားတစ်ခု ဖြစ်ပွားခဲ့ပါတယ်</string>
+    <string gender="unknown" name="dat_error_session_already_exists">ဒီစက်ပစ္စည်းအတွက် လော့ဂ်အင်ကာလ ရှိပြီးသား ဖြစ်ပါတယ်</string>
+    <string gender="unknown" name="dat_error_session_already_stopped">လော့ဂ်အင်ကာလကို ရပ်တန့်ထားပြီးသား ဖြစ်ပါတယ်</string>
+    <string gender="unknown" name="dat_error_session_battery_critical">စက်ပစ္စည်းက ဘက်ထရီ အရမ်းနည်းနေပါပြီ</string>
+    <string gender="unknown" name="dat_error_session_capability_already_active">ဒီအမျိုးအစားရဲ့ လုပ်နိုင်စွမ်းတစ်ခုကို လော့ဂ်အင်ကာလမှာ အသုံးပြုနေပြီးသား ဖြစ်ပါတယ်</string>
+    <string gender="unknown" name="dat_error_session_capability_not_found">ဒီလော့ဂ်အင်ကာလမှာ ဒီအမျိုးအစားရဲ့ လုပ်နိုင်စွမ်းကို တွဲမထားပါဘူး</string>
+    <string gender="unknown" name="dat_error_session_idle">လော့ဂ်အင်ကာလက လှုပ်ရှားဆောင်ရွက်မှု မရှိပါဘူး။ လုပ်နိုင်စွမ်းတွေ မထည့်ခင် လော့ဂ်အင်ကာလကို စတင်ပေးပါ။</string>
+    <string gender="unknown" name="dat_error_session_no_eligible_device">သတ်မှတ်ချက် ပြည့်မီတဲ့ စက်ပစ္စည်း မရှိပါ</string>
+    <string gender="unknown" name="dat_error_session_peak_power_shutdown">စက်ပစ္စည်း မထိခိုက်အောင် ပိတ်ရပါတော့မယ်</string>
+    <string gender="unknown" name="dat_error_session_thermal_critical">စက်ပစ္စည်းက တော်တော်ကို ပူနေပါပြီ</string>
+    <string gender="unknown" name="dat_error_session_thermal_emergency">စက်ပစ္စည်းအပူချိန် အရေးပေါ်အဆင့် — ပိတ်ရပါတော့မယ်</string>
+    <string gender="unknown" name="dat_error_unregistration_already_unregistered">အသုံးပြုသူက စာရင်းပယ်ဖျက်ဖို့ ကြိုးပမ်းနေပေမဲ့ စာရင်းပယ်ဖျက်ပြီးသား ဖြစ်ပါတယ်</string>
+    <string gender="unknown" name="dat_error_unregistration_configuration_invalid">Wearables Device Access Toolkit စီစဉ်သတ်မှတ်မှုက မမှန်ပါဘူး (သို့) မပြည့်စုံပါဘူး</string>
+    <string gender="unknown" name="dat_error_unregistration_meta_ai_not_installed">စက်ပစ္စည်းမှာ Meta AI အက်ပ် ထည့်သွင်းမထားပါဘူး။ စာရင်းပယ်ဖျက်ခြင်းအတွက် ထည့်ပေးဖို့ လိုအပ်ပါတယ်။</string>
+    <string gender="unknown" name="dat_error_unregistration_unknown">စာရင်းပယ်ဖျက်နေတုန်းမှာ အမျိုးအမည်မသိ အမှားတစ်ခု ဖြစ်ပွားခဲ့ပါတယ်</string>
+    <string gender="unknown" name="dat_error_voice_action_failed">လုပ်ဆောင်လို့ မရခဲ့ပါ</string>
+    <string gender="unknown" name="dat_error_voice_channel_setup_failed">AI လုပ်ဆောင်မှုချန်နယ်ကို စီစဉ်သတ်မှတ်လို့ မရခဲ့ပါ</string>
+    <string gender="unknown" name="dat_error_voice_connection_not_available">စက်ပစ္စည်း ချိတ်ဆက်မှု မရှိပါဘူး</string>
+    <string gender="unknown" name="dat_error_voice_device_not_found">စက်ပစ္စည်းကို ရှာမတွေ့ပါ</string>
+    <string gender="unknown" name="dat_error_voice_init_request_error">တောင်းဆိုမှု စတင်လို့ မရခဲ့ပါဘူး</string>
+    <string gender="unknown" name="dat_error_voice_invalid_message_proto">မက်ဆေ့ ပုံစံ မမှန်ပါ</string>
+    <string gender="unknown" name="dat_error_voice_invalid_wearables_interface">မမှန်ကန်တဲ့ WearablesInterface ကို ဖော်ပြလာပါတယ်</string>
+    <string gender="unknown" name="dat_error_voice_send_message_error">မက်ဆေ့ ပေးပို့လို့ မရခဲ့ပါဘူး</string>
+    <string gender="unknown" name="dat_error_wearables_already_configured">စီစဉ်သတ်မှတ်ပြီးသားပါ</string>
+    <string gender="unknown" name="dat_error_wearables_configuration_error">စီစဉ်သတ်မှတ်မှုဆိုင်ရာ အမှားအယွင်း</string>
+    <string gender="unknown" name="dat_error_wearables_internal_error">စနစ်တွင်း ချွတ်ယွင်းမှု</string>
+    <string gender="unknown" name="dat_error_wearables_url_registration_error">စာရင်းသွင်း မှတ်ပုံတင်ခြင်းဆိုင်ရာ အမှားအယွင်း</string>
+    <string gender="unknown" name="dat_error_wearables_url_unregistration_error">စာရင်းပယ်ဖျက်မှုဆိုင်ရာ အမှားအယွင်း</string>
+</resources>

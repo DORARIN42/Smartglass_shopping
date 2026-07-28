@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string gender="unknown" name="dat_error_permission_connection_error">Wystąpił błąd połączenia podczas komunikacji z urządzeniem</string>
+    <string gender="unknown" name="dat_error_permission_internal_error">Wystąpił nieoczekiwany błąd wewnętrzny</string>
+    <string gender="unknown" name="dat_error_permission_meta_ai_not_installed">Aplikacja towarzysząca Meta AI nie jest zainstalowana na urządzeniu</string>
+    <string gender="unknown" name="dat_error_permission_no_device">Nie wykryto ani nie zarejestrowano żadnych urządzeń ubieralnych</string>
+    <string gender="unknown" name="dat_error_permission_no_device_with_connection">Wszystkie wykryte urządzenia są wyłączone lub odłączone</string>
+    <string gender="unknown" name="dat_error_permission_request_in_progress">Prośba o uprawnienie jest już w toku</string>
+    <string gender="unknown" name="dat_error_permission_request_timeout">Prośba o uprawnienie przekroczyła dozwolony limit czasu</string>
+    <string gender="unknown" name="dat_error_registration_already_registered">Próba ponownej rejestracji dla użytkownika, który jest już zarejestrowany</string>
+    <string gender="unknown" name="dat_error_registration_configuration_invalid">Konfiguracja zestawu narzędzi dostępu do urządzenia ubieralnego jest nieprawidłowa lub niekompletna</string>
+    <string gender="unknown" name="dat_error_registration_meta_ai_not_installed">Aplikacja Meta AI nie jest zainstalowana na urządzeniu, co jest wymagane do rejestracji</string>
+    <string gender="unknown" name="dat_error_registration_network_unavailable">Brak dostępnego połączenia z Internetem. Sprawdź połączenie i spróbuj ponownie</string>
+    <string gender="unknown" name="dat_error_registration_unknown">Wystąpił nieznany błąd podczas procesu rejestracji</string>
+    <string gender="unknown" name="dat_error_session_already_exists">Sesja już istnieje dla tego urządzenia</string>
+    <string gender="unknown" name="dat_error_session_already_stopped">Sesja została już zatrzymana</string>
+    <string gender="unknown" name="dat_error_session_battery_critical">Krytycznie niski poziom naładowania baterii urządzenia</string>
+    <string gender="unknown" name="dat_error_session_capability_already_active">Możliwość tego typu jest już aktywna w sesji</string>
+    <string gender="unknown" name="dat_error_session_capability_not_found">Do sesji nie jest przypisana żadna funkcja tego typu</string>
+    <string gender="unknown" name="dat_error_session_idle">Sesja jest bezczynna. Uruchom sesję przed dodaniem możliwości</string>
+    <string gender="unknown" name="dat_error_session_no_eligible_device">Brak kwalifikującego się urządzenia</string>
+    <string gender="unknown" name="dat_error_session_peak_power_shutdown">Wyłączenie urządzenia z powodu osiągnięcia maksymalnej mocy</string>
+    <string gender="unknown" name="dat_error_session_thermal_critical">Stan termiczny urządzenia jest krytyczny</string>
+    <string gender="unknown" name="dat_error_session_thermal_emergency">Stan termiczny urządzenia jest krytyczny — wyłączanie</string>
+    <string gender="unknown" name="dat_error_unregistration_already_unregistered">Użytkownik był już zdezaktywowany podczas ponownej próby dezaktywacji</string>
+    <string gender="unknown" name="dat_error_unregistration_configuration_invalid">Konfiguracja zestawu narzędzi dostępu do urządzenia ubieralnego jest nieprawidłowa lub niekompletna</string>
+    <string gender="unknown" name="dat_error_unregistration_meta_ai_not_installed">Aplikacja Meta AI nie jest zainstalowana na urządzeniu, co jest wymagane do anulowania rejestracji</string>
+    <string gender="unknown" name="dat_error_unregistration_unknown">Wystąpił nieznany błąd podczas procesu anulowania rejestracji</string>
+    <string gender="unknown" name="dat_error_voice_action_failed">Działanie nie powiodło się</string>
+    <string gender="unknown" name="dat_error_voice_channel_setup_failed">Nie udało się skonfigurować kanału działań SI</string>
+    <string gender="unknown" name="dat_error_voice_connection_not_available">Połączenie z urządzeniem niedostępne</string>
+    <string gender="unknown" name="dat_error_voice_device_not_found">Nie znaleziono urządzenia</string>
+    <string gender="unknown" name="dat_error_voice_init_request_error">Nie udało się zainicjować żądania</string>
+    <string gender="unknown" name="dat_error_voice_invalid_message_proto">Nieprawidłowy prototyp wiadomości</string>
+    <string gender="unknown" name="dat_error_voice_invalid_wearables_interface">Podano nieprawidłowy interfejs urządzeń ubieralnych</string>
+    <string gender="unknown" name="dat_error_voice_send_message_error">Wysłanie wiadomości nie powiodło się</string>
+    <string gender="unknown" name="dat_error_wearables_already_configured">Już skonfigurowano</string>
+    <string gender="unknown" name="dat_error_wearables_configuration_error">Błąd konfiguracji</string>
+    <string gender="unknown" name="dat_error_wearables_internal_error">Błąd wewnętrzny</string>
+    <string gender="unknown" name="dat_error_wearables_url_registration_error">Błąd rejestracji</string>
+    <string gender="unknown" name="dat_error_wearables_url_unregistration_error">Błąd anulowania rejestracji</string>
+</resources>

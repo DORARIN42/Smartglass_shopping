@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string gender="unknown" name="dat_error_permission_connection_error">ಸಾಧನದೊಂದಿಗೆ ಸಂವಹನ ನಡೆಸುವಾಗ ಸಂಪರ್ಕ ದೋಷ ಸಂಭವಿಸಿದೆ</string>
+    <string gender="unknown" name="dat_error_permission_internal_error">ಅನಿರೀಕ್ಷಿತ ಆಂತರಿಕ ದೋಷ ಸಂಭವಿಸಿದೆ</string>
+    <string gender="unknown" name="dat_error_permission_meta_ai_not_installed">Meta AI ಕಂಪ್ಯಾನಿಯನ್ ಆ್ಯಪ್ ಅನ್ನು ಸಾಧನದಲ್ಲಿ ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಲಾಗಿಲ್ಲ</string>
+    <string gender="unknown" name="dat_error_permission_no_device">ಯಾವುದೇ ಧರಿಸಬಹುದಾದ ಸಾಧನಗಳು ಪತ್ತೆಯಾಗಿಲ್ಲ ಅಥವಾ ನೋಂದಾಯಿಸಲಾಗಿಲ್ಲ</string>
+    <string gender="unknown" name="dat_error_permission_no_device_with_connection">ಎಲ್ಲಾ ಅನ್ವೇಷಿಸಿದ ಸಾಧನಗಳನ್ನು ಆಫ್ ಮಾಡಲಾಗಿದೆ ಅಥವಾ ಸಂಪರ್ಕ ಕಡಿತಗೊಳಿಸಲಾಗಿದೆ</string>
+    <string gender="unknown" name="dat_error_permission_request_in_progress">ಅನುಮತಿ ವಿನಂತಿಯು ಈಗಾಗಲೇ ಪ್ರಗತಿಯಲ್ಲಿದೆ</string>
+    <string gender="unknown" name="dat_error_permission_request_timeout">ಅನುಮತಿ ವಿನಂತಿಯು ಅನುಮತಿಸಲಾದ ಸಮಯದ ಮಿತಿಯನ್ನು ಮೀರಿದೆ</string>
+    <string gender="unknown" name="dat_error_registration_already_registered">ಮತ್ತೊಮ್ಮೆ ನೋಂದಾಯಿಸಲು ಪ್ರಯತ್ನಿಸುವಾಗ ಬಳಕೆದಾರರು ಈಗಾಗಲೇ ನೋಂದಾಯಿಸಲ್ಪಟ್ಟಿದ್ದಾರೆ</string>
+    <string gender="unknown" name="dat_error_registration_configuration_invalid">ವೇರಬಲ್ಸ್ ಸಾಧನದ ಆ್ಯಕ್ಸೆಸ್ ಟೂಲ್‌ಕಿಟ್ ಕಾನ್ಫಿಗರೇಶನ್ ಅಮಾನ್ಯವಾಗಿದೆ ಅಥವಾ ಅಪೂರ್ಣವಾಗಿದೆ</string>
+    <string gender="unknown" name="dat_error_registration_meta_ai_not_installed">ನೋಂದಣಿಗೆ ಅಗತ್ಯವಿರುವ ಸಾಧನದಲ್ಲಿ Meta AI ಆ್ಯಪ್ ಅನ್ನು ಸ್ಥಾಪಿಸಲಾಗಿಲ್ಲ</string>
+    <string gender="unknown" name="dat_error_registration_network_unavailable">ಯಾವುದೇ ಇಂಟರ್ನೆಟ್ ಸಂಪರ್ಕ ಲಭ್ಯವಿಲ್ಲ. ದಯವಿಟ್ಟು ನಿಮ್ಮ ಸಂಪರ್ಕವನ್ನು ಪರಿಶೀಲಿಸಿ ಮತ್ತು ಪುನಃ ಪ್ರಯತ್ನಿಸಿ</string>
+    <string gender="unknown" name="dat_error_registration_unknown">ನೋಂದಣಿ ಪ್ರಕ್ರಿಯೆಯ ಸಮಯದಲ್ಲಿ ಅಜ್ಞಾತ ದೋಷ ಸಂಭವಿಸಿದೆ</string>
+    <string gender="unknown" name="dat_error_session_already_exists">ಈ ಸಾಧನಕ್ಕೆ ಈಗಾಗಲೇ ಒಂದು ಸೆಷನ್ ಅಸ್ತಿತ್ವದಲ್ಲಿದೆ</string>
+    <string gender="unknown" name="dat_error_session_already_stopped">ಸೆಷನ್ ಅನ್ನು ಈಗಾಗಲೇ ನಿಲ್ಲಿಸಲಾಗಿದೆ</string>
+    <string gender="unknown" name="dat_error_session_battery_critical">ಸಾಧನದ ಬ್ಯಾಟರಿ ಅತೀ ಕಡಿಮೆಯಾಗಿದೆ</string>
+    <string gender="unknown" name="dat_error_session_capability_already_active">ಈ ರೀತಿಯ ಸಾಮರ್ಥ್ಯವು ಸೆಷನ್​ನಲ್ಲಿ ಈಗಾಗಲೇ ಸಕ್ರಿಯವಾಗಿದೆ</string>
+    <string gender="unknown" name="dat_error_session_capability_not_found">ಈ ರೀತಿಯ ಯಾವುದೇ ಸಾಮರ್ಥ್ಯವನ್ನು ಸೆಷನ್‌ಗೆ ಲಗತ್ತಿಸಲಾಗಿಲ್ಲ</string>
+    <string gender="unknown" name="dat_error_session_idle">ಸೆಷನ್ ನಿಷ್ಕ್ರಿಯವಾಗಿದೆ. ಸಾಮರ್ಥ್ಯಗಳನ್ನು ಸೇರಿಸುವ ಮೊದಲು ಸೆಷನ್ ಅನ್ನು ಪ್ರಾರಂಭಿಸಿ.</string>
+    <string gender="unknown" name="dat_error_session_no_eligible_device">ಯಾವುದೇ ಅರ್ಹ ಸಾಧನ ಲಭ್ಯವಿಲ್ಲ</string>
+    <string gender="unknown" name="dat_error_session_peak_power_shutdown">ಸಾಧನದ ಗರಿಷ್ಠ ಶಕ್ತಿಯನ್ನು ಸ್ಥಗಿತಗೊಳಿಸಲಾಗಿದೆ</string>
+    <string gender="unknown" name="dat_error_session_thermal_critical">ಸಾಧನದ ಶಾಖ ಸ್ಥಿತಿ ನಿರ್ಣಾಯಕವಾಗಿದೆ</string>
+    <string gender="unknown" name="dat_error_session_thermal_emergency">ಸಾಧನದ ಶಾಖ ಸ್ಥಿತಿ ತುರ್ತುಸ್ಥಿತಿಯಾಗಿದೆ - ಮುಚ್ಚಲಾಗುತ್ತಿದೆ</string>
+    <string gender="unknown" name="dat_error_unregistration_already_unregistered">ಮತ್ತೊಮ್ಮೆ ನೋಂದಣಿ ರದ್ದುಮಾಡಲು ಪ್ರಯತ್ನಿಸುವಾಗ ಬಳಕೆದಾರರು ಈಗಾಗಲೇ ನೋಂದಣಿ ರದ್ದುಗೊಳಿಸಿದ್ದಾರೆ</string>
+    <string gender="unknown" name="dat_error_unregistration_configuration_invalid">ವೇರಬಲ್ಸ್ ಸಾಧನದ ಆ್ಯಕ್ಸೆಸ್ ಟೂಲ್‌ಕಿಟ್ ಕಾನ್ಫಿಗರೇಶನ್ ಅಮಾನ್ಯವಾಗಿದೆ ಅಥವಾ ಅಪೂರ್ಣವಾಗಿದೆ</string>
+    <string gender="unknown" name="dat_error_unregistration_meta_ai_not_installed">Meta AI ಆ್ಯಪ್ ಅನ್ನು ಸಾಧನದಲ್ಲಿ ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಲಾಗಿಲ್ಲ, ಇದು ನೋಂದಣಿ ರದ್ದುಗೊಳಿಸಲು ಅಗತ್ಯವಿದೆ.</string>
+    <string gender="unknown" name="dat_error_unregistration_unknown">ನೋಂದಣಿ ರದ್ದುಪಡಿಸುವ ಪ್ರಕ್ರಿಯೆಯಲ್ಲಿ ಅಜ್ಞಾತ ದೋಷ ಸಂಭವಿಸಿದೆ</string>
+    <string gender="unknown" name="dat_error_voice_action_failed">ಕ್ರಮ ವಿಫಲವಾಗಿದೆ</string>
+    <string gender="unknown" name="dat_error_voice_channel_setup_failed">AI ಕ್ರಿಯೆಗಳ ಚಾನಲ್ ಅನ್ನು ಸೆಟಪ್ ಮಾಡಲು ವಿಫಲವಾಗಿದೆ</string>
+    <string gender="unknown" name="dat_error_voice_connection_not_available">ಸಾಧನ ಸಂಪರ್ಕ ಲಭ್ಯವಿಲ್ಲ</string>
+    <string gender="unknown" name="dat_error_voice_device_not_found">ಸಾಧನವು ಕಂಡುಬಂದಿಲ್ಲ</string>
+    <string gender="unknown" name="dat_error_voice_init_request_error">ವಿನಂತಿಯನ್ನು ಪ್ರಾರಂಭಿಸಲು ವಿಫಲವಾಗಿದೆ</string>
+    <string gender="unknown" name="dat_error_voice_invalid_message_proto">ಅಮಾನ್ಯ ಸಂದೇಶ ಪ್ರೋಟೋ</string>
+    <string gender="unknown" name="dat_error_voice_invalid_wearables_interface">ಅಮಾನ್ಯವಾದ ವೇರಬಲ್ಸ್ ಇಂಟರ್ಫೇಸ್ ಅನ್ನು ಒದಗಿಸಲಾಗಿದೆ</string>
+    <string gender="unknown" name="dat_error_voice_send_message_error">ಸಂದೇಶವನ್ನು ಕಳುಹಿಸಲು ವಿಫಲವಾಗಿದೆ</string>
+    <string gender="unknown" name="dat_error_wearables_already_configured">ಈಗಾಗಲೇ ಕಾನ್ಫಿಗರ್ ಮಾಡಲಾಗಿದೆ</string>
+    <string gender="unknown" name="dat_error_wearables_configuration_error">ಕಾನ್ಫಿಗರೇಶನ್ ದೋಷ</string>
+    <string gender="unknown" name="dat_error_wearables_internal_error">ಆಂತರಿಕ ದೋಷ</string>
+    <string gender="unknown" name="dat_error_wearables_url_registration_error">ನೋಂದಣಿ ದೋಷ</string>
+    <string gender="unknown" name="dat_error_wearables_url_unregistration_error">ನೋಂದಣಿ ರದ್ದುಮಾಡುವಿಕೆಯ ದೋಷ</string>
+</resources>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string gender="unknown" name="dat_error_permission_connection_error">A apărut o eroare de conexiune în timpul comunicării cu dispozitivul</string>
+    <string gender="unknown" name="dat_error_permission_internal_error">A apărut o eroare internă neaşteptată</string>
+    <string gender="unknown" name="dat_error_permission_meta_ai_not_installed">Aplicaţia Meta AI de însoţire nu este instalată pe dispozitiv</string>
+    <string gender="unknown" name="dat_error_permission_no_device">Nu au fost descoperite sau înregistrate dispozitive purtabile</string>
+    <string gender="unknown" name="dat_error_permission_no_device_with_connection">Toate dispozitivele descoperite sunt oprite sau deconectate</string>
+    <string gender="unknown" name="dat_error_permission_request_in_progress">O solicitare de permisiune este deja în curs</string>
+    <string gender="unknown" name="dat_error_permission_request_timeout">Solicitarea privind permisiunea a depăşit limita de timp permisă</string>
+    <string gender="unknown" name="dat_error_registration_already_registered">Utilizatorul este deja înregistrat când încearcă să se înregistreze din nou</string>
+    <string gender="unknown" name="dat_error_registration_configuration_invalid">Configurarea Setului de instrumente pentru accesul dispozitivelor purtabile este nevalidă sau incompletă</string>
+    <string gender="unknown" name="dat_error_registration_meta_ai_not_installed">Aplicaţia Meta AI nu este instalată pe dispozitiv, aceasta fiind o condiţie obligatorie pentru înregistrare</string>
+    <string gender="unknown" name="dat_error_registration_network_unavailable">Nu este disponibilă nicio conexiune la Internet. Te rugăm să verifici conexiunea şi să încerci din nou</string>
+    <string gender="unknown" name="dat_error_registration_unknown">A apărut o eroare necunoscută în timpul procesului de înregistrare</string>
+    <string gender="unknown" name="dat_error_session_already_exists">Există deja o sesiune pentru acest dispozitiv</string>
+    <string gender="unknown" name="dat_error_session_already_stopped">Sesiunea a fost oprită deja</string>
+    <string gender="unknown" name="dat_error_session_battery_critical">Bateria dispozitivului este foarte descărcată</string>
+    <string gender="unknown" name="dat_error_session_capability_already_active">O capacitate de acest tip este deja activă în sesiune</string>
+    <string gender="unknown" name="dat_error_session_capability_not_found">La această sesiune nu este ataşată nicio capacitate de acest tip</string>
+    <string gender="unknown" name="dat_error_session_idle">Sesiunea este inactivă. Începe sesiunea înainte de a adăuga capacităţi</string>
+    <string gender="unknown" name="dat_error_session_no_eligible_device">Nu este disponibil niciun dispozitiv eligibil</string>
+    <string gender="unknown" name="dat_error_session_peak_power_shutdown">Oprirea dispozitivului din cauza consumului maxim de energie</string>
+    <string gender="unknown" name="dat_error_session_thermal_critical">Starea termică a dispozitivului este critică</string>
+    <string gender="unknown" name="dat_error_session_thermal_emergency">Starea termică a dispozitivului este la nivel de urgenţă - se opreşte</string>
+    <string gender="unknown" name="dat_error_unregistration_already_unregistered">Înregistrarea utilizatorul este deja anulată când încearcă să o anuleze din nou</string>
+    <string gender="unknown" name="dat_error_unregistration_configuration_invalid">Configurarea Setului de instrumente pentru accesul dispozitivelor purtabile este nevalidă sau incompletă</string>
+    <string gender="unknown" name="dat_error_unregistration_meta_ai_not_installed">Aplicaţia Meta AI nu este instalată pe dispozitiv, aceasta fiind o condiţie obligatorie pentru anularea înregistrării</string>
+    <string gender="unknown" name="dat_error_unregistration_unknown">A apărut o eroare necunoscută în timpul procesului de anulare a înregistrării</string>
+    <string gender="unknown" name="dat_error_voice_action_failed">Acţiunea nu a reuşit</string>
+    <string gender="unknown" name="dat_error_voice_channel_setup_failed">Canalul Acţiuni AI nu a fost configurat</string>
+    <string gender="unknown" name="dat_error_voice_connection_not_available">Conexiunea la dispozitiv nu este disponibilă</string>
+    <string gender="unknown" name="dat_error_voice_device_not_found">Dispozitivul nu a fost găsit</string>
+    <string gender="unknown" name="dat_error_voice_init_request_error">Solicitarea nu a putut fi iniţializată</string>
+    <string gender="unknown" name="dat_error_voice_invalid_message_proto">Proto mesaj nevalid</string>
+    <string gender="unknown" name="dat_error_voice_invalid_wearables_interface">A fost precizată o interfaţă nevalidă pentru dispozitive purtabile</string>
+    <string gender="unknown" name="dat_error_voice_send_message_error">Mesajul nu a putut fi trimis</string>
+    <string gender="unknown" name="dat_error_wearables_already_configured">Deja configurat</string>
+    <string gender="unknown" name="dat_error_wearables_configuration_error">Eroare de configurare</string>
+    <string gender="unknown" name="dat_error_wearables_internal_error">Eroare internă</string>
+    <string gender="unknown" name="dat_error_wearables_url_registration_error">Eroare la înregistrare</string>
+    <string gender="unknown" name="dat_error_wearables_url_unregistration_error">Eroare la anularea înregistrării</string>
+</resources>

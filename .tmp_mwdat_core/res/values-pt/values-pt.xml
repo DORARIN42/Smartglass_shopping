@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string gender="unknown" name="dat_error_permission_connection_error">Ocorreu um erro de conexão durante a comunicação com o dispositivo</string>
+    <string gender="unknown" name="dat_error_permission_internal_error">Ocorreu um erro interno inesperado</string>
+    <string gender="unknown" name="dat_error_permission_meta_ai_not_installed">O app complementar Meta AI não está instalado no dispositivo</string>
+    <string gender="unknown" name="dat_error_permission_no_device">Nenhum dispositivo vestível foi encontrado ou inscrito</string>
+    <string gender="unknown" name="dat_error_permission_no_device_with_connection">Todos os dispositivos encontrados estão desligados ou desconectados</string>
+    <string gender="unknown" name="dat_error_permission_request_in_progress">Uma solicitação de permissão já está em andamento</string>
+    <string gender="unknown" name="dat_error_permission_request_timeout">A solicitação de permissão excedeu o limite de tempo permitido</string>
+    <string gender="unknown" name="dat_error_registration_already_registered">O usuário já está inscrito ao tentar se inscrever novamente</string>
+    <string gender="unknown" name="dat_error_registration_configuration_invalid">A configuração do Wearables Device Access Toolkit é inválida ou está incompleta</string>
+    <string gender="unknown" name="dat_error_registration_meta_ai_not_installed">O app Meta AI necessário para a inscrição não está instalado no dispositivo</string>
+    <string gender="unknown" name="dat_error_registration_network_unavailable">Nenhuma conexão com a internet disponível. Verifique sua conexão e tente novamente.</string>
+    <string gender="unknown" name="dat_error_registration_unknown">Ocorreu um erro desconhecido durante o processo de inscrição</string>
+    <string gender="unknown" name="dat_error_session_already_exists">Já existe uma sessão para este dispositivo</string>
+    <string gender="unknown" name="dat_error_session_already_stopped">A sessão já foi encerrada</string>
+    <string gender="unknown" name="dat_error_session_battery_critical">A bateria do dispositivo está muito baixa</string>
+    <string gender="unknown" name="dat_error_session_capability_already_active">Um recurso desse tipo já está ativo na sessão</string>
+    <string gender="unknown" name="dat_error_session_capability_not_found">Nenhum recurso desse tipo está anexado à sessão</string>
+    <string gender="unknown" name="dat_error_session_idle">A sessão está ociosa. Inicie a sessão antes de adicionar recursos</string>
+    <string gender="unknown" name="dat_error_session_no_eligible_device">Nenhum dispositivo qualificado disponível</string>
+    <string gender="unknown" name="dat_error_session_peak_power_shutdown">Dispositivo desligado devido a pico de energia</string>
+    <string gender="unknown" name="dat_error_session_thermal_critical">Estado térmico do dispositivo: crítico</string>
+    <string gender="unknown" name="dat_error_session_thermal_emergency">Estado térmico do dispositivo: emergência – desligando</string>
+    <string gender="unknown" name="dat_error_unregistration_already_unregistered">A inscrição do usuário já foi cancelada ao tentar cancelar novamente</string>
+    <string gender="unknown" name="dat_error_unregistration_configuration_invalid">A configuração do Wearables Device Access Toolkit é inválida ou está incompleta</string>
+    <string gender="unknown" name="dat_error_unregistration_meta_ai_not_installed">O app Meta AI necessário para cancelar a inscrição não está instalado no dispositivo</string>
+    <string gender="unknown" name="dat_error_unregistration_unknown">Ocorreu um erro desconhecido durante o processo de cancelamento da inscrição</string>
+    <string gender="unknown" name="dat_error_voice_action_failed">Falha na ação</string>
+    <string gender="unknown" name="dat_error_voice_channel_setup_failed">Falha ao configurar o canal de ações da IA</string>
+    <string gender="unknown" name="dat_error_voice_connection_not_available">Conexão com o dispositivo não disponível</string>
+    <string gender="unknown" name="dat_error_voice_device_not_found">Dispositivo não encontrado</string>
+    <string gender="unknown" name="dat_error_voice_init_request_error">Falha ao iniciar a solicitação</string>
+    <string gender="unknown" name="dat_error_voice_invalid_message_proto">Mensagem proto inválida</string>
+    <string gender="unknown" name="dat_error_voice_invalid_wearables_interface">WearablesInterface inválida fornecida</string>
+    <string gender="unknown" name="dat_error_voice_send_message_error">Falha ao enviar mensagem</string>
+    <string gender="unknown" name="dat_error_wearables_already_configured">Já configurado</string>
+    <string gender="unknown" name="dat_error_wearables_configuration_error">Erro de configuração</string>
+    <string gender="unknown" name="dat_error_wearables_internal_error">Erro interno</string>
+    <string gender="unknown" name="dat_error_wearables_url_registration_error">Erro de inscrição</string>
+    <string gender="unknown" name="dat_error_wearables_url_unregistration_error">Erro ao cancelar a inscrição</string>
+</resources>

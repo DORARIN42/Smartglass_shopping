@@ -33,8 +33,12 @@ android {
 
         val analysisBaseUrl =
             providers.gradleProperty("analysis_base_url").orNull
-                ?: localProperties.getProperty("analysis_base_url", "http://192.168.1.103:8000/")
+                ?: localProperties.getProperty("analysis_base_url", "http://172.30.1.99:8080/")
         buildConfigField("String", "ANALYSIS_BASE_URL", "\"$analysisBaseUrl\"")
+        val useMockGlasses =
+            providers.gradleProperty("use_mock_glasses").orNull
+                ?: localProperties.getProperty("use_mock_glasses", "false")
+        buildConfigField("Boolean", "USE_MOCK_GLASSES", useMockGlasses)
     }
 
     buildTypes {

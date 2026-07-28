@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string gender="unknown" name="dat_error_permission_connection_error">’n Verbindingsfout het voorgekom terwyl daar met die toestel gekommunikeer is</string>
+    <string gender="unknown" name="dat_error_permission_internal_error">’n Onvoorsiene interne fout het voorgekom</string>
+    <string gender="unknown" name="dat_error_permission_meta_ai_not_installed">Die Meta AI-metgeseltoepassing is nie op die toestel geïnstalleer nie</string>
+    <string gender="unknown" name="dat_error_permission_no_device">Geen draagbare toestelle is ontdek of geregistreer nie</string>
+    <string gender="unknown" name="dat_error_permission_no_device_with_connection">Alle ontdekte toestelle is afgeskakel of ontkoppel</string>
+    <string gender="unknown" name="dat_error_permission_request_in_progress">’n Toestemmingversoek is reeds aan die gang</string>
+    <string gender="unknown" name="dat_error_permission_request_timeout">Die toestemmingversoek het die toegelate tydbeperking oorskry</string>
+    <string gender="unknown" name="dat_error_registration_already_registered">Gebruiker is reeds geregistreer wanneer hulle probeer om weer te registreer</string>
+    <string gender="unknown" name="dat_error_registration_configuration_invalid">Die opstelling van die nutsgoedstel vir toegang tot draagbare toestelle is ongeldig of onvolledig</string>
+    <string gender="unknown" name="dat_error_registration_meta_ai_not_installed">Die Meta AI-toepassing is nie op die toestel geïnstalleer nie, wat vir registrasie vereis word</string>
+    <string gender="unknown" name="dat_error_registration_network_unavailable">Geen internetverbinding beskikbaar nie. Gaan jou verbinding na en probeer weer</string>
+    <string gender="unknown" name="dat_error_registration_unknown">’n Onbekende fout het gedurende die registrasieproses voorgekom</string>
+    <string gender="unknown" name="dat_error_session_already_exists">’n Sessie vir hierdie toestel bestaan reeds</string>
+    <string gender="unknown" name="dat_error_session_already_stopped">Sessie is reeds gestop</string>
+    <string gender="unknown" name="dat_error_session_battery_critical">Toestel se battery is kritiek laag</string>
+    <string gender="unknown" name="dat_error_session_capability_already_active">’n Vermoë van hierdie soort is reeds aktief in die sessie</string>
+    <string gender="unknown" name="dat_error_session_capability_not_found">Geen vermoë van hierdie soort is aan die sessie geheg nie</string>
+    <string gender="unknown" name="dat_error_session_idle">Sessie is onaktief. Begin die sessie voordat jy vermoëns byvoeg</string>
+    <string gender="unknown" name="dat_error_session_no_eligible_device">Geen geskikte toestel is beskikbaar nie</string>
+    <string gender="unknown" name="dat_error_session_peak_power_shutdown">Toestel se topkragafskakeling</string>
+    <string gender="unknown" name="dat_error_session_thermal_critical">Toestel se termiese toestand is kritiek</string>
+    <string gender="unknown" name="dat_error_session_thermal_emergency">Toestel se termiese toestand is nood – skakel tans af</string>
+    <string gender="unknown" name="dat_error_unregistration_already_unregistered">Gebruiker is reeds gederegistreer wanneer hulle probeer om weer te deregistreer</string>
+    <string gender="unknown" name="dat_error_unregistration_configuration_invalid">Die opstelling van die nutsgoedstel vir toegang tot draagbare toestelle is ongeldig of onvolledig</string>
+    <string gender="unknown" name="dat_error_unregistration_meta_ai_not_installed">Die Meta AI-toepassing is nie op die toestel geïnstalleer nie, wat vir deregistrasie vereis word</string>
+    <string gender="unknown" name="dat_error_unregistration_unknown">’n Onbekende fout het tydens die deregistrasieproses voorgekom</string>
+    <string gender="unknown" name="dat_error_voice_action_failed">Kon nie optree nie</string>
+    <string gender="unknown" name="dat_error_voice_channel_setup_failed">Kon nie AI-handelingekanaal opstel nie</string>
+    <string gender="unknown" name="dat_error_voice_connection_not_available">Toestelverbinding is nie beskikbaar nie</string>
+    <string gender="unknown" name="dat_error_voice_device_not_found">Toestel nie gevind nie</string>
+    <string gender="unknown" name="dat_error_voice_init_request_error">Kon nie versoek inisieer nie</string>
+    <string gender="unknown" name="dat_error_voice_invalid_message_proto">Ongeldige boodskap proto</string>
+    <string gender="unknown" name="dat_error_voice_invalid_wearables_interface">Ongeldige WearablesInterface is verskaf</string>
+    <string gender="unknown" name="dat_error_voice_send_message_error">Kon nie boodskap stuur nie</string>
+    <string gender="unknown" name="dat_error_wearables_already_configured">Reeds opgestel</string>
+    <string gender="unknown" name="dat_error_wearables_configuration_error">Opstellingfout</string>
+    <string gender="unknown" name="dat_error_wearables_internal_error">Interne fout</string>
+    <string gender="unknown" name="dat_error_wearables_url_registration_error">Registrasiefout</string>
+    <string gender="unknown" name="dat_error_wearables_url_unregistration_error">Deregistrasiefout</string>
+</resources>

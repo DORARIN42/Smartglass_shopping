@@ -1,0 +1,19 @@
+# (c) Meta Platforms, Inc. and affiliates. Confidential and proprietary.
+
+# Meta Wearables
+
+-keep class com.meta.wearable.** { *; }
+-keep class com.facebook.wearable.** { *; }
+
+
+# Facebook JNI
+
+-keep class com.facebook.jni.** { *; }
+-keep interface kotlin.jvm.functions.** { *; }
+
+
+# Protocol Buffers
+
+-keepclassmembers class * extends com.google.protobuf.GeneratedMessageLite {
+    <fields>;
+}

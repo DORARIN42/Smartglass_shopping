@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string description="Error shown when Meta AI app is not installed for navigation" name="dat_error_navigation_meta_ai_not_installed">The Meta AI app is not installed on the device</string>
+    <string description="Error shown when the DAT app is not registered with AI glasses" name="dat_error_navigation_not_registered">The DAT app is not registered with AI glasses</string>
+    <string description="Error during device communication for permissions" name="dat_error_permission_connection_error">A connection error occurred while communicating with the device</string>
+    <string description="Unexpected internal error during permission operations" name="dat_error_permission_internal_error">An unexpected internal error occurred</string>
+    <string description="Error shown when Meta AI companion app is not installed" name="dat_error_permission_meta_ai_not_installed">The Meta AI companion app is not installed on the device</string>
+    <string description="Error shown when no wearable devices are discovered" name="dat_error_permission_no_device">No wearable devices have been discovered or registered</string>
+    <string description="Error shown when all devices are disconnected" name="dat_error_permission_no_device_with_connection">All discovered devices are powered off or disconnected</string>
+    <string description="Error shown when a permission request is already pending" name="dat_error_permission_request_in_progress">A permission request is already in progress</string>
+    <string description="Error shown when permission request times out" name="dat_error_permission_request_timeout">The permission request exceeded the allowed time limit</string>
+    <string description="Error shown when user attempts to register while already registered" name="dat_error_registration_already_registered">User is already registered when attempting to register again</string>
+    <string description="Error shown when DAT configuration is invalid during registration" name="dat_error_registration_configuration_invalid">The Wearables Device Access Toolkit configuration is invalid or incomplete</string>
+    <string description="Generic registration failure" name="dat_error_registration_failed_to_register">Registration process failed for an unspecified reason</string>
+    <string description="Generic unregistration failure" name="dat_error_registration_failed_to_unregister">Unregistration process failed for an unspecified reason</string>
+    <string description="Error shown when the device Android SDK level is below the minimum supported by the Wearables Device Access Toolkit" name="dat_error_registration_incompatible_sdk_level">Android SDK level is below the minimum supported by the Wearables Device Access Toolkit</string>
+    <string description="Error shown when Meta AI app is not installed for registration" name="dat_error_registration_meta_ai_not_installed">The Meta AI app is not installed on the device, which is required for registration</string>
+    <string description="Error shown when network is unavailable during registration" name="dat_error_registration_network_unavailable">No internet connection available. Please check your connection and try again</string>
+    <string description="Error shown when the registration request times out without a response from Meta AI" name="dat_error_registration_timeout">Registration timeout expired, no response from Meta AI</string>
+    <string description="Generic unknown error during registration" name="dat_error_registration_unknown">An unknown error occurred during the registration process</string>
+    <string description="Error shown when trying to create a session for a device that already has one" name="dat_error_session_already_exists">A session already exists for this device</string>
+    <string description="Error shown when an operation is attempted on an already-stopped session" name="dat_error_session_already_stopped">Session has already been stopped</string>
+    <string description="Error shown when device battery is critically low" name="dat_error_session_battery_critical">Device battery critically low</string>
+    <string description="Error shown when a duplicate capability type is added to a session" name="dat_error_session_capability_already_active">A capability of this type is already active on the session</string>
+    <string description="Error shown when the device denies a requested session capability" name="dat_error_session_capability_denied">Capability denied by device</string>
+    <string description="Error shown when trying to remove a capability that is not attached" name="dat_error_session_capability_not_found">No capability of this type is attached to the session</string>
+    <string description="Error shown when the DAT app on the glasses needs to be updated" name="dat_error_session_dat_app_on_the_glasses_update_required">Your glasses need an update. Go to App Connections page in Meta AI to update</string>
+    <string description="Error shown when the glasses app needs an update before starting a session" name="dat_error_session_dat_app_update_required">The app on your glasses needs an update before this session can start. Go to the App Connections page in Meta AI to update it.</string>
+    <string description="Error shown when the device disconnects during a session" name="dat_error_session_device_disconnected">Device disconnected</string>
+    <string description="Error shown when the device is powered off during a session" name="dat_error_session_device_powered_off">Device powered off</string>
+    <string description="Error shown when the DAT Wearables App on glasses is not reachable" name="dat_error_session_dwa_unavailable">DAT Wearables App on the glasses is not reachable</string>
+    <string description="Error shown when the session is ended by the device" name="dat_error_session_ended_by_device">Session ended by device</string>
+    <string description="Error shown when a capability is added to a session that has not been started" name="dat_error_session_idle">Session is idle. Start the session before adding capabilities</string>
+    <string description="Error shown when no eligible device is available for a session" name="dat_error_session_no_eligible_device">No eligible device available</string>
+    <string description="Error shown when a session operation is attempted before SDK initialization" name="dat_error_session_not_initialized">Wearables SDK is not initialized</string>
+    <string description="Error shown when device enters peak power shutdown" name="dat_error_session_peak_power_shutdown">Device peak power shutdown</string>
+    <string description="Error shown when device thermal state reaches critical level" name="dat_error_session_thermal_critical">Device thermal state is critical</string>
+    <string description="Error shown when device thermal state reaches emergency level and shuts down" name="dat_error_session_thermal_emergency">Device thermal state is emergency — shutting down</string>
+    <string description="Generic unexpected session error" name="dat_error_session_unexpected_error">An unexpected error occurred</string>
+    <string description="Error shown when user attempts to unregister while already unregistered" name="dat_error_unregistration_already_unregistered">User is already unregistered when attempting to unregister again</string>
+    <string description="Error shown when DAT configuration is invalid during unregistration" name="dat_error_unregistration_configuration_invalid">The Wearables Device Access Toolkit configuration is invalid or incomplete</string>
+    <string description="Error shown when Meta AI app is not installed for unregistration" name="dat_error_unregistration_meta_ai_not_installed">The Meta AI app is not installed on the device, which is required for unregistration</string>
+    <string description="Error shown when the unregistration request times out without a response from Meta AI" name="dat_error_unregistration_timeout">Unregistration timeout expired, no response from Meta AI</string>
+    <string description="Generic unknown error during unregistration" name="dat_error_unregistration_unknown">An unknown error occurred during the unregistration process</string>
+    <string description="Error shown when a voice invocation action fails" name="dat_error_voice_action_failed">Action failed</string>
+    <string description="Error shown when an unspecified voice invocation channel error occurs" name="dat_error_voice_channel_error">Channel error occurred</string>
+    <string description="Error shown when the voice invocation channel is not connected" name="dat_error_voice_channel_not_connected">Channel is not connected</string>
+    <string description="Error shown when AI Actions channel setup fails" name="dat_error_voice_channel_setup_failed">Failed to setup AI Actions channel</string>
+    <string description="Error shown when device connection is not available for voice invocation" name="dat_error_voice_connection_not_available">Device connection not available</string>
+    <string description="Error shown when the target device is not found for voice invocation" name="dat_error_voice_device_not_found">Device not found</string>
+    <string description="Error shown when sending the voice invocation init request fails" name="dat_error_voice_fail_to_send_init_request">Failed to send init request</string>
+    <string description="Error shown when voice invocation request initialization fails" name="dat_error_voice_init_request_error">Failed to initialize request</string>
+    <string description="Error shown when the voice invocation init request returns an error" name="dat_error_voice_init_request_returned_error">Init request returned an error</string>
+    <string description="Error shown when an action message proto is invalid" name="dat_error_voice_invalid_action_message_proto">Invalid action message proto</string>
+    <string description="Error shown when a voice invocation AI action is missing required fields" name="dat_error_voice_invalid_ai_action">Invalid AI action: missing requestId</string>
+    <string description="Error shown when a message proto is invalid" name="dat_error_voice_invalid_message_proto">Invalid Message proto</string>
+    <string description="Error shown when a voice invocation operation is attempted in an invalid session state" name="dat_error_voice_invalid_session_state">Invalid session state for operation</string>
+    <string description="Error shown when an invalid WearablesInterface is provided" name="dat_error_voice_invalid_wearables_interface">Invalid WearablesInterface provided</string>
+    <string description="Error shown when sending a voice invocation message fails" name="dat_error_voice_send_message_error">Failed to send message</string>
+    <string description="Error shown when an unknown voice invocation message type is received" name="dat_error_voice_unknown_message_type">Unknown message type received</string>
+    <string description="Error shown when configure() is called more than once" name="dat_error_wearables_already_configured">Already configured</string>
+    <string description="Error shown when Wearables.initialize is called more than once" name="dat_error_wearables_already_initialized">Wearables has been already initialized.</string>
+    <string description="Error shown when the DAT configuration is invalid" name="dat_error_wearables_configuration_error">Configuration error</string>
+    <string description="Generic internal error during DAT configuration" name="dat_error_wearables_internal_error">Internal error</string>
+    <string description="Error shown when an operation is called before Wearables.initialize" name="dat_error_wearables_not_initialized">Wearables not initialized. Call Wearables.initialize(context) first.</string>
+    <string description="Error during registration URL handling" name="dat_error_wearables_url_registration_error">Registration error</string>
+    <string description="Error during unregistration URL handling" name="dat_error_wearables_url_unregistration_error">Unregistration error</string>
+</resources>

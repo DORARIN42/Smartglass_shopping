@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string gender="unknown" name="dat_error_permission_connection_error">هنگام برقراری ارتباط با دستگاه خطای اتصال رخ داد</string>
+    <string gender="unknown" name="dat_error_permission_internal_error">خطای داخلی غیرمنتظره‌ای رخ داد</string>
+    <string gender="unknown" name="dat_error_permission_meta_ai_not_installed">برنامه همراه Meta AI در دستگاه نصب نشده است</string>
+    <string gender="unknown" name="dat_error_permission_no_device">هیچ دستگاه پوشیدنی کشف یا ثبت نشده است</string>
+    <string gender="unknown" name="dat_error_permission_no_device_with_connection">همه دستگاه‌های کاوش‌شده خاموش یا قطع شده‌اند</string>
+    <string gender="unknown" name="dat_error_permission_request_in_progress">درخواست مجوز از قبل در‌حال انجام است</string>
+    <string gender="unknown" name="dat_error_permission_request_timeout">درخواست مجوز از محدودیت زمانی مجاز فراتر رفت</string>
+    <string gender="unknown" name="dat_error_registration_already_registered">کاربر هنگام تلاش برای ثبت‌نام مجدد، از قبل ثبت‌نام شده است</string>
+    <string gender="unknown" name="dat_error_registration_configuration_invalid">پیکربندی‌ جعبه ابزار دسترسی به دستگاه‌های پوشیدنی نامعتبر یا ناتمام است</string>
+    <string gender="unknown" name="dat_error_registration_meta_ai_not_installed">برنامه Meta AI در دستگاهی که برای ثبت‌نام لازم است نصب نشده است</string>
+    <string gender="unknown" name="dat_error_registration_network_unavailable">اتصال اینترنت در‌دسترس نیست. لطفاً اتصال خود را بررسی و دوباره امتحان کنید</string>
+    <string gender="unknown" name="dat_error_registration_unknown">خطای ناشناخته‌ای در روند ثبت‌نام رخ داد</string>
+    <string gender="unknown" name="dat_error_session_already_exists">در‌حال‌حاضر جلسه‌ای برای این دستگاه وجود دارد</string>
+    <string gender="unknown" name="dat_error_session_already_stopped">جلسه از قبل متوقف شده است</string>
+    <string gender="unknown" name="dat_error_session_battery_critical">شارژ دستگاه به‌طور بحرانی کم است</string>
+    <string gender="unknown" name="dat_error_session_capability_already_active">قابلیتی از این نوع از قبل در جلسه فعال است</string>
+    <string gender="unknown" name="dat_error_session_capability_not_found">هیچ قابلیتی از این نوع به جلسه پیوست نشده است</string>
+    <string gender="unknown" name="dat_error_session_idle">جلسه غیرفعال است. قبل از افزودن قابلیت‌ها، جلسه را آغاز کنید</string>
+    <string gender="unknown" name="dat_error_session_no_eligible_device">هیچ دستگاه واجد شرایطی در‌دسترس نیست</string>
+    <string gender="unknown" name="dat_error_session_peak_power_shutdown">توقف برق دستگاه</string>
+    <string gender="unknown" name="dat_error_session_thermal_critical">حالت حرارتی دستگاه در سطح بحرانی است</string>
+    <string gender="unknown" name="dat_error_session_thermal_emergency">دستگاه در وضعیت حرارتی اضطراری است — در‌حال خاموش شدن است</string>
+    <string gender="unknown" name="dat_error_unregistration_already_unregistered">کاربر هنگام تلاش برای لغو ثبت‌نام مجدد، از قبل ثبت‌نام خود را لغو کرده است</string>
+    <string gender="unknown" name="dat_error_unregistration_configuration_invalid">پیکربندی‌ جعبه ابزار دسترسی به دستگاه‌های پوشیدنی نامعتبر یا ناتمام است</string>
+    <string gender="unknown" name="dat_error_unregistration_meta_ai_not_installed">برنامه Meta AI در دستگاهی که برای لغو ثبت‌نام لازم است نصب نشده است</string>
+    <string gender="unknown" name="dat_error_unregistration_unknown">در‌طول فرآیند لغو ثبت‌نام، خطای ناشناخته‌ای رخ داد</string>
+    <string gender="unknown" name="dat_error_voice_action_failed">اقدام انجام نشد</string>
+    <string gender="unknown" name="dat_error_voice_channel_setup_failed">کانال «اقدامات هوش مصنوعی» راه‌اندازی نشد</string>
+    <string gender="unknown" name="dat_error_voice_connection_not_available">اتصال دستگاه در‌دسترس نیست</string>
+    <string gender="unknown" name="dat_error_voice_device_not_found">دستگاه یافت نشد</string>
+    <string gender="unknown" name="dat_error_voice_init_request_error">درخواست شروع نشد</string>
+    <string gender="unknown" name="dat_error_voice_invalid_message_proto">پروتکل پیام نامعتبر است</string>
+    <string gender="unknown" name="dat_error_voice_invalid_wearables_interface">«رابط پوشیدنی» ارائه‌شده نامعتبر است</string>
+    <string gender="unknown" name="dat_error_voice_send_message_error">پیام ارسال نشد</string>
+    <string gender="unknown" name="dat_error_wearables_already_configured">قبلاً پیکربندی شده است</string>
+    <string gender="unknown" name="dat_error_wearables_configuration_error">خطای پیکربندی</string>
+    <string gender="unknown" name="dat_error_wearables_internal_error">خطای داخلی</string>
+    <string gender="unknown" name="dat_error_wearables_url_registration_error">خطا در ثبت‌نام</string>
+    <string gender="unknown" name="dat_error_wearables_url_unregistration_error">خطا در لغو ثبت‌نام</string>
+</resources>

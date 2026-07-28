@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string gender="unknown" name="dat_error_permission_connection_error">Cihazla əlaqə yaradarkən bağlantı xətası baş verdi</string>
+    <string gender="unknown" name="dat_error_permission_internal_error">Gözlənilməz daxili xəta baş verdi</string>
+    <string gender="unknown" name="dat_error_permission_meta_ai_not_installed">Meta AI kompanyon proqramı cihazda quraşdırılmayıb</string>
+    <string gender="unknown" name="dat_error_permission_no_device">Heç bir portativ cihaz aşkarlanmayıb və ya qeydiyyatdan keçməyib</string>
+    <string gender="unknown" name="dat_error_permission_no_device_with_connection">Tapılan bütün cihazlar deaktiv edilib və ya onlarla əlaqə kəsilib</string>
+    <string gender="unknown" name="dat_error_permission_request_in_progress">İcazə sorğusu artıq emal edilir</string>
+    <string gender="unknown" name="dat_error_permission_request_timeout">İcazə sorğusu icazə verilən vaxt limitini keçib</string>
+    <string gender="unknown" name="dat_error_registration_already_registered">İstifadəçi yenidən qeydiyyatdan keçməyə cəhd edərkən artıq qeydiyyatdan keçib</string>
+    <string gender="unknown" name="dat_error_registration_configuration_invalid">Wearables Device Access Toolkit konfiqurasiyası etibarsızdır və ya natamamdır</string>
+    <string gender="unknown" name="dat_error_registration_meta_ai_not_installed">Qeydiyyat üçün tələb olunan Meta AI proqramı cihazda quraşdırılmayıb</string>
+    <string gender="unknown" name="dat_error_registration_network_unavailable">İnternet bağlantısı yoxdur. Bağlantınızı yoxlayın və yenidən cəhd edin</string>
+    <string gender="unknown" name="dat_error_registration_unknown">Qeydiyyat prosesi zamanı naməlum xəta baş verdi</string>
+    <string gender="unknown" name="dat_error_session_already_exists">Bu cihaz üçün artıq sessiya mövcuddur</string>
+    <string gender="unknown" name="dat_error_session_already_stopped">Sessiya artıq dayandırılıb</string>
+    <string gender="unknown" name="dat_error_session_battery_critical">Cihazın batareya faizi son dərəcə azdır</string>
+    <string gender="unknown" name="dat_error_session_capability_already_active">Bu növ imkan artıq sessiyada aktivdir</string>
+    <string gender="unknown" name="dat_error_session_capability_not_found">Bu növ imkan sessiyaya əlavə edilməyib</string>
+    <string gender="unknown" name="dat_error_session_idle">Sessiya pasivdir. İmkanlar əlavə etməzdən əvvəl sessiyanı başladın</string>
+    <string gender="unknown" name="dat_error_session_no_eligible_device">Tələblərə uyğun cihaz əlçatan deyil</string>
+    <string gender="unknown" name="dat_error_session_peak_power_shutdown">Cihaz maksimal enerji səviyyəsinə çatdığına görə söndürülür</string>
+    <string gender="unknown" name="dat_error_session_thermal_critical">Cihazın istilik vəziyyəti kritik həddə çatıb</string>
+    <string gender="unknown" name="dat_error_session_thermal_emergency">Cihazın istilik vəziyyəti təcili rejimindədir - söndürülür</string>
+    <string gender="unknown" name="dat_error_unregistration_already_unregistered">İstifadəçi yenidən qeydiyyatdan çıxmağa cəhd edərkən artıq qeydiyyatdan çıxıb</string>
+    <string gender="unknown" name="dat_error_unregistration_configuration_invalid">Wearables Device Access Toolkit konfiqurasiyası etibarsızdır və ya natamamdır</string>
+    <string gender="unknown" name="dat_error_unregistration_meta_ai_not_installed">Qeydiyyatın ləğvi üçün tələb olunan Meta AI proqramı cihazda quraşdırılmayıb</string>
+    <string gender="unknown" name="dat_error_unregistration_unknown">Qeydiyyatın ləğvi prosesi zamanı naməlum xəta baş verdi</string>
+    <string gender="unknown" name="dat_error_voice_action_failed">Fəaliyyət uğursuz oldu</string>
+    <string gender="unknown" name="dat_error_voice_channel_setup_failed">Süni intellekt fəaliyyətləri kanalı quraşdırmaq mümkün olmadı</string>
+    <string gender="unknown" name="dat_error_voice_connection_not_available">Cihaz bağlantısı mövcud deyil</string>
+    <string gender="unknown" name="dat_error_voice_device_not_found">Cihaz tapılmadı</string>
+    <string gender="unknown" name="dat_error_voice_init_request_error">Sorğu başlatmaq mümkün olmadı</string>
+    <string gender="unknown" name="dat_error_voice_invalid_message_proto">Mesaj prototipi etibarsızdır</string>
+    <string gender="unknown" name="dat_error_voice_invalid_wearables_interface">Etibarsız WearablesInterface təmin edildi</string>
+    <string gender="unknown" name="dat_error_voice_send_message_error">Mesaj göndərilmədi</string>
+    <string gender="unknown" name="dat_error_wearables_already_configured">Artıq konfiqurasiya edilib</string>
+    <string gender="unknown" name="dat_error_wearables_configuration_error">Konfiqurasiya xətası</string>
+    <string gender="unknown" name="dat_error_wearables_internal_error">Daxili xəta</string>
+    <string gender="unknown" name="dat_error_wearables_url_registration_error">Qeydiyyat xətası</string>
+    <string gender="unknown" name="dat_error_wearables_url_unregistration_error">Qeydiyyatın ləğvi xətası</string>
+</resources>

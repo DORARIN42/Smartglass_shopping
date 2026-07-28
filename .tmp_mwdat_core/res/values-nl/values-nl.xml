@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string gender="unknown" name="dat_error_permission_connection_error">Er is een verbindingsfout opgetreden tijdens de communicatie met het apparaat</string>
+    <string gender="unknown" name="dat_error_permission_internal_error">Er is een onverwachte interne fout opgetreden</string>
+    <string gender="unknown" name="dat_error_permission_meta_ai_not_installed">De begeleidende Meta AI-app is niet geïnstalleerd op het apparaat</string>
+    <string gender="unknown" name="dat_error_permission_no_device">Er zijn geen draagbare apparaten ontdekt of geregistreerd</string>
+    <string gender="unknown" name="dat_error_permission_no_device_with_connection">Alle ontdekte apparaten zijn uitgeschakeld of losgekoppeld</string>
+    <string gender="unknown" name="dat_error_permission_request_in_progress">Er is al een toestemmingsverzoek actief</string>
+    <string gender="unknown" name="dat_error_permission_request_timeout">Het toestemmingsverzoek heeft de toegestane tijdslimiet overschreden</string>
+    <string gender="unknown" name="dat_error_registration_already_registered">Gebruiker is al geregistreerd bij nieuwe registratiepoging</string>
+    <string gender="unknown" name="dat_error_registration_configuration_invalid">De configuratie van de Wearables Device Access Toolkit is ongeldig of onvolledig</string>
+    <string gender="unknown" name="dat_error_registration_meta_ai_not_installed">De Meta AI-app is niet geïnstalleerd op het apparaat. Zonder deze app werkt de registratie niet</string>
+    <string gender="unknown" name="dat_error_registration_network_unavailable">Geen internetverbinding beschikbaar. Controleer je verbinding en probeer het opnieuw</string>
+    <string gender="unknown" name="dat_error_registration_unknown">Er is een onbekende fout opgetreden tijdens het registratieproces</string>
+    <string gender="unknown" name="dat_error_session_already_exists">Er bestaat al een sessie voor dit apparaat</string>
+    <string gender="unknown" name="dat_error_session_already_stopped">Sessie is al gestopt</string>
+    <string gender="unknown" name="dat_error_session_battery_critical">Batterijniveau van apparaat is kritiek laag</string>
+    <string gender="unknown" name="dat_error_session_capability_already_active">Er is al een mogelijkheid van dit type actief in de sessie</string>
+    <string gender="unknown" name="dat_error_session_capability_not_found">Er is geen mogelijkheid van dit type gekoppeld aan de sessie</string>
+    <string gender="unknown" name="dat_error_session_idle">Sessie is inactief. Start de sessie voordat je mogelijkheden toevoegt</string>
+    <string gender="unknown" name="dat_error_session_no_eligible_device">Geen geschikt apparaat beschikbaar</string>
+    <string gender="unknown" name="dat_error_session_peak_power_shutdown">Afsluiten apparaat door piekverbruik</string>
+    <string gender="unknown" name="dat_error_session_thermal_critical">Thermische staat van apparaat is kritiek</string>
+    <string gender="unknown" name="dat_error_session_thermal_emergency">Thermische staat van apparaat is Nood: apparaat wordt uitgeschakeld</string>
+    <string gender="unknown" name="dat_error_unregistration_already_unregistered">Registratie van gebruiker is al ongedaan gemaakt bij nieuwe poging om registratie ongedaan te maken</string>
+    <string gender="unknown" name="dat_error_unregistration_configuration_invalid">De configuratie van de Wearables Device Access Toolkit is ongeldig of onvolledig</string>
+    <string gender="unknown" name="dat_error_unregistration_meta_ai_not_installed">De Meta AI-app is niet geïnstalleerd op het apparaat, wat is vereist om de registratie ongedaan te kunnen maken</string>
+    <string gender="unknown" name="dat_error_unregistration_unknown">Er is een onbekende fout opgetreden tijdens het proces voor het ongedaan maken van registratie</string>
+    <string gender="unknown" name="dat_error_voice_action_failed">Actie is mislukt</string>
+    <string gender="unknown" name="dat_error_voice_channel_setup_failed">Het instellen van het kanaal AI-acties is mislukt</string>
+    <string gender="unknown" name="dat_error_voice_connection_not_available">Apparaatverbinding niet beschikbaar</string>
+    <string gender="unknown" name="dat_error_voice_device_not_found">Apparaat niet gevonden</string>
+    <string gender="unknown" name="dat_error_voice_init_request_error">Verzoek starten is mislukt</string>
+    <string gender="unknown" name="dat_error_voice_invalid_message_proto">Ongeldige proto chatbericht</string>
+    <string gender="unknown" name="dat_error_voice_invalid_wearables_interface">Ongeldige WearablesInterface opgegeven</string>
+    <string gender="unknown" name="dat_error_voice_send_message_error">Verzenden van chatbericht is mislukt</string>
+    <string gender="unknown" name="dat_error_wearables_already_configured">Al geconfigureerd</string>
+    <string gender="unknown" name="dat_error_wearables_configuration_error">Configuratiefout</string>
+    <string gender="unknown" name="dat_error_wearables_internal_error">Interne fout</string>
+    <string gender="unknown" name="dat_error_wearables_url_registration_error">Registratiefout</string>
+    <string gender="unknown" name="dat_error_wearables_url_unregistration_error">Fout bij ongedaan maken registratie</string>
+</resources>

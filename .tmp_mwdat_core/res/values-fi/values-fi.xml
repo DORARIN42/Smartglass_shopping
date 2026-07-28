@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string gender="unknown" name="dat_error_permission_connection_error">Yhteysvirhe viestittäessä laitteen kanssa</string>
+    <string gender="unknown" name="dat_error_permission_internal_error">Tapahtui odottamaton sisäinen virhe</string>
+    <string gender="unknown" name="dat_error_permission_meta_ai_not_installed">Meta AI -kumppanisovellusta ei ole asennettu laitteelle</string>
+    <string gender="unknown" name="dat_error_permission_no_device">Puettavia laitteita ei ole löydetty tai rekisteröity</string>
+    <string gender="unknown" name="dat_error_permission_no_device_with_connection">Kaikkien havaittujen laitteiden virta on katkaistu tai niiden yhteys on katkaistu</string>
+    <string gender="unknown" name="dat_error_permission_request_in_progress">Oikeuspyyntö on jo käynnissä</string>
+    <string gender="unknown" name="dat_error_permission_request_timeout">Oikeuspyyntö ylitti sallitun aikarajan</string>
+    <string gender="unknown" name="dat_error_registration_already_registered">Käyttäjä on jo rekisteröity, kun hän yrittää rekisteröityä uudelleen</string>
+    <string gender="unknown" name="dat_error_registration_configuration_invalid">Puettavien laitteiden käyttöoikeustyökalusarjan määritys on virheellinen tai vaillinainen</string>
+    <string gender="unknown" name="dat_error_registration_meta_ai_not_installed">Meta AI -sovellusta ei ole asennettu laitteelle. Tarvitset sen, jotta voit rekisteröityä</string>
+    <string gender="unknown" name="dat_error_registration_network_unavailable">Internet-yhteyttä ei ole saatavilla. Tarkista yhteys ja yritä uudelleen</string>
+    <string gender="unknown" name="dat_error_registration_unknown">Tuntematon virhe rekisteröitymisen aikana</string>
+    <string gender="unknown" name="dat_error_session_already_exists">Tälle laitteelle on jo olemassa istunto</string>
+    <string gender="unknown" name="dat_error_session_already_stopped">Istunto on jo lopetettu</string>
+    <string gender="unknown" name="dat_error_session_battery_critical">Laitteen akun varaus on erittäin vähissä</string>
+    <string gender="unknown" name="dat_error_session_capability_already_active">Tämäntyyppinen ominaisuus on jo aktiivinen istunnossa</string>
+    <string gender="unknown" name="dat_error_session_capability_not_found">Istuntoon ei ole liitetty tämäntyyppistä ominaisuutta</string>
+    <string gender="unknown" name="dat_error_session_idle">Istunto on lepotilassa. Aloita istunto ennen ominaisuuksien lisäämistä</string>
+    <string gender="unknown" name="dat_error_session_no_eligible_device">Ehdot täyttävää laitetta ei ole saatavilla</string>
+    <string gender="unknown" name="dat_error_session_peak_power_shutdown">Laitteen huippuvirran sammutus</string>
+    <string gender="unknown" name="dat_error_session_thermal_critical">Laitteen lämpötila on kriittinen</string>
+    <string gender="unknown" name="dat_error_session_thermal_emergency">Laitteen lämpötila on vaarassa – sammutetaan</string>
+    <string gender="unknown" name="dat_error_unregistration_already_unregistered">Käyttäjän rekisteröinti on jo kumottu, kun hän yrittää kumota rekisteröinnin uudelleen</string>
+    <string gender="unknown" name="dat_error_unregistration_configuration_invalid">Puettavien laitteiden käyttöoikeustyökalusarjan määritys on virheellinen tai vaillinainen</string>
+    <string gender="unknown" name="dat_error_unregistration_meta_ai_not_installed">Meta AI -sovellusta ei ole asennettu laitteelle. Tarvitset sen, jotta voit kumota rekisteröinnin</string>
+    <string gender="unknown" name="dat_error_unregistration_unknown">Tuntematon virhe rekisteröinnin kumoamisen aikana</string>
+    <string gender="unknown" name="dat_error_voice_action_failed">Toiminto epäonnistui</string>
+    <string gender="unknown" name="dat_error_voice_channel_setup_failed">Tekoälytoimintojen kanavaa ei voitu määrittää</string>
+    <string gender="unknown" name="dat_error_voice_connection_not_available">Laitteen yhteys ei ole saatavilla</string>
+    <string gender="unknown" name="dat_error_voice_device_not_found">Laitetta ei löytynyt</string>
+    <string gender="unknown" name="dat_error_voice_init_request_error">Pyynnön alustus epäonnistui</string>
+    <string gender="unknown" name="dat_error_voice_invalid_message_proto">Virheellinen viestiprotokolla</string>
+    <string gender="unknown" name="dat_error_voice_invalid_wearables_interface">Virheellinen WearablesInterface annettu</string>
+    <string gender="unknown" name="dat_error_voice_send_message_error">Viestin lähettäminen epäonnistui</string>
+    <string gender="unknown" name="dat_error_wearables_already_configured">On jo määritetty</string>
+    <string gender="unknown" name="dat_error_wearables_configuration_error">Määritysvirhe</string>
+    <string gender="unknown" name="dat_error_wearables_internal_error">Sisäinen virhe</string>
+    <string gender="unknown" name="dat_error_wearables_url_registration_error">Rekisteröitymisvirhe</string>
+    <string gender="unknown" name="dat_error_wearables_url_unregistration_error">Rekisteröinnin kumoamisvirhe</string>
+</resources>

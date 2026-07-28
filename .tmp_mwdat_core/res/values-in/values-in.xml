@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string gender="unknown" name="dat_error_permission_connection_error">Terjadi kesalahan koneksi saat berkomunikasi dengan perangkat</string>
+    <string gender="unknown" name="dat_error_permission_internal_error">Terjadi kesalahan internal yang tidak terduga</string>
+    <string gender="unknown" name="dat_error_permission_meta_ai_not_installed">Aplikasi pendamping Meta AI tidak terinstal di perangkat</string>
+    <string gender="unknown" name="dat_error_permission_no_device">Tidak ada perangkat wearable yang ditemukan atau didaftarkan</string>
+    <string gender="unknown" name="dat_error_permission_no_device_with_connection">Semua perangkat yang ditemukan dimatikan atau diputus sambungannya</string>
+    <string gender="unknown" name="dat_error_permission_request_in_progress">Permintaan izin sedang diproses</string>
+    <string gender="unknown" name="dat_error_permission_request_timeout">Permintaan izin melebihi batas waktu yang diizinkan</string>
+    <string gender="unknown" name="dat_error_registration_already_registered">Pengguna sudah terdaftar saat mencoba mendaftar lagi</string>
+    <string gender="unknown" name="dat_error_registration_configuration_invalid">Konfigurasi Toolkit Akses Perangkat Wearable tidak valid atau tidak lengkap</string>
+    <string gender="unknown" name="dat_error_registration_meta_ai_not_installed">Aplikasi Meta AI tidak diinstal di perangkat ini, yang diperlukan untuk pendaftaran</string>
+    <string gender="unknown" name="dat_error_registration_network_unavailable">Tidak ada koneksi internet yang tersedia. Periksa koneksi Anda dan coba lagi</string>
+    <string gender="unknown" name="dat_error_registration_unknown">Terjadi kesalahan yang tidak diketahui selama proses pendaftaran</string>
+    <string gender="unknown" name="dat_error_session_already_exists">Sesi sudah ada untuk perangkat ini</string>
+    <string gender="unknown" name="dat_error_session_already_stopped">Sesi telah dihentikan</string>
+    <string gender="unknown" name="dat_error_session_battery_critical">Baterai perangkat sangat lemah</string>
+    <string gender="unknown" name="dat_error_session_capability_already_active">Kemampuan jenis ini sudah aktif pada sesi</string>
+    <string gender="unknown" name="dat_error_session_capability_not_found">Kemampuan jenis ini tidak dilampirkan ke sesi</string>
+    <string gender="unknown" name="dat_error_session_idle">Sesi tidak aktif. Mulai sesi sebelum menambahkan kemampuan</string>
+    <string gender="unknown" name="dat_error_session_no_eligible_device">Tidak ada perangkat memenuhi syarat yang tersedia</string>
+    <string gender="unknown" name="dat_error_session_peak_power_shutdown">Perangkat dimatikan karena konsumsi daya maksimal</string>
+    <string gender="unknown" name="dat_error_session_thermal_critical">Status suhu perangkat dalam kondisi kritis</string>
+    <string gender="unknown" name="dat_error_session_thermal_emergency">Status suhu perangkat dalam kondisi darurat — mematikan</string>
+    <string gender="unknown" name="dat_error_unregistration_already_unregistered">Pengguna sudah tidak terdaftar saat mencoba membatalkan pendaftaran lagi</string>
+    <string gender="unknown" name="dat_error_unregistration_configuration_invalid">Konfigurasi Toolkit Akses Perangkat Wearable tidak valid atau tidak lengkap</string>
+    <string gender="unknown" name="dat_error_unregistration_meta_ai_not_installed">Aplikasi Meta AI tidak diinstal di perangkat ini, yang diperlukan untuk membatalkan pendaftaran</string>
+    <string gender="unknown" name="dat_error_unregistration_unknown">Terjadi kesalahan yang tidak diketahui selama proses pembatalan pendaftaran</string>
+    <string gender="unknown" name="dat_error_voice_action_failed">Tindakan gagal</string>
+    <string gender="unknown" name="dat_error_voice_channel_setup_failed">Gagal menyiapkan saluran Tindakan AI</string>
+    <string gender="unknown" name="dat_error_voice_connection_not_available">Koneksi perangkat tidak tersedia</string>
+    <string gender="unknown" name="dat_error_voice_device_not_found">Perangkat tidak ditemukan</string>
+    <string gender="unknown" name="dat_error_voice_init_request_error">Gagal menginisialisasi permintaan</string>
+    <string gender="unknown" name="dat_error_voice_invalid_message_proto">Pesan proto tidak valid</string>
+    <string gender="unknown" name="dat_error_voice_invalid_wearables_interface">WearablesInterface yang disediakan tidak valid</string>
+    <string gender="unknown" name="dat_error_voice_send_message_error">Gagal mengirim pesan</string>
+    <string gender="unknown" name="dat_error_wearables_already_configured">Sudah dikonfigurasi</string>
+    <string gender="unknown" name="dat_error_wearables_configuration_error">Kesalahan konfigurasi</string>
+    <string gender="unknown" name="dat_error_wearables_internal_error">Kesalahan internal</string>
+    <string gender="unknown" name="dat_error_wearables_url_registration_error">Kesalahan pendaftaran</string>
+    <string gender="unknown" name="dat_error_wearables_url_unregistration_error">Kesalahan pembatalan pendaftaran</string>
+</resources>

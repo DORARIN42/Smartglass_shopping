@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string gender="unknown" name="dat_error_permission_connection_error">Παρουσιάστηκε σφάλμα σύνδεσης κατά την επικοινωνία με τη συσκευή</string>
+    <string gender="unknown" name="dat_error_permission_internal_error">Παρουσιάστηκε μη αναμενόμενο εσωτερικό σφάλμα</string>
+    <string gender="unknown" name="dat_error_permission_meta_ai_not_installed">Η συνοδευτική εφαρμογή Meta AI δεν έχει εγκατασταθεί στη συσκευή</string>
+    <string gender="unknown" name="dat_error_permission_no_device">Δεν έχουν εντοπιστεί ή καταχωρηθεί φορετές συσκευές</string>
+    <string gender="unknown" name="dat_error_permission_no_device_with_connection">Όλες οι ανακαλυφθείσες συσκευές έχουν απενεργοποιηθεί ή αποσυνδεθεί</string>
+    <string gender="unknown" name="dat_error_permission_request_in_progress">Εκκρεμεί ήδη ένα αίτημα δικαιωμάτων</string>
+    <string gender="unknown" name="dat_error_permission_request_timeout">Το αίτημα εκχώρησης δικαιώματος έληξε επειδή έγινε υπέρβαση του επιτρεπόμενου χρονικού ορίου</string>
+    <string gender="unknown" name="dat_error_registration_already_registered">Ο χρήστης είναι ήδη εγγεγραμμένος όταν προσπαθεί να γραφτεί ξανά</string>
+    <string gender="unknown" name="dat_error_registration_configuration_invalid">Η διαμόρφωση του Wearables Device Access Toolkit είναι μη έγκυρη ή ελλιπής</string>
+    <string gender="unknown" name="dat_error_registration_meta_ai_not_installed">Η εφαρμογή Meta AI δεν έχει εγκατασταθεί στη συσκευή, η οποία είναι απαραίτητη για την εγγραφή</string>
+    <string gender="unknown" name="dat_error_registration_network_unavailable">Δεν υπάρχει διαθέσιμη σύνδεση στο Internet. Ελέγξτε τη σύνδεσή σας και δοκιμάστε ξανά</string>
+    <string gender="unknown" name="dat_error_registration_unknown">Παρουσιάστηκε άγνωστο σφάλμα κατά τη διαδικασία εγγραφής</string>
+    <string gender="unknown" name="dat_error_session_already_exists">Υπάρχει ήδη μια περίοδος χρήσης για αυτή τη συσκευή</string>
+    <string gender="unknown" name="dat_error_session_already_stopped">Η περίοδος χρήσης έχει διακοπεί ήδη</string>
+    <string gender="unknown" name="dat_error_session_battery_critical">Εξαιρετικά χαμηλό επίπεδο μπαταρίας συσκευής</string>
+    <string gender="unknown" name="dat_error_session_capability_already_active">Μια δυνατότητα αυτού του τύπου είναι ήδη ενεργή στην περίοδο σύνδεσης</string>
+    <string gender="unknown" name="dat_error_session_capability_not_found">Δεν έχει συνδεθεί καμία δυνατότητα αυτού του τύπου στην περίοδο χρήσης</string>
+    <string gender="unknown" name="dat_error_session_idle">Η περίοδος χρήσης είναι αδρανής. Ξεκινήστε την περίοδο χρήσης πριν προσθέσετε δυνατότητες</string>
+    <string gender="unknown" name="dat_error_session_no_eligible_device">Δεν υπάρχει κατάλληλη συσκευή διαθέσιμη</string>
+    <string gender="unknown" name="dat_error_session_peak_power_shutdown">Απενεργοποίηση συσκευής λόγω υψηλής κατανάλωσης ενέργειας</string>
+    <string gender="unknown" name="dat_error_session_thermal_critical">Η θερμική κατάσταση της συσκευής είναι κρίσιμη</string>
+    <string gender="unknown" name="dat_error_session_thermal_emergency">Η θερμική κατάσταση της συσκευής είναι κρίσιμη — γίνεται απενεργοποίηση</string>
+    <string gender="unknown" name="dat_error_unregistration_already_unregistered">Ο χρήστης έχει ήδη καταργήσει την εγγραφή του όταν προσπαθεί να καταργήσει ξανά την εγγραφή</string>
+    <string gender="unknown" name="dat_error_unregistration_configuration_invalid">Η διαμόρφωση του Wearables Device Access Toolkit είναι μη έγκυρη ή μη ολοκληρωμένη</string>
+    <string gender="unknown" name="dat_error_unregistration_meta_ai_not_installed">Η εφαρμογή Meta AI δεν έχει εγκατασταθεί στη συσκευή, η οποία είναι απαραίτητη για την κατάργηση της εγγραφής</string>
+    <string gender="unknown" name="dat_error_unregistration_unknown">Παρουσιάστηκε άγνωστο σφάλμα κατά τη διαδικασία κατάργησης της εγγραφής</string>
+    <string gender="unknown" name="dat_error_voice_action_failed">Η ενέργεια απέτυχε</string>
+    <string gender="unknown" name="dat_error_voice_channel_setup_failed">Η διαμόρφωση του καναλιού ενεργειών τεχνητής νοημοσύνης απέτυχε</string>
+    <string gender="unknown" name="dat_error_voice_connection_not_available">Η σύνδεση της συσκευής δεν είναι διαθέσιμη</string>
+    <string gender="unknown" name="dat_error_voice_device_not_found">Δεν βρέθηκε συσκευή</string>
+    <string gender="unknown" name="dat_error_voice_init_request_error">Αποτυχία προετοιμασίας αιτήματος</string>
+    <string gender="unknown" name="dat_error_voice_invalid_message_proto">Μη έγκυρο πρωτόκολλο μηνυμάτων</string>
+    <string gender="unknown" name="dat_error_voice_invalid_wearables_interface">Μη έγκυρο WearablesInterface</string>
+    <string gender="unknown" name="dat_error_voice_send_message_error">Η αποστολή του μηνύματος απέτυχε</string>
+    <string gender="unknown" name="dat_error_wearables_already_configured">Έχει ήδη διαμορφωθεί</string>
+    <string gender="unknown" name="dat_error_wearables_configuration_error">Σφάλμα διαμόρφωσης</string>
+    <string gender="unknown" name="dat_error_wearables_internal_error">Εσωτερικό σφάλμα</string>
+    <string gender="unknown" name="dat_error_wearables_url_registration_error">Σφάλμα εγγραφής</string>
+    <string gender="unknown" name="dat_error_wearables_url_unregistration_error">Σφάλμα κατάργησης εγγραφής</string>
+</resources>

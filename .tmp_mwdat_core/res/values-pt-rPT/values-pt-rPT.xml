@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string gender="unknown" name="dat_error_permission_connection_error">Ocorreu um erro de ligação durante a comunicação com o dispositivo</string>
+    <string gender="unknown" name="dat_error_permission_internal_error">Ocorreu um erro interno inesperado</string>
+    <string gender="unknown" name="dat_error_permission_meta_ai_not_installed">A app complementar da Meta AI não está instalada no dispositivo</string>
+    <string gender="unknown" name="dat_error_permission_no_device">Não foi descoberto nem registado nenhum dispositivo utilizável</string>
+    <string gender="unknown" name="dat_error_permission_no_device_with_connection">Todos os dispositivos descobertos estão desligados ou desassociados</string>
+    <string gender="unknown" name="dat_error_permission_request_in_progress">Já está em curso um pedido de permissão</string>
+    <string gender="unknown" name="dat_error_permission_request_timeout">O pedido de permissão excedeu o limite de tempo permitido</string>
+    <string gender="unknown" name="dat_error_registration_already_registered">O/A utilizador/a já está registado/a ao tentar registar-se novamente</string>
+    <string gender="unknown" name="dat_error_registration_configuration_invalid">A configuração do Kit de Ferramentas de Acesso para Dispositivos Utilizáveis é inválida ou está incompleta</string>
+    <string gender="unknown" name="dat_error_registration_meta_ai_not_installed">A app Meta AI não está instalada no dispositivo, o que é necessário para o registo</string>
+    <string gender="unknown" name="dat_error_registration_network_unavailable">Nenhuma ligação à Internet disponível, por isso, verifica a tua ligação e tenta novamente</string>
+    <string gender="unknown" name="dat_error_registration_unknown">Ocorreu um erro desconhecido durante o processo de registo</string>
+    <string gender="unknown" name="dat_error_session_already_exists">Já existe uma sessão para este dispositivo</string>
+    <string gender="unknown" name="dat_error_session_already_stopped">A sessão já foi suspensa</string>
+    <string gender="unknown" name="dat_error_session_battery_critical">A bateria do dispositivo está bastante fraca</string>
+    <string gender="unknown" name="dat_error_session_capability_already_active">Uma capacidade deste tipo já está ativa na sessão</string>
+    <string gender="unknown" name="dat_error_session_capability_not_found">Não está anexada qualquer capacidade deste tipo à sessão</string>
+    <string gender="unknown" name="dat_error_session_idle">A sessão está inativa, por isso, inicia a sessão antes de adicionares capacidades</string>
+    <string gender="unknown" name="dat_error_session_no_eligible_device">Nenhum dispositivo elegível disponível</string>
+    <string gender="unknown" name="dat_error_session_peak_power_shutdown">Encerramento do dispositivo devido a pico de energia</string>
+    <string gender="unknown" name="dat_error_session_thermal_critical">O estado térmico do dispositivo é crítico</string>
+    <string gender="unknown" name="dat_error_session_thermal_emergency">O estado térmico do dispositivo é de emergência, por isso, vamos proceder ao encerramento</string>
+    <string gender="unknown" name="dat_error_unregistration_already_unregistered">O/A utilizador/a já não está registado/a ao tentar cancelar o registo novamente</string>
+    <string gender="unknown" name="dat_error_unregistration_configuration_invalid">A configuração do Kit de Ferramentas de Acesso para Dispositivos Utilizáveis é inválida ou está incompleta</string>
+    <string gender="unknown" name="dat_error_unregistration_meta_ai_not_installed">A app Meta AI não está instalada no dispositivo, o que é necessário para o cancelamento do registo</string>
+    <string gender="unknown" name="dat_error_unregistration_unknown">Ocorreu um erro desconhecido durante o processo de cancelamento do registo</string>
+    <string gender="unknown" name="dat_error_voice_action_failed">Erro ao executar ação</string>
+    <string gender="unknown" name="dat_error_voice_channel_setup_failed">Falha ao configurar o canal de ações de IA</string>
+    <string gender="unknown" name="dat_error_voice_connection_not_available">Ligação ao dispositivo indisponível</string>
+    <string gender="unknown" name="dat_error_voice_device_not_found">Dispositivo não encontrado</string>
+    <string gender="unknown" name="dat_error_voice_init_request_error">Falha ao iniciar pedido</string>
+    <string gender="unknown" name="dat_error_voice_invalid_message_proto">Proto de mensagem inválida</string>
+    <string gender="unknown" name="dat_error_voice_invalid_wearables_interface">WearablesInterface inválida fornecida</string>
+    <string gender="unknown" name="dat_error_voice_send_message_error">Falha ao enviar mensagem</string>
+    <string gender="unknown" name="dat_error_wearables_already_configured">Já configurado</string>
+    <string gender="unknown" name="dat_error_wearables_configuration_error">Erro de configuração</string>
+    <string gender="unknown" name="dat_error_wearables_internal_error">Erro interno</string>
+    <string gender="unknown" name="dat_error_wearables_url_registration_error">Erro de registo</string>
+    <string gender="unknown" name="dat_error_wearables_url_unregistration_error">Erro ao cancelar o registo</string>
+</resources>

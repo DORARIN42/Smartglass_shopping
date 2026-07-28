@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string gender="unknown" name="dat_error_permission_connection_error">ડિવાઇસ સાથે વાતચીત કરતી વખતે કનેક્શનમાં ભૂલ આવી</string>
+    <string gender="unknown" name="dat_error_permission_internal_error">અનપેક્ષિત આંતરિક ભૂલ આવી</string>
+    <string gender="unknown" name="dat_error_permission_meta_ai_not_installed">ડિવાઇસ પર Meta AI સાથી ઍપ ઇન્સ્ટોલ કરેલી નથી</string>
+    <string gender="unknown" name="dat_error_permission_no_device">કોઈ પહેરવા યોગ્ય ડિવાઇસ મળ્યા નથી અથવા રજિસ્ટ્રેશન કરેેલા નથી</string>
+    <string gender="unknown" name="dat_error_permission_no_device_with_connection">બધા ડિસ્કવર કરેલા ડિવાઇસ બંધ છે અથવા ડિસ્કનેક્ટ કરેલા છે</string>
+    <string gender="unknown" name="dat_error_permission_request_in_progress">પરવાનગીની વિનંતી પહેલાથી જ ચાલુ છે</string>
+    <string gender="unknown" name="dat_error_permission_request_timeout">પરવાનગીની વિનંતી માન્ય સમય મર્યાદાને ઓળંગી ગઈ છે</string>
+    <string gender="unknown" name="dat_error_registration_already_registered">ફરીથી રજિસ્ટ્રેશન કરવાનો પ્રયાસ કરતી વખતે યુઝરે પહેલાથી જ રજિસ્ટ્રેશન કરેલું છે</string>
+    <string gender="unknown" name="dat_error_registration_configuration_invalid">વેરેબલ્સ ડિવાઇસ એક્સેસ ટૂલકિટનું કન્ફિગરેશન અમાન્ય અથવા અપૂર્ણ છે</string>
+    <string gender="unknown" name="dat_error_registration_meta_ai_not_installed">ડિવાઇસ પર Meta AI ઍપ ઇન્સ્ટોલ કરેલી નથી, આ રજિસ્ટ્રેશન માટે જરૂરી છે</string>
+    <string gender="unknown" name="dat_error_registration_network_unavailable">કોઈ ઇન્ટરનેટ કનેક્શન ઉપલબ્ધ નથી. કૃપા કરીને તમારું કનેક્શન તપાસો અને ફરી પ્રયાસ કરો</string>
+    <string gender="unknown" name="dat_error_registration_unknown">રજિસ્ટ્રેશન પ્રક્રિયા દરમિયાન અજાણી ભૂલ આવી</string>
+    <string gender="unknown" name="dat_error_session_already_exists">આ ડિવાઇસ માટે એક સેશન પહેલેથી જ ઉપલબ્ધ છે</string>
+    <string gender="unknown" name="dat_error_session_already_stopped">સેશન પહેલેથી જ બંધ કરવામાં આવ્યું છે</string>
+    <string gender="unknown" name="dat_error_session_battery_critical">ડિવાઇસની બેટરી ખૂબ ઓછી છે</string>
+    <string gender="unknown" name="dat_error_session_capability_already_active">આ પ્રકારની ક્ષમતા સેશન પર પહેલાથી જ એક્ટિવ છે</string>
+    <string gender="unknown" name="dat_error_session_capability_not_found">આ પ્રકારની કોઈ ક્ષમતા સેશન સાથે જોડાયેલી નથી</string>
+    <string gender="unknown" name="dat_error_session_idle">સેશન નિષ્ક્રિય છે. ક્ષમતાઓ ઉમેરતા પહેલા સેશન શરૂ કરો</string>
+    <string gender="unknown" name="dat_error_session_no_eligible_device">કોઈ યોગ્ય ડિવાઇસ ઉપલબ્ધ નથી</string>
+    <string gender="unknown" name="dat_error_session_peak_power_shutdown">ડિવાઇસ પીક પાવર શટડાઉન</string>
+    <string gender="unknown" name="dat_error_session_thermal_critical">ડિવાઇસની તાપમાન સ્થિતિ ચિંતાજનક છે</string>
+    <string gender="unknown" name="dat_error_session_thermal_emergency">ડિવાઇસ ખુબ ગરમ થઈ ગયું છે - તેને બંધ કરી રહ્યા છીએ</string>
+    <string gender="unknown" name="dat_error_unregistration_already_unregistered">ફરીથી રજિસ્ટ્રેશન રદ કરવાનો પ્રયાસ કરતી વખતે યુઝરે પહેલાથી જ રજિસ્ટ્રેશન રદ કરેલું છે</string>
+    <string gender="unknown" name="dat_error_unregistration_configuration_invalid">વેરેબલ્સ ડિવાઇસ એક્સેસ ટૂલકિટનું કન્ફિગરેશન અમાન્ય અથવા અપૂર્ણ છે</string>
+    <string gender="unknown" name="dat_error_unregistration_meta_ai_not_installed">ડિવાઇસ પર Meta AI ઍપ ઇન્સ્ટોલ કરેલી નથી, જે રજિસ્ટ્રેશન રદ કરવા માટે જરૂરી છે</string>
+    <string gender="unknown" name="dat_error_unregistration_unknown">રજિસ્ટ્રેશન રદ કરવાની પ્રક્રિયા દરમિયાન અજાણી ભૂલ આવી</string>
+    <string gender="unknown" name="dat_error_voice_action_failed">એક્શન નિષ્ફળ થઈ</string>
+    <string gender="unknown" name="dat_error_voice_channel_setup_failed">AI એક્શન ચેનલ સેટઅપ કરી શક્યા નથી</string>
+    <string gender="unknown" name="dat_error_voice_connection_not_available">ડિવાઇસ કનેક્શન ઉપલબ્ધ નથી</string>
+    <string gender="unknown" name="dat_error_voice_device_not_found">ડિવાઇસ મળ્યું નહીં</string>
+    <string gender="unknown" name="dat_error_voice_init_request_error">વિનંતી શરૂ કરવામાં નિષ્ફળ</string>
+    <string gender="unknown" name="dat_error_voice_invalid_message_proto">અમાન્ય મેસેજ પ્રોટોકોલ</string>
+    <string gender="unknown" name="dat_error_voice_invalid_wearables_interface">અમાન્ય WearablesInterface પૂરું પાડવામાં આવ્યું</string>
+    <string gender="unknown" name="dat_error_voice_send_message_error">મેસેજ મોકલવામાં નિષ્ફળ થયાં</string>
+    <string gender="unknown" name="dat_error_wearables_already_configured">પહેલેથી કન્ફિગર કરેલું છે</string>
+    <string gender="unknown" name="dat_error_wearables_configuration_error">કન્ફિગરેશન ભૂલ</string>
+    <string gender="unknown" name="dat_error_wearables_internal_error">આંતરિક ભૂલ</string>
+    <string gender="unknown" name="dat_error_wearables_url_registration_error">રજિસ્ટ્રેશનમાં ભૂલ</string>
+    <string gender="unknown" name="dat_error_wearables_url_unregistration_error">નોંધણી રદ કરવામાં ભૂલ</string>
+</resources>

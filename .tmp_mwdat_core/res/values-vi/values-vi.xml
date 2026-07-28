@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string gender="unknown" name="dat_error_permission_connection_error">Đã xảy ra lỗi kết nối khi giao tiếp với thiết bị</string>
+    <string gender="unknown" name="dat_error_permission_internal_error">Đã xảy ra lỗi nội bộ không mong muốn</string>
+    <string gender="unknown" name="dat_error_permission_meta_ai_not_installed">Chưa cài đặt ứng dụng Meta AI đồng hành trên thiết bị</string>
+    <string gender="unknown" name="dat_error_permission_no_device">Chưa phát hiện hay đăng ký được thiết bị đeo nào</string>
+    <string gender="unknown" name="dat_error_permission_no_device_with_connection">Tất cả thiết bị đã khám phá đều bị tắt nguồn hoặc ngắt kết nối</string>
+    <string gender="unknown" name="dat_error_permission_request_in_progress">Đang có 1 yêu cầu quyền</string>
+    <string gender="unknown" name="dat_error_permission_request_timeout">Yêu cầu quyền đã vượt quá giới hạn thời gian cho phép</string>
+    <string gender="unknown" name="dat_error_registration_already_registered">Người dùng cố gắng đăng ký lần nữa nhưng đã đăng ký rồi</string>
+    <string gender="unknown" name="dat_error_registration_configuration_invalid">Cấu hình Bộ công cụ truy cập thiết bị đeo thông minh không hợp lệ hoặc chưa hoàn chỉnh</string>
+    <string gender="unknown" name="dat_error_registration_meta_ai_not_installed">Chưa cài đặt ứng dụng Meta AI trên thiết bị. Bạn phải cài đặt ứng dụng này thì mới có thể đăng ký</string>
+    <string gender="unknown" name="dat_error_registration_network_unavailable">Không có kết nối Internet. Vui lòng kiểm tra kết nối rồi thử lại</string>
+    <string gender="unknown" name="dat_error_registration_unknown">Đã xảy ra lỗi không xác định trong quá trình đăng ký</string>
+    <string gender="unknown" name="dat_error_session_already_exists">Thiết bị này đã có phiên rồi</string>
+    <string gender="unknown" name="dat_error_session_already_stopped">Đã dừng phiên này rồi</string>
+    <string gender="unknown" name="dat_error_session_battery_critical">Pin thiết bị ở mức cực thấp</string>
+    <string gender="unknown" name="dat_error_session_capability_already_active">Phiên đã có một tính năng thuộc loại này rồi</string>
+    <string gender="unknown" name="dat_error_session_capability_not_found">Không có tính năng nào thuộc loại này đính kèm với phiên</string>
+    <string gender="unknown" name="dat_error_session_idle">Phiên đang ở chế độ không hoạt động. Hãy bắt đầu phiên trước khi thêm tính năng</string>
+    <string gender="unknown" name="dat_error_session_no_eligible_device">Không có thiết bị nào đủ điều kiện</string>
+    <string gender="unknown" name="dat_error_session_peak_power_shutdown">Thiết bị tắt nguồn do mức công suất đỉnh</string>
+    <string gender="unknown" name="dat_error_session_thermal_critical">Trạng thái nhiệt của thiết bị ở mức nghiêm trọng</string>
+    <string gender="unknown" name="dat_error_session_thermal_emergency">Trạng thái nhiệt của thiết bị ở mức khẩn cấp — đang tắt nguồn</string>
+    <string gender="unknown" name="dat_error_unregistration_already_unregistered">Người dùng cố gắng hủy đăng ký lần nữa nhưng đã hủy đăng ký rồi</string>
+    <string gender="unknown" name="dat_error_unregistration_configuration_invalid">Cấu hình Bộ công cụ truy cập thiết bị đeo thông minh không hợp lệ hoặc chưa hoàn chỉnh</string>
+    <string gender="unknown" name="dat_error_unregistration_meta_ai_not_installed">Chưa cài đặt ứng dụng Meta AI trên thiết bị. Bạn phải cài đặt ứng dụng này thì mới có thể hủy đăng ký</string>
+    <string gender="unknown" name="dat_error_unregistration_unknown">Đã xảy ra lỗi không xác định trong quá trình hủy đăng ký</string>
+    <string gender="unknown" name="dat_error_voice_action_failed">Không thực hiện được hành động</string>
+    <string gender="unknown" name="dat_error_voice_channel_setup_failed">Không thiết lập được kênh Hành động của AI</string>
+    <string gender="unknown" name="dat_error_voice_connection_not_available">Không có kết nối với thiết bị</string>
+    <string gender="unknown" name="dat_error_voice_device_not_found">Không tìm thấy thiết bị</string>
+    <string gender="unknown" name="dat_error_voice_init_request_error">Không khởi tạo được yêu cầu</string>
+    <string gender="unknown" name="dat_error_voice_invalid_message_proto">Proto tin nhắn không hợp lệ</string>
+    <string gender="unknown" name="dat_error_voice_invalid_wearables_interface">WearablesInterface được cung cấp không hợp lệ</string>
+    <string gender="unknown" name="dat_error_voice_send_message_error">Không gửi được tin nhắn</string>
+    <string gender="unknown" name="dat_error_wearables_already_configured">Đã đặt cấu hình rồi</string>
+    <string gender="unknown" name="dat_error_wearables_configuration_error">Lỗi cấu hình</string>
+    <string gender="unknown" name="dat_error_wearables_internal_error">Lỗi nội bộ</string>
+    <string gender="unknown" name="dat_error_wearables_url_registration_error">Lỗi đăng ký</string>
+    <string gender="unknown" name="dat_error_wearables_url_unregistration_error">Lỗi khi hủy đăng ký</string>
+</resources>

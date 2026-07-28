@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string gender="unknown" name="dat_error_permission_connection_error">დაკავშირების შეცდომა მოწყობილობასთან კომუნიკაციის დამყარებისას</string>
+    <string gender="unknown" name="dat_error_permission_internal_error">მოხდა მოულოდნელი შიდა შეცდომა</string>
+    <string gender="unknown" name="dat_error_permission_meta_ai_not_installed">აპი კომპანიონი Meta AI არ არის დაინსტალირებული მოწყობილობაზე</string>
+    <string gender="unknown" name="dat_error_permission_no_device">არცერთი სატარებელი მოწყობილობა არ არის აღმოჩენილი ან დარეგისტრირებული</string>
+    <string gender="unknown" name="dat_error_permission_no_device_with_connection">ყველა აღმოჩენილი მოწყობილობა გამორთულია ან გათიშულია კავშირი</string>
+    <string gender="unknown" name="dat_error_permission_request_in_progress">ნებართვის მოთხოვნა უკვე მიმდინარეობს</string>
+    <string gender="unknown" name="dat_error_permission_request_timeout">ნებართვის მოთხოვნამ გადააჭარბა დროის დაშვებულ ლიმიტს</string>
+    <string gender="unknown" name="dat_error_registration_already_registered">მომხმარებელი უკვე დარეგისტრირებულია, როდესაც ის ცდილობს ხელახლა დარეგისტრირებას</string>
+    <string gender="unknown" name="dat_error_registration_configuration_invalid">სატარებელი მოწყობილობების წვდომის ხელსაწყოების ნაკრების კონფიგურაცია არასწორი ან არასრულია</string>
+    <string gender="unknown" name="dat_error_registration_meta_ai_not_installed">Meta AI აპი არ არის დაინსტალირებული მოწყობილობაზე, რაც სავალდებულოა რეგისტრაციისთვის</string>
+    <string gender="unknown" name="dat_error_registration_network_unavailable">ინტერნეტთან კავშირი არ არის. შეამოწმეთ დაკავშირება და სცადეთ ხელახლა</string>
+    <string gender="unknown" name="dat_error_registration_unknown">რეგისტრაციის პროცესში მოხდა უცნობი შეცდომა</string>
+    <string gender="unknown" name="dat_error_session_already_exists">ამ მოწყობილობისთვის შესაბამისი სესია უკვე არსებობს</string>
+    <string gender="unknown" name="dat_error_session_already_stopped">სესია უკვე შეჩერდა</string>
+    <string gender="unknown" name="dat_error_session_battery_critical">მოწყობილობის ბატარეის დამუხტულობის დონე კრიტიკულად მცირეა</string>
+    <string gender="unknown" name="dat_error_session_capability_already_active">ამ ტიპის შესაძლებლობა უკვე აქტიურია ამ სესიაში</string>
+    <string gender="unknown" name="dat_error_session_capability_not_found">ამ ტიპის არცერთი შესაძლებლობა არ არის დართული ამ სესიაზე</string>
+    <string gender="unknown" name="dat_error_session_idle">სესია უმოქმედოა. დაიწყეთ სესია შესაძლებლობების დამატებამდე</string>
+    <string gender="unknown" name="dat_error_session_no_eligible_device">კვალიფიცირებული მოწყობილობა ხელმისაწვდომი არ არის</string>
+    <string gender="unknown" name="dat_error_session_peak_power_shutdown">მოწყობილობის პიკური ელექტროენერგიის გამორთვა</string>
+    <string gender="unknown" name="dat_error_session_thermal_critical">მოწყობილობის თერმული მდგომარეობა კრიტიკულია (ის კრიტიკულად გადახურებულია)</string>
+    <string gender="unknown" name="dat_error_session_thermal_emergency">მოწყობილობის თერმული მდგომარეობა გადაუდებელი მდგომარეობისაა — მიმდინარეობს გამორთვა (ის იმდენად გადახურებულია, რომ მისი ჩართულ მდგომარეობაში გაჩერება აღარ შეუძლება)</string>
+    <string gender="unknown" name="dat_error_unregistration_already_unregistered">მომხმარებელი უკვე აღარ არის რეგისტრირებული (დერეგისტრირებულია), როდესაც ის ცდილობს რეგისტრაციის გაუქმებას</string>
+    <string gender="unknown" name="dat_error_unregistration_configuration_invalid">სატარებელი მოწყობილობების წვდომის ხელსაწყოების ნაკრების კონფიგურაცია არასწორი ან არასრულია</string>
+    <string gender="unknown" name="dat_error_unregistration_meta_ai_not_installed">Meta AI აპი არ არის დაინსტალირებული მოწყობილობაზე, რაც საჭიროა რეგისტრაციის გასაუქმებლად</string>
+    <string gender="unknown" name="dat_error_unregistration_unknown">უცნობი შეფერხება მოხდა რეგისტრაციის გაუქმების პროცესში</string>
+    <string gender="unknown" name="dat_error_voice_action_failed">მოქმედება ვერ შესრულდა</string>
+    <string gender="unknown" name="dat_error_voice_channel_setup_failed">ხელოვნური ინტელექტის მოქმედებების არხის დაყენება ვერ მოხერხდა</string>
+    <string gender="unknown" name="dat_error_voice_connection_not_available">მოწყობილობის კავშირი მიუწვდომელია</string>
+    <string gender="unknown" name="dat_error_voice_device_not_found">მოწყობილობა ვერ მოიძებნა</string>
+    <string gender="unknown" name="dat_error_voice_init_request_error">მოთხოვნის წამოწყება ვერ მოხერხდა</string>
+    <string gender="unknown" name="dat_error_voice_invalid_message_proto">არასწორი შეტყობინების პროტოტიპი</string>
+    <string gender="unknown" name="dat_error_voice_invalid_wearables_interface">ტარებადი მოწყობილობების მოწოდებული/უზრუნველყოფილი ინტერფეისი არასწორია</string>
+    <string gender="unknown" name="dat_error_voice_send_message_error">შეტყობინება ვერ გაიგზავნა</string>
+    <string gender="unknown" name="dat_error_wearables_already_configured">უკვე კონფიგურირებულია</string>
+    <string gender="unknown" name="dat_error_wearables_configuration_error">კონფიგურაციის შეცდომა</string>
+    <string gender="unknown" name="dat_error_wearables_internal_error">შიდა შეცდომა</string>
+    <string gender="unknown" name="dat_error_wearables_url_registration_error">შეცდომა რეგისტრაციისას</string>
+    <string gender="unknown" name="dat_error_wearables_url_unregistration_error">რეგისტრაციის გაუქმების შეცდომა</string>
+</resources>
