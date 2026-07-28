@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string gender="unknown" name="dat_error_permission_connection_error">ডিভাইসের সাথে যোগাযোগ করার সময় কানেকশন সংক্রান্ত সমস্যা হয়েছে</string>
+    <string gender="unknown" name="dat_error_permission_internal_error">কোনো অপ্রত্যাশিত অভ্যন্তরীণ সমস্যা হয়েছে</string>
+    <string gender="unknown" name="dat_error_permission_meta_ai_not_installed">ডিভাইসে Meta AI কম্প্যানিয়ন অ্যাপ ইনস্টল করা নেই</string>
+    <string gender="unknown" name="dat_error_permission_no_device">কোনো পরিধানযোগ্য ডিভাইস খুঁজে পাওয়া বা রেজিস্টার করা হয়নি</string>
+    <string gender="unknown" name="dat_error_permission_no_device_with_connection">খুঁজে পাওয়া সব ডিভাইস বন্ধ করা আছে অথবা ডিসকানেক্ট করা আছে</string>
+    <string gender="unknown" name="dat_error_permission_request_in_progress">একটি অনুমতির অনুরোধ ইতিমধ্যেই প্রগতিতে রয়েছে</string>
+    <string gender="unknown" name="dat_error_permission_request_timeout">অনুমতির অনুরোধের জন্য নির্ধারিত সময়সীমা পেরিয়ে গেছে</string>
+    <string gender="unknown" name="dat_error_registration_already_registered">ইউজার আবার রেজিস্টার করার চেষ্টা করার সময় ইতিমধ্যেই রেজিস্টার করেছেন</string>
+    <string gender="unknown" name="dat_error_registration_configuration_invalid">ওয়্যারেবল ডিভাইস অ্যাক্সেস টুলকিট কনফিগারেশনটি ভুল বা অসম্পূর্ণ</string>
+    <string gender="unknown" name="dat_error_registration_meta_ai_not_installed">ডিভাইসে Meta AI অ্যাপ ইনস্টল করা নেই, যা রেজিস্ট্রেশনের জন্য প্রয়োজন</string>
+    <string gender="unknown" name="dat_error_registration_network_unavailable">কোনো ইন্টারনেট কানেকশন উপলভ্য নেই। অনুগ্রহ করে আপনার কানেকশন পরীক্ষা করুন এবং আবার চেষ্টা করুন</string>
+    <string gender="unknown" name="dat_error_registration_unknown">রেজিস্ট্রেশন প্রক্রিয়ার সময় কোনো অজানা ত্রুটি দেখা দিয়েছে</string>
+    <string gender="unknown" name="dat_error_session_already_exists">এই ডিভাইসের জন্য আগে থেকেই একটি সেশন রয়েছে</string>
+    <string gender="unknown" name="dat_error_session_already_stopped">সেশন আগেই বন্ধ করা হয়েছে</string>
+    <string gender="unknown" name="dat_error_session_battery_critical">ডিভাইসের ব্যাটারিতে চার্জ খুবই কম আছে</string>
+    <string gender="unknown" name="dat_error_session_capability_already_active">এই ধরনের একটি ক্ষমতা সেশনে ইতিমধ্যেই সক্রিয় আছে</string>
+    <string gender="unknown" name="dat_error_session_capability_not_found">সেশনের সাথে এই ধরনের কোনো ক্ষমতা অ্যাটাচ করা নেই</string>
+    <string gender="unknown" name="dat_error_session_idle">সেশনটি নিষ্ক্রিয় আছে। ক্ষমতা যোগ করার আগে সেশনটি শুরু করুন</string>
+    <string gender="unknown" name="dat_error_session_no_eligible_device">কোনো যোগ্য ডিভাইস উপলভ্য নেই</string>
+    <string gender="unknown" name="dat_error_session_peak_power_shutdown">ডিভাইসের সর্বোচ্চ শাটডাউন পাওয়ার</string>
+    <string gender="unknown" name="dat_error_session_thermal_critical">ডিভাইসের তাপমাত্রা বিপজ্জনক স্তরে পৌঁছে গেছে</string>
+    <string gender="unknown" name="dat_error_session_thermal_emergency">ডিভাইসের তাপমাত্রা জরুরি অবস্থায় পৌঁছেছে — বন্ধ করা হচ্ছে</string>
+    <string gender="unknown" name="dat_error_unregistration_already_unregistered">আবার আনরেজিস্টার করার চেষ্টা করার সময় ইউজার আগেই আনরেজিস্টার করেছেন</string>
+    <string gender="unknown" name="dat_error_unregistration_configuration_invalid">ওয়্যারেবল ডিভাইস অ্যাক্সেস টুলকিট কনফিগারেশনটি ভুল বা অসম্পূর্ণ</string>
+    <string gender="unknown" name="dat_error_unregistration_meta_ai_not_installed">ডিভাইসে Meta AI অ্যাপ ইনস্টল করা নেই, যা আনরেজিস্ট্রেশনের জন্য প্রয়োজন</string>
+    <string gender="unknown" name="dat_error_unregistration_unknown">রেজিস্ট্রেশন বাতিলের প্রক্রিয়া করার সময় কোনো অজানা ত্রুটি দেখা দিয়েছে</string>
+    <string gender="unknown" name="dat_error_voice_action_failed">পদক্ষেপ ব্যর্থ হয়েছে</string>
+    <string gender="unknown" name="dat_error_voice_channel_setup_failed">AI পদক্ষেপ চ্যানেল সেটআপ করা যায়নি</string>
+    <string gender="unknown" name="dat_error_voice_connection_not_available">ডিভাইসের সংযোগ উপলভ্য নয়</string>
+    <string gender="unknown" name="dat_error_voice_device_not_found">ডিভাইস খুঁজে পাওয়া যায়নি</string>
+    <string gender="unknown" name="dat_error_voice_init_request_error">অনুরোধ শুরু করা যায়নি</string>
+    <string gender="unknown" name="dat_error_voice_invalid_message_proto">ভুল মেসেজ প্রোটো</string>
+    <string gender="unknown" name="dat_error_voice_invalid_wearables_interface">অবৈধ WearablesInterface দেওয়া হয়েছে</string>
+    <string gender="unknown" name="dat_error_voice_send_message_error">মেসেজ পাঠানো যায়নি</string>
+    <string gender="unknown" name="dat_error_wearables_already_configured">আগে থেকেই কনফিগার করা আছে</string>
+    <string gender="unknown" name="dat_error_wearables_configuration_error">কনফিগারেশনে সমস্যা</string>
+    <string gender="unknown" name="dat_error_wearables_internal_error">অভ্যন্তরীণ ত্রুটি</string>
+    <string gender="unknown" name="dat_error_wearables_url_registration_error">রেজিস্ট্রেশনে সমস্যা</string>
+    <string gender="unknown" name="dat_error_wearables_url_unregistration_error">আনরেজিস্ট্রেশনে সমস্যা</string>
+</resources>

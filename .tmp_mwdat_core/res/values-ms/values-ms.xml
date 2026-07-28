@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string gender="unknown" name="dat_error_permission_connection_error">Ralat sambungan berlaku semasa berkomunikasi dengan peranti</string>
+    <string gender="unknown" name="dat_error_permission_internal_error">Ralat dalaman yang tidak dijangka telah berlaku</string>
+    <string gender="unknown" name="dat_error_permission_meta_ai_not_installed">Aplikasi pendamping Meta AI tidak dipasang pada peranti</string>
+    <string gender="unknown" name="dat_error_permission_no_device">Tiada peranti boleh pakai telah ditemui atau didaftarkan</string>
+    <string gender="unknown" name="dat_error_permission_no_device_with_connection">Semua peranti yang ditemui dimatikan atau dinyahsambungkan</string>
+    <string gender="unknown" name="dat_error_permission_request_in_progress">Permintaan keizinan sedang dijalankan</string>
+    <string gender="unknown" name="dat_error_permission_request_timeout">Permintaan keizinan melebihi had masa yang dibenarkan</string>
+    <string gender="unknown" name="dat_error_registration_already_registered">Pengguna telah pun berdaftar apabila mencuba untuk mendaftar semula</string>
+    <string gender="unknown" name="dat_error_registration_configuration_invalid">Konfigurasi Set Alat Akses Peranti Boleh Dipakai tidak sah atau tidak lengkap</string>
+    <string gender="unknown" name="dat_error_registration_meta_ai_not_installed">Aplikasi Meta AI tidak dipasang pada peranti, yang diperlukan untuk pendaftaran</string>
+    <string gender="unknown" name="dat_error_registration_network_unavailable">Tiada sambungan internet tersedia. Sila semak sambungan anda dan cuba lagi</string>
+    <string gender="unknown" name="dat_error_registration_unknown">Ralat tidak diketahui telah berlaku semasa proses pendaftaran</string>
+    <string gender="unknown" name="dat_error_session_already_exists">Sesi sudah wujud untuk peranti ini</string>
+    <string gender="unknown" name="dat_error_session_already_stopped">Sesi telah pun dihentikan</string>
+    <string gender="unknown" name="dat_error_session_battery_critical">Bateri peranti sangat rendah</string>
+    <string gender="unknown" name="dat_error_session_capability_already_active">Keupayaan jenis ini sudah aktif pada sesi ini</string>
+    <string gender="unknown" name="dat_error_session_capability_not_found">Tiada keupayaan jenis ini dilampirkan pada sesi ini</string>
+    <string gender="unknown" name="dat_error_session_idle">Sesi sedang melahu. Mulakan sesi sebelum menambah keupayaan</string>
+    <string gender="unknown" name="dat_error_session_no_eligible_device">Tiada peranti yang layak tersedia</string>
+    <string gender="unknown" name="dat_error_session_peak_power_shutdown">Penutupan kuasa puncak peranti</string>
+    <string gender="unknown" name="dat_error_session_thermal_critical">Keadaan haba peranti adalah kritikal</string>
+    <string gender="unknown" name="dat_error_session_thermal_emergency">Suhu peranti berada pada tahap kecemasan — sedang dimatikan</string>
+    <string gender="unknown" name="dat_error_unregistration_already_unregistered">Pengguna telah pun dinyahdaftarkan apabila cuba menyahdaftar sekali lagi</string>
+    <string gender="unknown" name="dat_error_unregistration_configuration_invalid">Konfigurasi Set Alat Akses Peranti Boleh Dipakai tidak sah atau tidak lengkap</string>
+    <string gender="unknown" name="dat_error_unregistration_meta_ai_not_installed">Apl Meta AI tidak dipasang pada peranti, yang diperlukan untuk penyahdaftaran</string>
+    <string gender="unknown" name="dat_error_unregistration_unknown">Ralat tidak diketahui telah berlaku semasa proses penyahdaftaran</string>
+    <string gender="unknown" name="dat_error_voice_action_failed">Tindakan gagal</string>
+    <string gender="unknown" name="dat_error_voice_channel_setup_failed">Gagal menyediakan saluran Tindakan AI</string>
+    <string gender="unknown" name="dat_error_voice_connection_not_available">Sambungan peranti tidak tersedia</string>
+    <string gender="unknown" name="dat_error_voice_device_not_found">Peranti tidak ditemui</string>
+    <string gender="unknown" name="dat_error_voice_init_request_error">Gagal memulakan permintaan</string>
+    <string gender="unknown" name="dat_error_voice_invalid_message_proto">Proto Mesej Tidak Sah</string>
+    <string gender="unknown" name="dat_error_voice_invalid_wearables_interface">WearablesInterface tidak sah disediakan</string>
+    <string gender="unknown" name="dat_error_voice_send_message_error">Gagal menghantar mesej</string>
+    <string gender="unknown" name="dat_error_wearables_already_configured">Sudah dikonfigurasikan</string>
+    <string gender="unknown" name="dat_error_wearables_configuration_error">Ralat konfigurasi</string>
+    <string gender="unknown" name="dat_error_wearables_internal_error">Ralat dalaman</string>
+    <string gender="unknown" name="dat_error_wearables_url_registration_error">Ralat pendaftaran</string>
+    <string gender="unknown" name="dat_error_wearables_url_unregistration_error">Ralat penyahdaftaran</string>
+</resources>

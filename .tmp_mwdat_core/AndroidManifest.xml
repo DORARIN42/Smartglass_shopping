@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--   ~ (c) Meta Platforms, Inc. and affiliates. Confidential and proprietary. -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.meta.wearable.dat.core"
+    android:versionCode="1003791074"
+    android:versionName="0.8.0.30.0" >
+
+    <uses-sdk
+        android:minSdkVersion="29"
+        android:targetSdkVersion="33" />
+
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+
+    <queries>
+        <package android:name="com.facebook.stella" />
+        <package android:name="com.facebook.stella_debug" />
+    </queries>
+
+    <application>
+        <service
+            android:name="com.meta.wearable.acdc.sdk.service.ACDCRegistrationService"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.meta.wearable.acdc.sdk.service.ACDCRegistrationService.BIND" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
+    </application>
+
+</manifest>

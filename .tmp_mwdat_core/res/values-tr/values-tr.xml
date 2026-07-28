@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string gender="unknown" name="dat_error_permission_connection_error">Cihazla iletişim kurulurken bağlantı hatası oluştu</string>
+    <string gender="unknown" name="dat_error_permission_internal_error">Beklenmeyen bir dahili hata oluştu</string>
+    <string gender="unknown" name="dat_error_permission_meta_ai_not_installed">Meta AI yardımcı uygulaması cihazda yüklü değil</string>
+    <string gender="unknown" name="dat_error_permission_no_device">Herhangi bir giyilebilir cihaz keşfedilmedi veya kaydedilmedi</string>
+    <string gender="unknown" name="dat_error_permission_no_device_with_connection">Keşfedilen tüm cihazlar kapalı veya bağlantısı kesilmiş</string>
+    <string gender="unknown" name="dat_error_permission_request_in_progress">Bir izin isteği zaten devam ediyor</string>
+    <string gender="unknown" name="dat_error_permission_request_timeout">İzin isteği, izin verilen süre sınırını aştı</string>
+    <string gender="unknown" name="dat_error_registration_already_registered">Kullanıcı zaten kayıtlıyken tekrar kaydolmaya çalışıyor</string>
+    <string gender="unknown" name="dat_error_registration_configuration_invalid">Wearables Cihaz Erişimi Araç Kiti yapılandırması geçersiz veya eksik</string>
+    <string gender="unknown" name="dat_error_registration_meta_ai_not_installed">Kayıt için gerekli olan Meta AI uygulaması cihazda yüklü değil</string>
+    <string gender="unknown" name="dat_error_registration_network_unavailable">İnternet bağlantısı yok. Lütfen bağlantını kontrol et ve tekrar dene</string>
+    <string gender="unknown" name="dat_error_registration_unknown">Kayıt işlemi sırasında bilinmeyen bir hata oluştu</string>
+    <string gender="unknown" name="dat_error_session_already_exists">Bu cihaz için zaten bir oturum mevcut</string>
+    <string gender="unknown" name="dat_error_session_already_stopped">Oturum zaten durduruldu</string>
+    <string gender="unknown" name="dat_error_session_battery_critical">Cihaz pil seviyesi kritik ölçüde düşük</string>
+    <string gender="unknown" name="dat_error_session_capability_already_active">Bu türde bir özellik zaten oturumda aktif</string>
+    <string gender="unknown" name="dat_error_session_capability_not_found">Oturuma bu türde bir özellik eklenmedi</string>
+    <string gender="unknown" name="dat_error_session_idle">Oturum boşta. Özellik eklemeden önce oturumu başlat</string>
+    <string gender="unknown" name="dat_error_session_no_eligible_device">Uygun cihaz yok</string>
+    <string gender="unknown" name="dat_error_session_peak_power_shutdown">Maksimum güç nedeniyle cihaz kapatma</string>
+    <string gender="unknown" name="dat_error_session_thermal_critical">Cihazın sıcaklık durumu kritik</string>
+    <string gender="unknown" name="dat_error_session_thermal_emergency">Cihazın sıcaklık durumu kritik. Cihaz kapatılıyor</string>
+    <string gender="unknown" name="dat_error_unregistration_already_unregistered">Kullanıcı zaten kaydı iptal ettiği halde tekrar iptal etmeye çalışıyor</string>
+    <string gender="unknown" name="dat_error_unregistration_configuration_invalid">Wearables Cihaz Erişimi Araç Kiti yapılandırması geçersiz veya eksik</string>
+    <string gender="unknown" name="dat_error_unregistration_meta_ai_not_installed">Kaydın iptal edilmesi için gerekli olan Meta AI uygulaması cihazda yüklü değil</string>
+    <string gender="unknown" name="dat_error_unregistration_unknown">Kayıt iptal etme işlemi sırasında bilinmeyen bir hata oluştu</string>
+    <string gender="unknown" name="dat_error_voice_action_failed">İşlem başarısız</string>
+    <string gender="unknown" name="dat_error_voice_channel_setup_failed">Yapay Zeka Eylemleri kanalı kurulamadı</string>
+    <string gender="unknown" name="dat_error_voice_connection_not_available">Cihaz bağlantısı kullanılamıyor</string>
+    <string gender="unknown" name="dat_error_voice_device_not_found">Cihaz bulunamadı</string>
+    <string gender="unknown" name="dat_error_voice_init_request_error">İstek başlatılamadı</string>
+    <string gender="unknown" name="dat_error_voice_invalid_message_proto">Geçersiz Mesaj protokolü</string>
+    <string gender="unknown" name="dat_error_voice_invalid_wearables_interface">Geçersiz WearablesInterface sağlandı</string>
+    <string gender="unknown" name="dat_error_voice_send_message_error">Mesaj gönderilemedi</string>
+    <string gender="unknown" name="dat_error_wearables_already_configured">Zaten yapılandırıldı</string>
+    <string gender="unknown" name="dat_error_wearables_configuration_error">Yapılandırma hatası</string>
+    <string gender="unknown" name="dat_error_wearables_internal_error">Dahili hata</string>
+    <string gender="unknown" name="dat_error_wearables_url_registration_error">Kayıt hatası</string>
+    <string gender="unknown" name="dat_error_wearables_url_unregistration_error">Kayıt iptal etme hatası</string>
+</resources>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string gender="unknown" name="dat_error_permission_connection_error">حدث خطأ في الاتصال أثناء التواصل مع الجهاز</string>
+    <string gender="unknown" name="dat_error_permission_internal_error">حدث خطأ داخلي غير متوقع</string>
+    <string gender="unknown" name="dat_error_permission_meta_ai_not_installed">تطبيق Meta AI المصاحب غير مثبّت على الجهاز</string>
+    <string gender="unknown" name="dat_error_permission_no_device">لم يتم استكشاف أو تسجيل أي أجهزة يمكن ارتداؤها</string>
+    <string gender="unknown" name="dat_error_permission_no_device_with_connection">تم إيقاف تشغيل جميع الأجهزة التي تم اكتشافها أو إلغاء ربطها</string>
+    <string gender="unknown" name="dat_error_permission_request_in_progress">طلب الإذن قيد التقدم بالفعل</string>
+    <string gender="unknown" name="dat_error_permission_request_timeout">تجاوز طلب الإذن الحد الزمني المسموح به</string>
+    <string gender="unknown" name="dat_error_registration_already_registered">المستخدم مسجّل بالفعل عند محاولة التسجيل مرة أخرى</string>
+    <string gender="unknown" name="dat_error_registration_configuration_invalid">تكوين مجموعة أدوات الوصول إلى الأجهزة القابلة للارتداء غير صالح أو غير مكتمل</string>
+    <string gender="unknown" name="dat_error_registration_meta_ai_not_installed">تطبيق Meta AI غير مثبّت على الجهاز، وهو مطلوب للتسجيل</string>
+    <string gender="unknown" name="dat_error_registration_network_unavailable">لا يتوفر اتصال بالإنترنت. يرجى التحقق من اتصالك وإعادة المحاولة</string>
+    <string gender="unknown" name="dat_error_registration_unknown">حدث خطأ غير معروف أثناء عملية التسجيل</string>
+    <string gender="unknown" name="dat_error_session_already_exists">توجد جلسة بالفعل لهذا الجهاز</string>
+    <string gender="unknown" name="dat_error_session_already_stopped">تم إيقاف الجلسة بالفعل</string>
+    <string gender="unknown" name="dat_error_session_battery_critical">مستوى بطارية الجهاز منخفض جدًا</string>
+    <string gender="unknown" name="dat_error_session_capability_already_active">إمكانية من هذا النوع نشطة بالفعل في الجلسة</string>
+    <string gender="unknown" name="dat_error_session_capability_not_found">لم يتم ربط إمكانية من هذا النوع بالجلسة</string>
+    <string gender="unknown" name="dat_error_session_idle">الجلسة في وضع الخمول. ابدأ الجلسة قبل إضافة إمكانات</string>
+    <string gender="unknown" name="dat_error_session_no_eligible_device">لا يتوفر جهاز مؤهل</string>
+    <string gender="unknown" name="dat_error_session_peak_power_shutdown">إغلاق الجهاز عند ذروة استهلاك الطاقة</string>
+    <string gender="unknown" name="dat_error_session_thermal_critical">الحالة الحرارية للجهاز حرجة</string>
+    <string gender="unknown" name="dat_error_session_thermal_emergency">بلغت الحالة الحرارية للجهاز حد الطوارئ — سيتم إيقاف التشغيل</string>
+    <string gender="unknown" name="dat_error_unregistration_already_unregistered">تم إلغاء تسجيل المستخدم بالفعل عند محاولة إلغاء التسجيل مرة أخرى</string>
+    <string gender="unknown" name="dat_error_unregistration_configuration_invalid">تكوين مجموعة أدوات الوصول إلى الأجهزة القابلة للارتداء غير صالح أو غير مكتمل</string>
+    <string gender="unknown" name="dat_error_unregistration_meta_ai_not_installed">تطبيق Meta AI غير مثبّت على هذا الجهاز، وهو مطلوب لإلغاء التسجيل</string>
+    <string gender="unknown" name="dat_error_unregistration_unknown">حدث خطأ غير معروف أثناء عملية إلغاء التسجيل</string>
+    <string gender="unknown" name="dat_error_voice_action_failed">فشل الإجراء</string>
+    <string gender="unknown" name="dat_error_voice_channel_setup_failed">تعذّر إعداد قناة إجراءات الذكاء الاصطناعي</string>
+    <string gender="unknown" name="dat_error_voice_connection_not_available">اتصال الجهاز غير متوفر</string>
+    <string gender="unknown" name="dat_error_voice_device_not_found">لم يتم العثور على الجهاز</string>
+    <string gender="unknown" name="dat_error_voice_init_request_error">تعذّر بدء الطلب</string>
+    <string gender="unknown" name="dat_error_voice_invalid_message_proto">بروتوكول الرسالة غير صالح</string>
+    <string gender="unknown" name="dat_error_voice_invalid_wearables_interface">تم توفير WearablesInterface غير صالحة</string>
+    <string gender="unknown" name="dat_error_voice_send_message_error">فشل إرسال الرسالة</string>
+    <string gender="unknown" name="dat_error_wearables_already_configured">تم التكوين بالفعل</string>
+    <string gender="unknown" name="dat_error_wearables_configuration_error">خطأ في التكوين</string>
+    <string gender="unknown" name="dat_error_wearables_internal_error">خطأ داخلي</string>
+    <string gender="unknown" name="dat_error_wearables_url_registration_error">خطأ أثناء التسجيل</string>
+    <string gender="unknown" name="dat_error_wearables_url_unregistration_error">خطأ أثناء إلغاء التسجيل</string>
+</resources>

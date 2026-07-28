@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string gender="unknown" name="dat_error_permission_connection_error">Се појави грешка при поврзувањето додека се комуницираше со уредот</string>
+    <string gender="unknown" name="dat_error_permission_internal_error">Се појави неочекувана внатрешна грешка</string>
+    <string gender="unknown" name="dat_error_permission_meta_ai_not_installed">Придружната апликација на Meta AI не е инсталирана на уредот</string>
+    <string gender="unknown" name="dat_error_permission_no_device">Не се откриени или регистрирани уреди за носење</string>
+    <string gender="unknown" name="dat_error_permission_no_device_with_connection">Сите откриени уреди се исклучени или отповрзани</string>
+    <string gender="unknown" name="dat_error_permission_request_in_progress">Барањето за дозвола веќе е во тек</string>
+    <string gender="unknown" name="dat_error_permission_request_timeout">Барањето за дозвола го надмина дозволеното временско ограничување</string>
+    <string gender="unknown" name="dat_error_registration_already_registered">Корисникот веќе е регистриран кога се обидува повторно да се регистрира</string>
+    <string gender="unknown" name="dat_error_registration_configuration_invalid">Конфигурацијата на комплетот алатки за пристап до уреди за носење е неважечка или нецелосна</string>
+    <string gender="unknown" name="dat_error_registration_meta_ai_not_installed">Апликацијата Meta AI не е инсталирана на уредот, а тоа е задолжително за регистрација</string>
+    <string gender="unknown" name="dat_error_registration_network_unavailable">Нема достапна интернет-врска. Провери ја врската и обиди се повторно</string>
+    <string gender="unknown" name="dat_error_registration_unknown">Се појави непозната грешка за време на процесот на регистрација</string>
+    <string gender="unknown" name="dat_error_session_already_exists">Веќе постои сесија за овој уред</string>
+    <string gender="unknown" name="dat_error_session_already_stopped">Сесијата е веќе прекината</string>
+    <string gender="unknown" name="dat_error_session_battery_critical">Батеријата на уредот е критично слаба</string>
+    <string gender="unknown" name="dat_error_session_capability_already_active">Способност од овој тип е веќе активна во сесијата</string>
+    <string gender="unknown" name="dat_error_session_capability_not_found">Нема способност од овој тип прикачена на сесијата</string>
+    <string gender="unknown" name="dat_error_session_idle">Сесијата е неактивна. Започни ја сесијата пред да додадеш способности</string>
+    <string gender="unknown" name="dat_error_session_no_eligible_device">Нема достапен уред што ги исполнува условите</string>
+    <string gender="unknown" name="dat_error_session_peak_power_shutdown">Исклучување на уредот поради прекумерно напојување</string>
+    <string gender="unknown" name="dat_error_session_thermal_critical">Топлотната состојба на уредот е критична</string>
+    <string gender="unknown" name="dat_error_session_thermal_emergency">Топлотната состојба на уредот е итна — се исклучува</string>
+    <string gender="unknown" name="dat_error_unregistration_already_unregistered">Корисникот веќе е отстранет од регистрирани кога се обидува повторно да се отстрани од регистрирани</string>
+    <string gender="unknown" name="dat_error_unregistration_configuration_invalid">Конфигурацијата на комплетот алатки за пристап до уреди за носење е неважечка или нецелосна</string>
+    <string gender="unknown" name="dat_error_unregistration_meta_ai_not_installed">Апликацијата Meta AI не е инсталирана на уредот, а тоа е задолжително за поништување на регистрацијата</string>
+    <string gender="unknown" name="dat_error_unregistration_unknown">Се појави непозната грешка за време на процесот на поништување на регистрацијата</string>
+    <string gender="unknown" name="dat_error_voice_action_failed">Дејството е неуспешно</string>
+    <string gender="unknown" name="dat_error_voice_channel_setup_failed">Не успеа да се постави каналот за дејства со ВИ</string>
+    <string gender="unknown" name="dat_error_voice_connection_not_available">Врската со уредот не е достапна</string>
+    <string gender="unknown" name="dat_error_voice_device_not_found">Уредот не е најден</string>
+    <string gender="unknown" name="dat_error_voice_init_request_error">Барањето не успеа да се иницијализира</string>
+    <string gender="unknown" name="dat_error_voice_invalid_message_proto">Неважечки прототип на порака</string>
+    <string gender="unknown" name="dat_error_voice_invalid_wearables_interface">Обезбеден е неважечки интерфејс за уреди за носење</string>
+    <string gender="unknown" name="dat_error_voice_send_message_error">Пораката не успеа да се испрати</string>
+    <string gender="unknown" name="dat_error_wearables_already_configured">Веќе е конфигурирано</string>
+    <string gender="unknown" name="dat_error_wearables_configuration_error">Грешка во конфигурацијата</string>
+    <string gender="unknown" name="dat_error_wearables_internal_error">Внатрешна грешка</string>
+    <string gender="unknown" name="dat_error_wearables_url_registration_error">Грешка при регистрација</string>
+    <string gender="unknown" name="dat_error_wearables_url_unregistration_error">Грешка при поништување на регистрацијата</string>
+</resources>

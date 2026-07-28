@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string gender="unknown" name="dat_error_permission_connection_error">Der opstod en forbindelsesfejl under kommunikation med enheden</string>
+    <string gender="unknown" name="dat_error_permission_internal_error">Der opstod en uventet intern fejl</string>
+    <string gender="unknown" name="dat_error_permission_meta_ai_not_installed">Den tilhørende Meta AI-app er ikke installeret på enheden</string>
+    <string gender="unknown" name="dat_error_permission_no_device">Der er ikke blevet fundet eller registreret nogen wearables</string>
+    <string gender="unknown" name="dat_error_permission_no_device_with_connection">Alle opdagede enheder er slukket eller ikke forbundet</string>
+    <string gender="unknown" name="dat_error_permission_request_in_progress">En anmodning om tilladelse er allerede i gang</string>
+    <string gender="unknown" name="dat_error_permission_request_timeout">Anmodningen om tilladelse har overskredet den tilladte tidsgrænse</string>
+    <string gender="unknown" name="dat_error_registration_already_registered">Brugeren er allerede registreret, når vedkommende forsøger at registrere sig igen</string>
+    <string gender="unknown" name="dat_error_registration_configuration_invalid">Konfigurationen af adgangsværktøjssættet til Wearables-enhed er ugyldig eller ufuldstændig</string>
+    <string gender="unknown" name="dat_error_registration_meta_ai_not_installed">Meta AI-appen er ikke installeret på enheden, hvilket er påkrævet for registrering</string>
+    <string gender="unknown" name="dat_error_registration_network_unavailable">Ingen internetforbindelse tilgængelig. Kontrollér din forbindelse, og prøv igen</string>
+    <string gender="unknown" name="dat_error_registration_unknown">Der opstod en ukendt fejl under registreringsprocessen</string>
+    <string gender="unknown" name="dat_error_session_already_exists">Der findes allerede en session for denne enhed</string>
+    <string gender="unknown" name="dat_error_session_already_stopped">Sessionen er allerede stoppet</string>
+    <string gender="unknown" name="dat_error_session_battery_critical">Enhedens batteri er kritisk lavt</string>
+    <string gender="unknown" name="dat_error_session_capability_already_active">En egenskab af denne type er allerede aktiv i sessionen</string>
+    <string gender="unknown" name="dat_error_session_capability_not_found">Der er ikke knyttet nogen egenskab af denne type til sessionen</string>
+    <string gender="unknown" name="dat_error_session_idle">Sessionen er inaktiv. Start sessionen, før du tilføjer egenskaber</string>
+    <string gender="unknown" name="dat_error_session_no_eligible_device">Der er ingen kvalificeret enhed tilgængelig</string>
+    <string gender="unknown" name="dat_error_session_peak_power_shutdown">Nedlukning af enhed pga. maks. strøm</string>
+    <string gender="unknown" name="dat_error_session_thermal_critical">Enhedens termiske tilstand er kritisk</string>
+    <string gender="unknown" name="dat_error_session_thermal_emergency">Enhedens termiske tilstand er kritisk – lukker ned</string>
+    <string gender="unknown" name="dat_error_unregistration_already_unregistered">Brugeren er allerede afregistreret, når vedkommende forsøger at afregistrere igen</string>
+    <string gender="unknown" name="dat_error_unregistration_configuration_invalid">Konfigurationen af adgangsværktøjssættet til Wearables-enhed er ugyldig eller ufuldstændig</string>
+    <string gender="unknown" name="dat_error_unregistration_meta_ai_not_installed">Meta AI-appen er ikke installeret på enheden, hvilket er påkrævet for afregistrering</string>
+    <string gender="unknown" name="dat_error_unregistration_unknown">Der opstod en ukendt fejl under afregistreringsprocessen</string>
+    <string gender="unknown" name="dat_error_voice_action_failed">Handlingen mislykkedes</string>
+    <string gender="unknown" name="dat_error_voice_channel_setup_failed">AI-handlingskanalen kunne ikke opsættes</string>
+    <string gender="unknown" name="dat_error_voice_connection_not_available">Der er ingen tilgængelig forbindelse til enheden</string>
+    <string gender="unknown" name="dat_error_voice_device_not_found">Enhed ikke fundet</string>
+    <string gender="unknown" name="dat_error_voice_init_request_error">Kunne ikke starte anmodning</string>
+    <string gender="unknown" name="dat_error_voice_invalid_message_proto">Ugyldig beskedproto</string>
+    <string gender="unknown" name="dat_error_voice_invalid_wearables_interface">Ugyldig WearablesInterface angivet</string>
+    <string gender="unknown" name="dat_error_voice_send_message_error">Beskeden kunne ikke sendes</string>
+    <string gender="unknown" name="dat_error_wearables_already_configured">Allerede konfigureret</string>
+    <string gender="unknown" name="dat_error_wearables_configuration_error">Konfigurationsfejl</string>
+    <string gender="unknown" name="dat_error_wearables_internal_error">Intern fejl</string>
+    <string gender="unknown" name="dat_error_wearables_url_registration_error">Registreringsfejl</string>
+    <string gender="unknown" name="dat_error_wearables_url_unregistration_error">Fejl i afregistrering</string>
+</resources>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string gender="unknown" name="dat_error_permission_connection_error">Pri komunikácii so zariadením došlo k chybe pripojenia</string>
+    <string gender="unknown" name="dat_error_permission_internal_error">Vyskytla sa neočakávaná interná chyba</string>
+    <string gender="unknown" name="dat_error_permission_meta_ai_not_installed">Sprievodná aplikácia Meta AI nie je nainštalovaná v zariadení</string>
+    <string gender="unknown" name="dat_error_permission_no_device">Nenašli sa ani sa nezaregistrovali žiadne nositeľné zariadenia</string>
+    <string gender="unknown" name="dat_error_permission_no_device_with_connection">Všetky zistené zariadenia sú vypnuté alebo odpojené</string>
+    <string gender="unknown" name="dat_error_permission_request_in_progress">Žiadosť o povolenie už prebieha</string>
+    <string gender="unknown" name="dat_error_permission_request_timeout">Žiadosť o povolenie prekročila povolený časový limit</string>
+    <string gender="unknown" name="dat_error_registration_already_registered">Používateľ je už zaregistrovaný, keď sa pokúša o opätovnú registráciu</string>
+    <string gender="unknown" name="dat_error_registration_configuration_invalid">Konfigurácia Wearables Device Access Toolkit je neplatná alebo neúplná</string>
+    <string gender="unknown" name="dat_error_registration_meta_ai_not_installed">Aplikácia Meta AI nie je nainštalovaná v zariadení, čo je potrebné na registráciu</string>
+    <string gender="unknown" name="dat_error_registration_network_unavailable">Nie je dostupné žiadne internetové pripojenie. Skontrolujte si pripojenie a skúste to znova.</string>
+    <string gender="unknown" name="dat_error_registration_unknown">Počas procesu registrácie došlo k neznámej chybe</string>
+    <string gender="unknown" name="dat_error_session_already_exists">Pre toto zariadenie relácia už existuje</string>
+    <string gender="unknown" name="dat_error_session_already_stopped">Relácia sa už zastavila</string>
+    <string gender="unknown" name="dat_error_session_battery_critical">Batéria zariadenia je kriticky slabá</string>
+    <string gender="unknown" name="dat_error_session_capability_already_active">Schopnosť tohto typu je v rámci relácie už aktívna</string>
+    <string gender="unknown" name="dat_error_session_capability_not_found">K relácii nie je pripojená žiadna schopnosť tohto typu</string>
+    <string gender="unknown" name="dat_error_session_idle">Relácia je nečinná. Pred pridaním možností spustite reláciu</string>
+    <string gender="unknown" name="dat_error_session_no_eligible_device">Nie je dostupné žiadne vyhovujúce zariadenie</string>
+    <string gender="unknown" name="dat_error_session_peak_power_shutdown">Zariadenie sa v súvislosti s najvyšším výkonom vyplo</string>
+    <string gender="unknown" name="dat_error_session_thermal_critical">Tepelný stav zariadenia je kritický</string>
+    <string gender="unknown" name="dat_error_session_thermal_emergency">Tepelný stav zariadenia je núdzový — vypína sa</string>
+    <string gender="unknown" name="dat_error_unregistration_already_unregistered">Používateľ je už odhlásený, keď sa pokúša o opätovné zrušenie registrácie</string>
+    <string gender="unknown" name="dat_error_unregistration_configuration_invalid">Konfigurácia Wearables Device Access Toolkit je neplatná alebo neúplná</string>
+    <string gender="unknown" name="dat_error_unregistration_meta_ai_not_installed">Aplikácia Meta AI nie je nainštalovaná v zariadení, čo je potrebné na zrušenie registrácie</string>
+    <string gender="unknown" name="dat_error_unregistration_unknown">Počas procesu zrušenia registrácie došlo k neznámej chybe</string>
+    <string gender="unknown" name="dat_error_voice_action_failed">Akcia nebola úspešná</string>
+    <string gender="unknown" name="dat_error_voice_channel_setup_failed">Kanál akcií AI sa nepodarilo nastaviť</string>
+    <string gender="unknown" name="dat_error_voice_connection_not_available">Pripojenie zariadenia nie je k dispozícii</string>
+    <string gender="unknown" name="dat_error_voice_device_not_found">Zariadenie sa nenašlo</string>
+    <string gender="unknown" name="dat_error_voice_init_request_error">Nepodarilo sa inicializovať žiadosť</string>
+    <string gender="unknown" name="dat_error_voice_invalid_message_proto">Neplatný protokol správy</string>
+    <string gender="unknown" name="dat_error_voice_invalid_wearables_interface">Poskytlo sa neplatné rozhranie pre nositeľné zariadenia (WearablesInterface )</string>
+    <string gender="unknown" name="dat_error_voice_send_message_error">Správu sa nepodarilo poslať</string>
+    <string gender="unknown" name="dat_error_wearables_already_configured">Už nakonfigurované</string>
+    <string gender="unknown" name="dat_error_wearables_configuration_error">Chyba konfigurácie</string>
+    <string gender="unknown" name="dat_error_wearables_internal_error">Interná chyba</string>
+    <string gender="unknown" name="dat_error_wearables_url_registration_error">Chyba pri registrácii</string>
+    <string gender="unknown" name="dat_error_wearables_url_unregistration_error">Chyba pri zrušení registrácie</string>
+</resources>

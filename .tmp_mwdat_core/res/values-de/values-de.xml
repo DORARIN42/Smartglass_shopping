@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string gender="unknown" name="dat_error_permission_connection_error">Bei der Kommunikation mit dem Gerät ist ein Verbindungsfehler aufgetreten</string>
+    <string gender="unknown" name="dat_error_permission_internal_error">Ein unerwarteter interner Fehler ist aufgetreten</string>
+    <string gender="unknown" name="dat_error_permission_meta_ai_not_installed">Die Meta AI-Companion-App ist nicht auf dem Gerät installiert</string>
+    <string gender="unknown" name="dat_error_permission_no_device">Keine Wearable-Geräte erkannt oder registriert</string>
+    <string gender="unknown" name="dat_error_permission_no_device_with_connection">Alle gefundenen Geräte sind ausgeschaltet oder getrennt</string>
+    <string gender="unknown" name="dat_error_permission_request_in_progress">Es wird bereits eine Berechtigungsanfrage verarbeitet</string>
+    <string gender="unknown" name="dat_error_permission_request_timeout">Die Berechtigungsanfrage hat das zulässige Zeitlimit überschritten</string>
+    <string gender="unknown" name="dat_error_registration_already_registered">Nutzer ist bereits registriert, wenn die Registrierung erneut versucht wird</string>
+    <string gender="unknown" name="dat_error_registration_configuration_invalid">Die Konfiguration des Wearables Device Access-Toolkits ist ungültig oder unvollständig</string>
+    <string gender="unknown" name="dat_error_registration_meta_ai_not_installed">Die Meta AI-App ist auf dem Gerät nicht installiert. Sie ist für die Registrierung erforderlich.</string>
+    <string gender="unknown" name="dat_error_registration_network_unavailable">Keine Internetverbindung verfügbar. Bitte überprüfe deine Verbindung und versuche es noch einmal.</string>
+    <string gender="unknown" name="dat_error_registration_unknown">Beim Registrieren ist ein unbekannter Fehler aufgetreten</string>
+    <string gender="unknown" name="dat_error_session_already_exists">Für dieses Gerät gibt es bereits eine Session</string>
+    <string gender="unknown" name="dat_error_session_already_stopped">Session wurde schon beendet</string>
+    <string gender="unknown" name="dat_error_session_battery_critical">Geräte-Akkustand kritisch niedrig</string>
+    <string gender="unknown" name="dat_error_session_capability_already_active">Eine Funktion dieser Art ist in dieser Session schon aktiv</string>
+    <string gender="unknown" name="dat_error_session_capability_not_found">An die Session ist keine Funktion dieser Art angehängt</string>
+    <string gender="unknown" name="dat_error_session_idle">Session ist inaktiv. Starte die Session, bevor du Funktionen hinzufügst</string>
+    <string gender="unknown" name="dat_error_session_no_eligible_device">Kein infrage kommendes Gerät verfügbar</string>
+    <string gender="unknown" name="dat_error_session_peak_power_shutdown">Höchstleistungsbedingte Notabschaltung des Geräts wurde ausgelöst</string>
+    <string gender="unknown" name="dat_error_session_thermal_critical">Gerätetemperatur ist kritisch</string>
+    <string gender="unknown" name="dat_error_session_thermal_emergency">Gerätetemperatur stellt einen Notfall dar – Abschaltung erfolgt</string>
+    <string gender="unknown" name="dat_error_unregistration_already_unregistered">Die Registrierung des Nutzers ist schon aufgehoben, wenn das Aufheben der Registrierung erneut versucht wird</string>
+    <string gender="unknown" name="dat_error_unregistration_configuration_invalid">Die Konfiguration des Wearables Device Access-Toolkits ist ungültig oder unvollständig</string>
+    <string gender="unknown" name="dat_error_unregistration_meta_ai_not_installed">Die Meta AI-App ist auf dem Gerät nicht installiert. Sie ist erforderlich, um die Registrierung aufzuheben.</string>
+    <string gender="unknown" name="dat_error_unregistration_unknown">Beim Aufheben der Registrierung ist ein unbekannter Fehler aufgetreten</string>
+    <string gender="unknown" name="dat_error_voice_action_failed">Aktion fehlgeschlagen</string>
+    <string gender="unknown" name="dat_error_voice_channel_setup_failed">Kanal für KI-Handlungen konnte nicht eingerichtet werden</string>
+    <string gender="unknown" name="dat_error_voice_connection_not_available">Geräteverbindung nicht verfügbar</string>
+    <string gender="unknown" name="dat_error_voice_device_not_found">Gerät nicht gefunden</string>
+    <string gender="unknown" name="dat_error_voice_init_request_error">Anfrage konnte nicht initialisiert werden</string>
+    <string gender="unknown" name="dat_error_voice_invalid_message_proto">Ungültige Nachrichten-PROTO-Datei</string>
+    <string gender="unknown" name="dat_error_voice_invalid_wearables_interface">Ungültige WearablesInterface-Datei angegeben</string>
+    <string gender="unknown" name="dat_error_voice_send_message_error">Nachricht konnte nicht gesendet werden</string>
+    <string gender="unknown" name="dat_error_wearables_already_configured">Bereits konfiguriert</string>
+    <string gender="unknown" name="dat_error_wearables_configuration_error">Konfigurationsfehler</string>
+    <string gender="unknown" name="dat_error_wearables_internal_error">Interner Fehler</string>
+    <string gender="unknown" name="dat_error_wearables_url_registration_error">Fehler bei der Registrierung</string>
+    <string gender="unknown" name="dat_error_wearables_url_unregistration_error">Fehler beim Aufheben der Registrierung</string>
+</resources>

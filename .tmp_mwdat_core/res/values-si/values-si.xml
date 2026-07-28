@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string gender="unknown" name="dat_error_permission_connection_error">උපාංගය සමග සන්නිවේදනය කරන අතරතුර සබැඳුම් දෝෂයක් ඇති විය</string>
+    <string gender="unknown" name="dat_error_permission_internal_error">අනපේක්ෂිත අභ්‍යන්තර දෝෂයක් ඇති විය</string>
+    <string gender="unknown" name="dat_error_permission_meta_ai_not_installed">Meta AI සහකාර යෙදුම උපාංගයෙහි ස්ථාපනය කර නැත</string>
+    <string gender="unknown" name="dat_error_permission_no_device">පැළඳිය හැකි උපාංග කිසිවක් සොයාගෙන හෝ ලියාපදිංචි කර නොමැත</string>
+    <string gender="unknown" name="dat_error_permission_no_device_with_connection">සොයාගත් සියලු උපාංග විදුලියෙන් ඉවත් කර හෝ විසන්ධි කර ඇත</string>
+    <string gender="unknown" name="dat_error_permission_request_in_progress">අවසර ඉල්ලීමක් දැනටමත් ක්‍රියාත්මක වෙමින් පවතී</string>
+    <string gender="unknown" name="dat_error_permission_request_timeout">අවසර ඉල්ලීම අවසර දී ඇති කාල සීමාව ඉක්මවා ඇත</string>
+    <string gender="unknown" name="dat_error_registration_already_registered">නැවත ලියාපදිංචි වීමට උත්සාහ කිරීමේ දී පරිශීලක දැනටමත් ලියාපදිංචි වී ඇත</string>
+    <string gender="unknown" name="dat_error_registration_configuration_invalid">Wearables Device Access Toolkit වින්‍යාසය වලංගු නොවේ හෝ අසම්පූර්ණයි</string>
+    <string gender="unknown" name="dat_error_registration_meta_ai_not_installed">ලියාපදිංචි කිරීම සඳහා අවශ්‍ය වන Meta AI යෙදුම උපාංගයෙහි ස්ථාපනය කර නැත</string>
+    <string gender="unknown" name="dat_error_registration_network_unavailable">අන්තර්ජාල සබැඳුමක් නොමැත. කරුණාකර ඔබේ සබැඳුම පරීක්ෂා කර නැවත උත්සාහ කරන්න.</string>
+    <string gender="unknown" name="dat_error_registration_unknown">ලියාපදිංචි කිරීමේ ක්‍රියාවලිය අතරතුර නොදන්නා දෝෂයක් ඇති විය</string>
+    <string gender="unknown" name="dat_error_session_already_exists">මෙම උපාංගය සඳහා දැනටමත් සැසියක් පවතී</string>
+    <string gender="unknown" name="dat_error_session_already_stopped">සැසිය දැනටමත් නවත්වා ඇත</string>
+    <string gender="unknown" name="dat_error_session_battery_critical">උපාංගයේ බැටරි මට්ටම ඉතාමත් අඩුයි</string>
+    <string gender="unknown" name="dat_error_session_capability_already_active">මෙම වර්ගයේ හැකියාවක් දැනටමත් සැසියේ සක්‍රියයි</string>
+    <string gender="unknown" name="dat_error_session_capability_not_found">මෙම වර්ගයේ හැකියාවක් සැසියට අමුණා නැත</string>
+    <string gender="unknown" name="dat_error_session_idle">සැසිය අකර්මණ්‍යයි. හැකියාවන් එක් කිරීමට පෙර සැසිය අරඹන්න.</string>
+    <string gender="unknown" name="dat_error_session_no_eligible_device">සුදුසුකම් ලත් උපාංගයක් ලබා ගැනීමේ හැකියාවක් නැත</string>
+    <string gender="unknown" name="dat_error_session_peak_power_shutdown">උපරිම බලයට ළඟා වීමෙන් උපාංගය ක්‍රියා විරහිත වීම</string>
+    <string gender="unknown" name="dat_error_session_thermal_critical">උපාංගයේ තාප තත්ත්වය අවධානම් සහිතයි</string>
+    <string gender="unknown" name="dat_error_session_thermal_emergency">උපාංගයේ තාප තත්ත්වය අනතුරුදායක ය — ක්‍රියා විරහිත වෙමින් පවතී</string>
+    <string gender="unknown" name="dat_error_unregistration_already_unregistered">නැවත ලියාපදිංචිය ඉවත් කිරීමට උත්සාහ කිරීමේ දී පරිශීලකයා දැනටමත් ලියාපදිංචිය ඉවත් කර ඇත</string>
+    <string gender="unknown" name="dat_error_unregistration_configuration_invalid">Wearables Device Access Toolkit වින්‍යාසය වලංගු නොවේ හෝ අසම්පූර්ණයි</string>
+    <string gender="unknown" name="dat_error_unregistration_meta_ai_not_installed">ලියාපදිංචිය ඉවත් කිරීම සඳහා අවශ්‍ය වන Meta AI යෙදුම උපාංගයෙහි ස්ථාපනය කර නැත</string>
+    <string gender="unknown" name="dat_error_unregistration_unknown">ලියාපදිංචිය ඉවත් කිරීමේ ක්‍රියාවලිය අතරතුර නොදන්නා දෝෂයක් ඇති විය</string>
+    <string gender="unknown" name="dat_error_voice_action_failed">ක්‍රියාව අසාර්ථක විය</string>
+    <string gender="unknown" name="dat_error_voice_channel_setup_failed">AI ක්‍රියාමාර්ග නාලිකාව සැකසීමට අසමත් විය</string>
+    <string gender="unknown" name="dat_error_voice_connection_not_available">උපාංග සබැඳුම ලබා ගැනීමේ හැකියාව නොමැත</string>
+    <string gender="unknown" name="dat_error_voice_device_not_found">උපාංගය හමු නොවී ය</string>
+    <string gender="unknown" name="dat_error_voice_init_request_error">ඉල්ලීම මුල පිරීමට අසමත් විය</string>
+    <string gender="unknown" name="dat_error_voice_invalid_message_proto">වලංගු නොවන පණිවිඩ ප්‍රොටෝ</string>
+    <string gender="unknown" name="dat_error_voice_invalid_wearables_interface">වලංගු නොවන WearablesInterface සපයා ඇත</string>
+    <string gender="unknown" name="dat_error_voice_send_message_error">පණිවිඩය යැවීමට අසමත් විය</string>
+    <string gender="unknown" name="dat_error_wearables_already_configured">දැනටමත් වින්‍යාස කර ඇත</string>
+    <string gender="unknown" name="dat_error_wearables_configuration_error">වින්‍යාස කිරීමේ දෝෂයකි</string>
+    <string gender="unknown" name="dat_error_wearables_internal_error">අභ්‍යන්තර දෝෂයකි</string>
+    <string gender="unknown" name="dat_error_wearables_url_registration_error">ලියාපදිංචි කිරීමේ දෝෂයකි</string>
+    <string gender="unknown" name="dat_error_wearables_url_unregistration_error">ලියාපදිංචිය ඉවත් කිරීමේ දෝෂයකි</string>
+</resources>

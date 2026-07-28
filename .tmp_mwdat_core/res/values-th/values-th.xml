@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string gender="unknown" name="dat_error_permission_connection_error">เกิดข้อผิดพลาดในการเชื่อมต่อขณะสื่อสารกับอุปกรณ์</string>
+    <string gender="unknown" name="dat_error_permission_internal_error">เกิดข้อผิดพลาดภายในที่ไม่คาดคิด</string>
+    <string gender="unknown" name="dat_error_permission_meta_ai_not_installed">ไม่ได้ติดตั้งแอพที่ใช้ร่วมกันของ Meta AI บนอุปกรณ์นี้</string>
+    <string gender="unknown" name="dat_error_permission_no_device">ไม่พบหรือไม่ได้ลงทะเบียนอุปกรณ์ที่สวมใส่ได้ใดๆ</string>
+    <string gender="unknown" name="dat_error_permission_no_device_with_connection">อุปกรณ์ที่พบทั้งหมดปิดอยู่หรือไม่ได้เชื่อมต่อ</string>
+    <string gender="unknown" name="dat_error_permission_request_in_progress">คำขอสิทธิ์การอนุญาตอยู่ระหว่างดำเนินการอยู่แล้ว</string>
+    <string gender="unknown" name="dat_error_permission_request_timeout">คำขอสิทธิ์การอนุญาตเกินขีดจำกัดเวลาที่อนุญาต</string>
+    <string gender="unknown" name="dat_error_registration_already_registered">ผู้ใช้ลงทะเบียนแล้วตอนที่พยายามลงทะเบียนอีกครั้ง</string>
+    <string gender="unknown" name="dat_error_registration_configuration_invalid">การกำหนดค่าชุดเครื่องมือการเข้าถึงอุปกรณ์ที่สวมใส่ได้ไม่ถูกต้องหรือไม่สมบูรณ์</string>
+    <string gender="unknown" name="dat_error_registration_meta_ai_not_installed">ไม่ได้ติดตั้งแอพ Meta AI บนอุปกรณ์ ซึ่งจำเป็นสำหรับการลงทะเบียน</string>
+    <string gender="unknown" name="dat_error_registration_network_unavailable">ไม่มีการเชื่อมต่ออินเทอร์เน็ต โปรดตรวจสอบการเชื่อมต่อของคุณแล้วลองอีกครั้ง</string>
+    <string gender="unknown" name="dat_error_registration_unknown">เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุในระหว่างกระบวนการลงทะเบียน</string>
+    <string gender="unknown" name="dat_error_session_already_exists">มีเซสชั่นสำหรับอุปกรณ์นี้อยู่แล้ว</string>
+    <string gender="unknown" name="dat_error_session_already_stopped">เซสชั่นถูกหยุดไปแล้ว</string>
+    <string gender="unknown" name="dat_error_session_battery_critical">แบตเตอรี่ของอุปกรณ์ต่ำมาก</string>
+    <string gender="unknown" name="dat_error_session_capability_already_active">ความสามารถประเภทนี้เปิดใช้งานอยู่ในเซสชั่นแล้ว</string>
+    <string gender="unknown" name="dat_error_session_capability_not_found">ไม่มีความสามารถประเภทนี้แนบมากับเซสชั่น</string>
+    <string gender="unknown" name="dat_error_session_idle">เซสชั่นไม่มีการใช้งาน เริ่มต้นเซสชั่นก่อนเพิ่มความสามารถ</string>
+    <string gender="unknown" name="dat_error_session_no_eligible_device">ไม่มีอุปกรณ์ที่เข้าเกณฑ์</string>
+    <string gender="unknown" name="dat_error_session_peak_power_shutdown">อุปกรณ์ปิดเครื่องเนื่องจากมีการใช้พลังงานสูงสุด</string>
+    <string gender="unknown" name="dat_error_session_thermal_critical">สถานะความร้อนของอุปกรณ์อยู่ในระดับวิกฤต</string>
+    <string gender="unknown" name="dat_error_session_thermal_emergency">สถานะความร้อนของอุปกรณ์อยู่ในระดับฉุกเฉิน — กำลังปิดเครื่อง</string>
+    <string gender="unknown" name="dat_error_unregistration_already_unregistered">ผู้ใช้ยกเลิกการลงทะเบียนแล้วตอนที่พยายามยกเลิกการลงทะเบียนอีกครั้ง</string>
+    <string gender="unknown" name="dat_error_unregistration_configuration_invalid">การกำหนดค่าชุดเครื่องมือการเข้าถึงอุปกรณ์ที่สวมใส่ได้ไม่ถูกต้องหรือไม่สมบูรณ์</string>
+    <string gender="unknown" name="dat_error_unregistration_meta_ai_not_installed">ไม่ได้ติดตั้งแอพ Meta AI บนอุปกรณ์ ซึ่งจำเป็นสำหรับการยกเลิกการลงทะเบียน</string>
+    <string gender="unknown" name="dat_error_unregistration_unknown">เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุในระหว่างกระบวนการยกเลิกการลงทะเบียน</string>
+    <string gender="unknown" name="dat_error_voice_action_failed">การดำเนินการล้มเหลว</string>
+    <string gender="unknown" name="dat_error_voice_channel_setup_failed">ตั้งค่าช่องทางการดำเนินการของ AI ไม่สำเร็จ</string>
+    <string gender="unknown" name="dat_error_voice_connection_not_available">การเชื่อมต่ออุปกรณ์ไม่พร้อมใช้งาน</string>
+    <string gender="unknown" name="dat_error_voice_device_not_found">ไม่พบอุปกรณ์</string>
+    <string gender="unknown" name="dat_error_voice_init_request_error">เริ่มคำขอไม่สำเร็จ</string>
+    <string gender="unknown" name="dat_error_voice_invalid_message_proto">โปรโตคอลข้อความไม่ถูกต้อง</string>
+    <string gender="unknown" name="dat_error_voice_invalid_wearables_interface">WearablesInterface ที่ระบุไม่ถูกต้อง</string>
+    <string gender="unknown" name="dat_error_voice_send_message_error">ส่งข้อความไม่สำเร็จ</string>
+    <string gender="unknown" name="dat_error_wearables_already_configured">กำหนดค่าไว้แล้ว</string>
+    <string gender="unknown" name="dat_error_wearables_configuration_error">ข้อผิดพลาดในการกำหนดค่า</string>
+    <string gender="unknown" name="dat_error_wearables_internal_error">ข้อผิดพลาดภายใน</string>
+    <string gender="unknown" name="dat_error_wearables_url_registration_error">ข้อผิดพลาดในการลงทะเบียน</string>
+    <string gender="unknown" name="dat_error_wearables_url_unregistration_error">ข้อผิดพลาดในการยกเลิกการลงทะเบียน</string>
+</resources>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string gender="unknown" name="dat_error_permission_connection_error">Det oppsto en tilkoblingsfeil under kommunisering med enheten</string>
+    <string gender="unknown" name="dat_error_permission_internal_error">Det oppstod en uventet intern feil</string>
+    <string gender="unknown" name="dat_error_permission_meta_ai_not_installed">Meta AI-tilleggsappen er ikke installert på enheten</string>
+    <string gender="unknown" name="dat_error_permission_no_device">Ingen smarttilbehør-enheter har blitt funnet eller registrert</string>
+    <string gender="unknown" name="dat_error_permission_no_device_with_connection">Alle oppdagede enheter er slått av eller koblet fra</string>
+    <string gender="unknown" name="dat_error_permission_request_in_progress">Det finnes allerede en pågående forespørsel om tillatelse</string>
+    <string gender="unknown" name="dat_error_permission_request_timeout">Forespørselen om tillatelse overskred den tillatte tidsgrensen</string>
+    <string gender="unknown" name="dat_error_registration_already_registered">Brukeren er allerede registrert ved forsøk på å registrere seg igjen</string>
+    <string gender="unknown" name="dat_error_registration_configuration_invalid">Konfigureringen av verktøysett for tilgang til smarttilbehør er ugyldig eller ufullstendig</string>
+    <string gender="unknown" name="dat_error_registration_meta_ai_not_installed">Meta AI-appen er ikke installert på enheten, noe som kreves for registrering</string>
+    <string gender="unknown" name="dat_error_registration_network_unavailable">Ingen internettforbindelse er tilgjengelig. Sjekk tilkoblingen din, og prøv på nytt</string>
+    <string gender="unknown" name="dat_error_registration_unknown">Det oppsto en ukjent feil under registreringsprosessen</string>
+    <string gender="unknown" name="dat_error_session_already_exists">Det finnes allerede en økt for denne enheten</string>
+    <string gender="unknown" name="dat_error_session_already_stopped">Økten har allerede stoppet</string>
+    <string gender="unknown" name="dat_error_session_battery_critical">Kritisk lavt batterinivå på enheten</string>
+    <string gender="unknown" name="dat_error_session_capability_already_active">En egenskap av denne typen er allerede aktiv i økten</string>
+    <string gender="unknown" name="dat_error_session_capability_not_found">Ingen egenskap av denne typen er tilknyttet økten</string>
+    <string gender="unknown" name="dat_error_session_idle">Økten er inaktiv. Start økten før du legger til egenskaper</string>
+    <string gender="unknown" name="dat_error_session_no_eligible_device">Ingen kvalifisert enhet er tilgjengelig</string>
+    <string gender="unknown" name="dat_error_session_peak_power_shutdown">Enheten slås av pga. høyt strømforbruk</string>
+    <string gender="unknown" name="dat_error_session_thermal_critical">Enhetens termiske tilstand er kritisk</string>
+    <string gender="unknown" name="dat_error_session_thermal_emergency">Enhetens termiske tilstand er kritisk – slår seg av</string>
+    <string gender="unknown" name="dat_error_unregistration_already_unregistered">Brukeren er allerede avregistrert ved forsøk på å avregistrere seg igjen</string>
+    <string gender="unknown" name="dat_error_unregistration_configuration_invalid">Konfigureringen av verktøysett for tilgang til smarttilbehør er ugyldig eller ufullstendig</string>
+    <string gender="unknown" name="dat_error_unregistration_meta_ai_not_installed">Meta AI-appen er ikke installert på enheten, noe som kreves for avregistrering</string>
+    <string gender="unknown" name="dat_error_unregistration_unknown">Det oppstod en ukjent feil under avregistreringsprosessen</string>
+    <string gender="unknown" name="dat_error_voice_action_failed">Handlingen mislyktes</string>
+    <string gender="unknown" name="dat_error_voice_channel_setup_failed">Kan ikke konfigurere KI-handlingskanal</string>
+    <string gender="unknown" name="dat_error_voice_connection_not_available">Enhetstilkobling er ikke tilgjengelig</string>
+    <string gender="unknown" name="dat_error_voice_device_not_found">Fant ikke enheten</string>
+    <string gender="unknown" name="dat_error_voice_init_request_error">Kan ikke starte forespørsel</string>
+    <string gender="unknown" name="dat_error_voice_invalid_message_proto">Ugyldig meldingsproto</string>
+    <string gender="unknown" name="dat_error_voice_invalid_wearables_interface">Ugyldig smarttilbehørgrensesnitt oppgitt</string>
+    <string gender="unknown" name="dat_error_voice_send_message_error">Kan ikke sende melding</string>
+    <string gender="unknown" name="dat_error_wearables_already_configured">Allerede konfigurert</string>
+    <string gender="unknown" name="dat_error_wearables_configuration_error">Konfigureringsfeil</string>
+    <string gender="unknown" name="dat_error_wearables_internal_error">Intern feil</string>
+    <string gender="unknown" name="dat_error_wearables_url_registration_error">Registreringsfeil</string>
+    <string gender="unknown" name="dat_error_wearables_url_unregistration_error">Avregistreringsfeil</string>
+</resources>

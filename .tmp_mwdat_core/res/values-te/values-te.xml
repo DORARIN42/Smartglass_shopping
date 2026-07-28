@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string gender="unknown" name="dat_error_permission_connection_error">డివైజ్‌తో కమ్యూనికేట్ చేస్తున్నప్పుడు కనెక్షన్ ఎర్రర్ ఏర్పడింది</string>
+    <string gender="unknown" name="dat_error_permission_internal_error">ఊహించని ఇంటర్నల్ ఎర్రర్ సంభవించింది</string>
+    <string gender="unknown" name="dat_error_permission_meta_ai_not_installed">Meta AI సహాయక యాప్‌ డివైజ్‌లో ఇన్‌స్టాల్ అయ్యి లేదు</string>
+    <string gender="unknown" name="dat_error_permission_no_device">వేరబుల్ డివైజ్‌లు ఏవీ కనుగొనబడలేదు లేదా రిజిస్టర్ కాలేదు</string>
+    <string gender="unknown" name="dat_error_permission_no_device_with_connection">వెతికి గుర్తించిన డివైజ్‌లు అన్నీ ఆఫ్ చేసి ఉన్నాయి లేదా డిస్‌కనెక్ట్ అయ్యాయి</string>
+    <string gender="unknown" name="dat_error_permission_request_in_progress">అనుమతి రిక్వెస్ట్ ఇప్పటికే ప్రోగ్రెస్‌లో ఉంది</string>
+    <string gender="unknown" name="dat_error_permission_request_timeout">అనుమతి రిక్వెస్ట్ అనుమతించబడిన సమయ పరిమితిని మించిపోయింది</string>
+    <string gender="unknown" name="dat_error_registration_already_registered">మళ్లీ రిజిస్టర్ చేసుకోవడానికి ప్రయత్నిస్తున్నప్పుడు యూజర్ ఇప్పటికే రిజిస్టర్ అయి ఉన్నారు</string>
+    <string gender="unknown" name="dat_error_registration_configuration_invalid">వేరబుల్స్ డివైజ్ యాక్సెస్ టూల్‌కిట్ కాన్ఫిగరేషన్ చెల్లదు లేదా అసంపూర్తిగా ఉంది</string>
+    <string gender="unknown" name="dat_error_registration_meta_ai_not_installed">డివైజ్‌లో రిజిస్ట్రేషన్ కోసం అవసరమైన Meta AI యాప్‌ ఇన్‌స్టాల్ అయ్యి లేదు</string>
+    <string gender="unknown" name="dat_error_registration_network_unavailable">ఇంటర్నెట్ కనెక్షన్ అందుబాటులో లేదు. దయచేసి మీ కనెక్షన్‌ను చెక్ చేసి, మళ్లీ ప్రయత్నించండి</string>
+    <string gender="unknown" name="dat_error_registration_unknown">రిజిస్ట్రేషన్ ప్రాసెస్ సమయంలో తెలియని ఎర్రర్ ఏర్పడింది</string>
+    <string gender="unknown" name="dat_error_session_already_exists">ఈ డివైజ్‌కు సంబంధించి ఒక సెషన్ ఇప్పటికే ఉంది</string>
+    <string gender="unknown" name="dat_error_session_already_stopped">సెషన్ ఇప్పటికే ఆపివేయడం జరిగింది</string>
+    <string gender="unknown" name="dat_error_session_battery_critical">డివైజ్‌ బ్యాటరీ చాలా తక్కువగా ఉంది</string>
+    <string gender="unknown" name="dat_error_session_capability_already_active">ఈ రకమైన సామర్థ్యం ఇప్పటికే సెషన్‌లో యాక్టివ్‌గా ఉంది</string>
+    <string gender="unknown" name="dat_error_session_capability_not_found">సెషన్‌కు ఈ రకమైన సామర్థ్యం ఏదీ అటాచ్ అయి లేదు</string>
+    <string gender="unknown" name="dat_error_session_idle">సెషన్ యాక్టివ్‌గా లేదు. సామర్థ్యాలను యాడ్ చేయడానికి ముందు సెషన్‌ను ప్రారంభించండి</string>
+    <string gender="unknown" name="dat_error_session_no_eligible_device">అర్హత కలిగిన డివైజ్ ఏదీ అందుబాటులో లేదు</string>
+    <string gender="unknown" name="dat_error_session_peak_power_shutdown">డివైజ్ పీక్ పవర్ షట్‌డౌన్</string>
+    <string gender="unknown" name="dat_error_session_thermal_critical">డివైజ్ థర్మల్ స్టేట్ చాలా కీలకం</string>
+    <string gender="unknown" name="dat_error_session_thermal_emergency">డివైజ్ థర్మల్ స్టేట్ ఎమర్జెన్సీ — షట్ డౌన్ అవుతోంది</string>
+    <string gender="unknown" name="dat_error_unregistration_already_unregistered">యూజర్‌ను మళ్లీ అన్‌రిజిస్టర్ చేయడానికి ప్రయత్నిస్తున్నప్పుడు, వారు ఇప్పటికే అన్‌రిజిస్టర్ అయి ఉన్నారు</string>
+    <string gender="unknown" name="dat_error_unregistration_configuration_invalid">వేరబుల్స్ డివైజ్ యాక్సెస్ టూల్‌కిట్ కాన్ఫిగరేషన్ చెల్లదు లేదా అధూరతగా ఉంది</string>
+    <string gender="unknown" name="dat_error_unregistration_meta_ai_not_installed">డివైజ్‌లో అన్‌రిజిస్టర్ చేయడం కోసం అవసరమైన Meta AI యాప్‌ ఇన్‌స్టాల్ అయ్యి లేదు</string>
+    <string gender="unknown" name="dat_error_unregistration_unknown">అన్‌రిజిస్ట్రేషన్ ప్రాసెస్ సమయంలో తెలియని ఎర్రర్ ఏర్పడింది</string>
+    <string gender="unknown" name="dat_error_voice_action_failed">చర్య విఫలమైంది</string>
+    <string gender="unknown" name="dat_error_voice_channel_setup_failed">AI చర్యల ఛానల్‌ను సెటప్ చేయడంలో విఫలమైంది</string>
+    <string gender="unknown" name="dat_error_voice_connection_not_available">డివైజ్ కనెక్షన్ అందుబాటులో లేదు</string>
+    <string gender="unknown" name="dat_error_voice_device_not_found">డివైజ్ కనిపించలేదు</string>
+    <string gender="unknown" name="dat_error_voice_init_request_error">రిక్వెస్ట్‌ను ప్రారంభించడంలో విఫలమైంది</string>
+    <string gender="unknown" name="dat_error_voice_invalid_message_proto">చెల్లని మెసేజ్ ప్రోటో</string>
+    <string gender="unknown" name="dat_error_voice_invalid_wearables_interface">చెల్లని వేరబుల్స్ ఇంటర్‌ఫేస్‌ను అందించడం జరిగింది</string>
+    <string gender="unknown" name="dat_error_voice_send_message_error">మెసేజ్‌ పంపడం విఫలమైంది</string>
+    <string gender="unknown" name="dat_error_wearables_already_configured">ఇప్పటికే కాన్ఫిగర్ అయ్యి ఉంది</string>
+    <string gender="unknown" name="dat_error_wearables_configuration_error">కాన్ఫిగరేషన్ ఎర్రర్</string>
+    <string gender="unknown" name="dat_error_wearables_internal_error">ఇంటర్నల్ ఎర్రర్ ఏర్పడింది</string>
+    <string gender="unknown" name="dat_error_wearables_url_registration_error">రిజిస్ట్రేషన్ ఎర్రర్</string>
+    <string gender="unknown" name="dat_error_wearables_url_unregistration_error">అన్‌రిజిస్ట్రేషన్ ఎర్రర్</string>
+</resources>

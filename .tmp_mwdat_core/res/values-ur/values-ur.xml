@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string gender="unknown" name="dat_error_permission_connection_error">ڈیوائس کے ساتھ مواصلت کے دوران کنکشن میں خرابی پیش آئی ہے</string>
+    <string gender="unknown" name="dat_error_permission_internal_error">ایک غیر متوقع اندرونی خرابی پیش آ گئی تھی</string>
+    <string gender="unknown" name="dat_error_permission_meta_ai_not_installed">ڈیوائس پر Meta AI Companion ایپ انسٹال نہیں ہے</string>
+    <string gender="unknown" name="dat_error_permission_no_device">کوئی ویئرایبل ڈیوائس دریافت یا رجسٹر نہیں کی گئی ہے</string>
+    <string gender="unknown" name="dat_error_permission_no_device_with_connection">تمام دریافت کردہ ڈیوائسز آف یا غیر منسلک ہیں</string>
+    <string gender="unknown" name="dat_error_permission_request_in_progress">اجازت کی ایک درخواست پر پہلے سے پیش رفت جاری ہے</string>
+    <string gender="unknown" name="dat_error_permission_request_timeout">اجازت کی درخواست کی وقت کی حد پوری ہو گئی ہے</string>
+    <string gender="unknown" name="dat_error_registration_already_registered">دوبارہ رجسٹر کرنے کی کوشش کرتے وقت صارف پہلے ہی رجسٹر ہے</string>
+    <string gender="unknown" name="dat_error_registration_configuration_invalid">ویئرایبل ڈیوائس ایکسس ٹول کٹ کی کنفیگریشن غلط یا نامکمل ہے</string>
+    <string gender="unknown" name="dat_error_registration_meta_ai_not_installed">ڈیوائس پر Meta AI ایپ انسٹال نہیں ہے، جو کہ رجسٹریشن کیلئے درکار ہے</string>
+    <string gender="unknown" name="dat_error_registration_network_unavailable">کوئی انٹرنیٹ کنکشن دستیاب نہیں ہے۔ براہ کرم اپنا کنکشن چیک کریں اور دوبارہ کوشش کریں</string>
+    <string gender="unknown" name="dat_error_registration_unknown">رجسٹریشن کے پراسس کے دوران ایک نامعلوم خرابی پیش آ گئی تھی</string>
+    <string gender="unknown" name="dat_error_session_already_exists">اس ڈیوائس کا سیشن پہلے سے موجود ہے</string>
+    <string gender="unknown" name="dat_error_session_already_stopped">سیشن پہلے ہی روک دیا گیا ہے</string>
+    <string gender="unknown" name="dat_error_session_battery_critical">ڈیوائس کی بیٹری انتہائی کم ہے</string>
+    <string gender="unknown" name="dat_error_session_capability_already_active">سیشن پر اس قسم کی صلاحیت پہلے سے فعال ہے</string>
+    <string gender="unknown" name="dat_error_session_capability_not_found">سیشن میں اس قسم کی کوئی صلاحیت اٹیچ نہیں ہے</string>
+    <string gender="unknown" name="dat_error_session_idle">سیشن غیر فعال ہے۔ صلاحیتیں شامل کرنے سے پہلے سیشن شروع کریں</string>
+    <string gender="unknown" name="dat_error_session_no_eligible_device">کوئی اہل ڈیوائس دستیاب نہیں ہے</string>
+    <string gender="unknown" name="dat_error_session_peak_power_shutdown">ڈیوائس کی زیادہ سے زیادہ توانائی کا شٹ ڈاؤن</string>
+    <string gender="unknown" name="dat_error_session_thermal_critical">ڈیوائس کی تھرمل حالت نازک ہے</string>
+    <string gender="unknown" name="dat_error_session_thermal_emergency">ڈیوائس کا درجہ حرارت ایمرجنسی ہے — بند ہو رہا ہے</string>
+    <string gender="unknown" name="dat_error_unregistration_already_unregistered">دوبارہ رجسٹریشن ختم کرنے کی کوشش کے دوران صارف کی رجسٹریشن پہلے ہی ختم ہو چکی ہے</string>
+    <string gender="unknown" name="dat_error_unregistration_configuration_invalid">ویئرایبل ڈیوائس ایکسس ٹول کٹ کی کنفیگریشن غلط یا نامکمل ہے</string>
+    <string gender="unknown" name="dat_error_unregistration_meta_ai_not_installed">ڈیوائس پر Meta AI ایپ انسٹال نہیں ہے، جو کہ رجسٹریشن ختم کرنے کیلئے درکار ہے</string>
+    <string gender="unknown" name="dat_error_unregistration_unknown">رجسٹریشن ختم کرنے کے پراسس کے دوران ایک نامعلوم خرابی پیش آ گئی تھی</string>
+    <string gender="unknown" name="dat_error_voice_action_failed">کارروائی ناکام ہو گئی</string>
+    <string gender="unknown" name="dat_error_voice_channel_setup_failed">AI ایکشنز چینل سیٹ اپ کرنے میں ناکامی</string>
+    <string gender="unknown" name="dat_error_voice_connection_not_available">ڈیوائس کنکشن دستیاب نہیں ہے</string>
+    <string gender="unknown" name="dat_error_voice_device_not_found">ڈیوائس نہیں ملی</string>
+    <string gender="unknown" name="dat_error_voice_init_request_error">درخواست شروع کرنے میں ناکامی</string>
+    <string gender="unknown" name="dat_error_voice_invalid_message_proto">غلط میسج پروٹو</string>
+    <string gender="unknown" name="dat_error_voice_invalid_wearables_interface">غلط WearablesInterface فراہم کیا گیا ہے</string>
+    <string gender="unknown" name="dat_error_voice_send_message_error">مسج بھیجنے میں ناکامی</string>
+    <string gender="unknown" name="dat_error_wearables_already_configured">پہلے سے کنفیگر کردہ ہے</string>
+    <string gender="unknown" name="dat_error_wearables_configuration_error">کنفیگریشن کی خرابی</string>
+    <string gender="unknown" name="dat_error_wearables_internal_error">اندرونی خرابی</string>
+    <string gender="unknown" name="dat_error_wearables_url_registration_error">رجسٹریشن میں خرابی</string>
+    <string gender="unknown" name="dat_error_wearables_url_unregistration_error">رجسٹریشن ختم کرنے میں خرابی</string>
+</resources>

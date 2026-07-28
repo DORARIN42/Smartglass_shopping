@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string gender="unknown" name="dat_error_permission_connection_error">சாதனத்துடன் தொடர்புகொள்ளும்போது இணைப்பு பிழை ஏற்பட்டது</string>
+    <string gender="unknown" name="dat_error_permission_internal_error">எதிர்பாராத உள்ளகப் பிழை ஏற்பட்டது</string>
+    <string gender="unknown" name="dat_error_permission_meta_ai_not_installed">Meta AI துணைச் செயலி, சாதனத்தில் நிறுவப்படவில்லை</string>
+    <string gender="unknown" name="dat_error_permission_no_device">அணியக்கூடிய சாதனங்கள் எதுவும் கண்டறியப்படவில்லை அல்லது பதிவுசெய்யப்படவில்லை</string>
+    <string gender="unknown" name="dat_error_permission_no_device_with_connection">கண்டறியப்பட்ட சாதனங்கள் அனைத்தும் முடக்கப்பட்டுள்ளன அல்லது அவற்றின் இணைப்பு அகற்றப்பட்டுள்ளது</string>
+    <string gender="unknown" name="dat_error_permission_request_in_progress">அனுமதிக்கான கோரிக்கை ஏற்கெனவே செயலில் உள்ளது</string>
+    <string gender="unknown" name="dat_error_permission_request_timeout">அனுமதிக்கான கோரிக்கை, அனுமதிக்கப்பட்ட நேர வரம்பைத் தாண்டிவிட்டது</string>
+    <string gender="unknown" name="dat_error_registration_already_registered">பதிவுசெய்ய முயலும்போது பயனர் ஏற்கெனவே பதிவுசெய்யப்பட்டிருந்தார்</string>
+    <string gender="unknown" name="dat_error_registration_configuration_invalid">அணியத்தக்க சாதன அணுகல் கருவிப்பெட்டியின் உள்ளமைவு தவறானது அல்லது முழுமையடையவில்லை</string>
+    <string gender="unknown" name="dat_error_registration_meta_ai_not_installed">பதிவு செய்வதற்குத் தேவையான Meta AI செயலி, சாதனத்தில் நிறுவப்படவில்லை</string>
+    <string gender="unknown" name="dat_error_registration_network_unavailable">இணைய இணைப்பு கிடைக்கவில்லை. உங்கள் இணைப்பைச் சரிபார்த்துவிட்டு முயலுங்கள்</string>
+    <string gender="unknown" name="dat_error_registration_unknown">பதிவுசெய்யும் செயல்முறையின்போது அறியப்படாத பிழை ஏற்பட்டது</string>
+    <string gender="unknown" name="dat_error_session_already_exists">இந்தச் சாதனத்திற்கு ஏற்கெனவே ஓர் அமர்வு உள்ளது</string>
+    <string gender="unknown" name="dat_error_session_already_stopped">அமர்வு ஏற்கெனவே நிறுத்தப்பட்டுள்ளது</string>
+    <string gender="unknown" name="dat_error_session_battery_critical">சாதனத்தின் பேட்டரி மிகவும் குறைவாக உள்ளது</string>
+    <string gender="unknown" name="dat_error_session_capability_already_active">இந்த வகையின் திறன் ஏற்கெனவே அமர்வில் செயலில் உள்ளது</string>
+    <string gender="unknown" name="dat_error_session_capability_not_found">இந்த வகையின் திறன் எதுவும் அமர்வில் இணைக்கப்படவில்லை</string>
+    <string gender="unknown" name="dat_error_session_idle">அமர்வு செயலற்ற நிலையில் உள்ளது. திறன்களைச் சேர்ப்பதற்கு முன் அமர்வைத் தொடங்குங்கள்</string>
+    <string gender="unknown" name="dat_error_session_no_eligible_device">தகுதிபெறும் சாதனம் எதுவும் இல்லை</string>
+    <string gender="unknown" name="dat_error_session_peak_power_shutdown">சாதனத்தின் உச்ச ஆற்றல் முடக்கம்</string>
+    <string gender="unknown" name="dat_error_session_thermal_critical">சாதனத்தின் வெப்ப நிலை மிகவும் அதிகமாக உள்ளது</string>
+    <string gender="unknown" name="dat_error_session_thermal_emergency">சாதனத்தின் வெப்ப நிலை அவசர நிலையில் உள்ளது — முடக்குகிறது</string>
+    <string gender="unknown" name="dat_error_unregistration_already_unregistered">பதிவுநீக்க முயலும்போது பயனர் ஏற்கெனவே பதிவுநீக்கப்பட்டிருந்தார்</string>
+    <string gender="unknown" name="dat_error_unregistration_configuration_invalid">அணியத்தக்க சாதன அணுகல் கருவிப்பெட்டியின் உள்ளமைவு தவறானது அல்லது முழுமையடையவில்லை</string>
+    <string gender="unknown" name="dat_error_unregistration_meta_ai_not_installed">பதிவுநீக்கத்திற்குத் தேவையான Meta AI செயலி, சாதனத்தில் நிறுவப்படவில்லை</string>
+    <string gender="unknown" name="dat_error_unregistration_unknown">பதிவுநீக்கச் செயலாக்கத்தின்போது அறியப்படாத பிழை ஏற்பட்டது</string>
+    <string gender="unknown" name="dat_error_voice_action_failed">செயல்பாட்டுத் தோல்வி</string>
+    <string gender="unknown" name="dat_error_voice_channel_setup_failed">AI செயல்பாடுகள் சேனலை அமைக்க முடியவில்லை</string>
+    <string gender="unknown" name="dat_error_voice_connection_not_available">சாதன இணைப்பு கிடைக்கவில்லை</string>
+    <string gender="unknown" name="dat_error_voice_device_not_found">சாதனம் இல்லை</string>
+    <string gender="unknown" name="dat_error_voice_init_request_error">கோரிக்கையைத் தொடங்க முடியவில்லை</string>
+    <string gender="unknown" name="dat_error_voice_invalid_message_proto">தவறான மெசேஜ் ப்ரோட்டோ</string>
+    <string gender="unknown" name="dat_error_voice_invalid_wearables_interface">தவறான WearablesInterface வழங்கப்பட்டது</string>
+    <string gender="unknown" name="dat_error_voice_send_message_error">மெசேஜை அனுப்ப முடியவில்லை</string>
+    <string gender="unknown" name="dat_error_wearables_already_configured">ஏற்கனவே உள்ளமைக்கப்பட்டுள்ளது</string>
+    <string gender="unknown" name="dat_error_wearables_configuration_error">உள்ளமைவுப் பிழை</string>
+    <string gender="unknown" name="dat_error_wearables_internal_error">உள்ளகப் பிழை</string>
+    <string gender="unknown" name="dat_error_wearables_url_registration_error">பதிவு செய்தல் பிழை</string>
+    <string gender="unknown" name="dat_error_wearables_url_unregistration_error">பதிவுநீக்கல் பிழை</string>
+</resources>

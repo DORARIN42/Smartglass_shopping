@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string gender="unknown" name="dat_error_permission_connection_error">Seadmega suhtlemisel ilmnes ühenduse viga</string>
+    <string gender="unknown" name="dat_error_permission_internal_error">Ilmes ootamatu sisemine viga</string>
+    <string gender="unknown" name="dat_error_permission_meta_ai_not_installed">Meta AI kaasrakendus pole seadmesse paigaldatud</string>
+    <string gender="unknown" name="dat_error_permission_no_device">Ühtegi kantavat seadet ei ole leitud ega registreeritud</string>
+    <string gender="unknown" name="dat_error_permission_no_device_with_connection">Kõik leitud seadmed on välja lülitatud või ühendus on katkestatud</string>
+    <string gender="unknown" name="dat_error_permission_request_in_progress">Loataotlus on juba pooleli</string>
+    <string gender="unknown" name="dat_error_permission_request_timeout">Loataotlus ületas lubatud ajapiirangu</string>
+    <string gender="unknown" name="dat_error_registration_already_registered">Kasutaja on juba registreeritud, kui ta proovib uuesti registreeruda</string>
+    <string gender="unknown" name="dat_error_registration_configuration_invalid">Konfiguratsioon Kantavate seadmete juurdepääs tööriistakomplektile on kehtetu või puudulik</string>
+    <string gender="unknown" name="dat_error_registration_meta_ai_not_installed">Meta AI rakendus ei ole seadmesse installitud, ent see on registreerimiseks nõutav</string>
+    <string gender="unknown" name="dat_error_registration_network_unavailable">Internetiühendus pole saadaval. Kontrolli ühendust ja proovi uuesti</string>
+    <string gender="unknown" name="dat_error_registration_unknown">Registreerimisprotsessi ajal ilmnes tundmatu viga</string>
+    <string gender="unknown" name="dat_error_session_already_exists">Selle seadme jaoks on sessioon juba olemas</string>
+    <string gender="unknown" name="dat_error_session_already_stopped">Sessioon on juba peatatud</string>
+    <string gender="unknown" name="dat_error_session_battery_critical">Seadme aku on kriitiliselt tühi</string>
+    <string gender="unknown" name="dat_error_session_capability_already_active">Seda tüüpi funktsioon on juba sessioonis aktiivne</string>
+    <string gender="unknown" name="dat_error_session_capability_not_found">Sessioonile pole lisatud ühtegi seda tüüpi funktsiooni</string>
+    <string gender="unknown" name="dat_error_session_idle">Sessioon on inaktiivne. Enne funktsioonide lisamist alusta sessiooni</string>
+    <string gender="unknown" name="dat_error_session_no_eligible_device">Ühtegi sobivat seadet pole saadaval</string>
+    <string gender="unknown" name="dat_error_session_peak_power_shutdown">Seadme täisvõimsusel väljalülitamine</string>
+    <string gender="unknown" name="dat_error_session_thermal_critical">Seadme termiline seisund on kriitiline</string>
+    <string gender="unknown" name="dat_error_session_thermal_emergency">Seadme termiline seisund on hädaolukorras – sulgemine</string>
+    <string gender="unknown" name="dat_error_unregistration_already_unregistered">Kasutaja registreerimine on juba tühistatud, kui ta proovib registreerimist uuesti tühistada</string>
+    <string gender="unknown" name="dat_error_unregistration_configuration_invalid">Konfiguratsioon Kantavate seadmete juurdepääs tööriistakomplektile on kehtetu või puudulik</string>
+    <string gender="unknown" name="dat_error_unregistration_meta_ai_not_installed">Meta AI rakendus ei ole seadmesse installitud, ent see on registreerimiseks tühistamiseks nõutav</string>
+    <string gender="unknown" name="dat_error_unregistration_unknown">Registreerimise tühistamise protsessi ajal ilmnes tundmatu viga</string>
+    <string gender="unknown" name="dat_error_voice_action_failed">Toiming nurjus</string>
+    <string gender="unknown" name="dat_error_voice_channel_setup_failed">AI toimingute kanali seadistamine nurjus</string>
+    <string gender="unknown" name="dat_error_voice_connection_not_available">Seadmega ühendus pole saadaval</string>
+    <string gender="unknown" name="dat_error_voice_device_not_found">Seadet ei leitud</string>
+    <string gender="unknown" name="dat_error_voice_init_request_error">Päringu alustamine nurjus</string>
+    <string gender="unknown" name="dat_error_voice_invalid_message_proto">Kehtetu sõnumi protokoll</string>
+    <string gender="unknown" name="dat_error_voice_invalid_wearables_interface">Esitatud on kehtetu WearablesInterface</string>
+    <string gender="unknown" name="dat_error_voice_send_message_error">Sõnumi saatmine nurjus</string>
+    <string gender="unknown" name="dat_error_wearables_already_configured">Juba konfigureeritud</string>
+    <string gender="unknown" name="dat_error_wearables_configuration_error">Konfiguratsiooni viga</string>
+    <string gender="unknown" name="dat_error_wearables_internal_error">Sisemine viga</string>
+    <string gender="unknown" name="dat_error_wearables_url_registration_error">Viga registreerimisel</string>
+    <string gender="unknown" name="dat_error_wearables_url_unregistration_error">Registreerimise tühistamise viga</string>
+</resources>
