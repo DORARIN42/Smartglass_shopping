@@ -4,6 +4,7 @@ import com.example.raybanvision.data.AnalysisResult
 import com.example.raybanvision.data.ProductCandidate
 import com.example.raybanvision.data.ResultStatus
 import com.google.gson.JsonElement
+import com.google.gson.annotations.SerializedName
 import java.io.File
 import java.util.concurrent.TimeUnit
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -37,6 +38,16 @@ data class ProductAnalysisResult(
     val specifications: List<String>? = null,
     val confidence: Double? = null,
     val prices: List<PriceInfo>? = null,
+    @SerializedName(
+        value = "image_url",
+        alternate = ["imageUrl"],
+    )
+    val image_url: String? = null,
+    @SerializedName(
+        value = "uploaded_image_url",
+        alternate = ["uploadedImageUrl", "imgbb_url", "imgbbUrl", "display_url", "displayUrl", "captured_image_url", "capturedImageUrl"],
+    )
+    val uploaded_image_url: String? = null,
     val positive_reviews: List<String>? = null,
     val negative_reviews: List<String>? = null,
     val average_rating: Double? = null,
@@ -48,6 +59,11 @@ data class PriceInfo(
     val currency: String? = null,
     val store: String? = null,
     val link: String? = null,
+    @SerializedName(
+        value = "image_url",
+        alternate = ["imageUrl", "thumbnail", "thumbnail_url", "thumbnailUrl", "thumb"],
+    )
+    val image_url: String? = null,
     val is_korean_market: Boolean? = null,
 )
 
@@ -80,6 +96,16 @@ data class AnalyzeStatusResponse(
     val specifications: List<String>? = null,
     val confidence: Double? = null,
     val prices: List<PriceInfo>? = null,
+    @SerializedName(
+        value = "image_url",
+        alternate = ["imageUrl"],
+    )
+    val image_url: String? = null,
+    @SerializedName(
+        value = "uploaded_image_url",
+        alternate = ["uploadedImageUrl", "imgbb_url", "imgbbUrl", "display_url", "displayUrl", "captured_image_url", "capturedImageUrl"],
+    )
+    val uploaded_image_url: String? = null,
     val positive_reviews: List<String>? = null,
     val negative_reviews: List<String>? = null,
     val average_rating: Double? = null,
@@ -193,10 +219,15 @@ class ShoppingApiClient(baseUrl: String) {
 }
 
 private fun File.toMultipartPart(): MultipartBody.Part {
-    val requestBody = asRequestBody("image/jpeg".toMediaTypeOrNull())
+    val mediaType = when (extension.lowercase()) {
+        "png" -> "image/png"
+        "jpg", "jpeg" -> "image/jpeg"
+        else -> "application/octet-stream"
+    }.toMediaTypeOrNull()
+    val requestBody = asRequestBody(mediaType)
     return MultipartBody.Part.createFormData(
         name = "file",
-        filename = name.ifBlank { "product.jpg" },
+        filename = name.ifBlank { "product.png" },
         body = requestBody,
     )
 }
@@ -210,6 +241,7 @@ fun AnalysisResult?.mergeWith(next: AnalysisResult): AnalysisResult {
         headline = if (next.headline != "분석 결과") next.headline else previous.headline,
         candidates = next.candidates.takeIf { it.isNotEmpty() } ?: previous.candidates,
         message = next.message ?: previous.message,
+        imageUrl = next.imageUrl ?: previous.imageUrl,
         rawStatus = next.rawStatus ?: previous.rawStatus,
         strategy = next.strategy ?: previous.strategy,
         productName = next.productName ?: previous.productName,
@@ -259,6 +291,26 @@ private fun JsonElement?.toReadableText(): String? {
     }
 }
 
+private fun String?.toDisplayStatusText(): String? {
+    val value = this?.toUiText()?.takeIf { it.isNotBlank() } ?: return null
+    return when (value.trim().lowercase()) {
+        "uploading_image" -> "이미지 업로드 중"
+        "searching_lens" -> "일치하는 상품 찾는 중"
+        "identifying_product" -> "상품명 확인 중"
+        "identity_ready" -> "상품 확인 완료"
+        "paused_identity" -> "상품 확인 대기 중"
+        "searching_specs" -> "스펙 검색 중"
+        "summarizing_reviews" -> "후기 정리 중"
+        "searching_prices" -> "가격 검색 중"
+        "checking_image_with_claude" -> "이미지 확인 중"
+        "done" -> "분석 완료"
+        "running" -> "분석 중"
+        "finished", "completed" -> "분석 완료"
+        "failed", "failure", "error" -> "분석 실패"
+        else -> if (value.contains('_')) "분석 중" else value
+    }
+}
+
 private fun AnalyzeStatusResponse.toProductAnalysisResult(): ProductAnalysisResult {
     val body = result
     return ProductAnalysisResult(
@@ -279,6 +331,8 @@ private fun AnalyzeStatusResponse.toProductAnalysisResult(): ProductAnalysisResu
         specifications = body?.specifications ?: specifications,
         confidence = body?.confidence ?: confidence,
         prices = body?.prices ?: prices,
+        image_url = body?.image_url ?: image_url,
+        uploaded_image_url = body?.uploaded_image_url ?: uploaded_image_url,
         positive_reviews = body?.positive_reviews ?: positive_reviews,
         negative_reviews = body?.negative_reviews ?: negative_reviews,
         average_rating = body?.average_rating ?: average_rating,
@@ -326,6 +380,10 @@ fun ProductAnalysisResult.toAnalysisResult(): AnalysisResult {
         .joinToString(" ")
         .ifBlank { productName ?: message ?: "분석 결과" }
 
+    val uploadedImageUrl = uploaded_image_url.toUiText()
+        ?.takeIf { it.isLikelyDirectImageUrl() }
+        ?: image_url.toUiText()?.takeIf { it.isLikelyImgbbDirectImageUrl() }
+
     val priceCandidates = prices.orEmpty()
         .filter { it.price != null || it.store != null || it.link != null }
         .map { price ->
@@ -333,6 +391,7 @@ fun ProductAnalysisResult.toAnalysisResult(): AnalysisResult {
                 title = (productName ?: displayName).toUiText() ?: "분석 결과",
                 price = price.price.toUiText()?.ifBlank { "-" } ?: "-",
                 store = price.store.toUiText(),
+                imageUrl = price.image_url.toUiText(),
                 linkUrl = price.link,
                 currency = price.currency.toUiText(),
                 isKoreanMarket = price.is_korean_market,
@@ -341,7 +400,7 @@ fun ProductAnalysisResult.toAnalysisResult(): AnalysisResult {
 
     val candidates = if (priceCandidates.isNotEmpty()) {
         priceCandidates
-    } else if (!productName.isNullOrBlank() || displayName.isNotBlank()) {
+    } else if (false && (!productName.isNullOrBlank() || displayName.isNotBlank())) {
         listOf(
             ProductCandidate(
                 title = (productName ?: displayName).toUiText() ?: "상품명 확인됨",
@@ -357,7 +416,7 @@ fun ProductAnalysisResult.toAnalysisResult(): AnalysisResult {
     val resultStatus = when {
         normalizedStatus in listOf("error", "failed", "failure") -> ResultStatus.ERROR
         normalizedStatus in listOf("retry", "retry_required", "not_found", "no_product", "not_a_product") -> ResultStatus.RETRY_REQUIRED
-        candidates.isEmpty() && productName == null -> ResultStatus.RETRY_REQUIRED
+        productName == null && displayName.isBlank() -> ResultStatus.RETRY_REQUIRED
         confidence != null && confidence < 0.55 && candidates.size > 1 -> ResultStatus.UNCERTAIN
         else -> ResultStatus.MATCHED
     }
@@ -374,8 +433,9 @@ fun ProductAnalysisResult.toAnalysisResult(): AnalysisResult {
         status = resultStatus,
         headline = displayName.toUiText() ?: "분석 결과",
         candidates = candidates,
-        message = (message ?: details.ifBlank { null }).toUiText(),
-        rawStatus = status.toUiText(),
+        message = (message ?: details.ifBlank { null }).toDisplayStatusText(),
+        imageUrl = uploadedImageUrl,
+        rawStatus = status.toDisplayStatusText(),
         strategy = strategy.toUiText(),
         productName = productName.toUiText(),
         originalProductName = original_product_name.toUiText(),
@@ -393,6 +453,17 @@ fun ProductAnalysisResult.toAnalysisResult(): AnalysisResult {
 }
 
 private fun String?.toUiText(): String? = this?.replace(Regex("claude", RegexOption.IGNORE_CASE), "AI")
+
+private fun String.isLikelyDirectImageUrl(): Boolean {
+    val normalized = trim().lowercase()
+    if (!normalized.startsWith("https://")) return false
+    return normalized.matches(Regex(""".*\.(png|jpe?g|webp|gif)(\?.*)?$"""))
+}
+
+private fun String.isLikelyImgbbDirectImageUrl(): Boolean {
+    val normalized = trim().lowercase()
+    return normalized.contains("i.ibb.co/") && isLikelyDirectImageUrl()
+}
 
 private fun String.isProgressMessage(): Boolean {
     val normalized = trim().lowercase()

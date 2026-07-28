@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string description="Error shown when the device denies the display capability" name="dat_error_display_capability_denied">Display capability denied by device</string>
+    <string description="Error shown when the device disconnects during a display operation" name="dat_error_display_device_disconnected">Device is not connected</string>
+    <string description="Error shown when a display operation is attempted in an invalid state" name="dat_error_display_invalid_session_state">Invalid display state for operation</string>
+    <string description="Error shown when display content fails to render on the device" name="dat_error_display_rendering_failed">Failed to render display content</string>
+    <string description="Generic unexpected display error" name="dat_error_display_unexpected_error">Unexpected error</string>
+    <string description="Error shown when a video is already playing on the device" name="dat_error_video_player_already_playing">Video is already active on the device</string>
+    <string description="Error shown when the video dimensions exceed device limits" name="dat_error_video_player_invalid_dimensions">Video dimensions exceed device limits</string>
+    <string description="Error shown when the supplied video URL is blank or has an unsupported scheme" name="dat_error_video_player_invalid_url">Video URL is invalid: must be non-blank with http or https scheme</string>
+    <string description="Error shown when VideoPlayer.play is called before the player is bound to a display" name="dat_error_video_player_not_bound">VideoPlayer is not bound to a display</string>
+    <string description="Error shown when video playback fails on the device" name="dat_error_video_player_playback_failed">Video playback failed on the device</string>
+    <string description="Error shown when the wearable device rejects a video stream" name="dat_error_video_player_stream_rejected">Video stream was rejected by the device</string>
+    <string description="Generic unexpected video player error" name="dat_error_video_player_unexpected_error">Unexpected error</string>
+</resources>

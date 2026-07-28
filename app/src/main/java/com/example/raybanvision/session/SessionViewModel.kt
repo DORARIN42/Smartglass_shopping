@@ -7,11 +7,8 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.ImageFormat
 import android.graphics.Matrix
 import android.graphics.Paint
-import android.graphics.Rect
-import android.graphics.YuvImage
 import android.net.Uri
 import android.os.SystemClock
 import android.util.Log
@@ -50,12 +47,12 @@ import com.meta.wearable.dat.display.views.CornerRadius
 import com.meta.wearable.dat.display.views.TextColor
 import com.meta.wearable.dat.display.views.TextStyle
 import java.io.ByteArrayInputStream
-import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.net.ConnectException
 import java.net.SocketTimeoutException
+import java.util.concurrent.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -72,8 +69,18 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
         private const val TAG = "SessionViewModel"
         private const val CAPTURE_REVIEW_DELAY_MS = 1200L
         private const val DISPLAY_TEXT_LIMIT = 90
-        private const val PREVIEW_FRAME_INTERVAL_MS = 180L
+        private const val PREVIEW_FRAME_INTERVAL_MS = 100L
+        private const val RAW_PREVIEW_FRAME_RATE = 15
     }
+
+    private data class RawPreviewFrame(
+        val width: Int,
+        val height: Int,
+        val bytes: ByteArray,
+        val isCompressed: Boolean,
+        val isCodecConfig: Boolean,
+        val capturedAtMs: Long,
+    )
 
     private val _uiState = MutableStateFlow(SessionUiState())
     val uiState: StateFlow<SessionUiState> = _uiState.asStateFlow()
@@ -91,6 +98,8 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
     private var analysisJob: kotlinx.coroutines.Job? = null
     private var currentAnalysisJobId: String? = null
     private var latestAnalysisResult: AnalysisResult? = null
+    @Volatile
+    private var latestRawPreviewFrame: RawPreviewFrame? = null
     private val shoppingApiClient = ShoppingApiClient(BuildConfig.ANALYSIS_BASE_URL)
 
     // ─── LLM 팀 인터페이스 ────────────────────────────────────────────────
@@ -233,7 +242,7 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                             }
                         }
                     }
-                    if (result.candidates.isNotEmpty()) {
+                    if (false && result.candidates.isNotEmpty()) {
                         flexBox(direction = Direction.COLUMN, gap = 8, padding = 14, background = FlexBoxBackground.CARD) {
                             text("가격 정보", style = TextStyle.HEADING)
                             result.candidates.forEachIndexed { index, candidate ->
@@ -249,7 +258,6 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                                     candidate.title?.let { text("상품명: $it", style = TextStyle.BODY, color = TextColor.SECONDARY) }
                                     candidate.currency?.let { text("통화: $it", style = TextStyle.BODY, color = TextColor.SECONDARY) }
                                     candidate.isKoreanMarket?.let { text("한국 마켓: ${if (it) "예" else "아니오"}", style = TextStyle.BODY, color = TextColor.SECONDARY) }
-                                    candidate.linkUrl?.let { text("링크: $it", style = TextStyle.BODY, color = TextColor.SECONDARY) }
                                 }
                             }
                         }
@@ -262,6 +270,13 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                         result.category?.let { text("카테고리: $it", style = TextStyle.BODY, color = TextColor.SECONDARY) }
                         result.confidence?.let { text("신뢰도: %.2f".format(it), style = TextStyle.BODY, color = TextColor.SECONDARY) }
                         result.averageRating?.let { text("평점: $it", style = TextStyle.BODY, color = TextColor.SECONDARY) }
+                    }
+                    if (result.candidates.isNotEmpty()) {
+                        button(
+                            label = "\uAC00\uACA9\uBE44\uAD50",
+                            style = ButtonStyle.PRIMARY,
+                            onClick = { showPriceComparison(result) },
+                        )
                     }
                     button(
                         label = "다시 촬영",
@@ -276,16 +291,121 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
+    fun showPriceComparison() {
+        val result = _uiState.value.searchResult ?: latestAnalysisResult ?: return
+        showPriceComparison(result)
+    }
+
+    private fun showPriceComparison(result: AnalysisResult) {
+        _uiState.update { it.copy(showPriceComparison = true) }
+        displayPriceComparison(result)
+    }
+
+    private fun displayPriceComparison(result: AnalysisResult) {
+        val currentDisplay = display ?: return
+        viewModelScope.launch(Dispatchers.IO) {
+            currentDisplay.sendContent {
+                flexBox(direction = Direction.COLUMN, gap = 8) {
+                    text("\uAC00\uACA9\uBE44\uAD50", style = TextStyle.HEADING)
+                    result.candidates.forEachIndexed { index, candidate ->
+                        val linkUrl = candidate.linkUrl
+                        flexBox(
+                            direction = Direction.COLUMN,
+                            gap = 4,
+                            padding = 10,
+                            background = FlexBoxBackground.CARD,
+                            onClick = linkUrl?.let { url -> { openUrlOnPhone(url) } },
+                        ) {
+                            text("${index + 1}. ${candidate.store ?: "판매처 없음"}", style = TextStyle.BODY)
+                            text(candidate.price, style = TextStyle.HEADING)
+                            candidate.title?.let { text("상품명: $it", style = TextStyle.BODY, color = TextColor.SECONDARY) }
+                            candidate.currency?.let { text("통화: $it", style = TextStyle.BODY, color = TextColor.SECONDARY) }
+                            candidate.isKoreanMarket?.let {
+                                text("한국 마켓: ${if (it) "예" else "아니오"}", style = TextStyle.BODY, color = TextColor.SECONDARY)
+                            }
+                        }
+                    }
+                    button(
+                        label = "\uB2E4\uC2DC \uCD2C\uC601",
+                        style = ButtonStyle.PRIMARY,
+                        onClick = { retakePhoto() },
+                    )
+                }
+            }.onFailure { error, _ ->
+                Log.e(TAG, "displayPriceComparison sendContent failed: ${error.description}")
+                _uiState.update { it.copy(statusMessage = "디스플레이 가격비교 전송 실패: ${error.description}") }
+            }
+        }
+    }
+
     private fun displayProductConfirmation(result: AnalysisResult) {
+        stopAnalysisMessages()
         val currentDisplay = display ?: return
         val productName = result.productName ?: result.originalProductName ?: result.headline
         val brand = result.brand ?: result.originalBrand
+        val capturedPhotoUri = capturedPhotoDisplayUri(result.imageUrl)
+
+        viewModelScope.launch(Dispatchers.IO) {
+            currentDisplay.sendContent {
+                flexBox(direction = Direction.COLUMN, gap = 8, padding = 12) {
+                    text("\uC774 \uC0C1\uD488\uC774 \uB9DE\uB098\uC694?", style = TextStyle.HEADING)
+                    capturedPhotoUri?.let { uri ->
+                        image(uri = uri, sizePreset = ImageSize.ICON, cornerRadius = CornerRadius.MEDIUM)
+                    }
+                    flexBox(direction = Direction.COLUMN, gap = 4, padding = 12, background = FlexBoxBackground.CARD) {
+                        text(productName, style = TextStyle.BODY)
+                        brand?.let { text(it, style = TextStyle.BODY, color = TextColor.SECONDARY) }
+                        result.category?.let { text(it, style = TextStyle.BODY, color = TextColor.SECONDARY) }
+                    }
+                    flexBox(direction = Direction.ROW, gap = 8) {
+                        button(
+                            label = "\uC7AC\uCD2C\uC601",
+                            style = ButtonStyle.PRIMARY,
+                            onClick = { retakePhoto() },
+                        )
+                        button(
+                            label = "\uBD84\uC11D",
+                            style = ButtonStyle.PRIMARY,
+                            onClick = { submitForSearch() },
+                        )
+                    }
+                }
+            }.onFailure { error, _ ->
+                Log.e(TAG, "displayProductConfirmation with image failed: ${error.description}")
+                currentDisplay.sendContent {
+                    flexBox(direction = Direction.COLUMN, gap = 8, padding = 12) {
+                        text("\uC774 \uC0C1\uD488\uC774 \uB9DE\uB098\uC694?", style = TextStyle.HEADING)
+                        flexBox(direction = Direction.COLUMN, gap = 4, padding = 12, background = FlexBoxBackground.CARD) {
+                            text(productName, style = TextStyle.BODY)
+                            brand?.let { text(it, style = TextStyle.BODY, color = TextColor.SECONDARY) }
+                            result.category?.let { text(it, style = TextStyle.BODY, color = TextColor.SECONDARY) }
+                        }
+                        flexBox(direction = Direction.ROW, gap = 8) {
+                            button(
+                                label = "\uC7AC\uCD2C\uC601",
+                                style = ButtonStyle.PRIMARY,
+                                onClick = { retakePhoto() },
+                            )
+                            button(
+                                label = "\uBD84\uC11D",
+                                style = ButtonStyle.PRIMARY,
+                                onClick = { submitForSearch() },
+                            )
+                        }
+                    }
+                }
+            }
+        }
+        return
 
         viewModelScope.launch(Dispatchers.IO) {
             currentDisplay.sendContent {
                 flexBox(direction = Direction.COLUMN, gap = 12) {
                     flexBox(direction = Direction.COLUMN, gap = 8, padding = 24, background = FlexBoxBackground.CARD) {
                         text("이 상품이 맞나요?", style = TextStyle.HEADING)
+                        capturedPhotoUri?.let { uri ->
+                            image(uri = uri, sizePreset = ImageSize.ICON, cornerRadius = CornerRadius.MEDIUM)
+                        }
                         text(productName, style = TextStyle.BODY)
                         brand?.let {
                             text(it, style = TextStyle.BODY, color = TextColor.SECONDARY)
@@ -310,6 +430,33 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                 }
             }.onFailure { error, _ ->
                 Log.e(TAG, "displayProductConfirmation sendContent failed: ${error.description}")
+                currentDisplay.sendContent {
+                    flexBox(direction = Direction.COLUMN, gap = 12) {
+                        flexBox(direction = Direction.COLUMN, gap = 8, padding = 24, background = FlexBoxBackground.CARD) {
+                            text("\uC774 \uC0C1\uD488\uC774 \uB9DE\uB098\uC694?", style = TextStyle.HEADING)
+                            text(productName, style = TextStyle.BODY)
+                            brand?.let {
+                                text(it, style = TextStyle.BODY, color = TextColor.SECONDARY)
+                            }
+                            result.category?.let {
+                                text(it, style = TextStyle.BODY, color = TextColor.SECONDARY)
+                            }
+                            text("\uD3F0\uC5D0\uC11C \uD655\uC778\uD558\uACE0 \uC544\uB798 \uBC84\uD2BC\uC744 \uC120\uD0DD\uD574\uC8FC\uC138\uC694.", style = TextStyle.BODY, color = TextColor.SECONDARY)
+                        }
+                        flexBox(direction = Direction.ROW, gap = 8) {
+                            button(
+                                label = "\uC7AC\uCD2C\uC601",
+                                style = ButtonStyle.PRIMARY,
+                                onClick = { retakePhoto() },
+                            )
+                            button(
+                                label = "\uBD84\uC11D",
+                                style = ButtonStyle.PRIMARY,
+                                onClick = { submitForSearch() },
+                            )
+                        }
+                    }
+                }
                 _uiState.update { it.copy(statusMessage = "디스플레이 확인 화면 전송 실패: ${error.description}") }
             }
         }
@@ -357,7 +504,11 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
         // 스트림 연결. capturePhoto 용도 + (임시) 실시간 프리뷰용.
         // compressVideo = false 로 raw 프레임을 받아 Bitmap 으로 바로 변환한다(H.265 디코딩 불필요).
         currentSession.addStream(
-            StreamConfiguration(videoQuality = VideoQuality.LOW, frameRate = 7, compressVideo = false),
+            StreamConfiguration(
+                videoQuality = VideoQuality.LOW,
+                frameRate = RAW_PREVIEW_FRAME_RATE,
+                compressVideo = false,
+            ),
         )
             .onSuccess { addedStream ->
                 stream = addedStream
@@ -395,10 +546,22 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
         // 이전 Bitmap 을 recycle 하면 Compose 렌더링 중 크래시 위험이 있어 GC 에 맡긴다.
         previewJob = viewModelScope.launch(Dispatchers.Default) {
             var lastPreviewAt = 0L
+            var loggedFirstRawFrame = false
             currentStream.videoStream.conflate().collect { frame ->
                 val now = SystemClock.elapsedRealtime()
                 if (now - lastPreviewAt < PREVIEW_FRAME_INTERVAL_MS) return@collect
                 lastPreviewAt = now
+                latestRawPreviewFrame = frame.toRawPreviewFrame(now)
+                if (!loggedFirstRawFrame) {
+                    loggedFirstRawFrame = true
+                    Log.i(
+                        TAG,
+                        "Raw preview stream active: ${frame.width}x${frame.height}, " +
+                            "compressed=${frame.isCompressed}, codecConfig=${frame.isCodecConfig}, " +
+                            "bytes=${latestRawPreviewFrame?.bytes?.size ?: 0}, " +
+                            "format=${latestRawPreviewFrame?.formatHint()}",
+                    )
+                }
                 videoFrameToBitmap(frame)?.let { bmp -> _previewFrame.value = bmp }
             }
         }
@@ -416,6 +579,18 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
             return
         }
         val previewBitmap = _previewFrame.value
+        val rawPreviewFrame = latestRawPreviewFrame
+        val state = _uiState.value
+        if (!state.isCapturing && state.pendingPhotoFile == null && previewBitmap != null) {
+            Log.i(
+                TAG,
+                "Capturing from latest raw preview frame. streamState=${state.streamState}, " +
+                    "rawBytes=${rawPreviewFrame?.bytes?.size ?: 0}, rawFormat=${rawPreviewFrame?.formatHint()}",
+            )
+            savePreviewFrameAsCapture(previewBitmap, rawPreviewFrame)
+            if (state.streamState == StreamState.STOPPED) currentStream.start()
+            return
+        }
         if (!_uiState.value.canCapture) {
             if (
                 _uiState.value.streamState == StreamState.STOPPED &&
@@ -424,7 +599,7 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
             ) {
                 val fallbackBitmap = previewBitmap ?: createStoppedStreamPlaceholder()
                 Log.i(TAG, "Capturing with fallback image because stream is stopped. hasPreview=${previewBitmap != null}")
-                savePreviewFrameAsCapture(fallbackBitmap)
+                savePreviewFrameAsCapture(fallbackBitmap, rawPreviewFrame)
                 currentStream.start()
                 return
             }
@@ -471,6 +646,10 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
             return
         }
 
+        Log.w(TAG, "Capture ignored: no raw preview frame yet. streamState=${state.streamState}")
+        _uiState.update { it.copy(statusMessage = "Waiting for the first camera frame. Try again in a moment.") }
+        return
+
         viewModelScope.launch {
             currentStream.capturePhoto()
                 .onSuccess { photoData ->
@@ -500,16 +679,22 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
     }
 
     // [재촬영] 미리보기 사진을 버리고(캐시 파일 삭제) 라이브 프리뷰로 돌아간다.
-    private fun savePreviewFrameAsCapture(previewBitmap: Bitmap) {
+    private fun savePreviewFrameAsCapture(previewBitmap: Bitmap, rawPreviewFrame: RawPreviewFrame?) {
         stopPreview()
         _uiState.update { it.copy(isCapturing = true, statusMessage = "Capturing from last preview frame...") }
         viewModelScope.launch(Dispatchers.IO) {
+            val rawFile = rawPreviewFrame?.let { saveRawFrameToCache(it) }
             val file = saveBitmapToCache(previewBitmap)
+            if (rawFile != null) {
+                Log.i(TAG, "Saved raw preview capture: ${rawFile.absolutePath}")
+            } else {
+                Log.w(TAG, "No raw preview frame was available to save with this capture.")
+            }
             _uiState.update {
                 it.copy(
                     isCapturing = false,
                     pendingPhotoFile = file,
-                    statusMessage = if (file != null) "Product identification..." else "Failed to save image",
+                    statusMessage = if (file != null) "\uC0C1\uD488\uBA85 \uD655\uC778 \uC911..." else "\uC774\uBBF8\uC9C0 \uC800\uC7A5 \uC2E4\uD328",
                 )
             }
             if (file != null) {
@@ -563,6 +748,7 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                 pendingPhotoFile = null,
                 isSearching = false,
                 awaitingProductConfirmation = false,
+                showPriceComparison = false,
                 searchResult = null,
                 statusMessage = "다시 촬영해주세요",
             )
@@ -583,6 +769,7 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
             it.copy(
                 isSearching = true,
                 awaitingProductConfirmation = false,
+                showPriceComparison = false,
                 searchResult = null,
                 statusMessage = "상품명 확인 중...",
             )
@@ -636,6 +823,7 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                         it.copy(
                             isSearching = false,
                             awaitingProductConfirmation = true,
+                            showPriceComparison = false,
                             searchResult = identified,
                             statusMessage = "해당 상품이 맞습니까?",
                         )
@@ -643,6 +831,10 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                     displayProductConfirmation(identified)
                 }
                 .onFailure { throwable ->
+                    if (throwable is CancellationException) {
+                        Log.i(TAG, "Product identification cancelled.")
+                        return@onFailure
+                    }
                     Log.e(TAG, "Product identification failed", throwable)
                     val isConnectionError = throwable is SocketTimeoutException || throwable is ConnectException
                     val result = AnalysisResult(
@@ -654,6 +846,7 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                         it.copy(
                             isSearching = false,
                             awaitingProductConfirmation = false,
+                            showPriceComparison = false,
                             searchResult = result,
                             statusMessage = if (isConnectionError) "서버 연결 실패" else "상품 식별 실패",
                         )
@@ -689,6 +882,7 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                                 it.copy(
                                     isSearching = true,
                                     awaitingProductConfirmation = false,
+                                    showPriceComparison = false,
                                     searchResult = merged,
                                 )
                             }
@@ -712,6 +906,7 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                         it.copy(
                             isSearching = false,
                             awaitingProductConfirmation = false,
+                            showPriceComparison = false,
                             searchResult = result,
                             statusMessage = "완료",
                         )
@@ -719,6 +914,10 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                     displayResult(result)
                 }
                 .onFailure { throwable ->
+                    if (throwable is CancellationException) {
+                        Log.i(TAG, "Product analysis cancelled.")
+                        return@onFailure
+                    }
                     stopAnalysisMessages()
                     Log.e(TAG, "Product analysis failed", throwable)
                     val result = AnalysisResult(
@@ -730,6 +929,7 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                         it.copy(
                             isSearching = false,
                             awaitingProductConfirmation = false,
+                            showPriceComparison = false,
                             searchResult = result,
                             statusMessage = "분석 실패",
                         )
@@ -741,20 +941,27 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
 
     private fun displayAnalysisProgress(message: String, partial: AnalysisResult? = null) {
         val currentDisplay = display ?: return
+        val capturedPhotoUri = capturedPhotoDisplayUri(
+            uploadedImageUrl = partial?.imageUrl ?: latestAnalysisResult?.imageUrl,
+            allowLocalFallback = false,
+        )
         viewModelScope.launch(Dispatchers.IO) {
             currentDisplay.sendContent {
                 flexBox(direction = Direction.COLUMN, gap = 8, padding = 18, background = FlexBoxBackground.CARD) {
-                    text("Analyzing product", style = TextStyle.HEADING)
+                    capturedPhotoUri?.let { uri ->
+                        image(uri = uri, sizePreset = ImageSize.ICON, cornerRadius = CornerRadius.MEDIUM)
+                    }
+                    text("\uC0C1\uD488 \uBD84\uC11D \uC911", style = TextStyle.HEADING)
                     text(message, style = TextStyle.BODY, color = TextColor.SECONDARY)
                     partial?.let { result ->
                         text(result.productName ?: result.headline, style = TextStyle.BODY)
-                        result.brand?.let { text("Brand: $it", style = TextStyle.BODY, color = TextColor.SECONDARY) }
-                        result.category?.let { text("Category: $it", style = TextStyle.BODY, color = TextColor.SECONDARY) }
+                        result.brand?.let { text("\uBE0C\uB79C\uB4DC: $it", style = TextStyle.BODY, color = TextColor.SECONDARY) }
+                        result.category?.let { text("\uCE74\uD14C\uACE0\uB9AC: $it", style = TextStyle.BODY, color = TextColor.SECONDARY) }
                         result.productDescription?.let {
                             text(it.take(DISPLAY_TEXT_LIMIT), style = TextStyle.BODY, color = TextColor.SECONDARY)
                         }
                         result.specifications.take(2).forEach {
-                            text("Spec: ${it.take(DISPLAY_TEXT_LIMIT)}", style = TextStyle.BODY, color = TextColor.SECONDARY)
+                            text("\uC2A4\uD399: ${it.take(DISPLAY_TEXT_LIMIT)}", style = TextStyle.BODY, color = TextColor.SECONDARY)
                         }
                     }
                 }
@@ -766,19 +973,38 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
 
     private fun analysisStageLabel(stage: String?, fallback: String?): String {
         return when (stage?.trim()?.lowercase()) {
-            "uploading_image" -> "Uploading image..."
-            "searching_lens" -> "Finding matching product..."
-            "identifying_product" -> "Checking product name..."
-            "identity_ready" -> "Product identity ready."
-            "searching_specs" -> "Searching specs..."
-            "summarizing_reviews" -> "Summarizing reviews..."
-            "searching_prices" -> "Searching prices..."
-            else -> fallback?.takeIf { it.isNotBlank() } ?: "Analyzing..."
+            "uploading_image" -> "\uC774\uBBF8\uC9C0 \uC5C5\uB85C\uB4DC \uC911..."
+            "searching_lens" -> "\uC77C\uCE58\uD558\uB294 \uC0C1\uD488 \uCC3E\uB294 \uC911..."
+            "identifying_product" -> "\uC0C1\uD488\uBA85 \uD655\uC778 \uC911..."
+            "identity_ready" -> "\uC0C1\uD488 \uD655\uC778 \uC644\uB8CC"
+            "searching_specs" -> "\uC2A4\uD399 \uAC80\uC0C9 \uC911..."
+            "summarizing_reviews" -> "\uD6C4\uAE30 \uC815\uB9AC \uC911..."
+            "searching_prices" -> "\uAC00\uACA9 \uAC80\uC0C9 \uC911..."
+            "checking_image_with_claude" -> "\uC774\uBBF8\uC9C0 \uD655\uC778 \uC911..."
+            "done" -> "\uBD84\uC11D \uC644\uB8CC"
+            else -> "\uBD84\uC11D \uC911..."
         }
     }
 
     private fun startAnalysisMessages() {
         analysisMessageJob?.cancel()
+        val koreanMessages = listOf(
+            "\uC0C1\uD488 \uBD84\uC11D \uC911...",
+            "\uC2A4\uD399 \uAC80\uC0C9 \uC911...",
+            "\uD6C4\uAE30 \uC815\uB9AC \uC911...",
+            "\uAC00\uACA9 \uAC80\uC0C9 \uC911...",
+        )
+        analysisMessageJob = viewModelScope.launch {
+            var index = 0
+            while (true) {
+                _uiState.update { it.copy(isSearching = true, statusMessage = koreanMessages[index]) }
+                displayAnalysisProgress(koreanMessages[index], partial = latestAnalysisResult)
+                index = (index + 1) % koreanMessages.size
+                delay(1800)
+            }
+        }
+        return
+
         val messages = listOf(
             "상품 식별 중...",
             "스펙 검색 중...",
@@ -789,7 +1015,7 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
             var index = 0
             while (true) {
                 _uiState.update { it.copy(isSearching = true, statusMessage = messages[index]) }
-                displayAnalysisProgress(messages[index])
+                displayAnalysisProgress(messages[index], partial = latestAnalysisResult)
                 index = (index + 1) % messages.size
                 delay(1800)
             }
@@ -803,6 +1029,23 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
 
     fun displayLoading() {
         val currentDisplay = display ?: return
+        val capturedPhotoUri = capturedPhotoDisplayUri(
+            uploadedImageUrl = latestAnalysisResult?.imageUrl,
+            allowLocalFallback = false,
+        )
+        viewModelScope.launch(Dispatchers.IO) {
+            currentDisplay.sendContent {
+                flexBox(direction = Direction.COLUMN, gap = 8, padding = 24, background = FlexBoxBackground.CARD) {
+                    capturedPhotoUri?.let { uri ->
+                        image(uri = uri, sizePreset = ImageSize.ICON, cornerRadius = CornerRadius.MEDIUM)
+                    }
+                    text("\uC0C1\uD488 \uBD84\uC11D \uC911", style = TextStyle.HEADING)
+                    text("\uC7A0\uC2DC\uB9CC \uAE30\uB2E4\uB824\uC8FC\uC138\uC694", style = TextStyle.BODY, color = TextColor.SECONDARY)
+                }
+            }
+        }
+        return
+
         viewModelScope.launch(Dispatchers.IO) {
             currentDisplay.sendContent {
                 flexBox(direction = Direction.COLUMN, gap = 8, padding = 24, background = FlexBoxBackground.CARD) {
@@ -842,11 +1085,13 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                         padding = 28,
                         background = FlexBoxBackground.CARD,
                     ) {
-                        text("+", style = TextStyle.HEADING)
-                        text("Center product here", style = TextStyle.BODY, color = TextColor.SECONDARY)
+                        text("<-", style = TextStyle.HEADING)
                     }
-                    text("상품을 테두리 안에 맞춰주세요", style = TextStyle.BODY, color = TextColor.SECONDARY)
-                    text("Pinch anywhere on this card to capture.", style = TextStyle.BODY, color = TextColor.SECONDARY)
+                    text(
+                        "\uC774\uACF3\uC5D0 \uBB3C\uAC74\uC744 \uB450\uACE0 \uCC0D\uC5B4\uC8FC\uC138\uC694",
+                        style = TextStyle.BODY,
+                        color = TextColor.SECONDARY,
+                    )
                     button(
                         label = "촬영",
                         style = ButtonStyle.PRIMARY,
@@ -859,16 +1104,12 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
 
     private fun showCapturedPhoto(file: File) {
         val currentDisplay = display ?: return
-        val uri = FileProvider.getUriForFile(
-            getApplication(),
-            "${BuildConfig.APPLICATION_ID}.fileprovider",
-            file,
-        ).toString()
+        val uri = capturedPhotoDisplayUri() ?: return
 
         viewModelScope.launch(Dispatchers.IO) {
             currentDisplay.sendContent {
                 flexBox(direction = Direction.COLUMN, gap = 8, padding = 12) {
-                    image(uri = uri, sizePreset = ImageSize.FILL, cornerRadius = CornerRadius.MEDIUM)
+                    image(uri = uri, sizePreset = ImageSize.ICON, cornerRadius = CornerRadius.MEDIUM)
                     text("촬영 완료", style = TextStyle.BODY, color = TextColor.SECONDARY)
                 }
             }.onFailure { error, _ ->
@@ -926,25 +1167,11 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                 remaining >= w * h * 4 -> {
                     Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888).also { it.copyPixelsFromBuffer(buf) }
                 }
-                // YUV 4:2:0 planar(I420): Y(w*h) + U(w*h/4) + V(w*h/4). 별도 U/V 평면을
-                // Android YuvImage 가 기대하는 NV21(Y + 인터리브 V,U)로 재구성한 뒤 JPEG 경유 디코드.
+                // YUV 4:2:0 planar(I420): Y(w*h) + U(w*h/4) + V(w*h/4).
+                // Convert directly to ARGB for preview to avoid per-frame JPEG encode/decode.
                 remaining >= w * h * 3 / 2 -> {
                     val src = ByteArray(remaining).also { buf.get(it) }
-                    val ySize = w * h
-                    val chromaSize = ySize / 4
-                    val uStart = ySize
-                    val vStart = ySize + chromaSize
-                    val nv21 = ByteArray(ySize + chromaSize * 2)
-                    System.arraycopy(src, 0, nv21, 0, ySize)
-                    for (j in 0 until chromaSize) {
-                        nv21[ySize + j * 2] = src[vStart + j]     // V
-                        nv21[ySize + j * 2 + 1] = src[uStart + j] // U
-                    }
-                    val out = ByteArrayOutputStream()
-                    YuvImage(nv21, ImageFormat.NV21, w, h, null)
-                        .compressToJpeg(Rect(0, 0, w, h), 85, out)
-                    val jpeg = out.toByteArray()
-                    BitmapFactory.decodeByteArray(jpeg, 0, jpeg.size)
+                    yuv420PlanarToBitmap(src, w, h)
                 }
                 else -> {
                     Log.w(TAG, "Unrecognized frame: ${w}x$h remaining=$remaining")
@@ -955,6 +1182,65 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
             Log.e(TAG, "videoFrameToBitmap failed (${w}x$h remaining=$remaining)", e)
             null
         }
+    }
+
+    private fun VideoFrame.toRawPreviewFrame(capturedAtMs: Long): RawPreviewFrame? {
+        val buf = buffer.duplicate().apply { rewind() }
+        if (width <= 0 || height <= 0 || buf.remaining() <= 0) return null
+        val bytes = ByteArray(buf.remaining())
+        buf.get(bytes)
+        return RawPreviewFrame(
+            width = width,
+            height = height,
+            bytes = bytes,
+            isCompressed = isCompressed,
+            isCodecConfig = isCodecConfig,
+            capturedAtMs = capturedAtMs,
+        )
+    }
+
+    private fun RawPreviewFrame.formatHint(): String {
+        val rgbaSize = width * height * 4
+        val yuv420Size = width * height * 3 / 2
+        return when {
+            isCompressed -> "COMPRESSED"
+            isCodecConfig -> "CODEC_CONFIG"
+            bytes.size >= rgbaSize -> "RGBA_8888"
+            bytes.size >= yuv420Size -> "YUV_420_PLANAR"
+            else -> "UNKNOWN"
+        }
+    }
+
+    private fun yuv420PlanarToBitmap(src: ByteArray, width: Int, height: Int): Bitmap {
+        val ySize = width * height
+        val chromaWidth = width / 2
+        val uStart = ySize
+        val vStart = ySize + ySize / 4
+        val pixels = IntArray(ySize)
+
+        for (row in 0 until height) {
+            val yRow = row * width
+            val chromaRow = (row / 2) * chromaWidth
+            for (col in 0 until width) {
+                val y = src[yRow + col].toInt() and 0xFF
+                val chromaIndex = chromaRow + col / 2
+                val u = (src[uStart + chromaIndex].toInt() and 0xFF) - 128
+                val v = (src[vStart + chromaIndex].toInt() and 0xFF) - 128
+
+                val r = clampRgb(y + ((1436 * v) shr 10))
+                val g = clampRgb(y - ((352 * u + 731 * v) shr 10))
+                val b = clampRgb(y + ((1815 * u) shr 10))
+                pixels[yRow + col] = (0xFF shl 24) or (r shl 16) or (g shl 8) or b
+            }
+        }
+
+        return Bitmap.createBitmap(pixels, width, height, Bitmap.Config.ARGB_8888)
+    }
+
+    private fun clampRgb(value: Int): Int = when {
+        value < 0 -> 0
+        value > 255 -> 255
+        else -> value
     }
 
     private fun savePhotoToCache(photoData: PhotoData): File? {
@@ -970,14 +1256,40 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
+    private fun saveRawFrameToCache(frame: RawPreviewFrame): File? {
+        return try {
+            val dir = File(getApplication<Application>().cacheDir, "captures")
+            dir.mkdirs()
+            val timestamp = System.currentTimeMillis()
+            val rawFile = File(dir, "photo_${timestamp}_${frame.width}x${frame.height}_${frame.formatHint()}.raw")
+            FileOutputStream(rawFile).use { out -> out.write(frame.bytes) }
+            File(dir, rawFile.nameWithoutExtension + ".txt").writeText(
+                buildString {
+                    appendLine("width=${frame.width}")
+                    appendLine("height=${frame.height}")
+                    appendLine("bytes=${frame.bytes.size}")
+                    appendLine("formatHint=${frame.formatHint()}")
+                    appendLine("isCompressed=${frame.isCompressed}")
+                    appendLine("isCodecConfig=${frame.isCodecConfig}")
+                    appendLine("capturedAtMs=${frame.capturedAtMs}")
+                },
+            )
+            rawFile
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to save raw preview frame", e)
+            null
+        }
+    }
+
     private fun saveBitmapToCache(bitmap: Bitmap): File? {
         return try {
             val dir = File(getApplication<Application>().cacheDir, "captures")
             dir.mkdirs()
-            val file = File(dir, "photo_${System.currentTimeMillis()}.jpg")
+            val file = File(dir, "photo_${System.currentTimeMillis()}.png")
             FileOutputStream(file).use { out ->
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out)
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, out)
             }
+            Log.i(TAG, "Saved PNG capture: ${file.absolutePath}")
             file
         } catch (e: Exception) {
             Log.e(TAG, "Failed to save bitmap", e)
@@ -1010,6 +1322,25 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
         } catch (e: IOException) {
             Log.w(TAG, "Failed to read EXIF", e)
             matrix
+        }
+    }
+
+    private fun capturedPhotoDisplayUri(
+        uploadedImageUrl: String? = null,
+        allowLocalFallback: Boolean = true,
+    ): String? {
+        uploadedImageUrl?.takeIf { it.isNotBlank() }?.let {
+            Log.i(TAG, "Using uploaded capture image URL for glasses display: $it")
+            return it
+        }
+        if (!allowLocalFallback) return null
+        val file = _uiState.value.pendingPhotoFile ?: return null
+        return FileProvider.getUriForFile(
+            getApplication(),
+            "${BuildConfig.APPLICATION_ID}.fileprovider",
+            file,
+        ).toString().also {
+            Log.i(TAG, "Using local capture image URI for glasses display: $it")
         }
     }
 
