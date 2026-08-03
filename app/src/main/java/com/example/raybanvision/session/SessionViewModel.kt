@@ -71,6 +71,11 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
         private const val DISPLAY_TEXT_LIMIT = 90
         private const val PREVIEW_FRAME_INTERVAL_MS = 100L
         private const val RAW_PREVIEW_FRAME_RATE = 15
+        private const val ASSET_BASE =
+            "https://raw.githubusercontent.com/DORARIN42/Smartglass_shopping/2477713ccae64f59dc3a5009d8035f85a5e888c0/root/Shoply_meta_png"
+        private const val IMG_CAMERA_RETAKE = "$ASSET_BASE/CameraRetake.png"
+        private const val IMG_PRICE_INFO = "$ASSET_BASE/PriceInfo.png"
+        private const val IMG_SEARCH_PRODUCT = "$ASSET_BASE/SearchProduct.png"
     }
 
     private data class RawPreviewFrame(
@@ -276,17 +281,13 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                         result.averageRating?.let { text("평점: $it", style = TextStyle.BODY, color = TextColor.SECONDARY) }
                     }
                     if (result.candidates.isNotEmpty()) {
-                        button(
-                            label = "\uAC00\uACA9\uBE44\uAD50",
-                            style = ButtonStyle.PRIMARY,
-                            onClick = { showPriceComparison(result) },
-                        )
+                        flexBox(onClick = { showPriceComparison(result) }) {
+                            image(uri = IMG_PRICE_INFO, sizePreset = ImageSize.FILL)
+                        }
                     }
-                    button(
-                        label = "다시 촬영",
-                        style = ButtonStyle.PRIMARY,
-                        onClick = { retakePhoto() },
-                    )
+                    flexBox(onClick = { retakePhoto() }) {
+                        image(uri = IMG_CAMERA_RETAKE, sizePreset = ImageSize.FILL)
+                    }
                 }
             }.onFailure { error, _ ->
                 Log.e(TAG, "displayDetailedResult sendContent failed: ${error.description}")
@@ -329,11 +330,9 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                             }
                         }
                     }
-                    button(
-                        label = "\uB2E4\uC2DC \uCD2C\uC601",
-                        style = ButtonStyle.PRIMARY,
-                        onClick = { retakePhoto() },
-                    )
+                    flexBox(onClick = { retakePhoto() }) {
+                        image(uri = IMG_CAMERA_RETAKE, sizePreset = ImageSize.FILL)
+                    }
                 }
             }.onFailure { error, _ ->
                 Log.e(TAG, "displayPriceComparison sendContent failed: ${error.description}")
@@ -362,16 +361,12 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                         result.category?.let { text(it, style = TextStyle.BODY, color = TextColor.SECONDARY) }
                     }
                     flexBox(direction = Direction.ROW, gap = 8) {
-                        button(
-                            label = "\uC7AC\uCD2C\uC601",
-                            style = ButtonStyle.PRIMARY,
-                            onClick = { retakePhoto() },
-                        )
-                        button(
-                            label = "\uBD84\uC11D",
-                            style = ButtonStyle.PRIMARY,
-                            onClick = { submitForSearch() },
-                        )
+                        flexBox(flexGrow = 1f, onClick = { retakePhoto() }) {
+                            image(uri = IMG_CAMERA_RETAKE, sizePreset = ImageSize.FILL)
+                        }
+                        flexBox(flexGrow = 1f, onClick = { submitForSearch() }) {
+                            image(uri = IMG_SEARCH_PRODUCT, sizePreset = ImageSize.FILL)
+                        }
                     }
                 }
             }.onFailure { error, _ ->
@@ -385,16 +380,12 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                             result.category?.let { text(it, style = TextStyle.BODY, color = TextColor.SECONDARY) }
                         }
                         flexBox(direction = Direction.ROW, gap = 8) {
-                            button(
-                                label = "\uC7AC\uCD2C\uC601",
-                                style = ButtonStyle.PRIMARY,
-                                onClick = { retakePhoto() },
-                            )
-                            button(
-                                label = "\uBD84\uC11D",
-                                style = ButtonStyle.PRIMARY,
-                                onClick = { submitForSearch() },
-                            )
+                            flexBox(flexGrow = 1f, onClick = { retakePhoto() }) {
+                                image(uri = IMG_CAMERA_RETAKE, sizePreset = ImageSize.FILL)
+                            }
+                            flexBox(flexGrow = 1f, onClick = { submitForSearch() }) {
+                                image(uri = IMG_SEARCH_PRODUCT, sizePreset = ImageSize.FILL)
+                            }
                         }
                     }
                 }
