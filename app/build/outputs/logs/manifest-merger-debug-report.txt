@@ -1,0 +1,580 @@
+-- Merging decision tree log ---
+meta-data#com.meta.wearable.mwdat.APPLICATION_ID
+INJECTED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:19:9-21:55
+	android:value
+		INJECTED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml
+		ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:21:13-52
+	android:name
+		ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:20:13-66
+meta-data#com.meta.wearable.mwdat.CLIENT_TOKEN
+INJECTED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:22:9-24:53
+	android:value
+		INJECTED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml
+		ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:24:13-50
+	android:name
+		ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:23:13-64
+provider#androidx.core.content.FileProvider
+INJECTED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:48:9-56:20
+	android:grantUriPermissions
+		ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:52:13-47
+	android:authorities
+		INJECTED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml
+		ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:50:13-64
+	android:exported
+		ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:51:13-37
+	android:name
+		ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:49:13-62
+manifest
+ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:2:1-58:12
+INJECTED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:2:1-58:12
+INJECTED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:2:1-58:12
+INJECTED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:2:1-58:12
+MERGED from [com.google.android.material:material:1.12.0] C:\Users\pink5\.gradle\caches\8.13\transforms\e2d7080c93813f09f5ba68af8d8b5ecb\transformed\material-1.12.0\AndroidManifest.xml:17:1-24:12
+MERGED from [com.meta.wearable:mwdat-mockdevice:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\33364bb8c4d372bc9b360606ce8da70e\transformed\mwdat-mockdevice-0.8.0\AndroidManifest.xml:3:1-17:12
+MERGED from [com.meta.wearable:mwdat-camera:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\1f3466ae1129178d0bda79923c626237\transformed\mwdat-camera-0.8.0\AndroidManifest.xml:3:1-17:12
+MERGED from [com.meta.wearable:mwdat-display:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\374b395079d1f1ea3494f8f61e54798b\transformed\mwdat-display-0.8.0\AndroidManifest.xml:3:1-17:12
+MERGED from [com.meta.wearable:mwdat-core:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\5e7640bc80e9a88113c892847a8a5ba2\transformed\mwdat-core-0.8.0\AndroidManifest.xml:3:1-32:12
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] C:\Users\pink5\.gradle\caches\8.13\transforms\84ca6fbe27a00c7ed4197c50aa1bb18e\transformed\constraintlayout-2.0.1\AndroidManifest.xml:2:1-11:12
+MERGED from [androidx.appcompat:appcompat-resources:1.6.1] C:\Users\pink5\.gradle\caches\8.13\transforms\8826b8e1bcc42532a42422d7703c1613\transformed\appcompat-resources-1.6.1\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.appcompat:appcompat:1.6.1] C:\Users\pink5\.gradle\caches\8.13\transforms\d6b31a22aad8bb1e5530935d82f075dd\transformed\appcompat-1.6.1\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.navigation:navigation-runtime-android:2.9.8] C:\Users\pink5\.gradle\caches\8.13\transforms\48e4d4676e6a46381262ec5ad488519d\transformed\navigation-runtime-release\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.navigation:navigation-common-android:2.9.8] C:\Users\pink5\.gradle\caches\8.13\transforms\7f9091e993db0a803fdca0ddee5b4e3d\transformed\navigation-common-release\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.navigation:navigation-compose-android:2.9.8] C:\Users\pink5\.gradle\caches\8.13\transforms\ee808929d169e40852e64d4c64af5f74\transformed\navigation-compose-release\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\d96b38e13bfcee141ddd52aa2cdcd0ff\transformed\viewpager2-1.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.fragment:fragment:1.3.6] C:\Users\pink5\.gradle\caches\8.13\transforms\acc773942085f3feee64e812d2a436dd\transformed\fragment-1.3.6\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.navigationevent:navigationevent-android:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\21b05cdf34fd80a902ab515897966fbc\transformed\navigationevent\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.navigationevent:navigationevent-compose-android:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2c502d14ef2c57c6409156e3797663bd\transformed\navigationevent-compose\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.material3:material3-android:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\e7b1a142888fcf6bb0163f83b8f947e9\transformed\material3\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.compose.material:material-ripple-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\5d9682161626b29436900e3495257bbb\transformed\material-ripple\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.foundation:foundation-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\b5d298c360b41619abf5aab8830b88f3\transformed\foundation\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.foundation:foundation-layout-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\261d0eea3f30282c976b70a473a2f947\transformed\foundation-layout\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.animation:animation-core-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\d206c5cf98163259e26e23a246b35ce4\transformed\animation-core\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.animation:animation-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\8f688e3d447335b4382fabdd7a5ea2c4\transformed\animation\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-unit-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\61d7e1646cc6be82c12899ea3817e51f\transformed\ui-unit\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-graphics-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\426fb7328456e0db716d28a3168d1345\transformed\ui-graphics\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-geometry-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\1f995e9b86c3d86b958177873811d583\transformed\ui-geometry\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-util-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\46a1a2082a0dc32630ea854b06d97210\transformed\ui-util\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-text-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\f692e17f091c29011a6ebd613d1d52be\transformed\ui-text\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.runtime:runtime-retain-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\b6c2a40ef288d4074525383401a894b0\transformed\runtime-retain\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.runtime:runtime-annotation-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\1b2f794d33a96a252a4eb06e2a40d34b\transformed\runtime-annotation\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.customview:customview-poolingcontainer:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\0b18b7c372119db9dbf2718b0cbe7af2\transformed\customview-poolingcontainer-1.0.0\AndroidManifest.xml:17:1-23:12
+MERGED from [androidx.core:core-ktx:1.18.0] C:\Users\pink5\.gradle\caches\8.13\transforms\9e311abca26662661f66a0cbd59f9330\transformed\core-ktx-1.18.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\pink5\.gradle\caches\8.13\transforms\358e5fa766be0178d36ec5f7980b102d\transformed\coordinatorlayout-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] C:\Users\pink5\.gradle\caches\8.13\transforms\d410a243dcf8e66ee9505356c5a25225\transformed\drawerlayout-1.1.1\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.transition:transition:1.6.0] C:\Users\pink5\.gradle\caches\8.13\transforms\a72b475f78443f5f7597cb3ec60fc05d\transformed\transition-1.6.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\b843d9f77c857ef2f467a092d7982492\transformed\dynamicanimation-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\pink5\.gradle\caches\8.13\transforms\37882cc0c042c7bca3986afb1f1fae14\transformed\vectordrawable-animated-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\pink5\.gradle\caches\8.13\transforms\03cec11a9a02b3d8699b30e8043a0e6c\transformed\vectordrawable-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [com.facebook.fresco:fbcore:3.6.0] C:\Users\pink5\.gradle\caches\8.13\transforms\b7ee0264ad37324ecf669f47ef050350\transformed\fbcore-3.6.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] C:\Users\pink5\.gradle\caches\8.13\transforms\fa5c702d7dde973cba96d58858a2a0d5\transformed\recyclerview-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\4cc53d0d4b3a01dcf2e5723a2ad997fb\transformed\viewpager-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.customview:customview:1.1.0] C:\Users\pink5\.gradle\caches\8.13\transforms\d2c1d8e464abc69fb58cd8d50d6c770e\transformed\customview-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\0f0b90a2d530ab29db2b9206d25f171b\transformed\legacy-support-core-utils-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.autofill:autofill:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\150ae733c0b8f04524b44789c37a720f\transformed\autofill-1.0.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.window:window-core-android:1.5.0] C:\Users\pink5\.gradle\caches\8.13\transforms\75f5fc46f30938c5a3cd7d4377445ebc\transformed\window-core\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.window:window:1.5.0] C:\Users\pink5\.gradle\caches\8.13\transforms\9e2fe097878cceb80c15a94ab96bcbeb\transformed\window-1.5.0\AndroidManifest.xml:17:1-31:12
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\e0ee0ed4b3c917ec6259e223eaa3c95e\transformed\loader-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.emoji2:emoji2-views-helper:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2b84e214e7a218b8678a83157b1373ac\transformed\emoji2-views-helper-1.4.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.emoji2:emoji2:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\b8b0f685ffe77caf50bef7d2f6b2965b\transformed\emoji2-1.4.0\AndroidManifest.xml:17:1-35:12
+MERGED from [androidx.graphics:graphics-path:1.0.1] C:\Users\pink5\.gradle\caches\8.13\transforms\07f4af1441e0f32683724fe007f5ab96\transformed\graphics-path-1.0.1\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.core:core:1.18.0] C:\Users\pink5\.gradle\caches\8.13\transforms\f8c1c3566cf003e96c37a3f442156de8\transformed\core-1.18.0\AndroidManifest.xml:17:1-30:12
+MERGED from [androidx.lifecycle:lifecycle-process:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\fc05c838070ee8cf82cdfde228cee7a7\transformed\lifecycle-process-2.10.0\AndroidManifest.xml:17:1-35:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\0b7e8ab4a75ff2d827bd0d0286f5546b\transformed\lifecycle-livedata-core-ktx-2.10.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\8fa57bccdbe56f088a5a5ab865fc1e8b\transformed\lifecycle-livedata-2.10.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\7b3670b657488cf4c2356637f9c5fa2a\transformed\lifecycle-livedata-core-2.10.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx-android:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\f3778c0a515c7d4dbaf6a6e289de36c7\transformed\lifecycle-runtime-ktx\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\1891e9c33921d3035bd2272672427dfb\transformed\lifecycle-viewmodel-2.10.0\AndroidManifest.xml:2:1-5:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-android:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\7238336c44e3a8a8a830df88aef6e558\transformed\lifecycle-viewmodel\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-runtime-android:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\09ec02ecfc4aa5d0acea225eb27f836e\transformed\lifecycle-runtime\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\fbaee53d7f30b039672e37391b195804\transformed\lifecycle-viewmodel-ktx-2.10.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-service:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\bca0c1edd54b1062d1e71094081642e1\transformed\lifecycle-service-2.10.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate-android:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\e408b76405eb92fb5ee3db9b0def9d5f\transformed\lifecycle-viewmodel-savedstate\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.savedstate:savedstate-ktx:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\44e772b97b6d2e0fcda1737a3d9dce1a\transformed\savedstate-ktx-1.4.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.savedstate:savedstate-android:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\f6985dfa546874ba66d5f063c6923e2e\transformed\savedstate\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.savedstate:savedstate-compose-android:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\7b82c2d28dc265bdf63f272b1fa98f7b\transformed\savedstate-compose\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.runtime:runtime-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\4bf8d91633068cdb98539c01319aee2d\transformed\runtime\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.runtime:runtime-saveable-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\23dce388b67fa924d00181adf723cfc2\transformed\runtime-saveable\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-runtime-compose-android:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2628d6fc7db0ec51eb9db69082006799\transformed\lifecycle-runtime-compose\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-compose-android:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\1dae0bb5cc3d29e41f0367ec00d73958\transformed\lifecycle-viewmodel-compose\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.material:material-icons-extended-android:1.7.8] C:\Users\pink5\.gradle\caches\8.13\transforms\9574348053e1c09a3fd4640e45e5fb28\transformed\material-icons-extended-release\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.material:material-icons-core-android:1.7.8] C:\Users\pink5\.gradle\caches\8.13\transforms\12d9c5b03a406e49b44a37eb0e8ffedb\transformed\material-icons-core-release\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.compose.ui:ui-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\3a58fb9a1eb037c65a7f45daf0ae8649\transformed\ui\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.activity:activity-ktx:1.13.0] C:\Users\pink5\.gradle\caches\8.13\transforms\b1371c54a86667c895cb15d626bb8522\transformed\activity-ktx-1.13.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.activity:activity:1.13.0] C:\Users\pink5\.gradle\caches\8.13\transforms\c9980f7925e3fb4e0103cb567c2e781a\transformed\activity-1.13.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.activity:activity-compose:1.13.0] C:\Users\pink5\.gradle\caches\8.13\transforms\6b9c51c041d89b80d5d6aa72ea63c6d7\transformed\activity-compose-1.13.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.core:core-viewtree:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2bd3399dc20d8e4257d98eb76eb9c36a\transformed\core-viewtree-1.0.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.annotation:annotation-experimental:1.4.1] C:\Users\pink5\.gradle\caches\8.13\transforms\d72f1592523d18af9b6d6ded22ad0894\transformed\annotation-experimental-1.4.1\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.security:security-crypto:1.1.0] C:\Users\pink5\.gradle\caches\8.13\transforms\57cfcc854650645cc93f6cfe6e2f5aa2\transformed\security-crypto-1.1.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.exifinterface:exifinterface:1.4.2] C:\Users\pink5\.gradle\caches\8.13\transforms\f3e4ab6f40b93843a015b0c9e31577c3\transformed\exifinterface-1.4.2\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\123b34f474ff2364ef6d38e7cc861edc\transformed\cardview-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2944142a50b3719e7c746fd61ca03caf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:17:1-55:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\6abb115f7ee2a39b289893be7f417506\transformed\cursoradapter-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\pink5\.gradle\caches\8.13\transforms\582e37bcf59c758337cba52dc655cb3c\transformed\startup-runtime-1.1.1\AndroidManifest.xml:17:1-33:12
+MERGED from [androidx.tracing:tracing:1.2.0] C:\Users\pink5\.gradle\caches\8.13\transforms\8a300af9ce2668f58478e64544403f2e\transformed\tracing-1.2.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\493d3da75396b2fb4a58217828cb2c60\transformed\interpolator-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\pink5\.gradle\caches\8.13\transforms\bdafd9decdb46712e7aff5c6aa6cdcf3\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:17:1-27:12
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\cc5ee3c35c634ed5144c37e6e1b0b1c9\transformed\documentfile-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2412736158e7bdf982354207b03a6149\transformed\localbroadcastmanager-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.print:print:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\d71d47f7b9a131d4b58dadf66620cb32\transformed\print-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\pink5\.gradle\caches\8.13\transforms\0e818b7d039b03c3c983cfedabb7bfc7\transformed\core-runtime-2.2.0\AndroidManifest.xml:17:1-22:12
+MERGED from [com.facebook.fbjni:fbjni:0.7.0] C:\Users\pink5\.gradle\caches\8.13\transforms\621ee1498a88ca04a4f124ccbcc133db\transformed\fbjni-0.7.0\AndroidManifest.xml:2:1-7:12
+MERGED from [com.facebook.soloader:soloader:0.12.1] C:\Users\pink5\.gradle\caches\8.13\transforms\f06a6c6604a174cc70045dd9ab334fc2\transformed\soloader-0.12.1\AndroidManifest.xml:2:1-17:12
+	package
+		INJECTED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:2:11-69
+uses-permission#android.permission.BLUETOOTH
+ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:4:5-68
+MERGED from [com.meta.wearable:mwdat-mockdevice:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\33364bb8c4d372bc9b360606ce8da70e\transformed\mwdat-mockdevice-0.8.0\AndroidManifest.xml:13:5-68
+MERGED from [com.meta.wearable:mwdat-mockdevice:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\33364bb8c4d372bc9b360606ce8da70e\transformed\mwdat-mockdevice-0.8.0\AndroidManifest.xml:13:5-68
+MERGED from [com.meta.wearable:mwdat-camera:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\1f3466ae1129178d0bda79923c626237\transformed\mwdat-camera-0.8.0\AndroidManifest.xml:13:5-68
+MERGED from [com.meta.wearable:mwdat-camera:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\1f3466ae1129178d0bda79923c626237\transformed\mwdat-camera-0.8.0\AndroidManifest.xml:13:5-68
+MERGED from [com.meta.wearable:mwdat-display:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\374b395079d1f1ea3494f8f61e54798b\transformed\mwdat-display-0.8.0\AndroidManifest.xml:13:5-68
+MERGED from [com.meta.wearable:mwdat-display:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\374b395079d1f1ea3494f8f61e54798b\transformed\mwdat-display-0.8.0\AndroidManifest.xml:13:5-68
+MERGED from [com.meta.wearable:mwdat-core:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\5e7640bc80e9a88113c892847a8a5ba2\transformed\mwdat-core-0.8.0\AndroidManifest.xml:13:5-68
+MERGED from [com.meta.wearable:mwdat-core:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\5e7640bc80e9a88113c892847a8a5ba2\transformed\mwdat-core-0.8.0\AndroidManifest.xml:13:5-68
+	android:name
+		ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:4:22-65
+uses-permission#android.permission.BLUETOOTH_CONNECT
+ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:5:5-76
+MERGED from [com.meta.wearable:mwdat-mockdevice:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\33364bb8c4d372bc9b360606ce8da70e\transformed\mwdat-mockdevice-0.8.0\AndroidManifest.xml:12:5-76
+MERGED from [com.meta.wearable:mwdat-mockdevice:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\33364bb8c4d372bc9b360606ce8da70e\transformed\mwdat-mockdevice-0.8.0\AndroidManifest.xml:12:5-76
+MERGED from [com.meta.wearable:mwdat-camera:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\1f3466ae1129178d0bda79923c626237\transformed\mwdat-camera-0.8.0\AndroidManifest.xml:12:5-76
+MERGED from [com.meta.wearable:mwdat-camera:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\1f3466ae1129178d0bda79923c626237\transformed\mwdat-camera-0.8.0\AndroidManifest.xml:12:5-76
+MERGED from [com.meta.wearable:mwdat-display:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\374b395079d1f1ea3494f8f61e54798b\transformed\mwdat-display-0.8.0\AndroidManifest.xml:12:5-76
+MERGED from [com.meta.wearable:mwdat-display:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\374b395079d1f1ea3494f8f61e54798b\transformed\mwdat-display-0.8.0\AndroidManifest.xml:12:5-76
+MERGED from [com.meta.wearable:mwdat-core:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\5e7640bc80e9a88113c892847a8a5ba2\transformed\mwdat-core-0.8.0\AndroidManifest.xml:12:5-76
+MERGED from [com.meta.wearable:mwdat-core:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\5e7640bc80e9a88113c892847a8a5ba2\transformed\mwdat-core-0.8.0\AndroidManifest.xml:12:5-76
+	android:name
+		ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:5:22-73
+uses-permission#android.permission.CAMERA
+ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:6:5-65
+	android:name
+		ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:6:22-62
+uses-permission#android.permission.INTERNET
+ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:7:5-67
+	android:name
+		ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:7:22-64
+uses-feature#android.hardware.camera
+ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:9:5-85
+	android:required
+		ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:9:58-82
+	android:name
+		ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:9:19-57
+application
+ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:11:5-57:19
+INJECTED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:11:5-57:19
+MERGED from [com.google.android.material:material:1.12.0] C:\Users\pink5\.gradle\caches\8.13\transforms\e2d7080c93813f09f5ba68af8d8b5ecb\transformed\material-1.12.0\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.material:material:1.12.0] C:\Users\pink5\.gradle\caches\8.13\transforms\e2d7080c93813f09f5ba68af8d8b5ecb\transformed\material-1.12.0\AndroidManifest.xml:22:5-20
+MERGED from [com.meta.wearable:mwdat-mockdevice:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\33364bb8c4d372bc9b360606ce8da70e\transformed\mwdat-mockdevice-0.8.0\AndroidManifest.xml:15:5-20
+MERGED from [com.meta.wearable:mwdat-mockdevice:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\33364bb8c4d372bc9b360606ce8da70e\transformed\mwdat-mockdevice-0.8.0\AndroidManifest.xml:15:5-20
+MERGED from [com.meta.wearable:mwdat-camera:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\1f3466ae1129178d0bda79923c626237\transformed\mwdat-camera-0.8.0\AndroidManifest.xml:15:5-20
+MERGED from [com.meta.wearable:mwdat-camera:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\1f3466ae1129178d0bda79923c626237\transformed\mwdat-camera-0.8.0\AndroidManifest.xml:15:5-20
+MERGED from [com.meta.wearable:mwdat-display:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\374b395079d1f1ea3494f8f61e54798b\transformed\mwdat-display-0.8.0\AndroidManifest.xml:15:5-20
+MERGED from [com.meta.wearable:mwdat-display:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\374b395079d1f1ea3494f8f61e54798b\transformed\mwdat-display-0.8.0\AndroidManifest.xml:15:5-20
+MERGED from [com.meta.wearable:mwdat-core:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\5e7640bc80e9a88113c892847a8a5ba2\transformed\mwdat-core-0.8.0\AndroidManifest.xml:20:5-30:19
+MERGED from [com.meta.wearable:mwdat-core:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\5e7640bc80e9a88113c892847a8a5ba2\transformed\mwdat-core-0.8.0\AndroidManifest.xml:20:5-30:19
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] C:\Users\pink5\.gradle\caches\8.13\transforms\84ca6fbe27a00c7ed4197c50aa1bb18e\transformed\constraintlayout-2.0.1\AndroidManifest.xml:9:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] C:\Users\pink5\.gradle\caches\8.13\transforms\84ca6fbe27a00c7ed4197c50aa1bb18e\transformed\constraintlayout-2.0.1\AndroidManifest.xml:9:5-20
+MERGED from [androidx.window:window:1.5.0] C:\Users\pink5\.gradle\caches\8.13\transforms\9e2fe097878cceb80c15a94ab96bcbeb\transformed\window-1.5.0\AndroidManifest.xml:22:5-29:19
+MERGED from [androidx.window:window:1.5.0] C:\Users\pink5\.gradle\caches\8.13\transforms\9e2fe097878cceb80c15a94ab96bcbeb\transformed\window-1.5.0\AndroidManifest.xml:22:5-29:19
+MERGED from [androidx.emoji2:emoji2:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\b8b0f685ffe77caf50bef7d2f6b2965b\transformed\emoji2-1.4.0\AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.emoji2:emoji2:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\b8b0f685ffe77caf50bef7d2f6b2965b\transformed\emoji2-1.4.0\AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.core:core:1.18.0] C:\Users\pink5\.gradle\caches\8.13\transforms\f8c1c3566cf003e96c37a3f442156de8\transformed\core-1.18.0\AndroidManifest.xml:28:5-89
+MERGED from [androidx.core:core:1.18.0] C:\Users\pink5\.gradle\caches\8.13\transforms\f8c1c3566cf003e96c37a3f442156de8\transformed\core-1.18.0\AndroidManifest.xml:28:5-89
+MERGED from [androidx.lifecycle:lifecycle-process:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\fc05c838070ee8cf82cdfde228cee7a7\transformed\lifecycle-process-2.10.0\AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.lifecycle:lifecycle-process:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\fc05c838070ee8cf82cdfde228cee7a7\transformed\lifecycle-process-2.10.0\AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2944142a50b3719e7c746fd61ca03caf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:23:5-53:19
+MERGED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2944142a50b3719e7c746fd61ca03caf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:23:5-53:19
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\pink5\.gradle\caches\8.13\transforms\582e37bcf59c758337cba52dc655cb3c\transformed\startup-runtime-1.1.1\AndroidManifest.xml:25:5-31:19
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\pink5\.gradle\caches\8.13\transforms\582e37bcf59c758337cba52dc655cb3c\transformed\startup-runtime-1.1.1\AndroidManifest.xml:25:5-31:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\pink5\.gradle\caches\8.13\transforms\bdafd9decdb46712e7aff5c6aa6cdcf3\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\pink5\.gradle\caches\8.13\transforms\bdafd9decdb46712e7aff5c6aa6cdcf3\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:24:5-25:19
+MERGED from [com.facebook.soloader:soloader:0.12.1] C:\Users\pink5\.gradle\caches\8.13\transforms\f06a6c6604a174cc70045dd9ab334fc2\transformed\soloader-0.12.1\AndroidManifest.xml:11:5-15:19
+MERGED from [com.facebook.soloader:soloader:0.12.1] C:\Users\pink5\.gradle\caches\8.13\transforms\f06a6c6604a174cc70045dd9ab334fc2\transformed\soloader-0.12.1\AndroidManifest.xml:11:5-15:19
+	android:extractNativeLibs
+		INJECTED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml
+	android:appComponentFactory
+		ADDED from [androidx.core:core:1.18.0] C:\Users\pink5\.gradle\caches\8.13\transforms\f8c1c3566cf003e96c37a3f442156de8\transformed\core-1.18.0\AndroidManifest.xml:28:18-86
+	android:supportsRtl
+		ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:14:9-35
+	android:label
+		ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:13:9-41
+	android:allowBackup
+		ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:12:9-36
+	android:theme
+		ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:16:9-50
+	android:usesCleartextTraffic
+		ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:15:9-44
+meta-data#com.meta.wearable.mwdat.DAM_ENABLED
+ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:26:9-28:36
+	android:value
+		ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:28:13-33
+	android:name
+		ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:27:13-63
+activity#com.example.raybanvision.MainActivity
+ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:30:9-46:20
+	android:screenOrientation
+		ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:33:13-49
+	android:exported
+		ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:32:13-36
+	android:theme
+		ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:34:13-54
+	android:name
+		ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:31:13-41
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:35:13-38:29
+action#android.intent.action.MAIN
+ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:36:17-69
+	android:name
+		ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:36:25-66
+category#android.intent.category.LAUNCHER
+ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:37:17-77
+	android:name
+		ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:37:27-74
+intent-filter#action:name:android.intent.action.VIEW+category:name:android.intent.category.BROWSABLE+category:name:android.intent.category.DEFAULT+data:scheme:raybanvision
+ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:40:13-45:29
+action#android.intent.action.VIEW
+ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:41:17-69
+	android:name
+		ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:41:25-66
+category#android.intent.category.BROWSABLE
+ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:42:17-78
+	android:name
+		ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:42:27-75
+category#android.intent.category.DEFAULT
+ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:43:17-76
+	android:name
+		ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:43:27-73
+data
+ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:44:17-55
+	android:scheme
+		ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:44:23-52
+meta-data#android.support.FILE_PROVIDER_PATHS
+ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:53:13-55:54
+	android:resource
+		ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:55:17-51
+	android:name
+		ADDED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml:54:17-67
+uses-sdk
+INJECTED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml
+INJECTED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml
+MERGED from [com.google.android.material:material:1.12.0] C:\Users\pink5\.gradle\caches\8.13\transforms\e2d7080c93813f09f5ba68af8d8b5ecb\transformed\material-1.12.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.material:material:1.12.0] C:\Users\pink5\.gradle\caches\8.13\transforms\e2d7080c93813f09f5ba68af8d8b5ecb\transformed\material-1.12.0\AndroidManifest.xml:20:5-44
+MERGED from [com.meta.wearable:mwdat-mockdevice:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\33364bb8c4d372bc9b360606ce8da70e\transformed\mwdat-mockdevice-0.8.0\AndroidManifest.xml:8:5-10:41
+MERGED from [com.meta.wearable:mwdat-mockdevice:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\33364bb8c4d372bc9b360606ce8da70e\transformed\mwdat-mockdevice-0.8.0\AndroidManifest.xml:8:5-10:41
+MERGED from [com.meta.wearable:mwdat-camera:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\1f3466ae1129178d0bda79923c626237\transformed\mwdat-camera-0.8.0\AndroidManifest.xml:8:5-10:41
+MERGED from [com.meta.wearable:mwdat-camera:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\1f3466ae1129178d0bda79923c626237\transformed\mwdat-camera-0.8.0\AndroidManifest.xml:8:5-10:41
+MERGED from [com.meta.wearable:mwdat-display:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\374b395079d1f1ea3494f8f61e54798b\transformed\mwdat-display-0.8.0\AndroidManifest.xml:8:5-10:41
+MERGED from [com.meta.wearable:mwdat-display:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\374b395079d1f1ea3494f8f61e54798b\transformed\mwdat-display-0.8.0\AndroidManifest.xml:8:5-10:41
+MERGED from [com.meta.wearable:mwdat-core:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\5e7640bc80e9a88113c892847a8a5ba2\transformed\mwdat-core-0.8.0\AndroidManifest.xml:8:5-10:41
+MERGED from [com.meta.wearable:mwdat-core:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\5e7640bc80e9a88113c892847a8a5ba2\transformed\mwdat-core-0.8.0\AndroidManifest.xml:8:5-10:41
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] C:\Users\pink5\.gradle\caches\8.13\transforms\84ca6fbe27a00c7ed4197c50aa1bb18e\transformed\constraintlayout-2.0.1\AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] C:\Users\pink5\.gradle\caches\8.13\transforms\84ca6fbe27a00c7ed4197c50aa1bb18e\transformed\constraintlayout-2.0.1\AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.appcompat:appcompat-resources:1.6.1] C:\Users\pink5\.gradle\caches\8.13\transforms\8826b8e1bcc42532a42422d7703c1613\transformed\appcompat-resources-1.6.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat-resources:1.6.1] C:\Users\pink5\.gradle\caches\8.13\transforms\8826b8e1bcc42532a42422d7703c1613\transformed\appcompat-resources-1.6.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat:1.6.1] C:\Users\pink5\.gradle\caches\8.13\transforms\d6b31a22aad8bb1e5530935d82f075dd\transformed\appcompat-1.6.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat:1.6.1] C:\Users\pink5\.gradle\caches\8.13\transforms\d6b31a22aad8bb1e5530935d82f075dd\transformed\appcompat-1.6.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-runtime-android:2.9.8] C:\Users\pink5\.gradle\caches\8.13\transforms\48e4d4676e6a46381262ec5ad488519d\transformed\navigation-runtime-release\AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-runtime-android:2.9.8] C:\Users\pink5\.gradle\caches\8.13\transforms\48e4d4676e6a46381262ec5ad488519d\transformed\navigation-runtime-release\AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-common-android:2.9.8] C:\Users\pink5\.gradle\caches\8.13\transforms\7f9091e993db0a803fdca0ddee5b4e3d\transformed\navigation-common-release\AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-common-android:2.9.8] C:\Users\pink5\.gradle\caches\8.13\transforms\7f9091e993db0a803fdca0ddee5b4e3d\transformed\navigation-common-release\AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-compose-android:2.9.8] C:\Users\pink5\.gradle\caches\8.13\transforms\ee808929d169e40852e64d4c64af5f74\transformed\navigation-compose-release\AndroidManifest.xml:5:5-44
+MERGED from [androidx.navigation:navigation-compose-android:2.9.8] C:\Users\pink5\.gradle\caches\8.13\transforms\ee808929d169e40852e64d4c64af5f74\transformed\navigation-compose-release\AndroidManifest.xml:5:5-44
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\d96b38e13bfcee141ddd52aa2cdcd0ff\transformed\viewpager2-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\d96b38e13bfcee141ddd52aa2cdcd0ff\transformed\viewpager2-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.3.6] C:\Users\pink5\.gradle\caches\8.13\transforms\acc773942085f3feee64e812d2a436dd\transformed\fragment-1.3.6\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.3.6] C:\Users\pink5\.gradle\caches\8.13\transforms\acc773942085f3feee64e812d2a436dd\transformed\fragment-1.3.6\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.navigationevent:navigationevent-android:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\21b05cdf34fd80a902ab515897966fbc\transformed\navigationevent\AndroidManifest.xml:5:5-44
+MERGED from [androidx.navigationevent:navigationevent-android:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\21b05cdf34fd80a902ab515897966fbc\transformed\navigationevent\AndroidManifest.xml:5:5-44
+MERGED from [androidx.navigationevent:navigationevent-compose-android:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2c502d14ef2c57c6409156e3797663bd\transformed\navigationevent-compose\AndroidManifest.xml:5:5-44
+MERGED from [androidx.navigationevent:navigationevent-compose-android:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2c502d14ef2c57c6409156e3797663bd\transformed\navigationevent-compose\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material3:material3-android:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\e7b1a142888fcf6bb0163f83b8f947e9\transformed\material3\AndroidManifest.xml:20:5-44
+MERGED from [androidx.compose.material3:material3-android:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\e7b1a142888fcf6bb0163f83b8f947e9\transformed\material3\AndroidManifest.xml:20:5-44
+MERGED from [androidx.compose.material:material-ripple-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\5d9682161626b29436900e3495257bbb\transformed\material-ripple\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material:material-ripple-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\5d9682161626b29436900e3495257bbb\transformed\material-ripple\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.foundation:foundation-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\b5d298c360b41619abf5aab8830b88f3\transformed\foundation\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.foundation:foundation-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\b5d298c360b41619abf5aab8830b88f3\transformed\foundation\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.foundation:foundation-layout-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\261d0eea3f30282c976b70a473a2f947\transformed\foundation-layout\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.foundation:foundation-layout-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\261d0eea3f30282c976b70a473a2f947\transformed\foundation-layout\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.animation:animation-core-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\d206c5cf98163259e26e23a246b35ce4\transformed\animation-core\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.animation:animation-core-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\d206c5cf98163259e26e23a246b35ce4\transformed\animation-core\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.animation:animation-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\8f688e3d447335b4382fabdd7a5ea2c4\transformed\animation\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.animation:animation-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\8f688e3d447335b4382fabdd7a5ea2c4\transformed\animation\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-unit-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\61d7e1646cc6be82c12899ea3817e51f\transformed\ui-unit\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-unit-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\61d7e1646cc6be82c12899ea3817e51f\transformed\ui-unit\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-graphics-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\426fb7328456e0db716d28a3168d1345\transformed\ui-graphics\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-graphics-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\426fb7328456e0db716d28a3168d1345\transformed\ui-graphics\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-geometry-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\1f995e9b86c3d86b958177873811d583\transformed\ui-geometry\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-geometry-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\1f995e9b86c3d86b958177873811d583\transformed\ui-geometry\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-util-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\46a1a2082a0dc32630ea854b06d97210\transformed\ui-util\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-util-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\46a1a2082a0dc32630ea854b06d97210\transformed\ui-util\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-text-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\f692e17f091c29011a6ebd613d1d52be\transformed\ui-text\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-text-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\f692e17f091c29011a6ebd613d1d52be\transformed\ui-text\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.runtime:runtime-retain-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\b6c2a40ef288d4074525383401a894b0\transformed\runtime-retain\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.runtime:runtime-retain-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\b6c2a40ef288d4074525383401a894b0\transformed\runtime-retain\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.runtime:runtime-annotation-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\1b2f794d33a96a252a4eb06e2a40d34b\transformed\runtime-annotation\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.runtime:runtime-annotation-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\1b2f794d33a96a252a4eb06e2a40d34b\transformed\runtime-annotation\AndroidManifest.xml:5:5-44
+MERGED from [androidx.customview:customview-poolingcontainer:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\0b18b7c372119db9dbf2718b0cbe7af2\transformed\customview-poolingcontainer-1.0.0\AndroidManifest.xml:20:5-21:38
+MERGED from [androidx.customview:customview-poolingcontainer:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\0b18b7c372119db9dbf2718b0cbe7af2\transformed\customview-poolingcontainer-1.0.0\AndroidManifest.xml:20:5-21:38
+MERGED from [androidx.core:core-ktx:1.18.0] C:\Users\pink5\.gradle\caches\8.13\transforms\9e311abca26662661f66a0cbd59f9330\transformed\core-ktx-1.18.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.core:core-ktx:1.18.0] C:\Users\pink5\.gradle\caches\8.13\transforms\9e311abca26662661f66a0cbd59f9330\transformed\core-ktx-1.18.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\pink5\.gradle\caches\8.13\transforms\358e5fa766be0178d36ec5f7980b102d\transformed\coordinatorlayout-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\pink5\.gradle\caches\8.13\transforms\358e5fa766be0178d36ec5f7980b102d\transformed\coordinatorlayout-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] C:\Users\pink5\.gradle\caches\8.13\transforms\d410a243dcf8e66ee9505356c5a25225\transformed\drawerlayout-1.1.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] C:\Users\pink5\.gradle\caches\8.13\transforms\d410a243dcf8e66ee9505356c5a25225\transformed\drawerlayout-1.1.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.transition:transition:1.6.0] C:\Users\pink5\.gradle\caches\8.13\transforms\a72b475f78443f5f7597cb3ec60fc05d\transformed\transition-1.6.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.transition:transition:1.6.0] C:\Users\pink5\.gradle\caches\8.13\transforms\a72b475f78443f5f7597cb3ec60fc05d\transformed\transition-1.6.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\b843d9f77c857ef2f467a092d7982492\transformed\dynamicanimation-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\b843d9f77c857ef2f467a092d7982492\transformed\dynamicanimation-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\pink5\.gradle\caches\8.13\transforms\37882cc0c042c7bca3986afb1f1fae14\transformed\vectordrawable-animated-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\pink5\.gradle\caches\8.13\transforms\37882cc0c042c7bca3986afb1f1fae14\transformed\vectordrawable-animated-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\pink5\.gradle\caches\8.13\transforms\03cec11a9a02b3d8699b30e8043a0e6c\transformed\vectordrawable-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\pink5\.gradle\caches\8.13\transforms\03cec11a9a02b3d8699b30e8043a0e6c\transformed\vectordrawable-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [com.facebook.fresco:fbcore:3.6.0] C:\Users\pink5\.gradle\caches\8.13\transforms\b7ee0264ad37324ecf669f47ef050350\transformed\fbcore-3.6.0\AndroidManifest.xml:5:5-44
+MERGED from [com.facebook.fresco:fbcore:3.6.0] C:\Users\pink5\.gradle\caches\8.13\transforms\b7ee0264ad37324ecf669f47ef050350\transformed\fbcore-3.6.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] C:\Users\pink5\.gradle\caches\8.13\transforms\fa5c702d7dde973cba96d58858a2a0d5\transformed\recyclerview-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] C:\Users\pink5\.gradle\caches\8.13\transforms\fa5c702d7dde973cba96d58858a2a0d5\transformed\recyclerview-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\4cc53d0d4b3a01dcf2e5723a2ad997fb\transformed\viewpager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\4cc53d0d4b3a01dcf2e5723a2ad997fb\transformed\viewpager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.1.0] C:\Users\pink5\.gradle\caches\8.13\transforms\d2c1d8e464abc69fb58cd8d50d6c770e\transformed\customview-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.customview:customview:1.1.0] C:\Users\pink5\.gradle\caches\8.13\transforms\d2c1d8e464abc69fb58cd8d50d6c770e\transformed\customview-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\0f0b90a2d530ab29db2b9206d25f171b\transformed\legacy-support-core-utils-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\0f0b90a2d530ab29db2b9206d25f171b\transformed\legacy-support-core-utils-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.autofill:autofill:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\150ae733c0b8f04524b44789c37a720f\transformed\autofill-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.autofill:autofill:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\150ae733c0b8f04524b44789c37a720f\transformed\autofill-1.0.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.window:window-core-android:1.5.0] C:\Users\pink5\.gradle\caches\8.13\transforms\75f5fc46f30938c5a3cd7d4377445ebc\transformed\window-core\AndroidManifest.xml:5:5-44
+MERGED from [androidx.window:window-core-android:1.5.0] C:\Users\pink5\.gradle\caches\8.13\transforms\75f5fc46f30938c5a3cd7d4377445ebc\transformed\window-core\AndroidManifest.xml:5:5-44
+MERGED from [androidx.window:window:1.5.0] C:\Users\pink5\.gradle\caches\8.13\transforms\9e2fe097878cceb80c15a94ab96bcbeb\transformed\window-1.5.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.window:window:1.5.0] C:\Users\pink5\.gradle\caches\8.13\transforms\9e2fe097878cceb80c15a94ab96bcbeb\transformed\window-1.5.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\e0ee0ed4b3c917ec6259e223eaa3c95e\transformed\loader-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\e0ee0ed4b3c917ec6259e223eaa3c95e\transformed\loader-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.emoji2:emoji2-views-helper:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2b84e214e7a218b8678a83157b1373ac\transformed\emoji2-views-helper-1.4.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.emoji2:emoji2-views-helper:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2b84e214e7a218b8678a83157b1373ac\transformed\emoji2-views-helper-1.4.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.emoji2:emoji2:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\b8b0f685ffe77caf50bef7d2f6b2965b\transformed\emoji2-1.4.0\AndroidManifest.xml:21:5-44
+MERGED from [androidx.emoji2:emoji2:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\b8b0f685ffe77caf50bef7d2f6b2965b\transformed\emoji2-1.4.0\AndroidManifest.xml:21:5-44
+MERGED from [androidx.graphics:graphics-path:1.0.1] C:\Users\pink5\.gradle\caches\8.13\transforms\07f4af1441e0f32683724fe007f5ab96\transformed\graphics-path-1.0.1\AndroidManifest.xml:5:5-44
+MERGED from [androidx.graphics:graphics-path:1.0.1] C:\Users\pink5\.gradle\caches\8.13\transforms\07f4af1441e0f32683724fe007f5ab96\transformed\graphics-path-1.0.1\AndroidManifest.xml:5:5-44
+MERGED from [androidx.core:core:1.18.0] C:\Users\pink5\.gradle\caches\8.13\transforms\f8c1c3566cf003e96c37a3f442156de8\transformed\core-1.18.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.18.0] C:\Users\pink5\.gradle\caches\8.13\transforms\f8c1c3566cf003e96c37a3f442156de8\transformed\core-1.18.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-process:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\fc05c838070ee8cf82cdfde228cee7a7\transformed\lifecycle-process-2.10.0\AndroidManifest.xml:21:5-44
+MERGED from [androidx.lifecycle:lifecycle-process:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\fc05c838070ee8cf82cdfde228cee7a7\transformed\lifecycle-process-2.10.0\AndroidManifest.xml:21:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\0b7e8ab4a75ff2d827bd0d0286f5546b\transformed\lifecycle-livedata-core-ktx-2.10.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\0b7e8ab4a75ff2d827bd0d0286f5546b\transformed\lifecycle-livedata-core-ktx-2.10.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\8fa57bccdbe56f088a5a5ab865fc1e8b\transformed\lifecycle-livedata-2.10.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\8fa57bccdbe56f088a5a5ab865fc1e8b\transformed\lifecycle-livedata-2.10.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\7b3670b657488cf4c2356637f9c5fa2a\transformed\lifecycle-livedata-core-2.10.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\7b3670b657488cf4c2356637f9c5fa2a\transformed\lifecycle-livedata-core-2.10.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx-android:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\f3778c0a515c7d4dbaf6a6e289de36c7\transformed\lifecycle-runtime-ktx\AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx-android:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\f3778c0a515c7d4dbaf6a6e289de36c7\transformed\lifecycle-runtime-ktx\AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\1891e9c33921d3035bd2272672427dfb\transformed\lifecycle-viewmodel-2.10.0\AndroidManifest.xml:4:5-43
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\1891e9c33921d3035bd2272672427dfb\transformed\lifecycle-viewmodel-2.10.0\AndroidManifest.xml:4:5-43
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-android:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\7238336c44e3a8a8a830df88aef6e558\transformed\lifecycle-viewmodel\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-android:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\7238336c44e3a8a8a830df88aef6e558\transformed\lifecycle-viewmodel\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-android:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\09ec02ecfc4aa5d0acea225eb27f836e\transformed\lifecycle-runtime\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-android:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\09ec02ecfc4aa5d0acea225eb27f836e\transformed\lifecycle-runtime\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\fbaee53d7f30b039672e37391b195804\transformed\lifecycle-viewmodel-ktx-2.10.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\fbaee53d7f30b039672e37391b195804\transformed\lifecycle-viewmodel-ktx-2.10.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-service:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\bca0c1edd54b1062d1e71094081642e1\transformed\lifecycle-service-2.10.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-service:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\bca0c1edd54b1062d1e71094081642e1\transformed\lifecycle-service-2.10.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate-android:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\e408b76405eb92fb5ee3db9b0def9d5f\transformed\lifecycle-viewmodel-savedstate\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate-android:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\e408b76405eb92fb5ee3db9b0def9d5f\transformed\lifecycle-viewmodel-savedstate\AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate-ktx:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\44e772b97b6d2e0fcda1737a3d9dce1a\transformed\savedstate-ktx-1.4.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.savedstate:savedstate-ktx:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\44e772b97b6d2e0fcda1737a3d9dce1a\transformed\savedstate-ktx-1.4.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.savedstate:savedstate-android:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\f6985dfa546874ba66d5f063c6923e2e\transformed\savedstate\AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate-android:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\f6985dfa546874ba66d5f063c6923e2e\transformed\savedstate\AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate-compose-android:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\7b82c2d28dc265bdf63f272b1fa98f7b\transformed\savedstate-compose\AndroidManifest.xml:5:5-44
+MERGED from [androidx.savedstate:savedstate-compose-android:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\7b82c2d28dc265bdf63f272b1fa98f7b\transformed\savedstate-compose\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.runtime:runtime-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\4bf8d91633068cdb98539c01319aee2d\transformed\runtime\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.runtime:runtime-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\4bf8d91633068cdb98539c01319aee2d\transformed\runtime\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.runtime:runtime-saveable-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\23dce388b67fa924d00181adf723cfc2\transformed\runtime-saveable\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.runtime:runtime-saveable-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\23dce388b67fa924d00181adf723cfc2\transformed\runtime-saveable\AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-compose-android:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2628d6fc7db0ec51eb9db69082006799\transformed\lifecycle-runtime-compose\AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-compose-android:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2628d6fc7db0ec51eb9db69082006799\transformed\lifecycle-runtime-compose\AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-compose-android:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\1dae0bb5cc3d29e41f0367ec00d73958\transformed\lifecycle-viewmodel-compose\AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-compose-android:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\1dae0bb5cc3d29e41f0367ec00d73958\transformed\lifecycle-viewmodel-compose\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material:material-icons-extended-android:1.7.8] C:\Users\pink5\.gradle\caches\8.13\transforms\9574348053e1c09a3fd4640e45e5fb28\transformed\material-icons-extended-release\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material:material-icons-extended-android:1.7.8] C:\Users\pink5\.gradle\caches\8.13\transforms\9574348053e1c09a3fd4640e45e5fb28\transformed\material-icons-extended-release\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material:material-icons-core-android:1.7.8] C:\Users\pink5\.gradle\caches\8.13\transforms\12d9c5b03a406e49b44a37eb0e8ffedb\transformed\material-icons-core-release\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.material:material-icons-core-android:1.7.8] C:\Users\pink5\.gradle\caches\8.13\transforms\12d9c5b03a406e49b44a37eb0e8ffedb\transformed\material-icons-core-release\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\3a58fb9a1eb037c65a7f45daf0ae8649\transformed\ui\AndroidManifest.xml:5:5-44
+MERGED from [androidx.compose.ui:ui-android:1.11.2] C:\Users\pink5\.gradle\caches\8.13\transforms\3a58fb9a1eb037c65a7f45daf0ae8649\transformed\ui\AndroidManifest.xml:5:5-44
+MERGED from [androidx.activity:activity-ktx:1.13.0] C:\Users\pink5\.gradle\caches\8.13\transforms\b1371c54a86667c895cb15d626bb8522\transformed\activity-ktx-1.13.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.activity:activity-ktx:1.13.0] C:\Users\pink5\.gradle\caches\8.13\transforms\b1371c54a86667c895cb15d626bb8522\transformed\activity-ktx-1.13.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.activity:activity:1.13.0] C:\Users\pink5\.gradle\caches\8.13\transforms\c9980f7925e3fb4e0103cb567c2e781a\transformed\activity-1.13.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity:1.13.0] C:\Users\pink5\.gradle\caches\8.13\transforms\c9980f7925e3fb4e0103cb567c2e781a\transformed\activity-1.13.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity-compose:1.13.0] C:\Users\pink5\.gradle\caches\8.13\transforms\6b9c51c041d89b80d5d6aa72ea63c6d7\transformed\activity-compose-1.13.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.activity:activity-compose:1.13.0] C:\Users\pink5\.gradle\caches\8.13\transforms\6b9c51c041d89b80d5d6aa72ea63c6d7\transformed\activity-compose-1.13.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.core:core-viewtree:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2bd3399dc20d8e4257d98eb76eb9c36a\transformed\core-viewtree-1.0.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.core:core-viewtree:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2bd3399dc20d8e4257d98eb76eb9c36a\transformed\core-viewtree-1.0.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.4.1] C:\Users\pink5\.gradle\caches\8.13\transforms\d72f1592523d18af9b6d6ded22ad0894\transformed\annotation-experimental-1.4.1\AndroidManifest.xml:5:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.4.1] C:\Users\pink5\.gradle\caches\8.13\transforms\d72f1592523d18af9b6d6ded22ad0894\transformed\annotation-experimental-1.4.1\AndroidManifest.xml:5:5-44
+MERGED from [androidx.security:security-crypto:1.1.0] C:\Users\pink5\.gradle\caches\8.13\transforms\57cfcc854650645cc93f6cfe6e2f5aa2\transformed\security-crypto-1.1.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.security:security-crypto:1.1.0] C:\Users\pink5\.gradle\caches\8.13\transforms\57cfcc854650645cc93f6cfe6e2f5aa2\transformed\security-crypto-1.1.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.exifinterface:exifinterface:1.4.2] C:\Users\pink5\.gradle\caches\8.13\transforms\f3e4ab6f40b93843a015b0c9e31577c3\transformed\exifinterface-1.4.2\AndroidManifest.xml:5:5-44
+MERGED from [androidx.exifinterface:exifinterface:1.4.2] C:\Users\pink5\.gradle\caches\8.13\transforms\f3e4ab6f40b93843a015b0c9e31577c3\transformed\exifinterface-1.4.2\AndroidManifest.xml:5:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\123b34f474ff2364ef6d38e7cc861edc\transformed\cardview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\123b34f474ff2364ef6d38e7cc861edc\transformed\cardview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2944142a50b3719e7c746fd61ca03caf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:21:5-44
+MERGED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2944142a50b3719e7c746fd61ca03caf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:21:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\6abb115f7ee2a39b289893be7f417506\transformed\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\6abb115f7ee2a39b289893be7f417506\transformed\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\pink5\.gradle\caches\8.13\transforms\582e37bcf59c758337cba52dc655cb3c\transformed\startup-runtime-1.1.1\AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\pink5\.gradle\caches\8.13\transforms\582e37bcf59c758337cba52dc655cb3c\transformed\startup-runtime-1.1.1\AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.tracing:tracing:1.2.0] C:\Users\pink5\.gradle\caches\8.13\transforms\8a300af9ce2668f58478e64544403f2e\transformed\tracing-1.2.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.tracing:tracing:1.2.0] C:\Users\pink5\.gradle\caches\8.13\transforms\8a300af9ce2668f58478e64544403f2e\transformed\tracing-1.2.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\493d3da75396b2fb4a58217828cb2c60\transformed\interpolator-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\493d3da75396b2fb4a58217828cb2c60\transformed\interpolator-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\pink5\.gradle\caches\8.13\transforms\bdafd9decdb46712e7aff5c6aa6cdcf3\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\pink5\.gradle\caches\8.13\transforms\bdafd9decdb46712e7aff5c6aa6cdcf3\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\cc5ee3c35c634ed5144c37e6e1b0b1c9\transformed\documentfile-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\cc5ee3c35c634ed5144c37e6e1b0b1c9\transformed\documentfile-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2412736158e7bdf982354207b03a6149\transformed\localbroadcastmanager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2412736158e7bdf982354207b03a6149\transformed\localbroadcastmanager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\d71d47f7b9a131d4b58dadf66620cb32\transformed\print-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] C:\Users\pink5\.gradle\caches\8.13\transforms\d71d47f7b9a131d4b58dadf66620cb32\transformed\print-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\pink5\.gradle\caches\8.13\transforms\0e818b7d039b03c3c983cfedabb7bfc7\transformed\core-runtime-2.2.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\pink5\.gradle\caches\8.13\transforms\0e818b7d039b03c3c983cfedabb7bfc7\transformed\core-runtime-2.2.0\AndroidManifest.xml:20:5-44
+MERGED from [com.facebook.fbjni:fbjni:0.7.0] C:\Users\pink5\.gradle\caches\8.13\transforms\621ee1498a88ca04a4f124ccbcc133db\transformed\fbjni-0.7.0\AndroidManifest.xml:5:5-44
+MERGED from [com.facebook.fbjni:fbjni:0.7.0] C:\Users\pink5\.gradle\caches\8.13\transforms\621ee1498a88ca04a4f124ccbcc133db\transformed\fbjni-0.7.0\AndroidManifest.xml:5:5-44
+MERGED from [com.facebook.soloader:soloader:0.12.1] C:\Users\pink5\.gradle\caches\8.13\transforms\f06a6c6604a174cc70045dd9ab334fc2\transformed\soloader-0.12.1\AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.soloader:soloader:0.12.1] C:\Users\pink5\.gradle\caches\8.13\transforms\f06a6c6604a174cc70045dd9ab334fc2\transformed\soloader-0.12.1\AndroidManifest.xml:7:5-9:41
+	android:targetSdkVersion
+		INJECTED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from C:\unityprojects\Smartglass_shopping\app\src\main\AndroidManifest.xml
+queries
+ADDED from [com.meta.wearable:mwdat-core:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\5e7640bc80e9a88113c892847a8a5ba2\transformed\mwdat-core-0.8.0\AndroidManifest.xml:15:5-18:15
+package#com.facebook.stella
+ADDED from [com.meta.wearable:mwdat-core:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\5e7640bc80e9a88113c892847a8a5ba2\transformed\mwdat-core-0.8.0\AndroidManifest.xml:16:9-55
+	android:name
+		ADDED from [com.meta.wearable:mwdat-core:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\5e7640bc80e9a88113c892847a8a5ba2\transformed\mwdat-core-0.8.0\AndroidManifest.xml:16:18-52
+package#com.facebook.stella_debug
+ADDED from [com.meta.wearable:mwdat-core:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\5e7640bc80e9a88113c892847a8a5ba2\transformed\mwdat-core-0.8.0\AndroidManifest.xml:17:9-61
+	android:name
+		ADDED from [com.meta.wearable:mwdat-core:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\5e7640bc80e9a88113c892847a8a5ba2\transformed\mwdat-core-0.8.0\AndroidManifest.xml:17:18-58
+service#com.meta.wearable.acdc.sdk.service.ACDCRegistrationService
+ADDED from [com.meta.wearable:mwdat-core:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\5e7640bc80e9a88113c892847a8a5ba2\transformed\mwdat-core-0.8.0\AndroidManifest.xml:21:9-29:19
+	android:exported
+		ADDED from [com.meta.wearable:mwdat-core:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\5e7640bc80e9a88113c892847a8a5ba2\transformed\mwdat-core-0.8.0\AndroidManifest.xml:23:13-36
+	android:name
+		ADDED from [com.meta.wearable:mwdat-core:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\5e7640bc80e9a88113c892847a8a5ba2\transformed\mwdat-core-0.8.0\AndroidManifest.xml:22:13-86
+intent-filter#action:name:com.meta.wearable.acdc.sdk.service.ACDCRegistrationService.BIND+category:name:android.intent.category.DEFAULT
+ADDED from [com.meta.wearable:mwdat-core:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\5e7640bc80e9a88113c892847a8a5ba2\transformed\mwdat-core-0.8.0\AndroidManifest.xml:24:13-28:29
+action#com.meta.wearable.acdc.sdk.service.ACDCRegistrationService.BIND
+ADDED from [com.meta.wearable:mwdat-core:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\5e7640bc80e9a88113c892847a8a5ba2\transformed\mwdat-core-0.8.0\AndroidManifest.xml:25:17-106
+	android:name
+		ADDED from [com.meta.wearable:mwdat-core:0.8.0] C:\Users\pink5\.gradle\caches\8.13\transforms\5e7640bc80e9a88113c892847a8a5ba2\transformed\mwdat-core-0.8.0\AndroidManifest.xml:25:25-103
+uses-library#androidx.window.extensions
+ADDED from [androidx.window:window:1.5.0] C:\Users\pink5\.gradle\caches\8.13\transforms\9e2fe097878cceb80c15a94ab96bcbeb\transformed\window-1.5.0\AndroidManifest.xml:23:9-25:40
+	android:required
+		ADDED from [androidx.window:window:1.5.0] C:\Users\pink5\.gradle\caches\8.13\transforms\9e2fe097878cceb80c15a94ab96bcbeb\transformed\window-1.5.0\AndroidManifest.xml:25:13-37
+	android:name
+		ADDED from [androidx.window:window:1.5.0] C:\Users\pink5\.gradle\caches\8.13\transforms\9e2fe097878cceb80c15a94ab96bcbeb\transformed\window-1.5.0\AndroidManifest.xml:24:13-54
+uses-library#androidx.window.sidecar
+ADDED from [androidx.window:window:1.5.0] C:\Users\pink5\.gradle\caches\8.13\transforms\9e2fe097878cceb80c15a94ab96bcbeb\transformed\window-1.5.0\AndroidManifest.xml:26:9-28:40
+	android:required
+		ADDED from [androidx.window:window:1.5.0] C:\Users\pink5\.gradle\caches\8.13\transforms\9e2fe097878cceb80c15a94ab96bcbeb\transformed\window-1.5.0\AndroidManifest.xml:28:13-37
+	android:name
+		ADDED from [androidx.window:window:1.5.0] C:\Users\pink5\.gradle\caches\8.13\transforms\9e2fe097878cceb80c15a94ab96bcbeb\transformed\window-1.5.0\AndroidManifest.xml:27:13-51
+provider#androidx.startup.InitializationProvider
+ADDED from [androidx.emoji2:emoji2:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\b8b0f685ffe77caf50bef7d2f6b2965b\transformed\emoji2-1.4.0\AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.lifecycle:lifecycle-process:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\fc05c838070ee8cf82cdfde228cee7a7\transformed\lifecycle-process-2.10.0\AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.lifecycle:lifecycle-process:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\fc05c838070ee8cf82cdfde228cee7a7\transformed\lifecycle-process-2.10.0\AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2944142a50b3719e7c746fd61ca03caf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2944142a50b3719e7c746fd61ca03caf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\pink5\.gradle\caches\8.13\transforms\582e37bcf59c758337cba52dc655cb3c\transformed\startup-runtime-1.1.1\AndroidManifest.xml:26:9-30:34
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\pink5\.gradle\caches\8.13\transforms\582e37bcf59c758337cba52dc655cb3c\transformed\startup-runtime-1.1.1\AndroidManifest.xml:26:9-30:34
+	tools:node
+		ADDED from [androidx.emoji2:emoji2:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\b8b0f685ffe77caf50bef7d2f6b2965b\transformed\emoji2-1.4.0\AndroidManifest.xml:28:13-31
+	android:authorities
+		ADDED from [androidx.emoji2:emoji2:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\b8b0f685ffe77caf50bef7d2f6b2965b\transformed\emoji2-1.4.0\AndroidManifest.xml:26:13-68
+	android:exported
+		ADDED from [androidx.emoji2:emoji2:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\b8b0f685ffe77caf50bef7d2f6b2965b\transformed\emoji2-1.4.0\AndroidManifest.xml:27:13-37
+	android:name
+		ADDED from [androidx.emoji2:emoji2:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\b8b0f685ffe77caf50bef7d2f6b2965b\transformed\emoji2-1.4.0\AndroidManifest.xml:25:13-67
+meta-data#androidx.emoji2.text.EmojiCompatInitializer
+ADDED from [androidx.emoji2:emoji2:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\b8b0f685ffe77caf50bef7d2f6b2965b\transformed\emoji2-1.4.0\AndroidManifest.xml:29:13-31:52
+	android:value
+		ADDED from [androidx.emoji2:emoji2:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\b8b0f685ffe77caf50bef7d2f6b2965b\transformed\emoji2-1.4.0\AndroidManifest.xml:31:17-49
+	android:name
+		ADDED from [androidx.emoji2:emoji2:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\b8b0f685ffe77caf50bef7d2f6b2965b\transformed\emoji2-1.4.0\AndroidManifest.xml:30:17-75
+permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.18.0] C:\Users\pink5\.gradle\caches\8.13\transforms\f8c1c3566cf003e96c37a3f442156de8\transformed\core-1.18.0\AndroidManifest.xml:22:5-24:47
+	android:protectionLevel
+		ADDED from [androidx.core:core:1.18.0] C:\Users\pink5\.gradle\caches\8.13\transforms\f8c1c3566cf003e96c37a3f442156de8\transformed\core-1.18.0\AndroidManifest.xml:24:9-44
+	android:name
+		ADDED from [androidx.core:core:1.18.0] C:\Users\pink5\.gradle\caches\8.13\transforms\f8c1c3566cf003e96c37a3f442156de8\transformed\core-1.18.0\AndroidManifest.xml:23:9-81
+permission#com.example.raybanvision.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.18.0] C:\Users\pink5\.gradle\caches\8.13\transforms\f8c1c3566cf003e96c37a3f442156de8\transformed\core-1.18.0\AndroidManifest.xml:22:5-24:47
+	android:protectionLevel
+		ADDED from [androidx.core:core:1.18.0] C:\Users\pink5\.gradle\caches\8.13\transforms\f8c1c3566cf003e96c37a3f442156de8\transformed\core-1.18.0\AndroidManifest.xml:24:9-44
+	android:name
+		ADDED from [androidx.core:core:1.18.0] C:\Users\pink5\.gradle\caches\8.13\transforms\f8c1c3566cf003e96c37a3f442156de8\transformed\core-1.18.0\AndroidManifest.xml:23:9-81
+uses-permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.18.0] C:\Users\pink5\.gradle\caches\8.13\transforms\f8c1c3566cf003e96c37a3f442156de8\transformed\core-1.18.0\AndroidManifest.xml:26:5-97
+	android:name
+		ADDED from [androidx.core:core:1.18.0] C:\Users\pink5\.gradle\caches\8.13\transforms\f8c1c3566cf003e96c37a3f442156de8\transformed\core-1.18.0\AndroidManifest.xml:26:22-94
+uses-permission#com.example.raybanvision.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.18.0] C:\Users\pink5\.gradle\caches\8.13\transforms\f8c1c3566cf003e96c37a3f442156de8\transformed\core-1.18.0\AndroidManifest.xml:26:5-97
+	android:name
+		ADDED from [androidx.core:core:1.18.0] C:\Users\pink5\.gradle\caches\8.13\transforms\f8c1c3566cf003e96c37a3f442156de8\transformed\core-1.18.0\AndroidManifest.xml:26:22-94
+meta-data#androidx.lifecycle.ProcessLifecycleInitializer
+ADDED from [androidx.lifecycle:lifecycle-process:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\fc05c838070ee8cf82cdfde228cee7a7\transformed\lifecycle-process-2.10.0\AndroidManifest.xml:29:13-31:52
+	android:value
+		ADDED from [androidx.lifecycle:lifecycle-process:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\fc05c838070ee8cf82cdfde228cee7a7\transformed\lifecycle-process-2.10.0\AndroidManifest.xml:31:17-49
+	android:name
+		ADDED from [androidx.lifecycle:lifecycle-process:2.10.0] C:\Users\pink5\.gradle\caches\8.13\transforms\fc05c838070ee8cf82cdfde228cee7a7\transformed\lifecycle-process-2.10.0\AndroidManifest.xml:30:17-78
+meta-data#androidx.profileinstaller.ProfileInstallerInitializer
+ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2944142a50b3719e7c746fd61ca03caf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:29:13-31:52
+	android:value
+		ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2944142a50b3719e7c746fd61ca03caf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:31:17-49
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2944142a50b3719e7c746fd61ca03caf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:30:17-85
+receiver#androidx.profileinstaller.ProfileInstallReceiver
+ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2944142a50b3719e7c746fd61ca03caf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:34:9-52:20
+	android:enabled
+		ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2944142a50b3719e7c746fd61ca03caf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:37:13-35
+	android:exported
+		ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2944142a50b3719e7c746fd61ca03caf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:38:13-36
+	android:permission
+		ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2944142a50b3719e7c746fd61ca03caf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:39:13-57
+	android:directBootAware
+		ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2944142a50b3719e7c746fd61ca03caf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:36:13-44
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2944142a50b3719e7c746fd61ca03caf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:35:13-76
+intent-filter#action:name:androidx.profileinstaller.action.INSTALL_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2944142a50b3719e7c746fd61ca03caf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:40:13-42:29
+action#androidx.profileinstaller.action.INSTALL_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2944142a50b3719e7c746fd61ca03caf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:41:17-91
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2944142a50b3719e7c746fd61ca03caf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:41:25-88
+intent-filter#action:name:androidx.profileinstaller.action.SKIP_FILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2944142a50b3719e7c746fd61ca03caf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:43:13-45:29
+action#androidx.profileinstaller.action.SKIP_FILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2944142a50b3719e7c746fd61ca03caf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:44:17-85
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2944142a50b3719e7c746fd61ca03caf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:44:25-82
+intent-filter#action:name:androidx.profileinstaller.action.SAVE_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2944142a50b3719e7c746fd61ca03caf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:46:13-48:29
+action#androidx.profileinstaller.action.SAVE_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2944142a50b3719e7c746fd61ca03caf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:47:17-88
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2944142a50b3719e7c746fd61ca03caf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:47:25-85
+intent-filter#action:name:androidx.profileinstaller.action.BENCHMARK_OPERATION
+ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2944142a50b3719e7c746fd61ca03caf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:49:13-51:29
+action#androidx.profileinstaller.action.BENCHMARK_OPERATION
+ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2944142a50b3719e7c746fd61ca03caf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:50:17-95
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\pink5\.gradle\caches\8.13\transforms\2944142a50b3719e7c746fd61ca03caf\transformed\profileinstaller-1.4.0\AndroidManifest.xml:50:25-92
+meta-data#com.facebook.soloader.enabled
+ADDED from [com.facebook.soloader:soloader:0.12.1] C:\Users\pink5\.gradle\caches\8.13\transforms\f06a6c6604a174cc70045dd9ab334fc2\transformed\soloader-0.12.1\AndroidManifest.xml:12:9-14:37
+	android:value
+		ADDED from [com.facebook.soloader:soloader:0.12.1] C:\Users\pink5\.gradle\caches\8.13\transforms\f06a6c6604a174cc70045dd9ab334fc2\transformed\soloader-0.12.1\AndroidManifest.xml:14:13-34
+	android:name
+		ADDED from [com.facebook.soloader:soloader:0.12.1] C:\Users\pink5\.gradle\caches\8.13\transforms\f06a6c6604a174cc70045dd9ab334fc2\transformed\soloader-0.12.1\AndroidManifest.xml:13:13-57
