@@ -1,0 +1,174 @@
+{
+  "component": "IconButton",
+  "figma": {
+    "fileKey": "Oo9W0U9SyNGNZXyD8urNJZ",
+    "nodeId": "69:5652",
+    "url": "https://www.figma.com/design/Oo9W0U9SyNGNZXyD8urNJZ/Shopping-XR?node-id=69-5652",
+    "keywords": ["action", "negative", "destructive"]
+  },
+  "tokensFile": "tokens.css",
+  "interactionTokensFile": "interactions.css",
+  "cssFile": "Resources/Components/IconButton.css",
+  "shape": {
+    "layout": "row",
+    "gap": "var(--sds-size-space-200)",
+    "align": "center",
+    "justify": "center",
+    "radius": "var(--radius-full)",
+    "clip": true
+  },
+  "interaction": {
+    "hover": {
+      "trigger": "state=Default → state=Hover, pointer hover only (no press/focus state defined here)",
+      "transitionedProperties": ["color", "border-color", "box-shadow", "background (via state layer)"],
+      "duration": "var(--motion-duration-fast) for color/border-color, var(--motion-duration-base) for box-shadow and the state layer",
+      "easing": "var(--motion-easing-standard)",
+      "mechanism": "apply class=\"interactive-surface\" (interactions.css) alongside the icon-btn classes. Same state-layer crossfade mechanism as Resources/Components/Button.json — see its interaction notes for the rationale."
+    },
+    "disabled": {
+      "rule": "state=Disabled must be a full hover no-op — no color/border/shadow/background change on pointer-over.",
+      "trigger": "class=\"icon-btn--disabled\" (visual-only) or native :disabled (e.g. CameraViewfinder's capture button).",
+      "mechanism": "Same fix as Resources/Components/Button.json — IconButton.css's Disabled block repeats each selector under :hover with identical resting values so it always wins over the variant's :hover rule, and resets --state-layer-bg to transparent as a second guard."
+    }
+  },
+  "props": {
+    "variant": { "type": "enum", "values": ["Primary", "Neutral", "Subtle"], "default": "Primary" },
+    "color": { "type": "enum", "values": ["Transparent", "Solid"], "default": "Transparent" },
+    "size": { "type": "enum", "values": ["Large", "Medium", "Small"], "default": "Medium" },
+    "state": { "type": "enum", "values": ["Default", "Hover", "Disabled"], "default": "Default" },
+    "icon": { "type": "iconRef", "required": true, "source": "Resources/Icons" }
+  },
+  "sizes": {
+    "Large": {
+      "padding": "var(--sds-size-space-800)",
+      "iconSize": "var(--icon-size-md)",
+      "borderWidthTransparent": "var(--sds-size-stroke-border-thick)"
+    },
+    "Medium": {
+      "padding": "var(--sds-size-space-500)",
+      "iconSize": "var(--icon-size-md)",
+      "borderWidthTransparent": "var(--sds-size-stroke-border-thick)"
+    },
+    "Small": {
+      "padding": "var(--sds-size-space-300)",
+      "iconSize": "var(--icon-size-sm)",
+      "borderWidthTransparent": "var(--sds-size-stroke-border)"
+    }
+  },
+  "notes": [
+    "배경/테두리/그림자 규칙은 Button 컴포넌트와 동일한 상태 체계를 공유합니다 (Resources/Components/Button.json 참고).",
+    "iconColor는 styles의 iconColor 토큰을 그대로 사용합니다 (Button의 textColor와 동일한 색 체계).",
+    "borderColor는 기본적으로 var(--stroke-white-default) 이지만, size=Medium & state=Hover 조합에서만 var(--stroke-white-focused)로 바뀝니다.",
+    "Large 사이즈는 CameraViewfinder(Resources/Components/CameraViewfinder.json, node 55:5534/69:6360)의 96px 촬영 버튼을 위해 새로 추가했습니다 — padding var(--sds-size-space-800)(32px)+iconSize var(--icon-size-md)(32px)로 총 96px. borderWidthTransparent는 Medium 값을 그대로 확장 적용한 추정치이며, Large×Transparent 조합이 실제 Figma에 존재하는지는 아직 확인되지 않았습니다."
+  ],
+  "styles": {
+    "Primary.Transparent.Default": {
+      "background": "var(--ColorButtonTransparentBrandDefault)",
+      "border": "var(--stroke-white-default)",
+      "iconColor": "var(--sds-color-white-700)",
+      "shadow": "EffectStyleButtonDefault"
+    },
+    "Primary.Transparent.Hover": {
+      "background": "var(--ColorButtonTransparentBrandFocused)",
+      "border": "var(--stroke-white-default)",
+      "iconColor": "var(--sds-color-white-1000)",
+      "shadow": "EffectStyleButtonSelected"
+    },
+    "Primary.Transparent.Disabled": {
+      "background": "var(--sds-color-white-200)",
+      "border": "none",
+      "iconColor": "var(--sds-color-white-400)",
+      "shadow": "none"
+    },
+    "Neutral.Transparent.Default": {
+      "background": "var(--ColorButtonTransparentWhiteDefault)",
+      "border": "var(--stroke-white-default)",
+      "iconColor": "var(--sds-color-white-700)",
+      "shadow": "EffectStyleButtonDefault"
+    },
+    "Neutral.Transparent.Hover": {
+      "background": "var(--ColorButtonTransparentWhiteFocused)",
+      "border": "var(--stroke-white-default)",
+      "iconColor": "var(--sds-color-white-1000)",
+      "shadow": "EffectStyleButtonSelected"
+    },
+    "Neutral.Transparent.Disabled": {
+      "background": "var(--sds-color-white-200)",
+      "border": "none",
+      "iconColor": "var(--sds-color-white-400)",
+      "shadow": "none"
+    },
+    "Subtle.Transparent.Default": {
+      "background": "var(--sds-color-white-200)",
+      "border": "none",
+      "iconColor": "var(--sds-color-white-700)",
+      "shadow": "none"
+    },
+    "Subtle.Transparent.Hover": {
+      "background": "var(--sds-color-white-200)",
+      "border": "var(--stroke-white-default)",
+      "iconColor": "var(--sds-color-white-1000)",
+      "shadow": "EffectStyleButtonSelected"
+    },
+    "Subtle.Transparent.Disabled": {
+      "background": "var(--sds-color-white-200)",
+      "border": "none",
+      "iconColor": "var(--sds-color-white-400)",
+      "shadow": "none"
+    },
+    "Primary.Solid.Default": {
+      "background": "var(--ColorButtonSolidBrandDefault)",
+      "border": "none",
+      "iconColor": "var(--sds-color-gray-900)",
+      "shadow": "EffectStyleButtonDefault"
+    },
+    "Primary.Solid.Hover": {
+      "background": "var(--ColorButtonSolidBrandHover)",
+      "border": "none",
+      "iconColor": "var(--sds-color-gray-600)",
+      "shadow": "none"
+    },
+    "Primary.Solid.Disabled": {
+      "background": "var(--sds-color-gray-400)",
+      "border": "none",
+      "iconColor": "var(--sds-color-gray-300)",
+      "shadow": "none"
+    },
+    "Neutral.Solid.Default": {
+      "background": "var(--sds-color-gray-800)",
+      "border": "none",
+      "iconColor": "var(--sds-color-gray-100)",
+      "shadow": "none"
+    },
+    "Neutral.Solid.Hover": {
+      "background": "var(--sds-color-gray-600)",
+      "border": "none",
+      "iconColor": "var(--sds-color-gray-100)",
+      "shadow": "none"
+    },
+    "Neutral.Solid.Disabled": {
+      "background": "var(--sds-color-gray-400)",
+      "border": "none",
+      "iconColor": "var(--sds-color-gray-300)",
+      "shadow": "none"
+    },
+    "Subtle.Solid.Default": {
+      "background": "transparent",
+      "border": "none",
+      "iconColor": "var(--sds-color-gray-700)",
+      "shadow": "none"
+    },
+    "Subtle.Solid.Hover": {
+      "background": "var(--sds-color-black-100)",
+      "border": "none",
+      "iconColor": "var(--sds-color-gray-700)",
+      "shadow": "none"
+    },
+    "Subtle.Solid.Disabled": {
+      "background": "var(--sds-color-gray-400)",
+      "border": "none",
+      "iconColor": "var(--sds-color-gray-300)",
+      "shadow": "none"
+    }
+  }
+}

@@ -1,0 +1,177 @@
+{
+  "component": "Button",
+  "figma": {
+    "fileKey": "Oo9W0U9SyNGNZXyD8urNJZ",
+    "nodeId": "53:361",
+    "url": "https://www.figma.com/design/Oo9W0U9SyNGNZXyD8urNJZ/Shopping-XR?node-id=53-361",
+    "keywords": ["action", "negative", "destructive"]
+  },
+  "tokensFile": "tokens.css",
+  "interactionTokensFile": "interactions.css",
+  "cssFile": "Resources/Components/Button.css",
+  "shape": {
+    "layout": "row",
+    "gap": "var(--sds-size-space-200)",
+    "align": "center",
+    "justify": "center",
+    "radius": "var(--radius-full)",
+    "clip": true
+  },
+  "interaction": {
+    "hover": {
+      "trigger": "state=Default → state=Hover, pointer hover only (no press/focus state defined here)",
+      "transitionedProperties": ["color", "border-color", "box-shadow", "background (via state layer)"],
+      "duration": "var(--motion-duration-fast) for color/border-color, var(--motion-duration-base) for box-shadow and the state layer",
+      "easing": "var(--motion-easing-standard)",
+      "mechanism": "apply class=\"interactive-surface\" (interactions.css) alongside the btn classes. The Hover background is drawn on a ::after state layer that fades in via opacity — background/background-image itself is never transitioned directly."
+    },
+    "disabled": {
+      "rule": "state=Disabled must be a full hover no-op — no color/border/shadow/background change on pointer-over.",
+      "trigger": "class=\"btn--disabled\" (visual-only, e.g. PriceInformation's non-focused card — stays tappable) or native :disabled (a real <button disabled>).",
+      "mechanism": "Button.css's Disabled block repeats each selector under :hover with the identical resting values, so it always wins over the variant's own :hover rule regardless of source order elsewhere; --state-layer-bg is also forced to transparent as a second guard. Do not rely on simply omitting class=\"interactive-surface\" — the variant :hover rules (color/border-color/box-shadow) fire independently of that class."
+    }
+  },
+  "props": {
+    "variant": { "type": "enum", "values": ["Primary", "Neutral", "Subtle"], "default": "Primary" },
+    "color": { "type": "enum", "values": ["Transparent", "Solid"], "default": "Transparent" },
+    "size": { "type": "enum", "values": ["Medium", "Small"], "default": "Medium" },
+    "state": { "type": "enum", "values": ["Default", "Hover", "Disabled"], "default": "Default" },
+    "label": { "type": "string", "default": "Button" },
+    "iconStart": { "type": "iconRef", "optional": true, "source": "Resources/Icons" },
+    "iconEnd": { "type": "iconRef", "optional": true, "source": "Resources/Icons" }
+  },
+  "sizes": {
+    "Medium": {
+      "paddingX": "var(--sds-size-space-800)",
+      "paddingY": "var(--sds-size-space-600)",
+      "iconSize": "var(--icon-size-sm)",
+      "textStyle": "TextStyleSingleLineBodyBase",
+      "borderWidthTransparent": "var(--sds-size-stroke-border-thick)"
+    },
+    "Small": {
+      "paddingX": "var(--sds-size-space-400)",
+      "paddingY": "var(--sds-size-space-300)",
+      "iconSize": "var(--icon-size-sm)",
+      "textStyle": "TextStyleSingleLineBodySmallStrong",
+      "borderWidthTransparent": "var(--sds-size-stroke-border)"
+    }
+  },
+  "notes": [
+    "iconColor는 각 state의 textColor 토큰과 동일합니다.",
+    "borderColor는 기본적으로 var(--stroke-white-default) 이지만, size=Medium & state=Hover 조합에서만 var(--stroke-white-focused)로 바뀝니다 (Figma 원본의 실제 동작).",
+    "Primary.Solid.Default의 shadow는 Small 사이즈 원본에만 명시적으로 있었으나, 배경 그라디언트에 포함된 하이라이트와 일관되도록 Medium에도 동일 적용했습니다.",
+    "Hover 배경(ColorButtonTransparentBrandFocused, ColorButtonSolidBrandHover 등)은 그라디언트라 background-image 전환이 브라우저에서 보간되지 않습니다 — Button.css는 이를 ::after 상태 레이어의 opacity 크로스페이드로 처리합니다 (interactions.css 참고). 편이 없는 조합(Neutral.Solid, Subtle.Solid)도 동일 메커니즘을 재사용해 일관성을 유지합니다.",
+    "shadow가 'none' ↔ EffectStyle* 사이를 오가는 조합(Subtle.Transparent, Primary.Solid)은 'none' 쪽을 동일한 형태의 0-alpha 그림자(예: inset 0px 4px 24px rgba(255,255,255,0))로 대체해 자연스럽게 페이드되도록 했습니다.",
+    "sizes.Small.paddingX가 24px(var(--sds-size-space-600))에서 16px(var(--sds-size-space-400))로 줄었습니다 — Figma에서는 20px(var(--sds-size-space-500))까지만 확인됐으나 실사용 중 라벨 여백이 더 타이트해야 한다는 피드백으로 16px까지 추가로 줄인 상태입니다. size=Medium의 paddingX(32px)와 두 사이즈의 paddingY는 변경되지 않았습니다."
+  ],
+  "styles": {
+    "Primary.Transparent.Default": {
+      "background": "var(--ColorButtonTransparentBrandDefault)",
+      "border": "var(--stroke-white-default)",
+      "textColor": "var(--sds-color-white-700)",
+      "shadow": "EffectStyleButtonDefault"
+    },
+    "Primary.Transparent.Hover": {
+      "background": "var(--ColorButtonTransparentBrandFocused)",
+      "border": "var(--stroke-white-default)",
+      "textColor": "var(--sds-color-white-1000)",
+      "shadow": "EffectStyleButtonSelected"
+    },
+    "Primary.Transparent.Disabled": {
+      "background": "var(--sds-color-white-200)",
+      "border": "none",
+      "textColor": "var(--sds-color-white-400)",
+      "shadow": "none"
+    },
+    "Neutral.Transparent.Default": {
+      "background": "var(--ColorButtonTransparentWhiteDefault)",
+      "border": "var(--stroke-white-default)",
+      "textColor": "var(--sds-color-white-700)",
+      "shadow": "EffectStyleButtonDefault"
+    },
+    "Neutral.Transparent.Hover": {
+      "background": "var(--ColorButtonTransparentWhiteFocused)",
+      "border": "var(--stroke-white-default)",
+      "textColor": "var(--sds-color-white-1000)",
+      "shadow": "EffectStyleButtonSelected"
+    },
+    "Neutral.Transparent.Disabled": {
+      "background": "var(--sds-color-white-200)",
+      "border": "none",
+      "textColor": "var(--sds-color-white-400)",
+      "shadow": "none"
+    },
+    "Subtle.Transparent.Default": {
+      "background": "var(--sds-color-white-200)",
+      "border": "none",
+      "textColor": "var(--sds-color-white-700)",
+      "shadow": "none"
+    },
+    "Subtle.Transparent.Hover": {
+      "background": "var(--sds-color-white-200)",
+      "border": "var(--stroke-white-default)",
+      "textColor": "var(--sds-color-white-1000)",
+      "shadow": "EffectStyleButtonSelected"
+    },
+    "Subtle.Transparent.Disabled": {
+      "background": "var(--sds-color-white-200)",
+      "border": "none",
+      "textColor": "var(--sds-color-white-400)",
+      "shadow": "none"
+    },
+    "Primary.Solid.Default": {
+      "background": "var(--ColorButtonSolidBrandDefault)",
+      "border": "none",
+      "textColor": "var(--sds-color-gray-900)",
+      "shadow": "EffectStyleButtonDefault"
+    },
+    "Primary.Solid.Hover": {
+      "background": "var(--ColorButtonSolidBrandHover)",
+      "border": "none",
+      "textColor": "var(--sds-color-gray-600)",
+      "shadow": "none"
+    },
+    "Primary.Solid.Disabled": {
+      "background": "var(--sds-color-gray-400)",
+      "border": "none",
+      "textColor": "var(--sds-color-gray-300)",
+      "shadow": "none"
+    },
+    "Neutral.Solid.Default": {
+      "background": "var(--sds-color-gray-800)",
+      "border": "none",
+      "textColor": "var(--sds-color-gray-100)",
+      "shadow": "none"
+    },
+    "Neutral.Solid.Hover": {
+      "background": "var(--sds-color-gray-600)",
+      "border": "none",
+      "textColor": "var(--sds-color-gray-100)",
+      "shadow": "none"
+    },
+    "Neutral.Solid.Disabled": {
+      "background": "var(--sds-color-gray-400)",
+      "border": "none",
+      "textColor": "var(--sds-color-gray-300)",
+      "shadow": "none"
+    },
+    "Subtle.Solid.Default": {
+      "background": "transparent",
+      "border": "none",
+      "textColor": "var(--sds-color-gray-700)",
+      "shadow": "none"
+    },
+    "Subtle.Solid.Hover": {
+      "background": "var(--sds-color-black-100)",
+      "border": "none",
+      "textColor": "var(--sds-color-gray-700)",
+      "shadow": "none"
+    },
+    "Subtle.Solid.Disabled": {
+      "background": "var(--sds-color-gray-400)",
+      "border": "none",
+      "textColor": "var(--sds-color-gray-300)",
+      "shadow": "none"
+    }
+  }
+}

@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<title>Shoply — Price Compare (Galaxy S25+)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../interactions.css">
+<link rel="stylesheet" href="../Resources/Components/Button.css">
+<link rel="stylesheet" href="../Resources/Components/ProductName.css">
+<link rel="stylesheet" href="../Resources/Components/PriceInformation.css">
+<style>
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    background: #1a1a1a;
+    font-family: 'Inter', var(--sds-typography-body-font-family);
+  }
+
+  .page-label {
+    color: #999;
+    font-size: 13px;
+    letter-spacing: 0.02em;
+  }
+
+  /* Galaxy S25+ CSS viewport: 480 x 1040 (device pixel ratio 3) — same shell as onboarding.html */
+  .device-viewport {
+    width: 480px;
+    height: 1040px;
+    overflow: hidden;
+    border-radius: 36px;
+    box-shadow: 0 0 0 10px #000, 0 24px 64px rgba(0, 0, 0, 0.5);
+    position: relative;
+  }
+
+  /* Screen is authored at its native Figma frame size (600x1300) then
+     scaled 0.8x to exactly fill the 480x1040 Galaxy S25+ viewport. */
+  .canvas {
+    width: 600px;
+    height: 1300px;
+    transform: scale(0.8);
+    transform-origin: top left;
+    position: relative;
+    overflow: hidden;
+    background: var(--sds-color-black-1000);
+  }
+
+  /* The photo captured on CameraViewfinder (Resources/Components/CameraViewfinder.json),
+     handed off via sessionStorage — dimmed to 30% and mirrored to match how it
+     was shown live (camera.html mirrors its <video> the same way). */
+  .captured-photo-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.3;
+    transform: scaleX(-1);
+  }
+
+  /* ---------- AndroidStatusBar (Resources/Components/AndroidStatusBar.json, Dark) ---------- */
+  .status-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 600px;
+    height: 40px;
+    background: #0F0F0F;
+  }
+  .status-bar .time {
+    position: absolute;
+    left: 3.33%;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Roboto', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 23.333px;
+    letter-spacing: 0.0233px;
+    color: rgba(255, 255, 255, 0.9);
+    white-space: nowrap;
+  }
+  .status-bar .icons {
+    position: absolute;
+    right: 3.33%;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .status-bar .icons img.cellular { width: 30px; height: 20px; }
+  .status-bar .icons img.wifi { width: 26.667px; height: 20px; }
+  .status-bar .icons img.battery { width: 40px; height: 20px; }
+
+  /* ---------- AndroidNavBar (Resources/Components/AndroidNavBar.json, Dark) ---------- */
+  .nav-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 600px;
+    height: 80px;
+    background: #0F0F0F;
+  }
+  .nav-bar .back {
+    position: absolute;
+    left: calc(50% - 168.33px);
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 23.333px;
+  }
+  .nav-bar .home {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 26.667px;
+    height: 26.667px;
+  }
+  .nav-bar .recent {
+    position: absolute;
+    left: calc(50% + 166.67px);
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 23.333px;
+    height: 23.333px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.9);
+  }
+
+  /* ---------- Screen content (Resources/Components/PriceCompareScreen.json) ---------- */
+  .content {
+    position: absolute;
+    left: 0;
+    top: 230px;
+    width: 600px;
+    height: 800px;
+    padding: 0 var(--sds-size-space-800);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sds-size-space-600);
+  }
+
+  .info-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sds-size-space-500);
+    width: 100%;
+    flex: 1 0 0;
+    min-height: 0;
+  }
+
+  /* PriceCompareScreen stretches ProductName to the full content width
+     instead of its usual fixed --size-card-width (466px) — this page is a
+     full comparison list, not an AR overlay card. PriceInformation keeps its
+     own fixed --size-price-card-width so three fit side by side. */
+  .info-column .product-name-card {
+    width: 100%;
+  }
+
+  .price-row {
+    display: flex;
+    gap: var(--sds-size-space-200);
+    width: 100%;
+  }
+
+  .instruction-chip {
+    padding: var(--sds-size-space-300) var(--sds-size-space-600);
+    border-radius: var(--radius-full);
+    background: var(--sds-color-white-200);
+    color: var(--sds-color-white-1000);
+    white-space: nowrap;
+  }
+
+  .action-row {
+    display: flex;
+    gap: var(--sds-size-space-400);
+    align-items: center;
+    width: 100%;
+  }
+  .action-row .btn { flex: 1 0 0; }
+</style>
+</head>
+<body>
+  <p class="page-label">Galaxy S25+ 미리보기 · 480×1040 CSS px</p>
+  <div class="device-viewport">
+    <div class="canvas">
+      <img class="captured-photo-bg" id="capturedPhotoBg" alt="" />
+
+      <!-- AndroidStatusBar: Dark -->
+      <div class="status-bar">
+        <span class="time">12:30</span>
+        <div class="icons">
+          <img class="cellular" src="../Resources/StatusBar/Cellular=Dark.svg" alt="" />
+          <img class="wifi" src="../Resources/StatusBar/Wifi=Dark.svg" alt="" />
+          <img class="battery" src="../Resources/StatusBar/Battery=Dark.svg" alt="" />
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="info-column">
+          <div class="product-name-card EffectStyleButtonSelected">
+            <p class="product-name-card__title TextStyleProductTitle">민티아 드라이하드</p>
+            <p class="product-name-card__subtitle TextStyleProductSubtitle">오리온, 324g</p>
+          </div>
+
+          <div class="price-row">
+            <div class="price-card price-card--focused EffectStyleButtonSelected">
+              <div class="price-card__heading">
+                <div class="price-card__price TextStyleBodyStrong">
+                  <span>₩</span><span>9,900</span>
+                </div>
+                <p class="price-card__vendor TextStyleBodyStrong">무신사</p>
+              </div>
+              <a class="btn btn--small btn--primary-solid interactive-surface" href="#">
+                <span class="icon">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 7H18C18.6566 7 19.3068 7.12933 19.9134 7.3806C20.52 7.63188 21.0712 8.00017 21.5355 8.46447C21.9998 8.92876 22.3681 9.47996 22.6194 10.0866C22.8707 10.6932 23 11.3434 23 12C23 12.6566 22.8707 13.3068 22.6194 13.9134C22.3681 14.52 21.9998 15.0712 21.5355 15.5355C21.0712 15.9998 20.52 16.3681 19.9134 16.6194C19.3068 16.8707 18.6566 17 18 17H15M9 17H6C5.34339 17 4.69321 16.8707 4.08658 16.6194C3.47995 16.3681 2.92876 15.9998 2.46447 15.5355C1.52678 14.5979 1 13.3261 1 12C1 10.6739 1.52678 9.40215 2.46447 8.46447C3.40215 7.52678 4.67392 7 6 7H9M8 12H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                <span class="TextStyleSingleLineBodySmallStrong">링크 저장</span>
+              </a>
+            </div>
+
+            <div class="price-card price-card--default EffectStyleButtonDefault">
+              <div class="price-card__heading">
+                <div class="price-card__price TextStyleBodyStrong">
+                  <span>₩</span><span>10,400</span>
+                </div>
+                <p class="price-card__vendor TextStyleBodyStrong">쿠팡</p>
+              </div>
+              <a class="btn btn--small btn--primary-solid btn--disabled" href="#">
+                <span class="icon">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 7H18C18.6566 7 19.3068 7.12933 19.9134 7.3806C20.52 7.63188 21.0712 8.00017 21.5355 8.46447C21.9998 8.92876 22.3681 9.47996 22.6194 10.0866C22.8707 10.6932 23 11.3434 23 12C23 12.6566 22.8707 13.3068 22.6194 13.9134C22.3681 14.52 21.9998 15.0712 21.5355 15.5355C21.0712 15.9998 20.52 16.3681 19.9134 16.6194C19.3068 16.8707 18.6566 17 18 17H15M9 17H6C5.34339 17 4.69321 16.8707 4.08658 16.6194C3.47995 16.3681 2.92876 15.9998 2.46447 15.5355C1.52678 14.5979 1 13.3261 1 12C1 10.6739 1.52678 9.40215 2.46447 8.46447C3.40215 7.52678 4.67392 7 6 7H9M8 12H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                <span class="TextStyleSingleLineBodySmallStrong">링크 저장</span>
+              </a>
+            </div>
+
+            <div class="price-card price-card--default EffectStyleButtonDefault">
+              <div class="price-card__heading">
+                <div class="price-card__price TextStyleBodyStrong">
+                  <span>₩</span><span>10,900</span>
+                </div>
+                <p class="price-card__vendor TextStyleBodyStrong">이마트</p>
+              </div>
+              <a class="btn btn--small btn--primary-solid btn--disabled" href="#">
+                <span class="icon">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 7H18C18.6566 7 19.3068 7.12933 19.9134 7.3806C20.52 7.63188 21.0712 8.00017 21.5355 8.46447C21.9998 8.92876 22.3681 9.47996 22.6194 10.0866C22.8707 10.6932 23 11.3434 23 12C23 12.6566 22.8707 13.3068 22.6194 13.9134C22.3681 14.52 21.9998 15.0712 21.5355 15.5355C21.0712 15.9998 20.52 16.3681 19.9134 16.6194C19.3068 16.8707 18.6566 17 18 17H15M9 17H6C5.34339 17 4.69321 16.8707 4.08658 16.6194C3.47995 16.3681 2.92876 15.9998 2.46447 15.5355C1.52678 14.5979 1 13.3261 1 12C1 10.6739 1.52678 9.40215 2.46447 8.46447C3.40215 7.52678 4.67392 7 6 7H9M8 12H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                <span class="TextStyleSingleLineBodySmallStrong">링크 저장</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <p class="instruction-chip TextStyleSingleLineBodySmallStrong">가격 검색이 완료되었어요!</p>
+
+        <div class="action-row">
+          <a class="btn btn--medium btn--neutral-transparent interactive-surface" href="camera.html">
+            <span class="icon">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M23 19C23 19.5304 22.7893 20.0391 22.4142 20.4142C22.0391 20.7893 21.5304 21 21 21H3C2.46957 21 1.96086 20.7893 1.58579 20.4142C1.21071 20.0391 1 19.5304 1 19V8C1 7.46957 1.21071 6.96086 1.58579 6.58579C1.96086 6.21071 2.46957 6 3 6H7L9 3H15L17 6H21C21.5304 6 22.0391 6.21071 22.4142 6.58579C22.7893 6.96086 23 7.46957 23 8V19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 17C14.2091 17 16 15.2091 16 13C16 10.7909 14.2091 9 12 9C9.79086 9 8 10.7909 8 13C8 15.2091 9.79086 17 12 17Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="TextStyleSingleLineBodyBase">다시 찍기</span>
+          </a>
+          <a class="btn btn--medium btn--primary-solid interactive-surface" href="product-info.html">
+            <span class="icon">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 16V12M12 8H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="TextStyleSingleLineBodyBase">상품 정보</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- AndroidNavBar: Dark -->
+      <div class="nav-bar">
+        <img class="back" src="../Resources/NavBar/Back=Dark.svg" alt="" />
+        <img class="home" src="../Resources/NavBar/Home=Dark.svg" alt="" />
+        <div class="recent"></div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  (function () {
+    // Handed off from CameraViewfinder (Resources/Components/CameraViewfinder.json) —
+    // see its capturePhoto() in preview/camera.html. No photo yet (e.g. this
+    // page was opened directly) just leaves the dark background plain.
+    var stored = sessionStorage.getItem('capturedPhoto');
+    var bg = document.getElementById('capturedPhotoBg');
+    if (stored) {
+      bg.src = stored;
+    } else {
+      bg.style.display = 'none';
+    }
+  })();
+</script>
+</body>
+</html>

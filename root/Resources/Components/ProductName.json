@@ -1,0 +1,39 @@
+{
+  "component": "ProductName",
+  "figma": {
+    "fileKey": "Oo9W0U9SyNGNZXyD8urNJZ",
+    "nodeId": "72:7426",
+    "url": "https://www.figma.com/design/Oo9W0U9SyNGNZXyD8urNJZ/Shopping-XR?node-id=72-7426"
+  },
+  "tokensFile": "tokens.css",
+  "cssFile": "Resources/Components/ProductName.css",
+  "description": "카메라가 인식한 상품의 이름과 브랜드/용량을 강조해서 보여주는 스포트라이트 카드. 상태(state) 분기가 없는 단일 비주얼입니다 — 항상 브랜드 그라디언트 + 인너 글로우로 표시됩니다.",
+  "shape": {
+    "layout": "column",
+    "gap": "var(--sds-size-space-400)",
+    "padding": "var(--sds-size-space-600)",
+    "align": "flex-start",
+    "radius": "var(--radius-card)",
+    "borderWidth": "var(--sds-size-stroke-border-thick)",
+    "clip": true,
+    "width": "var(--size-card-width)"
+  },
+  "props": {
+    "title": { "type": "string", "default": "오리온 초코파이 (12개입)" },
+    "subtitle": { "type": "string", "default": "오리온, 324g" }
+  },
+  "style": {
+    "background": "var(--ColorButtonTransparentBrandDefault)",
+    "border": "var(--stroke-white-default)",
+    "shadow": "EffectStyleButtonSelected",
+    "titleTextStyle": "TextStyleProductTitle",
+    "titleColor": "var(--sds-color-white-1000)",
+    "subtitleTextStyle": "TextStyleProductSubtitle",
+    "subtitleColor": "var(--sds-color-white-800)"
+  },
+  "notes": [
+    "배경/테두리는 Button 컴포넌트의 Primary.Transparent.Default와 동일한 토큰(var(--ColorButtonTransparentBrandDefault), var(--stroke-white-default))을 재사용하지만, 그림자는 Selected 상태(EffectStyleButtonSelected)를 항상 사용합니다 — Figma 원본이 이 조합으로 바인딩되어 있어 그대로 반영했습니다.",
+    "title/subtitle 텍스트는 tokens.css의 공용 타입 스케일(TextStyleSubheading, TextStyleBodyBase 등)에 바인딩되어 있지 않은 로컬 스타일이라, 이 컴포넌트 전용 토큰 TextStyleProductTitle(32/Bold/120%)과 TextStyleProductSubtitle(24/Regular/120%)을 tokens.css에 새로 추가했습니다.",
+    "카드는 항상 자기 내용만큼 높이를 차지합니다(flex-shrink: 0) — ProductInfoScreen처럼 스크롤되는 목록 위에 고정 헤더로 놓일 때도 찌그러지지 않습니다."
+  ]
+}

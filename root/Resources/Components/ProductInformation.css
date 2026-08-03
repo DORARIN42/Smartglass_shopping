@@ -1,0 +1,83 @@
+/* ==========================================================================
+   Shopping XR — Product Information
+   Figma: node 72:7417 · spec: Resources/Components/ProductInformation.json
+   Load order: tokens.css → interactions.css → ProductInformation.css
+   Pair with class="EffectStyleButtonSelected" (tokens.css) in markup for the
+   Focused shadow — Default has no shadow, same convention as
+   PriceInformation.css (shadow isn't duplicated here as a literal).
+   Border WIDTH is constant across states (shape-level, see the JSON) — only
+   border COLOR and shadow change between Default/Focused.
+   ========================================================================== */
+
+.product-info-card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sds-size-space-300);
+  padding: var(--sds-size-space-400) var(--sds-size-space-600);
+  width: var(--size-card-width);
+  border-style: solid;
+  border-width: var(--sds-size-stroke-border);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background: var(--ColorButtonTransparentWhiteDefault);
+  font-family: "Inter", var(--sds-typography-body-font-family);
+  /* Hugs its own content — never shrunk/clipped by a scrolling flex parent
+     (e.g. ProductInfoScreen's info list); the parent scrolls instead. */
+  flex-shrink: 0;
+  transition:
+    border-color var(--motion-duration-fast) var(--motion-easing-standard),
+    box-shadow var(--motion-duration-base) var(--motion-easing-standard);
+}
+
+/* Hover/focus — see the "interaction" block in ProductInformation.json.
+   Border-color, box-shadow, and both text colors all interpolate natively
+   (unlike Button's gradient backgrounds), so this is a plain CSS
+   transition, no .interactive-surface state-layer needed. Applies on top
+   of whichever state (Default/Focused) the card is already in; a card
+   already in Focused just stays put since the values match. */
+.product-info-card:hover,
+.product-info-card:focus-visible {
+  border-color: var(--stroke-white-focused);
+  box-shadow: var(--effect-button-selected);
+}
+.product-info-card:hover .product-info-card__heading,
+.product-info-card:focus-visible .product-info-card__heading {
+  color: var(--sds-color-white-1000);
+}
+.product-info-card:hover .product-info-card__body,
+.product-info-card:focus-visible .product-info-card__body {
+  color: var(--sds-color-white-900);
+}
+
+/* Default (node 72:7416) text — noticeably paler than Focused/hover */
+.product-info-card__heading {
+  margin: 0;
+  width: 100%;
+  color: var(--sds-color-white-700);
+  transition: color var(--motion-duration-fast) var(--motion-easing-standard);
+}
+
+.product-info-card__body {
+  margin: 0;
+  width: 100%;
+  color: var(--sds-color-white-500);
+  transition: color var(--motion-duration-fast) var(--motion-easing-standard);
+}
+
+/* Default */
+.product-info-card--default {
+  border-color: var(--stroke-white-default);
+}
+
+/* Focused (node 72:7418) — brighter text, same target color hover/focus animates to */
+.product-info-card--focused {
+  border-color: var(--stroke-white-focused);
+}
+.product-info-card--focused .product-info-card__heading {
+  color: var(--sds-color-white-1000);
+}
+.product-info-card--focused .product-info-card__body {
+  color: var(--sds-color-white-900);
+}

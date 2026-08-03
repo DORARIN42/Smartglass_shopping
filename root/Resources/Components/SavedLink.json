@@ -1,0 +1,82 @@
+{
+  "component": "SavedLink",
+  "figma": {
+    "fileKey": "Oo9W0U9SyNGNZXyD8urNJZ",
+    "nodeId": "92:9352",
+    "url": "https://www.figma.com/design/Oo9W0U9SyNGNZXyD8urNJZ/Shopping-XR?node-id=92-9352"
+  },
+  "tokensFile": "tokens.css",
+  "interactionTokensFile": "interactions.css",
+  "cssFile": "Resources/Components/SavedLink.css",
+  "description": "'저장한 링크 보기' 화면에서 저장해 둔 상품 링크 한 건을 보여주는 전체너비 리스트 카드. 상품명·판매처·가격·저장일과 '링크 바로가기' 액션을 담습니다. state=Focused일 때 카드 테두리/그림자가 강조되고 내부 Button도 활성 색상으로 바뀝니다 — PriceInformation과 동일한 state 규칙을 공유하는 리스트용 변형입니다.",
+  "shape": {
+    "layout": "column",
+    "gap": "var(--sds-size-space-600)",
+    "infoGap": "var(--sds-size-space-200)",
+    "headingGap": "var(--sds-size-space-500)",
+    "priceGap": "4px",
+    "paddingX": "var(--sds-size-space-600)",
+    "paddingY": "var(--sds-size-space-400)",
+    "align": "flex-start",
+    "radius": "var(--radius-card)",
+    "borderWidth": "var(--sds-size-stroke-border)",
+    "clip": true,
+    "width": "var(--size-list-card-width)"
+  },
+  "props": {
+    "state": { "type": "enum", "values": ["Default", "Focused"], "default": "Focused" },
+    "title": { "type": "string", "default": "민티아 드라이하드" },
+    "vendor": { "type": "string", "default": "무신사" },
+    "currency": { "type": "string", "default": "₩" },
+    "price": { "type": "string", "default": "9,900" },
+    "savedAt": { "type": "string", "default": "2026.07.27 저장" },
+    "actionLabel": { "type": "string", "default": "링크 바로가기" }
+  },
+  "textStyles": {
+    "title": "TextStyleSubheading",
+    "vendor": "TextStyleBodyStrong",
+    "price": "TextStyleBodyStrong",
+    "savedAt": "TextStyleBodySmall"
+  },
+  "styles": {
+    "Default": {
+      "background": "var(--ColorButtonTransparentWhiteDefault)",
+      "border": "var(--stroke-white-default)",
+      "shadow": "EffectStyleButtonDefault",
+      "titleColor": "var(--sds-color-white-700)",
+      "metaColor": "var(--sds-color-white-500)",
+      "savedAtColor": "var(--sds-color-white-400)"
+    },
+    "Focused": {
+      "background": "var(--ColorButtonTransparentWhiteDefault)",
+      "border": "var(--stroke-white-focused)",
+      "shadow": "EffectStyleButtonSelected",
+      "titleColor": "var(--sds-color-white-1000)",
+      "metaColor": "var(--sds-color-white-900)",
+      "savedAtColor": "var(--sds-color-white-700)"
+    }
+  },
+  "action": {
+    "component": "Button",
+    "componentRef": "Resources/Components/Button.json",
+    "variant": "Primary",
+    "color": "Solid",
+    "size": "Small",
+    "label": "{{actionLabel}}",
+    "iconStart": { "ref": "Link 2", "source": "Resources/Icons" },
+    "stateMap": {
+      "Default": "Disabled",
+      "Focused": "Default"
+    }
+  },
+  "notes": [
+    "width(480px)은 기존 공용 --size-card-width(466px, AR 카메라 오버레이 카드용)와 다릅니다 — SavedLink는 오버레이가 아니라 '저장한 링크 보기' 화면의 일반 리스트 행이라 앱 콘텐츠 전체 폭을 쓰는 것으로 보고, 전용 토큰 --size-list-card-width를 tokens.css에 새로 추가했습니다.",
+    "borderWidth는 PriceInformation/ProductName의 두꺼운 테두리(--sds-size-stroke-border-thick, 2px)가 아니라 얇은 --sds-size-stroke-border(1px)입니다 — Figma 원본 그대로 반영.",
+    "vendor/price(metaColor)와 title(titleColor), savedAt(savedAtColor)이 서로 다른 흰색 알파 단계를 씁니다. metaColor에 필요한 --sds-color-white-500 별칭이 tokens.css에 없어서 새로 추가했습니다(원시값 --white-500은 이미 존재).",
+    "Heading 행(vendor + price)의 20px gap은 새 토큰을 만들지 않고 기존 var(--sds-size-space-500)(기존에는 Icon Button Medium padding에만 쓰이던 값)을 재사용했습니다.",
+    "price의 '₩'와 금액 사이 4px(priceGap)은 tokens.css의 공용 spacing 스케일에 없는 값이라 PriceInformation과 동일하게 하드코딩했습니다.",
+    "'링크 바로가기' 버튼은 PriceInformation의 '링크 저장' 버튼과 완전히 동일한 조합(Resources/Components/Button.json의 Primary.Solid.Small + Link 2 아이콘 + 동일 stateMap)이며 라벨만 다릅니다.",
+    "state=Default에서도 카드 그림자는 'none'이 아니라 EffectStyleButtonDefault입니다(2026-07-27 PriceInformation 개편과 동일한 규칙) — 실제로 비활성화되는 것은 내부 Button뿐이고 카드 자체는 항상 은은한 이너 글로우를 유지합니다.",
+    "그림자 값은 SavedLink.css에 다시 적지 않고 tokens.css가 이미 제공하는 .EffectStyleButtonDefault / .EffectStyleButtonSelected 클래스를 마크업에서 saved-link--default/focused와 함께 조합해서 씁니다 — box-shadow 리터럴을 중복 하드코딩하지 않기 위함."
+  ]
+}
