@@ -10,10 +10,10 @@
 /* ============================================================
    Glasses display mockup — 600×600
    Meta Wearables Display SDK 프리셋 CSS 근사:
-     TextStyle  HEADING=32px/500  BODY=20px/400  META=16px/400
+     TextStyle  HEADING=32px/500  BODY=24px/400  META=20px/400
      TextColor  PRIMARY=rgba(255,255,255,.95)  SECONDARY=rgba(255,255,255,.50)
-     FlexBoxBackground.CARD = rgba(255,255,255,.10) + blur + border
-   키보드: ←→ 버튼 선택, ↑↓ 스크롤, Enter 실행
+     FlexBoxBackground.CARD = rgba(255,255,255,.10) + inset glow
+   키보드: ↑↓ 스크롤
    ============================================================ */
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -52,59 +52,13 @@ body {
 .tab:hover { color: #ccc; border-color: #555; }
 .tab.active { background: #222; color: #fff; border-color: #555; }
 
-/* ── Action bar — lives ABOVE the 600×600 ───────────────── */
-#action-bar {
-  width: 600px;
-  display: none;  /* shown only when active screen has actions */
-  gap: 12px;
-  align-items: center;
-  padding: 4px 0 2px;
+/* ── Key-nav hint ────────────────────────────────────────── */
+.key-hint {
+  font-size: 11px;
+  color: #444;
+  letter-spacing: .06em;
+  text-align: center;
 }
-#action-bar.has-actions { display: flex; }
-
-.act-btn {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 18px 24px;
-  border-radius: 999px;
-  font-family: inherit;
-  font-size: 20px;
-  font-weight: 500;
-  cursor: pointer;
-  border: none;
-  line-height: 1;
-  outline: none;
-  transition: opacity 160ms, box-shadow 160ms;
-}
-.act-btn:hover { opacity: .85; }
-/* keyboard-focus ring */
-.act-btn.focused {
-  box-shadow: 0 0 0 3px rgba(255,255,255,.7);
-}
-.act-btn--secondary {
-  background: rgba(255,255,255,.12);
-  border: 2px solid rgba(255,255,255,.5);
-  color: rgba(255,255,255,.85);
-  box-shadow: inset 0 4px 24px rgba(255,255,255,.3);
-}
-.act-btn--secondary.focused {
-  box-shadow: inset 0 4px 24px rgba(255,255,255,.3), 0 0 0 3px rgba(255,255,255,.7);
-}
-.act-btn--primary {
-  background:
-    linear-gradient(213deg, rgba(251,235,55,.8) 14%, rgba(250,240,108,.08) 54%),
-    linear-gradient(169deg, rgba(168,233,55,.8) 14%, rgba(206,254,123,.08) 58%);
-  border: 2px solid #fff;
-  color: #fff;
-  box-shadow: inset 0 4px 24px rgba(255,255,255,.4);
-}
-.act-btn--primary.focused {
-  box-shadow: inset 0 4px 24px rgba(255,255,255,.4), 0 0 0 3px rgba(255,255,255,.9);
-}
-.act-btn svg { width: 22px; height: 22px; flex-shrink: 0; }
 
 /* ── 600×600 display viewport ───────────────────────────── */
 .display {
@@ -135,7 +89,7 @@ body {
   pointer-events: none;
 }
 
-/* Content layer — no padding, screens manage their own spacing */
+/* Content layer */
 .display-inner {
   position: absolute;
   inset: 0;
@@ -152,38 +106,107 @@ body {
 }
 .screen.active { display: flex; }
 
-/* Scrollable screens — SDK scrolls via glasses touchpad (↑↓ keys in mockup) */
-.screen--scroll {
+/* Inner scroll area inside screens */
+.inner-scroll {
+  flex: 1;
+  min-height: 0;
   overflow-y: auto;
   scrollbar-width: none;
 }
-.screen--scroll::-webkit-scrollbar { display: none; }
+.inner-scroll::-webkit-scrollbar { display: none; }
 
-/* ── SDK card primitive ──────────────────────────────────── */
+/* ── SDK card ────────────────────────────────────────────── */
 .sdk-card {
-  background: rgba(255,255,255,.10);
-  border: 1px solid rgba(255,255,255,.14);
+  background: linear-gradient(180deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,.03) 100%);
   border-radius: 24px;
   padding: 16px;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: inset 0 4px 24px rgba(255,255,255,.3);
   width: 100%;
   display: flex;
   flex-direction: column;
 }
-/* First-card "active/selected" style — white border + strong glow */
-.sdk-card--active {
+
+/* ── Focusable info card ─────────────────────────────────── */
+.info-card {
   background: linear-gradient(180deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,.03) 100%);
-  border: 2px solid rgba(255,255,255,1);
+  border-radius: 24px;
+  padding: 16px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   box-shadow: inset 0 4px 24px rgba(255,255,255,.3);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: box-shadow 200ms;
 }
+.info-card--focused {
+  box-shadow: inset 0 4px 24px rgba(255,255,255,1);
+}
+.info-card:hover:not(.info-card--focused) {
+  box-shadow: inset 0 4px 24px rgba(255,255,255,.6);
+}
+
+/* info card text: unfocused → dimmer, focused → bright */
+.info-card .card-heading {
+  font-size: 24px; font-weight: 600; line-height: 1.4;
+  color: rgba(255,255,255,.85);
+  transition: color 200ms;
+}
+.info-card .card-body {
+  font-size: 24px; font-weight: 400; line-height: 1.4;
+  color: rgba(255,255,255,.70);
+  transition: color 200ms;
+}
+.info-card--focused .card-heading { color: rgba(255,255,255,1); }
+.info-card--focused .card-body    { color: rgba(255,255,255,.95); }
+
+/* ── Price card ──────────────────────────────────────────── */
+.price-card {
+  background: linear-gradient(180deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,.03) 100%);
+  border-radius: 24px;
+  padding: 16px;
+  box-shadow: inset 0 4px 24px rgba(255,255,255,.3);
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-shrink: 0;
+  width: 100%;
+}
+
+/* ── In-screen PNG button ────────────────────────────────── */
+.screen-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  outline: none;
+  transition: opacity 160ms;
+}
+.screen-btn img { display: block; height: 72px; width: auto; }
+.screen-btn:hover { opacity: .85; }
+
+/* ── Save link button ────────────────────────────────────── */
+.save-link-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  outline: none;
+  flex-shrink: 0;
+  transition: opacity 160ms;
+}
+.save-link-btn img { display: block; height: 48px; width: auto; }
+.save-link-btn:hover { opacity: .85; }
 
 /* ── Typography ──────────────────────────────────────────── */
 .t-headline { font-size: 32px; font-weight: 500; line-height: 1.2; color: rgba(255,255,255,.95); }
 .t-subhead  { font-size: 20px; font-weight: 400; line-height: 1.4; color: rgba(255,255,255,.85); }
 .t-strong   { font-size: 24px; font-weight: 600; line-height: 1.4; color: rgba(255,255,255,.95); }
 .t-body     { font-size: 24px; font-weight: 400; line-height: 1.4; color: rgba(255,255,255,.95); }
-.t-dim      { color: rgba(255,255,255,.70); }
 .t-sec      { color: rgba(255,255,255,.50); }
 
 /* ── Chip ────────────────────────────────────────────────── */
@@ -199,83 +222,35 @@ body {
   white-space: nowrap;
 }
 
-/* ── Price card (Figma 199:2716) ─────────────────────────── */
-.price-card {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  padding: 16px;
-  border-radius: 24px;
-  border: 2px solid rgba(255,255,255,.5);
-  background: linear-gradient(180deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,.03) 100%);
-  box-shadow: inset 0 4px 24px rgba(255,255,255,.3);
-  width: 100%;
-}
-.price-card__info {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  min-width: 0;
-}
-/* SaveLink PNG button — tap to save */
-.save-link-btn {
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  flex-shrink: 0;
-  opacity: .9;
-  transition: opacity 160ms;
-}
-.save-link-btn:hover { opacity: 1; }
-.save-link-btn img { display: block; height: 48px; width: auto; }
-
-/* Loading spinner (fallback) */
+/* Loading spinner fallback */
 @keyframes spin { to { transform: rotate(360deg); } }
 .spin { animation: spin 1.4s linear infinite; transform-origin: center; }
-
-/* ── Key-nav hint ────────────────────────────────────────── */
-.key-hint {
-  font-size: 11px;
-  color: #444;
-  letter-spacing: .06em;
-  text-align: center;
-}
 </style>
 </head>
 <body>
 
 <!-- ── Tab bar ─────────────────────────────────────────── -->
 <div class="tabs">
-  <button class="tab active" onclick="show('splash',    this)">스플래시 (199:2768)</button>
-  <button class="tab"        onclick="show('ready',     this)">준비 완료 (199:2667)</button>
-  <button class="tab"        onclick="show('capturing', this)">촬영 중 (199:2680)</button>
-  <button class="tab"        onclick="show('captured',  this)">촬영 완료 (199:2863)</button>
-  <button class="tab"        onclick="show('loading',   this)">검색 중 (199:3562)</button>
-  <button class="tab"        onclick="show('searched',  this)">검색 완료 (199:3013)</button>
+  <button class="tab active" onclick="show('splash',       this)">스플래시 (199:2768)</button>
+  <button class="tab"        onclick="show('ready',        this)">준비 완료 (199:2667)</button>
+  <button class="tab"        onclick="show('capturing',    this)">촬영 중 (199:2680)</button>
+  <button class="tab"        onclick="show('captured',     this)">촬영 완료 (199:2863)</button>
+  <button class="tab"        onclick="show('loading',      this)">검색 중 (199:3562)</button>
+  <button class="tab"        onclick="show('searched',     this)">검색 완료 (199:3013)</button>
   <button class="tab"        onclick="show('matched',      this)">상품결과 (199:2707)</button>
   <button class="tab"        onclick="show('product-info', this)">상품정보 (199:3034)</button>
   <button class="tab"        onclick="show('price-info',   this)">가격정보 (199:2716)</button>
   <button class="tab"        onclick="show('retry',        this)">재촬영 요청</button>
   <button class="tab"        onclick="show('error',        this)">오류</button>
 </div>
-
-<!-- ── Action bar — 600×600 밖, 위에 배치 ──────────────── -->
-<!-- JS가 활성 화면에 따라 버튼을 채움. ←→ 키로 포커스, Enter로 실행 -->
-<div id="action-bar"></div>
-<span class="key-hint">↑↓ 스크롤 &nbsp;·&nbsp; ←→ 버튼 선택 &nbsp;·&nbsp; Enter 실행</span>
+<span class="key-hint">↑↓ 스크롤</span>
 
 <!-- ── 600×600 display ──────────────────────────────────── -->
 <div class="display">
   <div class="display-bg"></div>
   <div class="display-inner">
 
-    <!-- ① showSplashScreen() — Figma 199:2768 ──────────────
-         flexBox(col, center, center, gap=40) {
-           image(logo.png, FILL) · text("Shop smarter, Spend wiser", BODY, SECONDARY)
-         }
-    ──────────────────────────────────────────────────────── -->
+    <!-- ① showSplashScreen() — 199:2768 ──────────────────── -->
     <div id="screen-splash" class="screen active"
          style="flex-direction:column; align-items:center; justify-content:center; gap:40px;">
       <img src="../Shoply_meta_png/logo.png" alt="Shoply"
@@ -283,14 +258,7 @@ body {
       <span class="t-subhead t-sec" style="text-align:center;">Shop smarter, Spend wiser</span>
     </div>
 
-    <!-- ② showReadyScreen() — Figma 199:2667 ───────────────
-         flexBox(row, gap=32) {
-           image(Guideline.png, FILL)
-           flexBox(col, gap=32, center, flex=1) {
-             image(CameraClear.png, FILL) · text("왼쪽에 물체를 배치해주세요.", BODY, SEC)
-           }
-         }
-    ──────────────────────────────────────────────────────── -->
+    <!-- ② showReadyScreen() — 199:2667 ───────────────────── -->
     <div id="screen-ready" class="screen"
          style="flex-direction:row; gap:32px; align-items:center;">
       <img src="../Shoply_meta_png/Guideline.png" alt=""
@@ -302,9 +270,7 @@ body {
       </div>
     </div>
 
-    <!-- ③ showCapturingScreen() — Figma 199:2680 ───────────
-         Same as ready but CameraColor.png (brand gradient camera)
-    ──────────────────────────────────────────────────────── -->
+    <!-- ③ showCapturingScreen() — 199:2680 ──────────────── -->
     <div id="screen-capturing" class="screen"
          style="flex-direction:row; gap:32px; align-items:center;">
       <img src="../Shoply_meta_png/Guideline.png" alt=""
@@ -316,9 +282,7 @@ body {
       </div>
     </div>
 
-    <!-- ④ showCaptureCompleteScreen() — Figma 199:2863 ─────
-         Centered, no guideline, "사진 촬영이 완료되었습니다!"
-    ──────────────────────────────────────────────────────── -->
+    <!-- ④ showCaptureCompleteScreen() — 199:2863 ────────── -->
     <div id="screen-captured" class="screen"
          style="flex-direction:column; align-items:center; justify-content:center; gap:32px;">
       <img src="../Shoply_meta_png/CameraColor.png" alt=""
@@ -326,18 +290,14 @@ body {
       <span class="chip">사진 촬영이 완료되었습니다!</span>
     </div>
 
-    <!-- ⑤ displayLoading() — Figma 199:3562 ────────────────
-         Centered, Lottie animation 150×150, "상품을 검색 중입니다."
-    ──────────────────────────────────────────────────────── -->
+    <!-- ⑤ displayLoading() — 199:3562 ───────────────────── -->
     <div id="screen-loading" class="screen"
          style="flex-direction:column; align-items:center; justify-content:center; gap:32px;">
       <div id="lottie-loading" style="width:150px; height:150px; flex-shrink:0;"></div>
       <span class="chip">상품을 검색 중입니다.</span>
     </div>
 
-    <!-- ⑥ showSearchCompleteScreen() — Figma 199:3013 ──────
-         Centered, search-color.png 160×160, "검색이 완료되었습니다!"
-    ──────────────────────────────────────────────────────── -->
+    <!-- ⑥ showSearchCompleteScreen() — 199:3013 ─────────── -->
     <div id="screen-searched" class="screen"
          style="flex-direction:column; align-items:center; justify-content:center; gap:32px;">
       <img src="../Shoply_meta_png/search-color.png" alt=""
@@ -345,118 +305,149 @@ body {
       <span class="chip">검색이 완료되었습니다!</span>
     </div>
 
-    <!-- ⑦ showProductResultScreen() — Figma 199:2707 ───────
-         ProductName card (flex=1, centered) + "이 상품이 맞나요?" chip.
-         Action buttons [다시 찍기 | 상품 정보] → action-bar (위)
+    <!-- ⑦ showProductResultScreen() — 199:2707 ─────────────
+         col · gap=32px · px=24px · py=8px
+         ProductName(flex=1, content centered) / chip + PNG buttons
     ──────────────────────────────────────────────────────── -->
     <div id="screen-matched" class="screen"
-         style="flex-direction:column; gap:32px; padding:24px; align-items:stretch;">
-      <!-- ProductName card fills remaining space -->
-      <div class="sdk-card" style="flex:1; gap:16px; justify-content:center;
-           background:linear-gradient(180deg,rgba(255,255,255,.10) 0%,rgba(255,255,255,.03) 100%);
-           box-shadow:inset 0 4px 24px rgba(255,255,255,.3); border-radius:24px;">
+         style="flex-direction:column; gap:32px; padding:8px 24px; align-items:stretch;">
+
+      <!-- ProductName card: fills remaining height -->
+      <div class="sdk-card" style="flex:1; gap:16px; justify-content:center;">
         <span class="t-headline">민티아 드라이하드</span>
-        <span class="t-subhead" style="color:rgba(255,255,255,.85);">오리온, 324g</span>
+        <span class="t-subhead">오리온, 324g</span>
       </div>
-      <!-- Confirmation chip -->
-      <div style="display:flex; justify-content:center;">
+
+      <!-- Bottom: chip + buttons -->
+      <div style="display:flex; flex-direction:column; gap:32px; align-items:center; flex-shrink:0;">
         <span class="chip">이 상품이 맞나요?</span>
+        <div style="display:flex; gap:16px; width:100%;">
+          <button class="screen-btn" onclick="showTab('splash')">
+            <img src="../Shoply_meta_png/CameraRetake.png" alt="다시 찍기" />
+          </button>
+          <button class="screen-btn" onclick="showTab('product-info')">
+            <img src="../Shoply_meta_png/ProductInfo.png" alt="상품 정보" />
+          </button>
+        </div>
       </div>
     </div>
 
-    <!-- ⑧ showProductInfoScreen() — Figma 199:3034 ─────────
-         ProductName card + scrollable info cards.
-         Action buttons [다시 찍기 | 가격 정보] → action-bar (위)
-         ↑↓ 키로 스크롤
+    <!-- ⑧ showProductInfoScreen() — 199:3034 ────────────────
+         col · gap=32px · px=24px · py=8px
+         [ProductName + scrollable cards](flex=1) / PNG buttons
+         카드 클릭/호버 → 포커스 이동
     ──────────────────────────────────────────────────────── -->
-    <div id="screen-product-info" class="screen screen--scroll"
-         style="flex-direction:column; gap:8px; padding:24px; align-items:stretch;">
-      <!-- ProductName card -->
-      <div class="sdk-card" style="gap:12px; flex-shrink:0;
-           background:linear-gradient(180deg,rgba(255,255,255,.10) 0%,rgba(255,255,255,.03) 100%);
-           box-shadow:inset 0 4px 24px rgba(255,255,255,.3); border-radius:24px;">
-        <span class="t-headline">민티아 드라이하드</span>
-        <span class="t-subhead" style="color:rgba(255,255,255,.85);">오리온, 324g</span>
-      </div>
-      <!-- 상품 요약 — active/selected card (white border + strong glow) -->
-      <div class="sdk-card sdk-card--active" style="gap:12px; flex-shrink:0; border-radius:24px;">
-        <span class="t-strong">상품 요약</span>
-        <span class="t-body">오리온의 초코파이입니다. 추억의 맛 초콜릿과 마시멜로우의 조화가 매우 맛있으며, 어쩌고저쩌고. 상품설명 최대 3줄 보이게,</span>
-      </div>
-      <!-- 영양성분 -->
-      <div class="sdk-card" style="gap:12px; flex-shrink:0; border-radius:24px;">
-        <span class="t-strong t-dim" style="color:rgba(255,255,255,.85);">영양성분</span>
-        <span class="t-body t-dim">
-          <b style="font-size:20px; font-weight:600;">칼로리</b> 73kcal,<br>
-          <b style="font-size:20px; font-weight:600;">탄수화물</b> 6.7g,<br>
-          <b style="font-size:20px; font-weight:600;">단백질</b> 0.02~0.3g.<br>
-          <b style="font-size:20px; font-weight:600;">지방</b> 0.03~0.4g
-        </span>
-      </div>
-      <!-- 후기 -->
-      <div class="sdk-card" style="gap:12px; flex-shrink:0; border-radius:24px;">
-        <span class="t-strong" style="color:rgba(255,255,255,.85);">후기</span>
-        <span class="t-body t-dim">[장점] 맛있음, 휴대 편리<br>[단점] 양이 적음</span>
-      </div>
-      <!-- 주요 성분 -->
-      <div class="sdk-card" style="gap:12px; flex-shrink:0; border-radius:24px;">
-        <span class="t-strong" style="color:rgba(255,255,255,.85);">주요 성분</span>
-        <span class="t-body t-dim">밀가루, 버터, 카카오파우더, 설탕, 마시멜로우, 마가린 등</span>
+    <div id="screen-product-info" class="screen"
+         style="flex-direction:column; align-items:stretch;">
+
+      <!-- Single full-screen scroll: ProductName + cards + buttons -->
+      <div class="inner-scroll" style="display:flex; flex-direction:column; gap:8px; padding:8px 24px;">
+        <!-- ProductName card -->
+        <div class="sdk-card" style="flex-shrink:0; gap:16px; margin-bottom:24px;">
+          <span class="t-headline">민티아 드라이하드</span>
+          <span class="t-subhead">오리온, 324g</span>
+        </div>
+
+        <!-- Info cards -->
+        <div class="info-card info-card--focused" onclick="focusInfoCard(this)">
+          <span class="card-heading">상품 요약</span>
+          <span class="card-body">오리온의 초코파이입니다. 추억의 맛 초콜릿과 마시멜로우의 조화가 매우 맛있으며, 어쩌고저쩌고. 상품설명 최대 3줄 보이게,</span>
+        </div>
+        <div class="info-card" onclick="focusInfoCard(this)">
+          <span class="card-heading">영양성분</span>
+          <span class="card-body">
+            <b style="font-weight:600; font-size:20px;">칼로리</b> 73kcal,<br>
+            <b style="font-weight:600; font-size:20px;">탄수화물</b> 6.7g,<br>
+            <b style="font-weight:600; font-size:20px;">단백질</b> 0.02~0.3g,<br>
+            <b style="font-weight:600; font-size:20px;">지방</b> 0.03~0.4g
+          </span>
+        </div>
+        <div class="info-card" onclick="focusInfoCard(this)">
+          <span class="card-heading">후기</span>
+          <span class="card-body">[장점] 맛있음, 휴대 편리<br>[단점] 양이 적음</span>
+        </div>
+        <div class="info-card" onclick="focusInfoCard(this)">
+          <span class="card-heading">주요 성분</span>
+          <span class="card-body">밀가루, 버터, 카카오파우더, 설탕, 마시멜로우, 마가린 등</span>
+        </div>
+
+        <!-- PNG buttons at bottom of scroll -->
+        <div style="display:flex; gap:16px; margin-top:24px; padding-bottom:8px; flex-shrink:0;">
+          <button class="screen-btn" onclick="showTab('splash')">
+            <img src="../Shoply_meta_png/CameraRetake.png" alt="다시 찍기" />
+          </button>
+          <button class="screen-btn" onclick="showTab('price-info')">
+            <img src="../Shoply_meta_png/PriceInfo.png" alt="가격 정보" />
+          </button>
+        </div>
       </div>
     </div>
 
-    <!-- ⑨ showPriceInfoScreen() — Figma 199:2716 ───────────
-         ProductName card + scrollable price cards (SaveLink.png).
-         Action buttons [다시 찍기 | 상품 정보] → action-bar (위)
-         ↑↓ 키로 스크롤
+    <!-- ⑨ showPriceInfoScreen() — 199:2716 ──────────────────
+         col · px=32px · py=8px
+         [ProductName + scrollable price list](flex=1) / PNG buttons
     ──────────────────────────────────────────────────────── -->
-    <div id="screen-price-info" class="screen screen--scroll"
-         style="flex-direction:column; gap:8px; padding:32px; align-items:stretch;">
-      <!-- ProductName card -->
-      <div class="sdk-card" style="gap:12px; flex-shrink:0;
-           background:linear-gradient(180deg,rgba(255,255,255,.10) 0%,rgba(255,255,255,.03) 100%);
-           box-shadow:inset 0 4px 24px rgba(255,255,255,.3); border-radius:24px; margin-bottom:8px;">
-        <span class="t-headline">민티아 드라이하드</span>
-        <span class="t-subhead" style="color:rgba(255,255,255,.85);">오리온, 324g</span>
-      </div>
-      <!-- Price cards -->
-      <div class="price-card">
-        <div class="price-card__info">
-          <span class="t-strong" style="white-space:nowrap;">무신사</span>
-          <span class="t-strong" style="white-space:nowrap;">₩ 9,900</span>
+    <div id="screen-price-info" class="screen"
+         style="flex-direction:column; padding:8px 24px; align-items:stretch;">
+
+      <!-- Information section: flex=1 -->
+      <div style="flex:1; min-height:0; display:flex; flex-direction:column; gap:16px; overflow:hidden;">
+        <!-- ProductName card -->
+        <div class="sdk-card" style="flex-shrink:0; gap:16px;">
+          <span class="t-headline">민티아 드라이하드</span>
+          <span class="t-subhead">오리온, 324g</span>
         </div>
-        <button class="save-link-btn" title="링크 저장">
-          <img src="../Shoply_meta_png/SaveLink-small.png" alt="링크 저장" />
+
+        <!-- Scrollable price cards -->
+        <div class="inner-scroll" style="display:flex; flex-direction:column; gap:12px;">
+          <div class="price-card">
+            <div style="flex:1; display:flex; gap:8px; align-items:center; min-width:0;">
+              <span class="t-strong" style="white-space:nowrap;">무신사</span>
+              <span class="t-strong" style="white-space:nowrap;">₩ 9,900</span>
+            </div>
+            <button class="save-link-btn" title="링크 저장">
+              <img src="../Shoply_meta_png/SaveLink-small.png" alt="링크 저장" />
+            </button>
+          </div>
+          <div class="price-card">
+            <div style="flex:1; display:flex; gap:8px; align-items:center; min-width:0;">
+              <span class="t-strong" style="white-space:nowrap;">쿠팡</span>
+              <span class="t-strong" style="white-space:nowrap;">₩ 10,500</span>
+            </div>
+            <button class="save-link-btn" title="링크 저장">
+              <img src="../Shoply_meta_png/SaveLink-small.png" alt="링크 저장" />
+            </button>
+          </div>
+          <div class="price-card">
+            <div style="flex:1; display:flex; gap:8px; align-items:center; min-width:0;">
+              <span class="t-strong" style="white-space:nowrap;">네이버쇼핑</span>
+              <span class="t-strong" style="white-space:nowrap;">₩ 11,200</span>
+            </div>
+            <button class="save-link-btn" title="링크 저장">
+              <img src="../Shoply_meta_png/SaveLink-small.png" alt="링크 저장" />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom PNG buttons -->
+      <div style="display:flex; gap:16px; flex-shrink:0; padding-top:16px; padding-bottom:8px;">
+        <button class="screen-btn" onclick="showTab('splash')">
+          <img src="../Shoply_meta_png/CameraRetake.png" alt="다시 찍기" />
         </button>
-      </div>
-      <div class="price-card">
-        <div class="price-card__info">
-          <span class="t-strong" style="white-space:nowrap;">쿠팡</span>
-          <span class="t-strong" style="white-space:nowrap;">₩ 10,500</span>
-        </div>
-        <button class="save-link-btn" title="링크 저장">
-          <img src="../Shoply_meta_png/SaveLink-small.png" alt="링크 저장" />
-        </button>
-      </div>
-      <div class="price-card">
-        <div class="price-card__info">
-          <span class="t-strong" style="white-space:nowrap;">네이버쇼핑</span>
-          <span class="t-strong" style="white-space:nowrap;">₩ 11,200</span>
-        </div>
-        <button class="save-link-btn" title="링크 저장">
-          <img src="../Shoply_meta_png/SaveLink-small.png" alt="링크 저장" />
+        <button class="screen-btn" onclick="showTab('product-info')">
+          <img src="../Shoply_meta_png/ProductInfo.png" alt="상품 정보" />
         </button>
       </div>
     </div>
 
-    <!-- ⑩ showRetryScreen() ─────────────────────────────────
-         CARD: icon(TWO_ARROWS_CLOCKWISE) + "다시 촬영해주세요" + message
-    ──────────────────────────────────────────────────────── -->
+    <!-- ⑩ showRetryScreen() ─────────────────────────────── -->
     <div id="screen-retry" class="screen"
          style="flex-direction:column; align-items:center; justify-content:center; padding:40px;">
       <div class="sdk-card" style="gap:8px;">
         <div style="display:flex; align-items:center; gap:8px;">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="1.8" stroke-linecap="round">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+               stroke="rgba(255,255,255,.9)" stroke-width="1.8" stroke-linecap="round">
             <path d="M23 4v6h-6"/><path d="M1 20v-6h6"/>
             <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
           </svg>
@@ -466,9 +457,7 @@ body {
       </div>
     </div>
 
-    <!-- ⑪ showErrorScreen() ─────────────────────────────────
-         CARD: icon(EXCLAMATION_TRIANGLE) + "오류가 발생했어요" + message
-    ──────────────────────────────────────────────────────── -->
+    <!-- ⑪ showErrorScreen() ─────────────────────────────── -->
     <div id="screen-error" class="screen"
          style="flex-direction:column; align-items:center; justify-content:center; padding:40px;">
       <div class="sdk-card" style="gap:8px;">
@@ -486,75 +475,12 @@ body {
 </div><!-- /.display -->
 
 <script>
-// ── Action-bar config per screen ─────────────────────────────────────
-// Each entry: { label, variant: 'secondary'|'primary', icon: svgStr, target: screenId }
-const SVG = {
-  retake: `<path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>`,
-  info:   `<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>`,
-  dollar: `<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>`,
-};
-function svgIcon(d) {
-  return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
-}
-
-const SCREEN_ACTIONS = {
-  matched:      [
-    { label: '다시 찍기', variant: 'secondary', icon: SVG.retake, target: 'splash' },
-    { label: '상품 정보', variant: 'primary',   icon: SVG.info,   target: 'product-info' },
-  ],
-  'product-info': [
-    { label: '다시 찍기', variant: 'secondary', icon: SVG.retake, target: 'splash' },
-    { label: '가격 정보', variant: 'primary',   icon: SVG.dollar, target: 'price-info' },
-  ],
-  'price-info': [
-    { label: '다시 찍기', variant: 'secondary', icon: SVG.retake, target: 'splash' },
-    { label: '상품 정보', variant: 'primary',   icon: SVG.info,   target: 'product-info' },
-  ],
-  retry: [
-    { label: '다시 찍기', variant: 'secondary', icon: SVG.retake, target: 'splash' },
-  ],
-};
-
-// ── State ─────────────────────────────────────────────────────────────
-let currentScreen = 'splash';
-let focusedBtnIdx = 0;  // which action-bar button has keyboard focus
-
-// ── Action bar render ─────────────────────────────────────────────────
-const actionBar = document.getElementById('action-bar');
-
-function renderActionBar(screenId) {
-  const actions = SCREEN_ACTIONS[screenId] || [];
-  actionBar.innerHTML = '';
-  if (actions.length === 0) {
-    actionBar.classList.remove('has-actions');
-    return;
-  }
-  actionBar.classList.add('has-actions');
-  actions.forEach((a, i) => {
-    const btn = document.createElement('button');
-    btn.className = `act-btn act-btn--${a.variant}`;
-    btn.innerHTML = svgIcon(a.icon) + a.label;
-    btn.dataset.target = a.target;
-    btn.addEventListener('click', () => showTab(a.target));
-    actionBar.appendChild(btn);
-  });
-  focusedBtnIdx = actions.length - 1; // default focus on primary (last) button
-  updateFocus();
-}
-
-function updateFocus() {
-  const btns = actionBar.querySelectorAll('.act-btn');
-  btns.forEach((b, i) => b.classList.toggle('focused', i === focusedBtnIdx));
-}
-
 // ── Screen switcher ───────────────────────────────────────────────────
 function show(id, btn) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.getElementById('screen-' + id).classList.add('active');
   if (btn && btn.classList) btn.classList.add('active');
-  currentScreen = id;
-  renderActionBar(id);
   if (id === 'loading') lottieAnim.play(); else lottieAnim.pause();
 }
 
@@ -564,37 +490,18 @@ function showTab(id) {
   show(id, tab || null);
 }
 
-// ── Keyboard navigation ───────────────────────────────────────────────
-document.addEventListener('keydown', e => {
-  const btns = [...actionBar.querySelectorAll('.act-btn')];
-  const scrollEl = document.querySelector('.screen--scroll.active');
+// ── Info card focus ───────────────────────────────────────────────────
+function focusInfoCard(el) {
+  document.querySelectorAll('.info-card').forEach(c => c.classList.remove('info-card--focused'));
+  el.classList.add('info-card--focused');
+}
 
-  switch (e.key) {
-    case 'ArrowLeft':
-      if (btns.length) {
-        focusedBtnIdx = (focusedBtnIdx - 1 + btns.length) % btns.length;
-        updateFocus();
-        e.preventDefault();
-      }
-      break;
-    case 'ArrowRight':
-      if (btns.length) {
-        focusedBtnIdx = (focusedBtnIdx + 1) % btns.length;
-        updateFocus();
-        e.preventDefault();
-      }
-      break;
-    case 'ArrowUp':
-      if (scrollEl) { scrollEl.scrollBy({ top: -80, behavior: 'smooth' }); e.preventDefault(); }
-      break;
-    case 'ArrowDown':
-      if (scrollEl) { scrollEl.scrollBy({ top: 80, behavior: 'smooth' }); e.preventDefault(); }
-      break;
-    case 'Enter':
-    case ' ':
-      if (btns[focusedBtnIdx]) { btns[focusedBtnIdx].click(); e.preventDefault(); }
-      break;
-  }
+// ── Keyboard: ↑↓ scrolls inner-scroll of active screen ───────────────
+document.addEventListener('keydown', e => {
+  const scrollEl = document.querySelector('.screen.active .inner-scroll');
+  if (!scrollEl) return;
+  if (e.key === 'ArrowUp')   { scrollEl.scrollBy({ top: -80, behavior: 'smooth' }); e.preventDefault(); }
+  if (e.key === 'ArrowDown') { scrollEl.scrollBy({ top:  80, behavior: 'smooth' }); e.preventDefault(); }
 });
 
 // ── Lottie ───────────────────────────────────────────────────────────
@@ -605,9 +512,6 @@ const lottieAnim = lottie.loadAnimation({
   autoplay: false,
   path: '../Animation/Loading.json',
 });
-
-// Init action bar for default screen
-renderActionBar('splash');
 </script>
 </body>
 </html>
