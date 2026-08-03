@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -36,6 +37,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 import com.example.raybanvision.R
 import com.example.raybanvision.data.AnalysisResult
 import com.example.raybanvision.ui.components.ProductNameCard
+import com.example.raybanvision.ui.components.scrollFadeEdges
 import com.example.raybanvision.ui.components.ShoplyButton
 import com.example.raybanvision.ui.components.ShoplyButtonVariant
 import com.example.raybanvision.ui.components.UpperBar
@@ -120,8 +122,13 @@ fun ProductInfoScreen(
                 ) {
                     ProductNameCard(result = result)
 
+                    val listState = rememberLazyListState()
                     LazyColumn(
-                        modifier = Modifier.weight(1f).fillMaxWidth(),
+                        state = listState,
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxWidth()
+                            .scrollFadeEdges(listState),
                         verticalArrangement = Arrangement.spacedBy(ShoplyDimens.Space300),
                     ) {
                         item {

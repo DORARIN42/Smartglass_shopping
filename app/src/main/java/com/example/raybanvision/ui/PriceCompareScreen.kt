@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -45,6 +46,7 @@ import com.example.raybanvision.session.SavedLinksStore
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import com.example.raybanvision.ui.components.LinkSaveButton
+import com.example.raybanvision.ui.components.scrollFadeEdges
 import com.example.raybanvision.ui.components.ProductNameCard
 import com.example.raybanvision.ui.components.ShoplyButton
 import com.example.raybanvision.ui.components.ShoplyButtonVariant
@@ -140,8 +142,13 @@ fun PriceCompareScreen(
                     ProductNameCard(result = result)
 
                     // Price card list — Figma: gap=8px→Space200
+                    val listState = rememberLazyListState()
                     LazyColumn(
-                        modifier = Modifier.weight(1f).fillMaxWidth(),
+                        state = listState,
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxWidth()
+                            .scrollFadeEdges(listState),
                         verticalArrangement = Arrangement.spacedBy(ShoplyDimens.Space200),
                     ) {
                         items(result.candidates, key = { it.linkUrl ?: it.store ?: it.price }) { candidate ->
