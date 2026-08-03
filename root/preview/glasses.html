@@ -10,11 +10,10 @@
 /* ============================================================
    Glasses display mockup — 600×600
    Meta Wearables Display SDK 프리셋 CSS 근사:
-     TextStyle  HEADING=28px/700  BODY=18px/400  META=13px/400
+     TextStyle  HEADING=32px/500  BODY=20px/400  META=16px/400
      TextColor  PRIMARY=rgba(255,255,255,.95)  SECONDARY=rgba(255,255,255,.50)
-     FlexBoxBackground.CARD = rgba(255,255,255,.12) + blur + border
-     CornerRadius NONE=0 SMALL=8px MEDIUM=16px
-   실제 SDK 렌더링과 다를 수 있음 — 레이아웃·구조 검토용 목업.
+     FlexBoxBackground.CARD = rgba(255,255,255,.10) + blur + border
+   키보드: ←→ 버튼 선택, ↑↓ 스크롤, Enter 실행
    ============================================================ */
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -25,10 +24,10 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  gap: 12px;
+  gap: 10px;
   background: #0e0e0e;
   font-family: 'Inter', sans-serif;
-  padding: 16px 0 0;
+  padding: 16px 0 40px;
 }
 
 /* ── Tab bar ────────────────────────────────────────────── */
@@ -37,14 +36,15 @@ body {
   gap: 6px;
   flex-wrap: wrap;
   justify-content: center;
+  max-width: 700px;
 }
 .tab {
-  padding: 7px 16px;
+  padding: 6px 14px;
   border-radius: 99px;
   background: transparent;
   border: 1px solid #333;
   color: #666;
-  font-size: 12px;
+  font-size: 11px;
   font-family: inherit;
   cursor: pointer;
   transition: background 160ms, color 160ms, border-color 160ms;
@@ -52,12 +52,59 @@ body {
 .tab:hover { color: #ccc; border-color: #555; }
 .tab.active { background: #222; color: #fff; border-color: #555; }
 
-/* ── Outer wrapper ─────────────────────────────────────── */
-.wrapper {
-  display: flex;
-  flex-direction: column;
+/* ── Action bar — lives ABOVE the 600×600 ───────────────── */
+#action-bar {
+  width: 600px;
+  display: none;  /* shown only when active screen has actions */
+  gap: 12px;
   align-items: center;
+  padding: 4px 0 2px;
 }
+#action-bar.has-actions { display: flex; }
+
+.act-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 18px 24px;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  line-height: 1;
+  outline: none;
+  transition: opacity 160ms, box-shadow 160ms;
+}
+.act-btn:hover { opacity: .85; }
+/* keyboard-focus ring */
+.act-btn.focused {
+  box-shadow: 0 0 0 3px rgba(255,255,255,.7);
+}
+.act-btn--secondary {
+  background: rgba(255,255,255,.12);
+  border: 2px solid rgba(255,255,255,.5);
+  color: rgba(255,255,255,.85);
+  box-shadow: inset 0 4px 24px rgba(255,255,255,.3);
+}
+.act-btn--secondary.focused {
+  box-shadow: inset 0 4px 24px rgba(255,255,255,.3), 0 0 0 3px rgba(255,255,255,.7);
+}
+.act-btn--primary {
+  background:
+    linear-gradient(213deg, rgba(251,235,55,.8) 14%, rgba(250,240,108,.08) 54%),
+    linear-gradient(169deg, rgba(168,233,55,.8) 14%, rgba(206,254,123,.08) 58%);
+  border: 2px solid #fff;
+  color: #fff;
+  box-shadow: inset 0 4px 24px rgba(255,255,255,.4);
+}
+.act-btn--primary.focused {
+  box-shadow: inset 0 4px 24px rgba(255,255,255,.4), 0 0 0 3px rgba(255,255,255,.9);
+}
+.act-btn svg { width: 22px; height: 22px; flex-shrink: 0; }
 
 /* ── 600×600 display viewport ───────────────────────────── */
 .display {
@@ -65,9 +112,10 @@ body {
   height: 600px;
   overflow: hidden;
   position: relative;
+  flex-shrink: 0;
 }
 
-/* Background: simulates looking through the AR glasses lens */
+/* AR background */
 .display-bg {
   position: absolute;
   inset: 0;
@@ -76,7 +124,6 @@ body {
     radial-gradient(ellipse at 70% 60%, rgba(10,20,40,.6) 0%, transparent 60%),
     #080c10;
 }
-/* CRT-style scanlines — subtle AR texture */
 .display-bg::after {
   content: '';
   position: absolute;
@@ -88,123 +135,71 @@ body {
   pointer-events: none;
 }
 
-/* Content layer — SDK renders here */
+/* Content layer — no padding, screens manage their own spacing */
 .display-inner {
   position: absolute;
   inset: 0;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 40px;
+  align-items: stretch;
 }
 
-/* ── SDK primitives ─────────────────────────────────────── */
+/* ── Screen base ─────────────────────────────────────────── */
+.screen {
+  display: none;
+  width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+}
+.screen.active { display: flex; }
 
-/* FlexBoxBackground.CARD */
+/* Scrollable screens — SDK scrolls via glasses touchpad (↑↓ keys in mockup) */
+.screen--scroll {
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.screen--scroll::-webkit-scrollbar { display: none; }
+
+/* ── SDK card primitive ──────────────────────────────────── */
 .sdk-card {
   background: rgba(255,255,255,.10);
   border: 1px solid rgba(255,255,255,.14);
-  border-radius: 16px;                /* CornerRadius.MEDIUM */
-  padding: 24px;
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  border-radius: 24px;
+  padding: 16px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   width: 100%;
-}
-
-/* flexBox direction helpers */
-.sdk-col { display: flex; flex-direction: column; }
-.sdk-row { display: flex; flex-direction: row; align-items: center; }
-.gap4  { gap: 4px; }
-.gap8  { gap: 8px; }
-.gap12 { gap: 12px; }
-.w100  { width: 100%; }
-.grow1 { flex: 1 1 0; }
-
-/* TextStyle */
-.sdk-heading  { font-size: 28px; font-weight: 700; line-height: 1.25; color: rgba(255,255,255,.95); }
-.sdk-body     { font-size: 18px; font-weight: 400; line-height: 1.45; color: rgba(255,255,255,.95); }
-.sdk-meta     { font-size: 13px; font-weight: 400; line-height: 1.4;  color: rgba(255,255,255,.95); }
-
-/* TextColor.SECONDARY */
-.sdk-secondary { color: rgba(255,255,255,.50); }
-
-/* icon — 28×28, inherits color */
-.sdk-icon       { width: 28px; height: 28px; flex-shrink: 0; color: rgba(255,255,255,.90); }
-.sdk-icon svg   { width: 100%; height: 100%; }
-
-/* image(sizePreset=FILL) placeholder */
-.sdk-img {
-  width: 100%;
-  height: 130px;
-  border-radius: 12px;
-  background: rgba(255,255,255,.07);
-  border: 1px dashed rgba(255,255,255,.12);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgba(255,255,255,.20);
-  font-size: 12px;
-  letter-spacing: 0.04em;
-}
-
-/* Price card columns (flexGrow=1 × 3) */
-.sdk-price-row {
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
-  width: 100%;
-}
-.sdk-price-card {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding: 12px;
-  background: rgba(255,255,255,.09);
-  border: 1px solid rgba(255,255,255,.11);
-  border-radius: 12px;
-  cursor: pointer;
-  transition: background 160ms;
 }
-.sdk-price-card:hover { background: rgba(255,255,255,.15); }
-
-/* Loading spinner animation */
-@keyframes spin { to { transform: rotate(360deg); } }
-.spin { animation: spin 1.4s linear infinite; transform-origin: center; }
-
-/* ── Glass buttons (Figma 199:2707+ 버튼 행) ────────────── */
-.glass-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 24px;
-  border-radius: 999px;
-  font-family: inherit;
-  font-size: 24px;
-  font-weight: 500;
-  cursor: pointer;
-  border: none;
-  line-height: 1;
-  transition: opacity 160ms;
-}
-.glass-btn:hover { opacity: .8; }
-.glass-btn--secondary {
-  background: rgba(255,255,255,.12);
-  border: 2px solid rgba(255,255,255,.5);
-  color: rgba(255,255,255,.85);
+/* First-card "active/selected" style — white border + strong glow */
+.sdk-card--active {
+  background: linear-gradient(180deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,.03) 100%);
+  border: 2px solid rgba(255,255,255,1);
   box-shadow: inset 0 4px 24px rgba(255,255,255,.3);
 }
-.glass-btn--primary {
-  background: linear-gradient(213deg, rgba(251,235,55,.8) 14%, rgba(250,240,108,.08) 54%),
-              linear-gradient(169deg, rgba(168,233,55,.8) 14%, rgba(206,254,123,.08) 58%);
-  border: 2px solid #fff;
-  color: #fff;
-  box-shadow: inset 0 4px 24px rgba(255,255,255,.4);
-}
-.btn-icon { width: 24px; height: 24px; flex-shrink: 0; }
 
-/* ── Price card (Figma 199:2716) ────────────────────────── */
+/* ── Typography ──────────────────────────────────────────── */
+.t-headline { font-size: 32px; font-weight: 500; line-height: 1.2; color: rgba(255,255,255,.95); }
+.t-subhead  { font-size: 20px; font-weight: 400; line-height: 1.4; color: rgba(255,255,255,.85); }
+.t-strong   { font-size: 24px; font-weight: 600; line-height: 1.4; color: rgba(255,255,255,.95); }
+.t-body     { font-size: 24px; font-weight: 400; line-height: 1.4; color: rgba(255,255,255,.95); }
+.t-dim      { color: rgba(255,255,255,.70); }
+.t-sec      { color: rgba(255,255,255,.50); }
+
+/* ── Chip ────────────────────────────────────────────────── */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255,255,255,.20);
+  border-radius: 999px;
+  padding: 12px 16px;
+  font-size: 20px;
+  font-weight: 500;
+  color: rgba(255,255,255,.95);
+  white-space: nowrap;
+}
+
+/* ── Price card (Figma 199:2716) ─────────────────────────── */
 .price-card {
   display: flex;
   align-items: center;
@@ -212,39 +207,46 @@ body {
   padding: 16px;
   border-radius: 24px;
   border: 2px solid rgba(255,255,255,.5);
-  background: linear-gradient(180deg,rgba(255,255,255,.10) 0%,rgba(255,255,255,.03) 100%);
+  background: linear-gradient(180deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,.03) 100%);
   box-shadow: inset 0 4px 24px rgba(255,255,255,.3);
+  width: 100%;
 }
 .price-card__info {
   flex: 1;
   display: flex;
   align-items: center;
   gap: 8px;
+  min-width: 0;
 }
+/* SaveLink PNG button — tap to save */
 .save-link-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 12px 16px;
-  border-radius: 999px;
-  background: rgba(255,255,255,.12);
-  border: 1px solid rgba(255,255,255,.3);
-  color: rgba(255,255,255,.70);
-  font-family: inherit;
-  font-size: 16px;
+  background: none;
+  border: none;
+  padding: 0;
   cursor: pointer;
-  white-space: nowrap;
-  transition: background 160ms;
+  flex-shrink: 0;
+  opacity: .9;
+  transition: opacity 160ms;
 }
-.save-link-btn:hover { background: rgba(255,255,255,.2); }
+.save-link-btn:hover { opacity: 1; }
+.save-link-btn img { display: block; height: 48px; width: auto; }
 
-/* ── Screen visibility ──────────────────────────────────── */
-.screen      { display: none; width: 100%; }
-.screen.active { display: flex; }
+/* Loading spinner (fallback) */
+@keyframes spin { to { transform: rotate(360deg); } }
+.spin { animation: spin 1.4s linear infinite; transform-origin: center; }
+
+/* ── Key-nav hint ────────────────────────────────────────── */
+.key-hint {
+  font-size: 11px;
+  color: #444;
+  letter-spacing: .06em;
+  text-align: center;
+}
 </style>
 </head>
 <body>
 
+<!-- ── Tab bar ─────────────────────────────────────────── -->
 <div class="tabs">
   <button class="tab active" onclick="show('splash',    this)">스플래시 (199:2768)</button>
   <button class="tab"        onclick="show('ready',     this)">준비 완료 (199:2667)</button>
@@ -259,290 +261,343 @@ body {
   <button class="tab"        onclick="show('error',        this)">오류</button>
 </div>
 
-<div class="wrapper">
-  <div class="display">
-    <div class="display-bg"></div>
-    <div class="display-inner">
+<!-- ── Action bar — 600×600 밖, 위에 배치 ──────────────── -->
+<!-- JS가 활성 화면에 따라 버튼을 채움. ←→ 키로 포커스, Enter로 실행 -->
+<div id="action-bar"></div>
+<span class="key-hint">↑↓ 스크롤 &nbsp;·&nbsp; ←→ 버튼 선택 &nbsp;·&nbsp; Enter 실행</span>
 
-      <!-- ① showSplashScreen() — Figma 199:2768 ───────────
-           flexBox(col, center, center, gap=40) {
-             image(logo.png, FILL)
-             text("Shop smarter, Spend wiser", BODY, SECONDARY)
+<!-- ── 600×600 display ──────────────────────────────────── -->
+<div class="display">
+  <div class="display-bg"></div>
+  <div class="display-inner">
+
+    <!-- ① showSplashScreen() — Figma 199:2768 ──────────────
+         flexBox(col, center, center, gap=40) {
+           image(logo.png, FILL) · text("Shop smarter, Spend wiser", BODY, SECONDARY)
+         }
+    ──────────────────────────────────────────────────────── -->
+    <div id="screen-splash" class="screen active"
+         style="flex-direction:column; align-items:center; justify-content:center; gap:40px;">
+      <img src="../Shoply_meta_png/logo.png" alt="Shoply"
+           style="width:325px; height:203px; object-fit:contain;" />
+      <span class="t-subhead t-sec" style="text-align:center;">Shop smarter, Spend wiser</span>
+    </div>
+
+    <!-- ② showReadyScreen() — Figma 199:2667 ───────────────
+         flexBox(row, gap=32) {
+           image(Guideline.png, FILL)
+           flexBox(col, gap=32, center, flex=1) {
+             image(CameraClear.png, FILL) · text("왼쪽에 물체를 배치해주세요.", BODY, SEC)
            }
-      ──────────────────────────────────────────────────── -->
-      <div id="screen-splash" class="screen active" style="width:100%; height:100%; align-items:center; justify-content:center; flex-direction:column; gap:40px;">
-        <img src="../Shoply_meta_png/logo.png" alt="Shoply" style="width:325px; height:203px; object-fit:contain;" />
-        <span class="sdk-body sdk-secondary" style="text-align:center;">Shop smarter, Spend wiser</span>
+         }
+    ──────────────────────────────────────────────────────── -->
+    <div id="screen-ready" class="screen"
+         style="flex-direction:row; gap:32px; align-items:center;">
+      <img src="../Shoply_meta_png/Guideline.png" alt=""
+           style="width:85px; height:100%; object-fit:cover; flex-shrink:0;" />
+      <div style="flex:1; display:flex; flex-direction:column; gap:32px; align-items:center; justify-content:center;">
+        <img src="../Shoply_meta_png/CameraClear.png" alt=""
+             style="width:160px; height:160px; object-fit:contain;" />
+        <span class="chip">왼쪽에 물체를 배치해주세요.</span>
       </div>
+    </div>
 
-      <!-- ② showReadyScreen() — Figma 199:2667 ───────────
-           flexBox(row, gap=32) {
-             image(Guideline.png, FILL)          ← left strip
-             flexBox(col, gap=32, center, flexGrow=1) {
-               image(CameraClear.png, FILL)
-               text("왼쪽에 물체를 배치해주세요.", BODY, SECONDARY)
-             }
-           }
-      ──────────────────────────────────────────────────── -->
-      <div id="screen-ready" class="screen" style="width:100%; height:100%; flex-direction:row; gap:32px; align-items:center;">
-        <!-- Guideline strip — Figma: 85×600px -->
-        <img src="../Shoply_meta_png/Guideline.png" alt="" style="width:85px; height:100%; object-fit:cover; flex-shrink:0;" />
-        <!-- Camera content column -->
-        <div class="sdk-col" style="flex:1; gap:32px; align-items:center; justify-content:center;">
-          <img src="../Shoply_meta_png/CameraClear.png" alt="" style="width:160px; height:160px; object-fit:contain;" />
-          <span class="sdk-body sdk-secondary">왼쪽에 물체를 배치해주세요.</span>
-        </div>
+    <!-- ③ showCapturingScreen() — Figma 199:2680 ───────────
+         Same as ready but CameraColor.png (brand gradient camera)
+    ──────────────────────────────────────────────────────── -->
+    <div id="screen-capturing" class="screen"
+         style="flex-direction:row; gap:32px; align-items:center;">
+      <img src="../Shoply_meta_png/Guideline.png" alt=""
+           style="width:85px; height:100%; object-fit:cover; flex-shrink:0;" />
+      <div style="flex:1; display:flex; flex-direction:column; gap:32px; align-items:center; justify-content:center;">
+        <img src="../Shoply_meta_png/CameraColor.png" alt=""
+             style="width:160px; height:160px; object-fit:contain;" />
+        <span class="chip">왼쪽에 물체를 배치해주세요.</span>
       </div>
+    </div>
 
-      <!-- ③ showCapturingScreen() — Figma 199:2680 ──────────
-           capturePhoto() 호출 즉시 — 카메라 버튼 눌린 상태.
-           flexBox(row, gap=32) {
-             image(Guideline.png, FILL)
-             flexBox(col, gap=32, center, flexGrow=1) {
-               image(CameraColor.png, FILL)    ← 브랜드 그라디언트 카메라
-               text("왼쪽에 물체를 배치해주세요.", BODY, SECONDARY)
-             }
-           }
-      ──────────────────────────────────────────────────── -->
-      <div id="screen-capturing" class="screen" style="width:100%; height:100%; flex-direction:row; gap:32px; align-items:center;">
-        <img src="../Shoply_meta_png/Guideline.png" alt="" style="width:85px; height:100%; object-fit:cover; flex-shrink:0;" />
-        <div class="sdk-col" style="flex:1; gap:32px; align-items:center; justify-content:center;">
-          <img src="../Shoply_meta_png/CameraColor.png" alt="" style="width:160px; height:160px; object-fit:contain;" />
-          <span class="sdk-body sdk-secondary">왼쪽에 물체를 배치해주세요.</span>
-        </div>
+    <!-- ④ showCaptureCompleteScreen() — Figma 199:2863 ─────
+         Centered, no guideline, "사진 촬영이 완료되었습니다!"
+    ──────────────────────────────────────────────────────── -->
+    <div id="screen-captured" class="screen"
+         style="flex-direction:column; align-items:center; justify-content:center; gap:32px;">
+      <img src="../Shoply_meta_png/CameraColor.png" alt=""
+           style="width:160px; height:160px; object-fit:contain;" />
+      <span class="chip">사진 촬영이 완료되었습니다!</span>
+    </div>
+
+    <!-- ⑤ displayLoading() — Figma 199:3562 ────────────────
+         Centered, Lottie animation 150×150, "상품을 검색 중입니다."
+    ──────────────────────────────────────────────────────── -->
+    <div id="screen-loading" class="screen"
+         style="flex-direction:column; align-items:center; justify-content:center; gap:32px;">
+      <div id="lottie-loading" style="width:150px; height:150px; flex-shrink:0;"></div>
+      <span class="chip">상품을 검색 중입니다.</span>
+    </div>
+
+    <!-- ⑥ showSearchCompleteScreen() — Figma 199:3013 ──────
+         Centered, search-color.png 160×160, "검색이 완료되었습니다!"
+    ──────────────────────────────────────────────────────── -->
+    <div id="screen-searched" class="screen"
+         style="flex-direction:column; align-items:center; justify-content:center; gap:32px;">
+      <img src="../Shoply_meta_png/search-color.png" alt=""
+           style="width:160px; height:160px; object-fit:contain;" />
+      <span class="chip">검색이 완료되었습니다!</span>
+    </div>
+
+    <!-- ⑦ showProductResultScreen() — Figma 199:2707 ───────
+         ProductName card (flex=1, centered) + "이 상품이 맞나요?" chip.
+         Action buttons [다시 찍기 | 상품 정보] → action-bar (위)
+    ──────────────────────────────────────────────────────── -->
+    <div id="screen-matched" class="screen"
+         style="flex-direction:column; gap:32px; padding:24px; align-items:stretch;">
+      <!-- ProductName card fills remaining space -->
+      <div class="sdk-card" style="flex:1; gap:16px; justify-content:center;
+           background:linear-gradient(180deg,rgba(255,255,255,.10) 0%,rgba(255,255,255,.03) 100%);
+           box-shadow:inset 0 4px 24px rgba(255,255,255,.3); border-radius:24px;">
+        <span class="t-headline">민티아 드라이하드</span>
+        <span class="t-subhead" style="color:rgba(255,255,255,.85);">오리온, 324g</span>
       </div>
-
-      <!-- ④ showCaptureCompleteScreen() — Figma 199:2863 ──
-           ~2초 후 촬영 완료 — 가이드라인 없이 중앙 정렬.
-           flexBox(col, gap=32, center, center) {
-             image(CameraColor.png, FILL)
-             text("사진 촬영이 완료되었습니다!", BODY, SECONDARY)
-           }
-      ──────────────────────────────────────────────────── -->
-      <div id="screen-captured" class="screen" style="width:100%; height:100%; flex-direction:column; gap:32px; align-items:center; justify-content:center;">
-        <img src="../Shoply_meta_png/CameraColor.png" alt="" style="width:160px; height:160px; object-fit:contain;" />
-        <div style="background:rgba(255,255,255,.20); border-radius:999px; padding:12px 16px;">
-          <span class="sdk-body" style="white-space:nowrap;">사진 촬영이 완료되었습니다!</span>
-        </div>
+      <!-- Confirmation chip -->
+      <div style="display:flex; justify-content:center;">
+        <span class="chip">이 상품이 맞나요?</span>
       </div>
+    </div>
 
-      <!-- ⑤ displayLoading() — Figma 199:3562 ───────────────
-           flexBox(col, gap=32, center, center) {
-             image(Loading.gif → Loading.json Lottie, FILL)   ← 150×150
-             text("상품을 검색 중입니다.", BODY, SECONDARY)
-           }
-      ──────────────────────────────────────────────────── -->
-      <div id="screen-loading" class="screen" style="width:100%; height:100%; flex-direction:column; gap:32px; align-items:center; justify-content:center;">
-        <div id="lottie-loading" style="width:150px; height:150px; flex-shrink:0;"></div>
-        <div style="background:rgba(255,255,255,.20); border-radius:999px; padding:12px 16px;">
-          <span class="sdk-body" style="white-space:nowrap;">상품을 검색 중입니다.</span>
-        </div>
+    <!-- ⑧ showProductInfoScreen() — Figma 199:3034 ─────────
+         ProductName card + scrollable info cards.
+         Action buttons [다시 찍기 | 가격 정보] → action-bar (위)
+         ↑↓ 키로 스크롤
+    ──────────────────────────────────────────────────────── -->
+    <div id="screen-product-info" class="screen screen--scroll"
+         style="flex-direction:column; gap:8px; padding:24px; align-items:stretch;">
+      <!-- ProductName card -->
+      <div class="sdk-card" style="gap:12px; flex-shrink:0;
+           background:linear-gradient(180deg,rgba(255,255,255,.10) 0%,rgba(255,255,255,.03) 100%);
+           box-shadow:inset 0 4px 24px rgba(255,255,255,.3); border-radius:24px;">
+        <span class="t-headline">민티아 드라이하드</span>
+        <span class="t-subhead" style="color:rgba(255,255,255,.85);">오리온, 324g</span>
       </div>
-
-      <!-- ⑥ showSearchCompleteScreen() — Figma 199:3013 ────
-           flexBox(col, gap=32, center, center) {
-             image(search-color.png, FILL)   ← 160×160
-             text("검색이 완료되었습니다!", BODY, SECONDARY)
-           }
-      ──────────────────────────────────────────────────── -->
-      <div id="screen-searched" class="screen" style="width:100%; height:100%; flex-direction:column; gap:32px; align-items:center; justify-content:center;">
-        <img src="../Shoply_meta_png/search-color.png" alt="" style="width:160px; height:160px; object-fit:contain;" />
-        <div style="background:rgba(255,255,255,.20); border-radius:999px; padding:12px 16px;">
-          <span class="sdk-body" style="white-space:nowrap;">검색이 완료되었습니다!</span>
-        </div>
+      <!-- 상품 요약 — active/selected card (white border + strong glow) -->
+      <div class="sdk-card sdk-card--active" style="gap:12px; flex-shrink:0; border-radius:24px;">
+        <span class="t-strong">상품 요약</span>
+        <span class="t-body">오리온의 초코파이입니다. 추억의 맛 초콜릿과 마시멜로우의 조화가 매우 맛있으며, 어쩌고저쩌고. 상품설명 최대 3줄 보이게,</span>
       </div>
-
-      <!-- ⑦ showProductResultScreen() — Figma 199:2707 ──────
-           상품검색결과. flexBox(col, gap=32, p=24) {
-             flexBox(col, gap=16, p=16, CARD, flex=1) {   ← ProductName card
-               text(headline, HEADING)
-               text(brand+model, BODY, SECONDARY)
-             }
-             flexBox(col, gap=32, crossAlign=CENTER) {
-               text("이 상품이 맞나요?", BODY, SECONDARY)
-               flexBox(row, gap=16) {
-                 flexBox(row, CARD, flex=1, onClick=retake) { icon(RETAKE) · text("다시 찍기") }
-                 flexBox(row, CARD, flex=1, onClick=productInfo) { icon(I) · text("상품 정보") }
-               }
-             }
-           }
-      ──────────────────────────────────────────────────── -->
-      <div id="screen-matched" class="screen" style="width:100%; height:100%; flex-direction:column; gap:32px; padding:24px; box-sizing:border-box;">
-        <!-- ProductName card — flex:1 -->
-        <div class="sdk-card sdk-col gap12" style="flex:1; justify-content:center;">
-          <span style="font-size:32px; font-weight:500; color:rgba(255,255,255,.95); line-height:1.2;">민티아 드라이하드</span>
-          <span class="sdk-body sdk-secondary">오리온, 324g</span>
-        </div>
-        <!-- Bottom section -->
-        <div class="sdk-col" style="gap:32px; align-items:center;">
-          <div style="background:rgba(255,255,255,.20); border-radius:999px; padding:12px 16px;">
-            <span class="sdk-body" style="white-space:nowrap;">이 상품이 맞나요?</span>
-          </div>
-          <div class="sdk-row" style="gap:16px; width:100%;">
-            <button class="glass-btn glass-btn--secondary" onclick="show('splash',document.querySelector('.tab'))" style="flex:1;">
-              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
-              다시 찍기
-            </button>
-            <button class="glass-btn glass-btn--primary" onclick="show('product-info',this.closest('.screen').previousElementSibling)" style="flex:1;" data-target="product-info">
-              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-              상품 정보
-            </button>
-          </div>
-        </div>
+      <!-- 영양성분 -->
+      <div class="sdk-card" style="gap:12px; flex-shrink:0; border-radius:24px;">
+        <span class="t-strong t-dim" style="color:rgba(255,255,255,.85);">영양성분</span>
+        <span class="t-body t-dim">
+          <b style="font-size:20px; font-weight:600;">칼로리</b> 73kcal,<br>
+          <b style="font-size:20px; font-weight:600;">탄수화물</b> 6.7g,<br>
+          <b style="font-size:20px; font-weight:600;">단백질</b> 0.02~0.3g.<br>
+          <b style="font-size:20px; font-weight:600;">지방</b> 0.03~0.4g
+        </span>
       </div>
-
-      <!-- ⑧ showProductInfoScreen() — Figma 199:3034 ────────
-           상품정보(스크롤). flexBox(col, gap=8, p=24) {
-             ProductName card
-             flexBox(col, gap=8) { 상품요약·영양성분·후기·주요성분 cards }
-             flexBox(row, gap=16) { 다시찍기 | 가격정보 }
-           }
-      ──────────────────────────────────────────────────── -->
-      <div id="screen-product-info" class="screen" style="width:100%; overflow-y:auto; flex-direction:column; gap:8px; padding:24px; box-sizing:border-box; align-items:stretch;">
-        <!-- ProductName card -->
-        <div class="sdk-card sdk-col gap12" style="margin-bottom:4px;">
-          <span style="font-size:32px; font-weight:500; color:rgba(255,255,255,.95); line-height:1.2;">민티아 드라이하드</span>
-          <span class="sdk-body sdk-secondary">오리온, 324g</span>
-        </div>
-        <!-- 상품 요약 — active/focused card (white border) -->
-        <div style="background:linear-gradient(180deg,rgba(255,255,255,.10) 0%,rgba(255,255,255,.03) 100%); border:2px solid rgba(255,255,255,1); border-radius:24px; padding:16px; display:flex; flex-direction:column; gap:12px; box-shadow:inset 0 4px 24px rgba(255,255,255,.3);">
-          <span style="font-size:24px; font-weight:600; color:rgba(255,255,255,.95); line-height:1.4;">상품 요약</span>
-          <span style="font-size:24px; color:rgba(255,255,255,.95); line-height:1.4;">오리온의 초코파이입니다. 추억의 맛 초콜릿과 마시멜로우의 조화가 매우 맛있으며, 어쩌고저쩌고. 상품설명 최대 3줄 보이게,</span>
-        </div>
-        <!-- 영양성분 -->
-        <div class="sdk-card sdk-col gap12">
-          <span style="font-size:24px; font-weight:600; color:rgba(255,255,255,.85); line-height:1.4;">영양성분</span>
-          <span style="font-size:24px; color:rgba(255,255,255,.70); line-height:1.4;"><b style="font-size:20px;">칼로리</b> 73kcal,<br><b style="font-size:20px;">탄수화물</b> 6.7g,<br><b style="font-size:20px;">단백질</b> 0.02~0.3g.<br><b style="font-size:20px;">지방</b> 0.03~0.4g</span>
-        </div>
-        <!-- 후기 -->
-        <div class="sdk-card sdk-col gap12">
-          <span style="font-size:24px; font-weight:600; color:rgba(255,255,255,.85); line-height:1.4;">후기</span>
-          <span style="font-size:24px; color:rgba(255,255,255,.70); line-height:1.4;">[장점] 맛있음, 휴대 편리<br>[단점] 양이 적음</span>
-        </div>
-        <!-- 주요 성분 -->
-        <div class="sdk-card sdk-col gap12">
-          <span style="font-size:24px; font-weight:600; color:rgba(255,255,255,.85); line-height:1.4;">주요 성분</span>
-          <span style="font-size:24px; color:rgba(255,255,255,.70); line-height:1.4;">밀가루, 버터, 카카오파우더, 설탕, 마시멜로우, 마가린 등</span>
-        </div>
-        <!-- Action buttons — sticky at bottom -->
-        <div class="sdk-row" style="gap:16px; margin-top:8px;">
-          <button class="glass-btn glass-btn--secondary" style="flex:1;">
-            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
-            다시 찍기
-          </button>
-          <button class="glass-btn glass-btn--primary" onclick="showTab('price-info')" style="flex:1;">
-            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            가격 정보
-          </button>
-        </div>
+      <!-- 후기 -->
+      <div class="sdk-card" style="gap:12px; flex-shrink:0; border-radius:24px;">
+        <span class="t-strong" style="color:rgba(255,255,255,.85);">후기</span>
+        <span class="t-body t-dim">[장점] 맛있음, 휴대 편리<br>[단점] 양이 적음</span>
       </div>
-
-      <!-- ⑨ showPriceInfoScreen() — Figma 199:2716 ──────────
-           가격정보(스크롤). flexBox(col, gap=16, p=32) {
-             ProductName card
-             flexBox(col, gap=8, flex=1) { PriceCard × N }
-             flexBox(row, gap=16) { 다시찍기 | 상품정보 }
-           }
-           PriceCard: border 2px rgba(255,255,255,.5), gap=24, p=16
-             store + ₩price (flex=1) | 링크저장 btn
-      ──────────────────────────────────────────────────── -->
-      <div id="screen-price-info" class="screen" style="width:100%; overflow-y:auto; flex-direction:column; gap:16px; padding:32px; box-sizing:border-box; align-items:stretch;">
-        <!-- ProductName card -->
-        <div class="sdk-card sdk-col gap12">
-          <span style="font-size:32px; font-weight:500; color:rgba(255,255,255,.95); line-height:1.2;">민티아 드라이하드</span>
-          <span class="sdk-body sdk-secondary">오리온, 324g</span>
-        </div>
-        <!-- Price cards -->
-        <div class="sdk-col" style="gap:8px; flex:1;">
-          <div class="price-card">
-            <div class="price-card__info">
-              <span style="font-size:24px; font-weight:600; color:#fff; white-space:nowrap;">무신사</span>
-              <span style="font-size:24px; font-weight:600; color:#fff; white-space:nowrap;">₩ 9,900</span>
-            </div>
-            <button class="save-link-btn">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              링크 저장
-            </button>
-          </div>
-          <div class="price-card">
-            <div class="price-card__info">
-              <span style="font-size:24px; font-weight:600; color:#fff; white-space:nowrap;">쿠팡</span>
-              <span style="font-size:24px; font-weight:600; color:#fff; white-space:nowrap;">₩ 10,500</span>
-            </div>
-            <button class="save-link-btn">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              링크 저장
-            </button>
-          </div>
-          <div class="price-card">
-            <div class="price-card__info">
-              <span style="font-size:24px; font-weight:600; color:#fff; white-space:nowrap;">네이버쇼핑</span>
-              <span style="font-size:24px; font-weight:600; color:#fff; white-space:nowrap;">₩ 11,200</span>
-            </div>
-            <button class="save-link-btn">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              링크 저장
-            </button>
-          </div>
-        </div>
-        <!-- Action buttons -->
-        <div class="sdk-row" style="gap:16px; margin-top:8px;">
-          <button class="glass-btn glass-btn--secondary" style="flex:1;">
-            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
-            다시 찍기
-          </button>
-          <button class="glass-btn glass-btn--primary" onclick="showTab('product-info')" style="flex:1;">
-            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            상품 정보
-          </button>
-        </div>
+      <!-- 주요 성분 -->
+      <div class="sdk-card" style="gap:12px; flex-shrink:0; border-radius:24px;">
+        <span class="t-strong" style="color:rgba(255,255,255,.85);">주요 성분</span>
+        <span class="t-body t-dim">밀가루, 버터, 카카오파우더, 설탕, 마시멜로우, 마가린 등</span>
       </div>
+    </div>
 
-      <!-- ⑨ displayResult() — RETRY_REQUIRED ─────────────
-           flexBox(col, gap=8, padding=24, CARD) {
-             flexBox(row, gap=8, crossAlign=CENTER) { icon(TWO_ARROWS_CLOCKWISE, OUTLINE) · text(HEADING) }
-             text(message, BODY, SECONDARY)
-           }
-      ──────────────────────────────────────────────────── -->
-      <div id="screen-retry" class="screen sdk-card sdk-col gap8">
-        <div class="sdk-row gap8">
-          <div class="sdk-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
-              <path d="M23 4v6h-6"/>
-              <path d="M1 20v-6h6"/>
-              <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
-            </svg>
-          </div>
-          <span class="sdk-heading">다시 촬영해주세요</span>
-        </div>
-        <span class="sdk-body sdk-secondary">상품이 잘 보이도록 밝은 곳에서 가까이 촬영해주세요.</span>
+    <!-- ⑨ showPriceInfoScreen() — Figma 199:2716 ───────────
+         ProductName card + scrollable price cards (SaveLink.png).
+         Action buttons [다시 찍기 | 상품 정보] → action-bar (위)
+         ↑↓ 키로 스크롤
+    ──────────────────────────────────────────────────────── -->
+    <div id="screen-price-info" class="screen screen--scroll"
+         style="flex-direction:column; gap:8px; padding:32px; align-items:stretch;">
+      <!-- ProductName card -->
+      <div class="sdk-card" style="gap:12px; flex-shrink:0;
+           background:linear-gradient(180deg,rgba(255,255,255,.10) 0%,rgba(255,255,255,.03) 100%);
+           box-shadow:inset 0 4px 24px rgba(255,255,255,.3); border-radius:24px; margin-bottom:8px;">
+        <span class="t-headline">민티아 드라이하드</span>
+        <span class="t-subhead" style="color:rgba(255,255,255,.85);">오리온, 324g</span>
       </div>
-
-      <!-- ⑩ displayResult() — ERROR ───────────────────────
-           flexBox(col, gap=8, padding=24, CARD) {
-             flexBox(row, gap=8, crossAlign=CENTER) { icon(EXCLAMATION_TRIANGLE, FILLED) · text(HEADING) }
-             text(message, BODY, SECONDARY)
-           }
-      ──────────────────────────────────────────────────── -->
-      <div id="screen-error" class="screen sdk-card sdk-col gap8">
-        <div class="sdk-row gap8">
-          <div class="sdk-icon">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2 1 21h22L12 2zm0 4.24L20.3 19H3.7L12 6.24zM11 10v4h2v-4h-2zm0 6v2h2v-2h-2z"/>
-            </svg>
-          </div>
-          <span class="sdk-heading">오류가 발생했어요</span>
+      <!-- Price cards -->
+      <div class="price-card">
+        <div class="price-card__info">
+          <span class="t-strong" style="white-space:nowrap;">무신사</span>
+          <span class="t-strong" style="white-space:nowrap;">₩ 9,900</span>
         </div>
-        <span class="sdk-body sdk-secondary">잠시 후 다시 시도해주세요.</span>
+        <button class="save-link-btn" title="링크 저장">
+          <img src="../Shoply_meta_png/SaveLink-small.png" alt="링크 저장" />
+        </button>
       </div>
+      <div class="price-card">
+        <div class="price-card__info">
+          <span class="t-strong" style="white-space:nowrap;">쿠팡</span>
+          <span class="t-strong" style="white-space:nowrap;">₩ 10,500</span>
+        </div>
+        <button class="save-link-btn" title="링크 저장">
+          <img src="../Shoply_meta_png/SaveLink-small.png" alt="링크 저장" />
+        </button>
+      </div>
+      <div class="price-card">
+        <div class="price-card__info">
+          <span class="t-strong" style="white-space:nowrap;">네이버쇼핑</span>
+          <span class="t-strong" style="white-space:nowrap;">₩ 11,200</span>
+        </div>
+        <button class="save-link-btn" title="링크 저장">
+          <img src="../Shoply_meta_png/SaveLink-small.png" alt="링크 저장" />
+        </button>
+      </div>
+    </div>
 
-    </div><!-- /.display-inner -->
-  </div><!-- /.display -->
+    <!-- ⑩ showRetryScreen() ─────────────────────────────────
+         CARD: icon(TWO_ARROWS_CLOCKWISE) + "다시 촬영해주세요" + message
+    ──────────────────────────────────────────────────────── -->
+    <div id="screen-retry" class="screen"
+         style="flex-direction:column; align-items:center; justify-content:center; padding:40px;">
+      <div class="sdk-card" style="gap:8px;">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="1.8" stroke-linecap="round">
+            <path d="M23 4v6h-6"/><path d="M1 20v-6h6"/>
+            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+          </svg>
+          <span class="t-strong">다시 촬영해주세요</span>
+        </div>
+        <span class="t-body t-sec">상품이 잘 보이도록 밝은 곳에서 가까이 촬영해주세요.</span>
+      </div>
+    </div>
 
-</div>
+    <!-- ⑪ showErrorScreen() ─────────────────────────────────
+         CARD: icon(EXCLAMATION_TRIANGLE) + "오류가 발생했어요" + message
+    ──────────────────────────────────────────────────────── -->
+    <div id="screen-error" class="screen"
+         style="flex-direction:column; align-items:center; justify-content:center; padding:40px;">
+      <div class="sdk-card" style="gap:8px;">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="rgba(255,255,255,.9)">
+            <path d="M12 2 1 21h22L12 2zm0 4.24L20.3 19H3.7L12 6.24zM11 10v4h2v-4h-2zm0 6v2h2v-2h-2z"/>
+          </svg>
+          <span class="t-strong">오류가 발생했어요</span>
+        </div>
+        <span class="t-body t-sec">잠시 후 다시 시도해주세요.</span>
+      </div>
+    </div>
+
+  </div><!-- /.display-inner -->
+</div><!-- /.display -->
 
 <script>
-// Lottie loading animation — initialised once, plays whenever the tab is active.
+// ── Action-bar config per screen ─────────────────────────────────────
+// Each entry: { label, variant: 'secondary'|'primary', icon: svgStr, target: screenId }
+const SVG = {
+  retake: `<path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>`,
+  info:   `<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>`,
+  dollar: `<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>`,
+};
+function svgIcon(d) {
+  return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+}
+
+const SCREEN_ACTIONS = {
+  matched:      [
+    { label: '다시 찍기', variant: 'secondary', icon: SVG.retake, target: 'splash' },
+    { label: '상품 정보', variant: 'primary',   icon: SVG.info,   target: 'product-info' },
+  ],
+  'product-info': [
+    { label: '다시 찍기', variant: 'secondary', icon: SVG.retake, target: 'splash' },
+    { label: '가격 정보', variant: 'primary',   icon: SVG.dollar, target: 'price-info' },
+  ],
+  'price-info': [
+    { label: '다시 찍기', variant: 'secondary', icon: SVG.retake, target: 'splash' },
+    { label: '상품 정보', variant: 'primary',   icon: SVG.info,   target: 'product-info' },
+  ],
+  retry: [
+    { label: '다시 찍기', variant: 'secondary', icon: SVG.retake, target: 'splash' },
+  ],
+};
+
+// ── State ─────────────────────────────────────────────────────────────
+let currentScreen = 'splash';
+let focusedBtnIdx = 0;  // which action-bar button has keyboard focus
+
+// ── Action bar render ─────────────────────────────────────────────────
+const actionBar = document.getElementById('action-bar');
+
+function renderActionBar(screenId) {
+  const actions = SCREEN_ACTIONS[screenId] || [];
+  actionBar.innerHTML = '';
+  if (actions.length === 0) {
+    actionBar.classList.remove('has-actions');
+    return;
+  }
+  actionBar.classList.add('has-actions');
+  actions.forEach((a, i) => {
+    const btn = document.createElement('button');
+    btn.className = `act-btn act-btn--${a.variant}`;
+    btn.innerHTML = svgIcon(a.icon) + a.label;
+    btn.dataset.target = a.target;
+    btn.addEventListener('click', () => showTab(a.target));
+    actionBar.appendChild(btn);
+  });
+  focusedBtnIdx = actions.length - 1; // default focus on primary (last) button
+  updateFocus();
+}
+
+function updateFocus() {
+  const btns = actionBar.querySelectorAll('.act-btn');
+  btns.forEach((b, i) => b.classList.toggle('focused', i === focusedBtnIdx));
+}
+
+// ── Screen switcher ───────────────────────────────────────────────────
+function show(id, btn) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('screen-' + id).classList.add('active');
+  if (btn && btn.classList) btn.classList.add('active');
+  currentScreen = id;
+  renderActionBar(id);
+  if (id === 'loading') lottieAnim.play(); else lottieAnim.pause();
+}
+
+function showTab(id) {
+  const tab = [...document.querySelectorAll('.tab')]
+    .find(t => (t.getAttribute('onclick') || '').includes("'" + id + "'"));
+  show(id, tab || null);
+}
+
+// ── Keyboard navigation ───────────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  const btns = [...actionBar.querySelectorAll('.act-btn')];
+  const scrollEl = document.querySelector('.screen--scroll.active');
+
+  switch (e.key) {
+    case 'ArrowLeft':
+      if (btns.length) {
+        focusedBtnIdx = (focusedBtnIdx - 1 + btns.length) % btns.length;
+        updateFocus();
+        e.preventDefault();
+      }
+      break;
+    case 'ArrowRight':
+      if (btns.length) {
+        focusedBtnIdx = (focusedBtnIdx + 1) % btns.length;
+        updateFocus();
+        e.preventDefault();
+      }
+      break;
+    case 'ArrowUp':
+      if (scrollEl) { scrollEl.scrollBy({ top: -80, behavior: 'smooth' }); e.preventDefault(); }
+      break;
+    case 'ArrowDown':
+      if (scrollEl) { scrollEl.scrollBy({ top: 80, behavior: 'smooth' }); e.preventDefault(); }
+      break;
+    case 'Enter':
+    case ' ':
+      if (btns[focusedBtnIdx]) { btns[focusedBtnIdx].click(); e.preventDefault(); }
+      break;
+  }
+});
+
+// ── Lottie ───────────────────────────────────────────────────────────
 const lottieAnim = lottie.loadAnimation({
   container: document.getElementById('lottie-loading'),
   renderer: 'svg',
@@ -551,25 +606,8 @@ const lottieAnim = lottie.loadAnimation({
   path: '../Animation/Loading.json',
 });
 
-function show(id, btn) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('screen-' + id).classList.add('active');
-  if (btn && btn.classList) btn.classList.add('active');
-  if (id === 'loading') { lottieAnim.play(); } else { lottieAnim.pause(); }
-}
-// Navigate between screens without a tab reference (called from in-screen buttons).
-function showTab(id) {
-  const tab = [...document.querySelectorAll('.tab')]
-    .find(t => t.getAttribute('onclick') && t.getAttribute('onclick').includes("'" + id + "'"));
-  show(id, tab || null);
-}
-// Wire up "다시 찍기" buttons inside screens to go back to splash (as stand-in for retake).
-document.querySelectorAll('.glass-btn--secondary').forEach(btn => {
-  if (!btn.hasAttribute('onclick')) {
-    btn.addEventListener('click', () => showTab('splash'));
-  }
-});
+// Init action bar for default screen
+renderActionBar('splash');
 </script>
 </body>
 </html>
