@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string gender="unknown" name="dat_error_permission_connection_error">Se ha producido un error de conexión durante la comunicación con el dispositivo</string>
+    <string gender="unknown" name="dat_error_permission_internal_error">Se ha producido un error interno inesperado</string>
+    <string gender="unknown" name="dat_error_permission_meta_ai_not_installed">La aplicación complementaria de Meta AI no está instalada en el dispositivo</string>
+    <string gender="unknown" name="dat_error_permission_no_device">No se ha detectado ni registrado ningún dispositivo wearable</string>
+    <string gender="unknown" name="dat_error_permission_no_device_with_connection">Todos los dispositivos detectados están apagados o desconectados</string>
+    <string gender="unknown" name="dat_error_permission_request_in_progress">Ya hay una solicitud de permiso en curso</string>
+    <string gender="unknown" name="dat_error_permission_request_timeout">La solicitud de permiso ha superado el límite de tiempo permitido</string>
+    <string gender="unknown" name="dat_error_registration_already_registered">Usuario ya registrado al intentar registrarse de nuevo</string>
+    <string gender="unknown" name="dat_error_registration_configuration_invalid">La configuración del kit de acceso para wearables no es válida o está incompleta</string>
+    <string gender="unknown" name="dat_error_registration_meta_ai_not_installed">La aplicación de Meta AI no está instalada en el dispositivo y es necesaria para el registro</string>
+    <string gender="unknown" name="dat_error_registration_network_unavailable">No hay conexión a internet. Comprueba la conexión y vuelve a intentarlo.</string>
+    <string gender="unknown" name="dat_error_registration_unknown">Se ha producido un error desconocido durante el proceso de registro</string>
+    <string gender="unknown" name="dat_error_session_already_exists">Ya existe una sesión para este dispositivo</string>
+    <string gender="unknown" name="dat_error_session_already_stopped">La sesión ya se ha detenido</string>
+    <string gender="unknown" name="dat_error_session_battery_critical">El dispositivo tiene muy poca batería</string>
+    <string gender="unknown" name="dat_error_session_capability_already_active">Ya hay una función de este tipo activa en la sesión</string>
+    <string gender="unknown" name="dat_error_session_capability_not_found">No hay ninguna función de este tipo vinculada a la sesión</string>
+    <string gender="unknown" name="dat_error_session_idle">La sesión está inactiva. Iníciala antes de añadir funciones.</string>
+    <string gender="unknown" name="dat_error_session_no_eligible_device">Ningún dispositivo disponible cumple los requisitos</string>
+    <string gender="unknown" name="dat_error_session_peak_power_shutdown">Apagado del dispositivo por potencia máxima</string>
+    <string gender="unknown" name="dat_error_session_thermal_critical">Estado térmico del dispositivo crítico</string>
+    <string gender="unknown" name="dat_error_session_thermal_emergency">El estado térmico del dispositivo es de emergencia: apagando</string>
+    <string gender="unknown" name="dat_error_stream_battery_low">El dispositivo tiene muy poca batería para transmitir</string>
+    <string gender="unknown" name="dat_error_stream_critical_error">Error crítico: la transmisión debe finalizar</string>
+    <string gender="unknown" name="dat_error_stream_error">Error no especificado: la transmisión puede continuar</string>
+    <string gender="unknown" name="dat_error_stream_hinge_closed">Se han cerrado las patillas de las gafas</string>
+    <string gender="unknown" name="dat_error_stream_peak_power_limit">Se ha alcanzado el límite de potencia máxima del dispositivo</string>
+    <string gender="unknown" name="dat_error_stream_permissions_denied">Permisos denegados</string>
+    <string gender="unknown" name="dat_error_stream_thermal_emergency">El dispositivo ha sufrido una emergencia térmica y se ha detenido la transmisión</string>
+    <string gender="unknown" name="dat_error_stream_thermal_hot">El nivel térmico del dispositivo es demasiado alto para transmitir</string>
+    <string gender="unknown" name="dat_error_stream_timeout">Se ha agotado el tiempo de espera de la operación</string>
+    <string gender="unknown" name="dat_error_unregistration_already_unregistered">Cancelación del registro del usuario ya realizada al intentar cancelarlo de nuevo</string>
+    <string gender="unknown" name="dat_error_unregistration_configuration_invalid">La configuración del kit de acceso para wearables no es válida o está incompleta</string>
+    <string gender="unknown" name="dat_error_unregistration_meta_ai_not_installed">La aplicación de Meta AI no está instalada en el dispositivo y es necesaria para la cancelación del registro</string>
+    <string gender="unknown" name="dat_error_unregistration_unknown">Se ha producido un error desconocido durante el proceso de cancelación del registro</string>
+    <string gender="unknown" name="dat_error_voice_action_failed">Error en la acción</string>
+    <string gender="unknown" name="dat_error_voice_channel_setup_failed">No se ha podido configurar el canal de acciones de IA</string>
+    <string gender="unknown" name="dat_error_voice_connection_not_available">Conexión con el dispositivo no disponible</string>
+    <string gender="unknown" name="dat_error_voice_device_not_found">No se ha encontrado el dispositivo</string>
+    <string gender="unknown" name="dat_error_voice_init_request_error">No se ha podido iniciar la solicitud</string>
+    <string gender="unknown" name="dat_error_voice_invalid_message_proto">Prototipo de mensaje no válido</string>
+    <string gender="unknown" name="dat_error_voice_invalid_wearables_interface">Se ha proporcionado una interfaz de wearable no válida</string>
+    <string gender="unknown" name="dat_error_voice_send_message_error">No se ha podido enviar el mensaje</string>
+    <string gender="unknown" name="dat_error_wearables_already_configured">Ya se ha configurado</string>
+    <string gender="unknown" name="dat_error_wearables_configuration_error">Error de configuración</string>
+    <string gender="unknown" name="dat_error_wearables_internal_error">Error interno</string>
+    <string gender="unknown" name="dat_error_wearables_url_registration_error">Error de registro</string>
+    <string gender="unknown" name="dat_error_wearables_url_unregistration_error">Error de cancelación de registro</string>
+</resources>

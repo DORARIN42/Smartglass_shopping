@@ -1,0 +1,72 @@
+{
+  "component": "AndroidStatusBar",
+  "figma": {
+    "fileKey": "Oo9W0U9SyNGNZXyD8urNJZ",
+    "nodeId": "69:6149",
+    "url": "https://www.figma.com/design/Oo9W0U9SyNGNZXyD8urNJZ/Shopping-XR?node-id=69-6149"
+  },
+  "tokensFile": "tokens.css",
+  "hardcoded": true,
+  "description": "Android 폰 화면 상단의 시스템 상태 바 (시간 + 셀룰러/와이파이/배터리 아이콘). OS가 그리는 크롬 요소이며 폰 전용입니다 — Meta Ray-Ban Display 글래스 화면에는 렌더링하지 않습니다.",
+  "props": {
+    "darkMode": { "type": "boolean", "default": false },
+    "time": { "type": "string", "default": "12:30" }
+  },
+  "shape": {
+    "width": "600px",
+    "height": "40px",
+    "position": "relative"
+  },
+  "layout": {
+    "time": { "position": "absolute", "left": "3.33%", "vAlign": "center" },
+    "icons": {
+      "position": "absolute",
+      "right": "3.33%",
+      "vAlign": "center",
+      "gap": "10px",
+      "order": ["Cellular", "Wifi", "Battery"]
+    }
+  },
+  "textStyle": {
+    "fontFamily": "Roboto",
+    "fontWeight": 500,
+    "fontSize": "23.333px",
+    "letterSpacing": "0.0233px",
+    "lineHeight": "normal"
+  },
+  "styles": {
+    "Light": {
+      "background": "#F5F5F5",
+      "textColor": "#170E2B"
+    },
+    "Dark": {
+      "background": "#0F0F0F",
+      "textColor": "rgba(255, 255, 255, 0.9)"
+    }
+  },
+  "assets": {
+    "source": "Resources/StatusBar",
+    "icons": {
+      "cellular": {
+        "light": "Resources/StatusBar/Cellular=Light.svg",
+        "dark": "Resources/StatusBar/Cellular=Dark.svg",
+        "size": "30x20"
+      },
+      "wifi": {
+        "light": "Resources/StatusBar/Wifi=Light.svg",
+        "dark": "Resources/StatusBar/Wifi=Dark.svg",
+        "size": "26.667x20"
+      },
+      "battery": {
+        "light": "Resources/StatusBar/Battery=Light.svg",
+        "dark": "Resources/StatusBar/Battery=Dark.svg",
+        "size": "40x20"
+      }
+    }
+  },
+  "notes": [
+    "요청에 따라 이 컴포넌트는 tokens.css 토큰을 쓰지 않고 값을 하드코딩했습니다 — Android OS가 그리는 시스템 바 색상/폰트(Roboto)는 앱 자체 디자인 시스템과 무관한 플랫폼 크롬이기 때문입니다.",
+    "아이콘(cellular/wifi/battery)은 라이트/다크 모드별로 이미 색이 입혀진 상태로 내보내져 있어 별도 tint 처리가 필요 없습니다.",
+    "시계 텍스트는 실제 기기 시간을 바인딩하는 자리표시자(placeholder)이며, 12:30은 Figma 목업 기본값입니다."
+  ]
+}

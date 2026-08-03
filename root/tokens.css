@@ -1,0 +1,361 @@
+/* ==========================================================================
+   Shopping XR — Design Tokens
+   Figma: https://www.figma.com/design/Oo9W0U9SyNGNZXyD8urNJZ/Shopping-XR
+   Target: Android Studio (phone) + Meta Ray-Ban Display (glasses)
+   ========================================================================== */
+
+:root {
+  /* ---------- Color Primitives ---------- */
+
+  --yellow-50: #FCFBEC;
+  --yellow-100: #F3F1DE;
+  --yellow-200: #F9F3B7;
+  --yellow-300: #FAF06C;
+  --yellow-400: #FBEB37;
+  --yellow-500: #F2DC18;
+  --yellow-600: #DAC313;
+  --yellow-900: #5D4E04;
+
+  --grey-100: #F5F5F5;
+  --grey-200: #E6E6E6;
+  --grey-300: #D9D9D9;
+  --grey-400: #B3B3B3;
+  --grey-500: #757575;
+  --grey-600: #444444;
+  --grey-700: #383838;
+  --grey-800: #2C2C2C;
+  --grey-900: #1E1E1E;
+  --grey-1000: #111111;
+
+  --lime-50: #F4F9E9;
+  --lime-100: #EBF9D1;
+  --lime-200: #DEF6B5;
+  --lime-300: #CEFE7B;
+  --lime-400: #BEF75D;
+  --lime-500: #A8E937;
+  --lime-600: #96CE35;
+  --lime-900: #587A1D;
+
+  --black-100: #0C0C0D0D;
+  --black-200: #0C0C0D1A;
+  --black-300: #0C0C0D33;
+  --black-400: #0C0C0D66;
+  --black-500: #0C0C0DB2;
+  --black-600: #0C0C0DCC;
+  --black-700: #0C0C0DD9;
+  --black-800: #0C0C0DE5;
+  --black-900: #0C0C0DF2;
+  --black-1000: #0C0C0D;
+
+  --white-100: #FFFFFF0D;
+  --white-200: #FFFFFF1A;
+  --white-300: #FFFFFF33;
+  --white-400: #FFFFFF66;
+  --white-500: #FFFFFFB2;
+  --white-600: #FFFFFFCC;
+  --white-700: #FFFFFFD9;
+  --white-800: #FFFFFFE5;
+  --white-900: #FFFFFFF2;
+  --white-1000: #FFFFFF;
+
+  /* ---------- Semantic Color Aliases ----------
+     These are the exact variable names Figma's Dev Mode / component code
+     bind to (var(--sds-color-gray-900) etc). Kept as aliases onto the
+     primitives above so both naming layers stay in sync. */
+
+  --sds-color-white-1000: var(--white-1000);
+  --sds-color-white-900: var(--white-900);
+  --sds-color-white-800: var(--white-800);
+  --sds-color-white-700: var(--white-700);
+  --sds-color-white-500: var(--white-500); /* SavedLink vendor/price (metaColor) */
+  --sds-color-white-400: var(--white-400);
+  --sds-color-white-200: var(--white-200);
+
+  --sds-color-gray-1000: var(--grey-1000); /* Camera viewfinder screen background */
+  --sds-color-gray-900: var(--grey-900);
+  --sds-color-gray-800: var(--grey-800);
+  --sds-color-gray-700: var(--grey-700);
+  --sds-color-gray-600: var(--grey-600);
+  --sds-color-gray-400: var(--grey-400);
+  --sds-color-gray-300: var(--grey-300);
+  --sds-color-gray-200: var(--grey-200);
+  --sds-color-gray-100: var(--grey-100);
+
+  --sds-color-black-100: var(--black-100);
+  --sds-color-black-500: var(--black-500); /* CameraViewfinder analyzing/result scrim over the captured photo */
+  --sds-color-black-1000: var(--black-1000); /* ProductInfoScreen/PriceCompareScreen root background */
+
+  --sds-color-icon-default-default: var(--grey-900);
+  --sds-color-border-neutral-default: #2E3030;
+
+  /* ---------- Typography ---------- */
+  --sds-typography-body-font-family: "Inter", sans-serif;
+
+  /* ---------- Spacing Scale ----------
+     Numeric suffix follows the Figma "sds-size-space" variable scale
+     (100 = 4px increments in a non-linear ramp). Only steps actually
+     used by a component are declared. */
+
+  --sds-size-space-200: 8px;   /* Button / Icon Button gap */
+  --sds-size-space-300: 12px;  /* Button Small vertical padding, Icon Button Small padding */
+  --sds-size-space-400: 16px;  /* Product Name gap, Product/Price Information vertical padding */
+  --sds-size-space-500: 20px;  /* Icon Button Medium padding */
+  --sds-size-space-600: 24px;  /* Button Medium vertical padding, Button Small horizontal padding */
+  --sds-size-space-800: 32px;  /* Button Medium horizontal padding */
+  --sds-size-space-900: 40px;  /* ProductInfoScreen gap between the info-card list and the bottom button row */
+
+  /* ---------- Stroke / Border ---------- */
+  --sds-size-stroke-border: 1px;        /* Small size outline width */
+  --sds-size-stroke-border-thick: 2px;  /* Medium size outline width */
+
+  /* ---------- Radius ---------- */
+  --radius-full: 999px; /* pill shape used by Button & Icon Button */
+  --radius-card: 24px;  /* corner radius used by ProductName/ProductInformation/PriceInformation overlay cards */
+  --radius-camera-frame: 34.56px; /* Camera Frame corner radius (node 55:5534 / 69:6360) — not bound to a named Figma variable, one-off literal */
+
+  /* ---------- Icon Sizes ---------- */
+  --icon-size-sm: 24px; /* Button leading/trailing icon (both sizes); Icon Button Small */
+  --icon-size-md: 32px; /* Icon Button Medium */
+
+  /* ---------- Component Sizes ---------- */
+  --size-guideline-phone: 250px;
+  --size-guideline-glasses: 200px;
+  --size-camera-status-phone: 16px;
+  --size-camera-status-glasses: 10px;
+  --size-card-width: 466px; /* ProductName/ProductInformation overlay card width */
+  --size-price-card-width: 170.667px; /* PriceInformation compact card width — narrower so multiple vendor cards can sit side by side */
+  --size-list-card-width: 480px; /* SavedLink full-width list row — app-screen list item, not an AR overlay card, so it uses the full content width instead of --size-card-width */
+
+  /* ---------- Stroke Colors (Button/Icon Button outline) ---------- */
+  --stroke-white-default: rgba(255, 255, 255, 0.5); /* Small transparent outline */
+  --stroke-white-focused: #FFFFFF;                  /* Medium transparent outline, Hover state */
+
+  /* ---------- Button / Icon Button Fill Tokens ----------
+     Figma variables "Button/Transparent/*", "Button/Solid/brand *" and
+     "Stroke/white *" are multi-stop composite values; the API only
+     resolves their first channel, so the gradients below were rebuilt
+     from the rendered component output. A secondary radial "sheen"
+     grain layer present in Figma is intentionally dropped — it isn't
+     reproducible (or visible) on Android/glasses renderers. */
+
+  --ColorButtonTransparentWhiteDefault: linear-gradient(180deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.03) 100%);
+  --ColorButtonTransparentWhiteFocused: linear-gradient(180deg, rgba(255, 255, 255, 0.70) 0%, rgba(255, 255, 255, 0.07) 100%);
+  --ColorButtonTransparentBrandDefault: linear-gradient(228deg, var(--yellow-400) 14%, rgba(251, 235, 55, 0.05) 54%), linear-gradient(160deg, var(--lime-500) 14%, rgba(168, 233, 55, 0.05) 58%);
+  --ColorButtonTransparentBrandFocused: linear-gradient(245deg, var(--yellow-400) 14%, rgba(251, 235, 55, 0.08) 54%), linear-gradient(160deg, var(--lime-500) 14%, rgba(168, 233, 55, 0.08) 58%);
+  --ColorButtonSolidBrandDefault: linear-gradient(249deg, var(--yellow-400) 6%, rgba(250, 240, 108, 0.1) 69%), linear-gradient(161deg, var(--lime-500) 13%, rgba(206, 254, 123, 0.1) 74%), var(--grey-200);
+  --ColorButtonSolidBrandHover: linear-gradient(249deg, rgba(251, 235, 55, 0.5) 6%, rgba(250, 240, 108, 0.05) 69%), linear-gradient(161deg, rgba(168, 233, 55, 0.5) 13%, rgba(206, 254, 123, 0.05) 74%), var(--grey-100);
+  --ColorStrokeWhiteDefault: var(--stroke-white-default);
+  --ColorStrokeWhiteFocused: var(--stroke-white-focused);
+
+  /* ---------- Effect Values ----------
+     Same shadow values as .EffectStyleButtonDefault/.EffectStyleButtonSelected
+     below, exposed as custom properties too. The classes are for a static
+     shadow; components that need to bake a shadow into a real CSS
+     pseudo-class rule (:hover, :focus-visible — where JS-driven class
+     toggling doesn't apply, e.g. ProductInformation.json's hover/focus
+     interaction) reference the variable instead of duplicating the literal. */
+  --effect-button-default: inset 0px 4px 24px rgba(255, 255, 255, 0.3);
+  --effect-button-selected: inset 0px 4px 24px rgba(255, 255, 255, 1);
+
+  /* ---------- Scroll Fade ----------
+     Distance over which a scrollable list fades to transparent at its top/
+     bottom edge (see .scroll-fade-edges in interactions.css). Not sourced
+     from Figma (the designer couldn't prototype it there) — requested
+     directly, reused across every scrollable preview page. */
+  --scroll-fade-top: var(--sds-size-space-600); /* 24px */
+  --scroll-fade-bottom: 80px; /* doesn't match an existing spacing step */
+}
+
+/* ---------- Text Styles ---------- */
+
+.TextStyleTitleHero {
+	font-size: 64px;
+	font-family: Inter;
+	font-weight: 500;
+	font-style: normal;
+	line-height: 120%;
+	letter-spacing: -0.03em;
+	text-decoration: none;
+	text-transform: none;
+}
+.TextStyleTitlePage {
+	font-size: 48px;
+	font-family: Inter;
+	font-weight: 500;
+	font-style: normal;
+	line-height: 120%;
+	letter-spacing: -0.02em;
+	text-decoration: none;
+	text-transform: none;
+}
+.TextStyleSubtitle {
+	font-size: 40px;
+	font-family: Inter;
+	font-weight: 500;
+	font-style: normal;
+	line-height: 120%;
+	text-decoration: none;
+	text-transform: none;
+}
+.TextStyleHeading {
+	font-size: 36px;
+	font-family: Inter;
+	font-weight: 500;
+	font-style: normal;
+	line-height: 120%;
+	letter-spacing: -0.02em;
+	text-decoration: none;
+	text-transform: none;
+}
+.TextStyleSubheading {
+	font-size: 32px;
+	font-family: Inter;
+	font-weight: 500;
+	font-style: normal;
+	line-height: 120%;
+	text-decoration: none;
+	text-transform: none;
+}
+.TextStyleBodyBase {
+	font-size: 24px;
+	font-family: Inter;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 140%;
+	text-decoration: none;
+	text-transform: none;
+}
+.TextStyleBodyStrong {
+	font-size: 24px;
+	font-family: Inter;
+	font-weight: 600;
+	font-style: normal;
+	line-height: 140%;
+	text-decoration: none;
+	text-transform: none;
+}
+.TextStyleBodyEmphasis {
+	font-size: 24px;
+	font-family: Inter;
+	font-style: italic;
+	font-weight: 400;
+	line-height: 140%;
+	text-decoration: none;
+	text-transform: none;
+}
+.TextStyleBodyLink {
+	font-size: 24px;
+	font-family: Inter;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 140%;
+	text-decoration: underline;
+	text-transform: none;
+}
+.TextStyleBodySmall {
+	font-size: 20px;
+	font-family: Inter;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 140%;
+	text-decoration: none;
+	text-transform: none;
+}
+.TextStyleBodySmallStrong {
+	font-size: 20px;
+	font-family: Inter;
+	font-weight: 600;
+	font-style: normal;
+	line-height: 140%;
+	text-decoration: none;
+	text-transform: none;
+}
+.TextStyleBodyCode {
+	font-size: 20px;
+	font-family: Roboto Mono;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 130%;
+	text-decoration: none;
+	text-transform: none;
+}
+.TextStyleCaption {
+	font-size: 16px;
+	font-family: Inter;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 130%;
+	text-decoration: none;
+	text-transform: none;
+}
+.TextStyleSingleLineBodyBase {
+	font-size: 24px;
+	font-family: Inter;
+	font-weight: 500;
+	font-style: normal;
+	line-height: 100%;
+	text-decoration: none;
+	text-transform: none;
+}
+.TextStyleSingleLineBodySmallStrong {
+	font-size: 20px;
+	font-family: Inter;
+	font-weight: 500;
+	font-style: normal;
+	line-height: 100%;
+	text-decoration: none;
+	text-transform: none;
+}
+.TextStyleSingleLineCaption {
+	font-size: 16px;
+	font-family: Inter;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 100%;
+	text-decoration: none;
+	text-transform: none;
+}
+.TextStyleProductTitle {
+	font-size: 32px;
+	font-family: Inter;
+	font-weight: 700;
+	font-style: normal;
+	line-height: 120%;
+	text-decoration: none;
+	text-transform: none;
+}
+.TextStyleProductSubtitle {
+	font-size: 24px;
+	font-family: Inter;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 120%;
+	text-decoration: none;
+	text-transform: none;
+}
+
+/* ---------- Effect Styles ---------- */
+
+.EffectStyleMessage {
+	box-shadow: inset 0px -4px 24.2px #ffffff;
+}
+.EffectStyleButtonSelected {
+	box-shadow: var(--effect-button-selected);
+}
+.EffectStyleButtonDefault {
+	box-shadow: var(--effect-button-default);
+}
+
+/* ==========================================================================
+   참고 (Notes)
+   - "Button/Transparent/*", "Button/Solid/*", "Stroke/white *" 는 Figma에서
+     색상/두께/그라디언트가 합쳐진 컴포넌트 전용 변수라 위쪽 "Button / Icon
+     Button Fill Tokens" 섹션에서 CSS로 재구성해뒀습니다.
+   - Button/Solid/brand default 배경의 회색 베이스 → var(--grey-200) (#E6E6E6)
+   - Button/Solid/brand hover 배경의 회색 베이스   → var(--grey-100) (#F5F5F5)
+   - EffectStyleButtonDefault는 원본 Figma 값(#FFFFFF4D, 30% 흰색)에 맞춰
+     rgba(255,255,255,0.3)으로 보정했습니다 (기존 내보내기는 불투명 흰색이었음).
+   - TextStyleProductTitle / TextStyleProductSubtitle (node 72:7426 "Product Name")은
+     공용 타입 스케일 텍스트 스타일에 바인딩되어 있지 않은 로컬 스타일이라, 있는 값을
+     억지로 끼워맞추는 대신 이 두 토큰을 새로 추가했습니다.
+   ========================================================================== */

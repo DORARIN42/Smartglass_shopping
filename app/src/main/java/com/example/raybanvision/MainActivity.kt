@@ -112,6 +112,7 @@ class MainActivity : ComponentActivity() {
                                 onCaptureClick = { sessionViewModel.capturePhoto() },
                                 onRetakeClick = { sessionViewModel.retakePhoto() },
                                 onSearchClick = { sessionViewModel.submitForSearch() },
+                                onPriceComparisonClick = { sessionViewModel.showPriceComparison() },
                                 onSendSampleResult = { sessionViewModel.displayResult(SAMPLE_RESULT) },
                                 onDisconnect = {
                                     sessionViewModel.stopSession()

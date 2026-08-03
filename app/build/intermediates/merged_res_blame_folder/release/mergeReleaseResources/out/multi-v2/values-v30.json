@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.example.raybanvision.app-mergeReleaseResources-56:/values-v30/values-v30.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\pink5\\.gradle\\caches\\8.13\\transforms\\e7b1a142888fcf6bb0163f83b8f947e9\\transformed\\material3\\res\\values-v30\\values-v30.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "72",
+                        "endOffsets": "123"
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -25,6 +25,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -43,6 +44,10 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import com.example.raybanvision.data.AnalysisResult
 import com.example.raybanvision.session.SessionUiState
+import java.io.File
+import java.net.URL
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 @Composable
 fun MainScreen(
@@ -51,6 +56,7 @@ fun MainScreen(
     onCaptureClick: () -> Unit,
     onRetakeClick: () -> Unit,
     onSearchClick: () -> Unit,
+    onPriceComparisonClick: () -> Unit,
     onSendSampleResult: () -> Unit,
     onDisconnect: () -> Unit,
     modifier: Modifier = Modifier,
@@ -59,6 +65,7 @@ fun MainScreen(
     if (uiState.awaitingProductConfirmation && uiState.searchResult != null) {
         ProductConfirmationScreen(
             result = uiState.searchResult,
+            capturedPhotoFile = uiState.pendingPhotoFile,
             onAnalyzeClick = onSearchClick,
             onRetakeClick = onRetakeClick,
             modifier = modifier,
@@ -67,8 +74,10 @@ fun MainScreen(
         ResultScreen(
             result = uiState.searchResult!!,
             isSearching = uiState.isSearching,
+            showPriceComparison = uiState.showPriceComparison,
             statusMessage = uiState.statusMessage,
             onRetakeClick = onRetakeClick,
+            onPriceComparisonClick = onPriceComparisonClick,
             modifier = modifier,
         )
     } else {
@@ -88,10 +97,15 @@ fun MainScreen(
 @Composable
 private fun ProductConfirmationScreen(
     result: AnalysisResult,
+    capturedPhotoFile: File?,
     onAnalyzeClick: () -> Unit,
     onRetakeClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val capturedBitmap = capturedPhotoFile?.let { file ->
+        remember(file.absolutePath) { BitmapFactory.decodeFile(file.absolutePath) }
+    }
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -108,6 +122,19 @@ private fun ProductConfirmationScreen(
             color = Color.White,
             textAlign = TextAlign.Center,
         )
+
+        capturedBitmap?.let { bitmap ->
+            Image(
+                bitmap = bitmap.asImageBitmap(),
+                contentDescription = "촬영된 상품 사진",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(3f / 4f)
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(Color(0xFF151515)),
+                contentScale = ContentScale.Fit,
+            )
+        }
 
         Column(
             modifier = Modifier
@@ -375,8 +402,10 @@ private fun CameraGuideOverlay(modifier: Modifier = Modifier) {
 private fun ResultScreen(
     result: AnalysisResult,
     isSearching: Boolean,
+    showPriceComparison: Boolean,
     statusMessage: String?,
     onRetakeClick: () -> Unit,
+    onPriceComparisonClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
@@ -394,6 +423,16 @@ private fun ResultScreen(
             color = Color.White,
             textAlign = TextAlign.Center,
         )
+
+        result.topCandidate?.imageUrl?.let { imageUrl ->
+            RemoteImage(
+                url = imageUrl,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(16f / 9f)
+                    .clip(RoundedCornerShape(10.dp)),
+            )
+        }
 
         if (isSearching) {
             Text(
@@ -425,7 +464,7 @@ private fun ResultScreen(
             ResultListSection("긍정 리뷰", result.positiveReviews)
             ResultListSection("부정 리뷰", result.negativeReviews)
 
-            if (result.candidates.isNotEmpty()) {
+            if (showPriceComparison && result.candidates.isNotEmpty()) {
                 ResultSection("가격 정보") {
                     result.candidates.forEachIndexed { index, candidate ->
                         PriceResultRow(
@@ -450,6 +489,15 @@ private fun ResultScreen(
                 DetailRow("카테고리", result.category)
                 DetailRow("신뢰도", result.confidence?.let { "%.2f".format(it) })
                 DetailRow("평점", result.averageRating?.toString())
+            }
+        }
+
+        if (!showPriceComparison && result.candidates.isNotEmpty()) {
+            Button(
+                onClick = onPriceComparisonClick,
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                Text("가격비교")
             }
         }
 
@@ -532,7 +580,29 @@ private fun PriceResultRow(
         DetailRow("상품명", candidate.title)
         DetailRow("통화", candidate.currency)
         DetailRow("한국 마켓", candidate.isKoreanMarket?.let { if (it) "예" else "아니오" })
-        DetailRow("링크", candidate.linkUrl)
+    }
+}
+
+@Composable
+private fun RemoteImage(
+    url: String,
+    modifier: Modifier = Modifier,
+) {
+    val bitmapState = produceState<android.graphics.Bitmap?>(initialValue = null, url) {
+        value = withContext(Dispatchers.IO) {
+            runCatching {
+                URL(url).openStream().use { input -> BitmapFactory.decodeStream(input) }
+            }.getOrNull()
+        }
+    }
+
+    bitmapState.value?.let { bitmap ->
+        Image(
+            bitmap = bitmap.asImageBitmap(),
+            contentDescription = null,
+            modifier = modifier.background(Color(0xFF151515)),
+            contentScale = ContentScale.Fit,
+        )
     }
 }
 

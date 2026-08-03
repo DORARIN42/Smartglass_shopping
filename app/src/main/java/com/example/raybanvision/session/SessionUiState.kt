@@ -16,6 +16,7 @@ data class SessionUiState(
     // 검색(LLM 전송) 진행 중 여부.
     val isSearching: Boolean = false,
     val awaitingProductConfirmation: Boolean = false,
+    val showPriceComparison: Boolean = false,
     // 검색 결과 (폰 화면에 표시용).
     val searchResult: AnalysisResult? = null,
     val statusMessage: String? = null,

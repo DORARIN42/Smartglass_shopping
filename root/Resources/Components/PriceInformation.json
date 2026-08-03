@@ -1,0 +1,75 @@
+{
+  "component": "PriceInformation",
+  "figma": {
+    "fileKey": "Oo9W0U9SyNGNZXyD8urNJZ",
+    "nodeId": "72:7740",
+    "url": "https://www.figma.com/design/Oo9W0U9SyNGNZXyD8urNJZ/Shopping-XR?node-id=72-7740"
+  },
+  "tokensFile": "tokens.css",
+  "cssFile": "Resources/Components/PriceInformation.css",
+  "description": "인식된 상품의 최저가/판매처와 '링크 저장' 액션을 보여주는 컴팩트 카드. 여러 판매처를 나란히 비교할 수 있도록 좁은 폭으로 디자인되었습니다. state=Focused일 때 카드 테두리/그림자가 강조되고 내부 Button도 활성 색상으로 바뀌어 대표(추천) 카드임을 나타내고, 나머지는 state=Default로 흐리게 표시해 순위를 시각적으로 구분합니다.",
+  "shape": {
+    "layout": "column",
+    "gap": "var(--sds-size-space-600)",
+    "headingGap": "var(--sds-size-space-200)",
+    "priceGap": "4px",
+    "paddingTop": "var(--sds-size-space-400)",
+    "paddingX": "var(--sds-size-space-300)",
+    "paddingBottom": "var(--sds-size-space-300)",
+    "align": "center",
+    "radius": "var(--radius-card)",
+    "borderWidth": "var(--sds-size-stroke-border-thick)",
+    "clip": true,
+    "width": "var(--size-price-card-width)"
+  },
+  "props": {
+    "state": { "type": "enum", "values": ["Default", "Focused"], "default": "Focused" },
+    "currency": { "type": "string", "default": "₩" },
+    "price": { "type": "string", "default": "19,900" },
+    "vendor": { "type": "string", "default": "무신사" },
+    "actionLabel": { "type": "string", "default": "링크 저장" }
+  },
+  "textStyles": {
+    "price": "TextStyleBodyStrong",
+    "vendor": "TextStyleBodyStrong"
+  },
+  "styles": {
+    "Default": {
+      "background": "var(--ColorButtonTransparentWhiteDefault)",
+      "border": "var(--stroke-white-default)",
+      "shadow": "EffectStyleButtonDefault",
+      "headingColor": "var(--sds-color-white-700)"
+    },
+    "Focused": {
+      "background": "var(--ColorButtonTransparentWhiteDefault)",
+      "border": "var(--stroke-white-focused)",
+      "shadow": "EffectStyleButtonSelected",
+      "headingColor": "var(--sds-color-white-1000)"
+    }
+  },
+  "action": {
+    "component": "Button",
+    "componentRef": "Resources/Components/Button.json",
+    "variant": "Primary",
+    "color": "Solid",
+    "size": "Small",
+    "label": "{{actionLabel}}",
+    "iconStart": { "ref": "Link 2", "source": "Resources/Icons" },
+    "stateMap": {
+      "Default": "Disabled",
+      "Focused": "Default"
+    }
+  },
+  "notes": [
+    "2026-07-27 Figma 업데이트 반영: 카드 폭이 466px(공용 --size-card-width, ProductName/ProductInformation과 공유)에서 170.667px 전용 폭(--size-price-card-width, tokens.css에 신규 추가)으로 좁아졌습니다 — 여러 판매처 카드를 가로로 나란히 비교하는 레이아웃으로 바뀐 것으로 보입니다.",
+    "rank prop이 제거되었습니다. 이전에는 vendor 앞에 '1.' 같은 순위 숫자를 표시했지만, 새 디자인은 순위를 텍스트가 아니라 state(Focused=대표/추천, Default=나머지)의 시각적 강조 차이로만 표현합니다.",
+    "price 텍스트 스타일이 TextStyleHeading(36/Medium/120%)에서 TextStyleBodyStrong(24/SemiBold/140%)으로 축소되어, 이제 price와 vendor가 동일한 텍스트 스타일을 공유합니다(둘 다 headingColor 하나를 공유하는 것은 기존과 동일).",
+    "padding이 비대칭(top 16 / x 24 / bottom 24)에서 대칭 16px(var(--sds-size-space-400)) 전체 적용으로 바뀌었고, price 텍스트 블록과 vendor 텍스트 사이에 8px(headingGap, var(--sds-size-space-200)) gap이 새로 확인되었습니다. '₩'와 금액 사이 4px(priceGap)는 tokens.css의 공용 spacing 스케일에 없는 값이라 하드코딩했습니다.",
+    "state=Default의 카드 그림자가 'none'에서 EffectStyleButtonDefault(inset, 30% 흰색)로 바뀌어, 이제 Default 상태도 은은한 이너 글로우를 항상 유지합니다 — Focused는 기존과 동일하게 EffectStyleButtonSelected(100% 흰색)를 사용합니다.",
+    "그림자 값은 PriceInformation.css에 다시 적지 않고 tokens.css가 이미 제공하는 .EffectStyleButtonDefault / .EffectStyleButtonSelected 클래스를 마크업에서 price-card--default/focused와 함께 조합해서 씁니다 — box-shadow 리터럴을 중복 하드코딩하지 않기 위함.",
+    "2026-07-27 추가 수정: padding이 대칭 16px 전체에서 top=16px(var(--sds-size-space-400))/x·bottom=12px(var(--sds-size-space-300))로 바뀌었습니다 — 카드 폭이 170.667px로 좁아 좌우 padding을 줄여서 내부 Button('링크 저장')의 가용 폭을 늘리고, 라벨 텍스트가 줄바꿈/오버플로우되지 않도록 한 조정입니다.",
+    "'링크 저장' 버튼은 새 스타일을 정의하지 않고 Resources/Components/Button.json의 Primary.Solid 변형을 그대로 참조합니다 — 아이콘(Link 2)과 색상 토큰이 정확히 일치합니다.",
+    "state=Default에서는 카드가 아직 포커스되지 않은 상태를 나타내며, 내부 Button도 Primary.Solid.Disabled(회색, 비활성처럼 보임)로 렌더링됩니다. state=Focused에서 Button은 Primary.Solid.Default(브랜드 그라디언트, 활성)로 바뀝니다 — 실제로 버튼이 비활성화되는 것이 아니라 카드가 포커스를 받았는지 여부를 나타내는 시각적 상태입니다.",
+    "카드 배경은 Default/Focused 모두 동일한 var(--ColorButtonTransparentWhiteDefault)이며, 테두리 색·그림자·내부 Button 상태만 바뀝니다."
+  ]
+}

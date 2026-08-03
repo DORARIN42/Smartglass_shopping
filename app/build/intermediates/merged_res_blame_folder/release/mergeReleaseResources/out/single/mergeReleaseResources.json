@@ -1,0 +1,6 @@
+[
+    {
+        "merged": "com.example.raybanvision.app-release-58:/xml_file_paths.xml.flat",
+        "source": "com.example.raybanvision.app-main-59:/xml/file_paths.xml"
+    }
+]

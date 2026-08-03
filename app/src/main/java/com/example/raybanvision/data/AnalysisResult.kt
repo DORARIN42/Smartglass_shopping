@@ -31,6 +31,7 @@ data class AnalysisResult(
     val headline: String,                                // 글라스 상단 요약 문구
     val candidates: List<ProductCandidate> = emptyList(),
     val message: String? = null,                         // UNCERTAIN/RETRY/ERROR 안내 문구
+    val imageUrl: String? = null,
     val rawStatus: String? = null,
     val strategy: String? = null,
     val productName: String? = null,
