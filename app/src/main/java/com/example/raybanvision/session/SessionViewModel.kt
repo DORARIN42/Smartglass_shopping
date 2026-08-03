@@ -18,6 +18,7 @@ import com.example.raybanvision.BuildConfig
 import com.example.raybanvision.data.AnalysisResult
 import com.example.raybanvision.data.ProductCandidate
 import com.example.raybanvision.data.ResultStatus
+import com.example.raybanvision.data.SavedLink
 import com.example.raybanvision.network.mergeWith
 import com.example.raybanvision.network.ShoppingApiClient
 import com.meta.wearable.dat.camera.Stream
@@ -110,103 +111,270 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
     private val _capturedPhotoFile = MutableStateFlow<File?>(null)
     val capturedPhotoFile: StateFlow<File?> = _capturedPhotoFile.asStateFlow()
 
-    // LLM/쇼핑 팀이 분석 완료 후 이 함수를 호출하면 글라스 디스플레이에 결과를 표시.
-    // 글라스에는 요약(대표 상품 + 최저가)만 보여주고, 상세는 폰에서 확인하도록 유도한다.
+    // 분석 완료 후 결과에 따라 적절한 화면으로 라우팅한다.
+    // MATCHED/UNCERTAIN → 상품검색결과(199:2707), RETRY/ERROR → 기존 카드 형태.
     fun displayResult(result: AnalysisResult) {
-        val currentDisplay = display ?: run {
+        if (display == null) {
             Log.w(TAG, "displayResult called but display is not ready")
             _uiState.update { it.copy(statusMessage = "디스플레이 미준비 — 결과 표시 실패") }
             return
         }
         _uiState.update { it.copy(statusMessage = "결과 표시: ${result.status.name}") }
+        when (result.status) {
+            ResultStatus.MATCHED, ResultStatus.UNCERTAIN -> showProductResultScreen(result)
+            ResultStatus.RETRY_REQUIRED -> showRetryScreen(result)
+            ResultStatus.ERROR -> showErrorScreen(result)
+        }
+    }
 
+    // Figma 199:2707 — 상품검색결과.
+    // ProductName 카드(상단) + "이 상품이 맞나요?" 칩 + [다시 찍기 | 상품 정보] 버튼.
+    private fun showProductResultScreen(result: AnalysisResult) {
+        val currentDisplay = display ?: return
+        val sub = listOfNotNull(result.brand, result.modelNumber).joinToString(", ")
         viewModelScope.launch(Dispatchers.IO) {
             currentDisplay.sendContent {
-                // sendContent는 정확히 하나의 루트 뷰(flexBox)만 허용한다.
-                when (result.status) {
-                    ResultStatus.MATCHED, ResultStatus.UNCERTAIN -> {
-                        val top: ProductCandidate? = result.topCandidate
-                        // MATCHED = 확정(체크), UNCERTAIN = 폰에서 선택 필요(정보) 아이콘으로 구분.
-                        val statusIcon = if (result.status == ResultStatus.MATCHED) {
-                            IconName.CHECKMARK_CIRCLE
-                        } else {
-                            IconName.I_CIRCLE
-                        }
-                        flexBox(direction = Direction.COLUMN, gap = 12) {
-                            flexBox(padding = 24, background = FlexBoxBackground.CARD) {
-                                top?.imageUrl?.let { url -> image(uri = url, sizePreset = ImageSize.FILL) }
-                                flexBox(direction = Direction.ROW, gap = 8, crossAlignment = Alignment.CENTER) {
-                                    icon(
-                                        name = statusIcon,
-                                        style = if (result.status == ResultStatus.MATCHED) IconStyle.FILLED else IconStyle.OUTLINE,
-                                    )
-                                    text(result.headline, style = TextStyle.BODY)
-                                }
-                                if (result.status == ResultStatus.UNCERTAIN && result.candidates.size > 1) {
-                                    text(
-                                        "후보 ${result.candidates.size}개 · 폰에서 선택",
-                                        style = TextStyle.BODY,
-                                        color = TextColor.SECONDARY,
-                                    )
-                                }
+                flexBox(direction = Direction.COLUMN, gap = 32, padding = 24) {
+                    // ProductName card — flex-1 to fill remaining space
+                    flexBox(
+                        direction = Direction.COLUMN,
+                        gap = 16,
+                        padding = 16,
+                        background = FlexBoxBackground.CARD,
+                        flexGrow = 1f,
+                    ) {
+                        text(result.headline, style = TextStyle.HEADING)
+                        if (sub.isNotEmpty()) text(sub, style = TextStyle.BODY, color = TextColor.SECONDARY)
+                    }
+                    // Bottom section: confirmation chip + action buttons
+                    flexBox(direction = Direction.COLUMN, gap = 32, crossAlignment = Alignment.CENTER) {
+                        text("이 상품이 맞나요?", style = TextStyle.BODY, color = TextColor.SECONDARY)
+                        flexBox(direction = Direction.ROW, gap = 16) {
+                            // 다시 찍기
+                            flexBox(
+                                direction = Direction.ROW, gap = 8, padding = 24,
+                                background = FlexBoxBackground.CARD, flexGrow = 1f,
+                                crossAlignment = Alignment.CENTER,
+                                onClick = { retakePhoto(); showReadyScreen() },
+                            ) {
+                                icon(name = IconName.TWO_ARROWS_CLOCKWISE, style = IconStyle.OUTLINE)
+                                text("다시 찍기", style = TextStyle.BODY, color = TextColor.SECONDARY)
                             }
-                            // 구매처 후보를 가로로 균등한 3칸으로 나눠 노출 (링크 있는 것만).
-                            // 각 칸: 사이트명 + 가격, 칸 전체를 누르면 폰에서 해당 사이트가 열린다.
-                            // 세 칸 모두 동일한 스타일(flexGrow=1f로 폭 균등).
-                            flexBox(direction = Direction.ROW, gap = 8) {
-                                result.candidates
-                                    .filter { it.linkUrl != null }
-                                    .forEach { candidate ->
-                                        flexBox(
-                                            direction = Direction.COLUMN,
-                                            gap = 4,
-                                            padding = 12,
-                                            background = FlexBoxBackground.CARD,
-                                            flexGrow = 1f,
-                                            onClick = { openUrlOnPhone(candidate.linkUrl!!) },
-                                        ) {
-                                            candidate.store?.let {
-                                                text(it, style = TextStyle.BODY, color = TextColor.SECONDARY)
-                                            }
-                                            text(candidate.price, style = TextStyle.HEADING)
-                                        }
-                                    }
+                            // 상품 정보
+                            flexBox(
+                                direction = Direction.ROW, gap = 8, padding = 24,
+                                background = FlexBoxBackground.CARD, flexGrow = 1f,
+                                crossAlignment = Alignment.CENTER,
+                                onClick = { showProductInfoScreen(result) },
+                            ) {
+                                icon(name = IconName.I_CIRCLE, style = IconStyle.OUTLINE)
+                                text("상품 정보", style = TextStyle.BODY)
                             }
                         }
-                    }
-
-                    ResultStatus.RETRY_REQUIRED -> flexBox(
-                        direction = Direction.COLUMN, gap = 8, padding = 24, background = FlexBoxBackground.CARD,
-                    ) {
-                        flexBox(direction = Direction.ROW, gap = 8, crossAlignment = Alignment.CENTER) {
-                            icon(name = IconName.TWO_ARROWS_CLOCKWISE, style = IconStyle.OUTLINE)
-                            text("다시 촬영해주세요", style = TextStyle.HEADING)
-                        }
-                        text(
-                            result.message ?: "상품이 잘 보이도록 밝은 곳에서 가까이 촬영해주세요.",
-                            style = TextStyle.BODY,
-                            color = TextColor.SECONDARY,
-                        )
-                    }
-
-                    ResultStatus.ERROR -> flexBox(
-                        direction = Direction.COLUMN, gap = 8, padding = 24, background = FlexBoxBackground.CARD,
-                    ) {
-                        flexBox(direction = Direction.ROW, gap = 8, crossAlignment = Alignment.CENTER) {
-                            icon(name = IconName.EXCLAMATION_TRIANGLE, style = IconStyle.FILLED)
-                            text("오류가 발생했어요", style = TextStyle.HEADING)
-                        }
-                        text(
-                            result.message ?: "잠시 후 다시 시도해주세요.",
-                            style = TextStyle.BODY,
-                            color = TextColor.SECONDARY,
-                        )
                     }
                 }
             }.onFailure { error, _ ->
-                Log.e(TAG, "displayResult sendContent failed: ${error.description}")
-                _uiState.update { it.copy(statusMessage = "디스플레이 전송 실패: ${error.description}") }
+                Log.e(TAG, "showProductResultScreen failed: ${error.description}")
             }
+        }
+    }
+
+    // Figma 199:3034 — 상품 정보 (스크롤).
+    // ProductName 카드 + 정보 카드 목록(상품 요약·영양성분·후기·주요성분) + [다시 찍기 | 가격 정보].
+    // 600px 초과 시 글라스 터치패드로 스크롤 가능.
+    private fun showProductInfoScreen(result: AnalysisResult) {
+        val currentDisplay = display ?: return
+        val sub = listOfNotNull(result.brand, result.modelNumber).joinToString(", ")
+        viewModelScope.launch(Dispatchers.IO) {
+            currentDisplay.sendContent {
+                flexBox(direction = Direction.COLUMN, gap = 8, padding = 24) {
+                    // ProductName card
+                    flexBox(direction = Direction.COLUMN, gap = 16, padding = 16, background = FlexBoxBackground.CARD) {
+                        text(result.headline, style = TextStyle.HEADING)
+                        if (sub.isNotEmpty()) text(sub, style = TextStyle.BODY, color = TextColor.SECONDARY)
+                    }
+                    // Scrollable information cards
+                    flexBox(direction = Direction.COLUMN, gap = 8) {
+                        // 상품 요약 — active/selected card style (prominent)
+                        result.productDescription?.takeIf { it.isNotBlank() }?.let { desc ->
+                            flexBox(direction = Direction.COLUMN, gap = 12, padding = 16, background = FlexBoxBackground.CARD) {
+                                text("상품 요약", style = TextStyle.BODY)
+                                text(desc, style = TextStyle.BODY, color = TextColor.SECONDARY)
+                            }
+                        }
+                        // 영양성분 / 스펙
+                        if (result.specifications.isNotEmpty()) {
+                            flexBox(direction = Direction.COLUMN, gap = 12, padding = 16, background = FlexBoxBackground.CARD) {
+                                text("영양성분", style = TextStyle.BODY)
+                                text(result.specifications.joinToString("\n"), style = TextStyle.BODY, color = TextColor.SECONDARY)
+                            }
+                        }
+                        // 후기
+                        val reviewParts = buildList {
+                            if (result.positiveReviews.isNotEmpty()) add("[장점] ${result.positiveReviews.joinToString(", ")}")
+                            if (result.negativeReviews.isNotEmpty()) add("[단점] ${result.negativeReviews.joinToString(", ")}")
+                        }
+                        if (reviewParts.isNotEmpty()) {
+                            flexBox(direction = Direction.COLUMN, gap = 12, padding = 16, background = FlexBoxBackground.CARD) {
+                                text("후기", style = TextStyle.BODY)
+                                text(reviewParts.joinToString("\n"), style = TextStyle.BODY, color = TextColor.SECONDARY)
+                            }
+                        }
+                        // 주요 성분
+                        result.message?.takeIf { it.isNotBlank() }?.let { msg ->
+                            flexBox(direction = Direction.COLUMN, gap = 12, padding = 16, background = FlexBoxBackground.CARD) {
+                                text("주요 성분", style = TextStyle.BODY)
+                                text(msg, style = TextStyle.BODY, color = TextColor.SECONDARY)
+                            }
+                        }
+                    }
+                    // Action buttons
+                    flexBox(direction = Direction.ROW, gap = 16) {
+                        flexBox(
+                            direction = Direction.ROW, gap = 8, padding = 24,
+                            background = FlexBoxBackground.CARD, flexGrow = 1f,
+                            crossAlignment = Alignment.CENTER,
+                            onClick = { retakePhoto(); showReadyScreen() },
+                        ) {
+                            icon(name = IconName.TWO_ARROWS_CLOCKWISE, style = IconStyle.OUTLINE)
+                            text("다시 찍기", style = TextStyle.BODY, color = TextColor.SECONDARY)
+                        }
+                        flexBox(
+                            direction = Direction.ROW, gap = 8, padding = 24,
+                            background = FlexBoxBackground.CARD, flexGrow = 1f,
+                            crossAlignment = Alignment.CENTER,
+                            onClick = { showPriceInfoScreen(result) },
+                        ) {
+                            icon(name = IconName.CHECKMARK_CIRCLE, style = IconStyle.OUTLINE)
+                            text("가격 정보", style = TextStyle.BODY)
+                        }
+                    }
+                }
+            }.onFailure { error, _ ->
+                Log.e(TAG, "showProductInfoScreen failed: ${error.description}")
+            }
+        }
+    }
+
+    // Figma 199:2716 — 가격 정보 (스크롤).
+    // ProductName 카드 + 가격 카드 목록(스토어·가격·링크 저장) + [다시 찍기 | 상품 정보].
+    // 600px 초과 시 글라스 터치패드로 스크롤 가능.
+    private fun showPriceInfoScreen(result: AnalysisResult) {
+        val currentDisplay = display ?: return
+        val sub = listOfNotNull(result.brand, result.modelNumber).joinToString(", ")
+        viewModelScope.launch(Dispatchers.IO) {
+            currentDisplay.sendContent {
+                flexBox(direction = Direction.COLUMN, gap = 16, padding = 32) {
+                    // ProductName card
+                    flexBox(direction = Direction.COLUMN, gap = 16, padding = 16, background = FlexBoxBackground.CARD) {
+                        text(result.headline, style = TextStyle.HEADING)
+                        if (sub.isNotEmpty()) text(sub, style = TextStyle.BODY, color = TextColor.SECONDARY)
+                    }
+                    // Scrollable price cards
+                    flexBox(direction = Direction.COLUMN, gap = 8, flexGrow = 1f) {
+                        result.candidates.forEach { candidate ->
+                            flexBox(
+                                direction = Direction.ROW, gap = 24, padding = 16,
+                                background = FlexBoxBackground.CARD,
+                                crossAlignment = Alignment.CENTER,
+                            ) {
+                                // Store + price
+                                flexBox(
+                                    direction = Direction.ROW, gap = 8,
+                                    flexGrow = 1f, crossAlignment = Alignment.CENTER,
+                                ) {
+                                    candidate.store?.let { text(it, style = TextStyle.BODY) }
+                                    val priceDisplay = candidate.price.removeSuffix("원").trim()
+                                    text("₩$priceDisplay", style = TextStyle.BODY)
+                                }
+                                // 링크 저장 button
+                                flexBox(
+                                    direction = Direction.ROW, gap = 8, padding = 12,
+                                    background = FlexBoxBackground.CARD,
+                                    crossAlignment = Alignment.CENTER,
+                                    onClick = {
+                                        candidate.linkUrl?.let { url ->
+                                            if (SavedLinksStore.links.none { it.linkUrl == url }) {
+                                                SavedLinksStore.save(
+                                                    SavedLink(
+                                                        productName = result.headline,
+                                                        store = candidate.store ?: "",
+                                                        price = candidate.price.removeSuffix("원").trim(),
+                                                        linkUrl = url,
+                                                        savedAt = "글라스에서 저장",
+                                                    )
+                                                )
+                                            }
+                                        }
+                                    },
+                                ) {
+                                    icon(name = IconName.CHECKMARK_CIRCLE, style = IconStyle.OUTLINE)
+                                    text("링크 저장", style = TextStyle.META, color = TextColor.SECONDARY)
+                                }
+                            }
+                        }
+                    }
+                    // Action buttons
+                    flexBox(direction = Direction.ROW, gap = 16) {
+                        flexBox(
+                            direction = Direction.ROW, gap = 8, padding = 24,
+                            background = FlexBoxBackground.CARD, flexGrow = 1f,
+                            crossAlignment = Alignment.CENTER,
+                            onClick = { retakePhoto(); showReadyScreen() },
+                        ) {
+                            icon(name = IconName.TWO_ARROWS_CLOCKWISE, style = IconStyle.OUTLINE)
+                            text("다시 찍기", style = TextStyle.BODY, color = TextColor.SECONDARY)
+                        }
+                        flexBox(
+                            direction = Direction.ROW, gap = 8, padding = 24,
+                            background = FlexBoxBackground.CARD, flexGrow = 1f,
+                            crossAlignment = Alignment.CENTER,
+                            onClick = { showProductInfoScreen(result) },
+                        ) {
+                            icon(name = IconName.I_CIRCLE, style = IconStyle.OUTLINE)
+                            text("상품 정보", style = TextStyle.BODY)
+                        }
+                    }
+                }
+            }.onFailure { error, _ ->
+                Log.e(TAG, "showPriceInfoScreen failed: ${error.description}")
+            }
+        }
+    }
+
+    private fun showRetryScreen(result: AnalysisResult) {
+        val currentDisplay = display ?: return
+        viewModelScope.launch(Dispatchers.IO) {
+            currentDisplay.sendContent {
+                flexBox(direction = Direction.COLUMN, gap = 8, padding = 24, background = FlexBoxBackground.CARD) {
+                    flexBox(direction = Direction.ROW, gap = 8, crossAlignment = Alignment.CENTER) {
+                        icon(name = IconName.TWO_ARROWS_CLOCKWISE, style = IconStyle.OUTLINE)
+                        text("다시 촬영해주세요", style = TextStyle.HEADING)
+                    }
+                    text(
+                        result.message ?: "상품이 잘 보이도록 밝은 곳에서 가까이 촬영해주세요.",
+                        style = TextStyle.BODY, color = TextColor.SECONDARY,
+                    )
+                }
+            }.onFailure { error, _ -> Log.e(TAG, "showRetryScreen failed: ${error.description}") }
+        }
+    }
+
+    private fun showErrorScreen(result: AnalysisResult) {
+        val currentDisplay = display ?: return
+        viewModelScope.launch(Dispatchers.IO) {
+            currentDisplay.sendContent {
+                flexBox(direction = Direction.COLUMN, gap = 8, padding = 24, background = FlexBoxBackground.CARD) {
+                    flexBox(direction = Direction.ROW, gap = 8, crossAlignment = Alignment.CENTER) {
+                        icon(name = IconName.EXCLAMATION_TRIANGLE, style = IconStyle.FILLED)
+                        text("오류가 발생했어요", style = TextStyle.HEADING)
+                    }
+                    text(
+                        result.message ?: "잠시 후 다시 시도해주세요.",
+                        style = TextStyle.BODY, color = TextColor.SECONDARY,
+                    )
+                }
+            }.onFailure { error, _ -> Log.e(TAG, "showErrorScreen failed: ${error.description}") }
         }
     }
     // ─────────────────────────────────────────────────────────────────────
