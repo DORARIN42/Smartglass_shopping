@@ -78,6 +78,11 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
         private const val IMG_CAMERA_CLEAR  = "$ASSET_BASE/CameraClear.png"
         private const val IMG_CAMERA_COLOR  = "$ASSET_BASE/CameraColor.png"
         private const val IMG_SEARCH_COLOR  = "$ASSET_BASE/search-color.png"
+        // Button PNGs — replace SDK icon()+text() on actual glasses display
+        private const val IMG_CAMERA_RETAKE = "$ASSET_BASE/CameraRetake.png"
+        private const val IMG_PRODUCT_INFO  = "$ASSET_BASE/ProductInfo.png"
+        private const val IMG_PRICE_INFO    = "$ASSET_BASE/PriceInfo.png"
+        private const val IMG_SAVE_LINK     = "$ASSET_BASE/SaveLink.png"
         // Loading animation — pre-rendered GIF hosted alongside other assets.
         private const val IMG_LOADING_GIF   =
             "https://raw.githubusercontent.com/DORARIN42/Smartglass_shopping/main/root/Animation/Loading.gif"
@@ -150,25 +155,11 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                     flexBox(direction = Direction.COLUMN, gap = 32, crossAlignment = Alignment.CENTER) {
                         text("이 상품이 맞나요?", style = TextStyle.BODY, color = TextColor.SECONDARY)
                         flexBox(direction = Direction.ROW, gap = 16) {
-                            // 다시 찍기
-                            flexBox(
-                                direction = Direction.ROW, gap = 8, padding = 24,
-                                background = FlexBoxBackground.CARD, flexGrow = 1f,
-                                crossAlignment = Alignment.CENTER,
-                                onClick = { retakePhoto(); showReadyScreen() },
-                            ) {
-                                icon(name = IconName.TWO_ARROWS_CLOCKWISE, style = IconStyle.OUTLINE)
-                                text("다시 찍기", style = TextStyle.BODY, color = TextColor.SECONDARY)
+                            flexBox(flexGrow = 1f, onClick = { retakePhoto(); showReadyScreen() }) {
+                                image(uri = IMG_CAMERA_RETAKE, sizePreset = ImageSize.FILL)
                             }
-                            // 상품 정보
-                            flexBox(
-                                direction = Direction.ROW, gap = 8, padding = 24,
-                                background = FlexBoxBackground.CARD, flexGrow = 1f,
-                                crossAlignment = Alignment.CENTER,
-                                onClick = { showProductInfoScreen(result) },
-                            ) {
-                                icon(name = IconName.I_CIRCLE, style = IconStyle.OUTLINE)
-                                text("상품 정보", style = TextStyle.BODY)
+                            flexBox(flexGrow = 1f, onClick = { showProductInfoScreen(result) }) {
+                                image(uri = IMG_PRODUCT_INFO, sizePreset = ImageSize.FILL)
                             }
                         }
                     }
@@ -230,23 +221,11 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                     }
                     // Action buttons
                     flexBox(direction = Direction.ROW, gap = 16) {
-                        flexBox(
-                            direction = Direction.ROW, gap = 8, padding = 24,
-                            background = FlexBoxBackground.CARD, flexGrow = 1f,
-                            crossAlignment = Alignment.CENTER,
-                            onClick = { retakePhoto(); showReadyScreen() },
-                        ) {
-                            icon(name = IconName.TWO_ARROWS_CLOCKWISE, style = IconStyle.OUTLINE)
-                            text("다시 찍기", style = TextStyle.BODY, color = TextColor.SECONDARY)
+                        flexBox(flexGrow = 1f, onClick = { retakePhoto(); showReadyScreen() }) {
+                            image(uri = IMG_CAMERA_RETAKE, sizePreset = ImageSize.FILL)
                         }
-                        flexBox(
-                            direction = Direction.ROW, gap = 8, padding = 24,
-                            background = FlexBoxBackground.CARD, flexGrow = 1f,
-                            crossAlignment = Alignment.CENTER,
-                            onClick = { showPriceInfoScreen(result) },
-                        ) {
-                            icon(name = IconName.CHECKMARK_CIRCLE, style = IconStyle.OUTLINE)
-                            text("가격 정보", style = TextStyle.BODY)
+                        flexBox(flexGrow = 1f, onClick = { showPriceInfoScreen(result) }) {
+                            image(uri = IMG_PRICE_INFO, sizePreset = ImageSize.FILL)
                         }
                     }
                 }
@@ -287,11 +266,8 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                                     val priceDisplay = candidate.price.removeSuffix("원").trim()
                                     text("₩$priceDisplay", style = TextStyle.BODY)
                                 }
-                                // 링크 저장 button
+                                // 링크 저장 button — SaveLink.png
                                 flexBox(
-                                    direction = Direction.ROW, gap = 8, padding = 12,
-                                    background = FlexBoxBackground.CARD,
-                                    crossAlignment = Alignment.CENTER,
                                     onClick = {
                                         candidate.linkUrl?.let { url ->
                                             if (SavedLinksStore.links.none { it.linkUrl == url }) {
@@ -308,31 +284,18 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                                         }
                                     },
                                 ) {
-                                    icon(name = IconName.CHECKMARK_CIRCLE, style = IconStyle.OUTLINE)
-                                    text("링크 저장", style = TextStyle.META, color = TextColor.SECONDARY)
+                                    image(uri = IMG_SAVE_LINK, sizePreset = ImageSize.FILL)
                                 }
                             }
                         }
                     }
                     // Action buttons
                     flexBox(direction = Direction.ROW, gap = 16) {
-                        flexBox(
-                            direction = Direction.ROW, gap = 8, padding = 24,
-                            background = FlexBoxBackground.CARD, flexGrow = 1f,
-                            crossAlignment = Alignment.CENTER,
-                            onClick = { retakePhoto(); showReadyScreen() },
-                        ) {
-                            icon(name = IconName.TWO_ARROWS_CLOCKWISE, style = IconStyle.OUTLINE)
-                            text("다시 찍기", style = TextStyle.BODY, color = TextColor.SECONDARY)
+                        flexBox(flexGrow = 1f, onClick = { retakePhoto(); showReadyScreen() }) {
+                            image(uri = IMG_CAMERA_RETAKE, sizePreset = ImageSize.FILL)
                         }
-                        flexBox(
-                            direction = Direction.ROW, gap = 8, padding = 24,
-                            background = FlexBoxBackground.CARD, flexGrow = 1f,
-                            crossAlignment = Alignment.CENTER,
-                            onClick = { showProductInfoScreen(result) },
-                        ) {
-                            icon(name = IconName.I_CIRCLE, style = IconStyle.OUTLINE)
-                            text("상품 정보", style = TextStyle.BODY)
+                        flexBox(flexGrow = 1f, onClick = { showProductInfoScreen(result) }) {
+                            image(uri = IMG_PRODUCT_INFO, sizePreset = ImageSize.FILL)
                         }
                     }
                 }
