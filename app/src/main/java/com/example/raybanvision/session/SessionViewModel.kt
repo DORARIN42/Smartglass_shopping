@@ -75,9 +75,16 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
         private const val IMG_LOGO          = "$ASSET_BASE/logo.png"
         private const val IMG_GUIDELINE     = "$ASSET_BASE/Guideline.png"
         private const val IMG_CAMERA_CLEAR  = "$ASSET_BASE/CameraClear.png"
+        private const val IMG_CAMERA_COLOR  = "$ASSET_BASE/CameraColor.png"
+        private const val IMG_SEARCH_COLOR  = "$ASSET_BASE/search-color.png"
+        // Loading animation — pre-rendered GIF hosted alongside other assets.
+        private const val IMG_LOADING_GIF   =
+            "https://raw.githubusercontent.com/DORARIN42/Smartglass_shopping/main/root/Animation/Loading.gif"
 
         // Duration (ms) the splash screen stays before transitioning to ready.
         private const val SPLASH_DURATION_MS = 2_500L
+        // Duration (ms) search-complete screen stays before showing the full result.
+        private const val SEARCH_COMPLETE_DISPLAY_MS = 1_500L
     }
 
     private val _uiState = MutableStateFlow(SessionUiState())
@@ -296,6 +303,7 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
         // 캡처 프레임 손상 방지: 촬영 동안 프리뷰(videoStream 수집) 중단.
         stopPreview()
         _uiState.update { it.copy(isCapturing = true, statusMessage = "촬영 중...") }
+        showCapturingScreen() // Figma 199:2680 — camera button pressed
 
         // 목 디바이스에서는 capturePhoto()가 스트리밍 버퍼와 경합해 찢김/부분 프레임이 발생한다.
         // debug 빌드(목)에서는 이미 깨끗한 현재 프리뷰 프레임을 그대로 저장한다.
@@ -311,7 +319,12 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                         statusMessage = if (file != null) "상품명 확인 중..." else "파일 저장 실패",
                     )
                 }
-                if (file != null) identifyProduct(file) else startPreview()
+                if (file != null) {
+                    showCaptureCompleteScreen() // Figma 199:2863 — capture done
+                    identifyProduct(file)
+                } else {
+                    startPreview()
+                }
             }
             return
         }
@@ -328,7 +341,12 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                             statusMessage = if (file != null) "상품명 확인 중..." else "파일 저장 실패",
                         )
                     }
-                    if (file != null) identifyProduct(file) else startPreview()
+                    if (file != null) {
+                        showCaptureCompleteScreen() // Figma 199:2863 — capture done
+                        identifyProduct(file)
+                    } else {
+                        startPreview()
+                    }
                 }
                 .onFailure { error, _ ->
                     Log.e(TAG, "Photo capture failed: ${error.description}")
@@ -490,6 +508,8 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                             statusMessage = "완료",
                         )
                     }
+                    showSearchCompleteScreen() // Figma 199:3013 — search done
+                    delay(SEARCH_COMPLETE_DISPLAY_MS)
                     displayResult(result)
                 }
                 .onFailure { throwable ->
@@ -536,16 +556,24 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
         analysisMessageJob = null
     }
 
+    // Figma node 199:3562 — Shown while product search/analysis is running.
+    // Loading.gif is the pre-rendered version of root/Animation/Loading.json.
     fun displayLoading() {
         val currentDisplay = display ?: return
         viewModelScope.launch(Dispatchers.IO) {
             currentDisplay.sendContent {
-                flexBox(direction = Direction.COLUMN, gap = 8, padding = 24, background = FlexBoxBackground.CARD) {
-                    flexBox(direction = Direction.ROW, gap = 8, crossAlignment = Alignment.CENTER) {
-                        icon(name = IconName.CIRCLE_8_RAYS_LARGE, style = IconStyle.OUTLINE)
-                        text("상품 분석 중...", style = TextStyle.HEADING)
-                    }
-                    text("잠시만 기다려주세요", style = TextStyle.BODY, color = TextColor.SECONDARY)
+                flexBox(
+                    direction = Direction.COLUMN,
+                    gap = 32,
+                    alignment = Alignment.CENTER,
+                    crossAlignment = Alignment.CENTER,
+                ) {
+                    image(uri = IMG_LOADING_GIF, sizePreset = ImageSize.FILL)
+                    text(
+                        "상품을 검색 중입니다.",
+                        style = TextStyle.BODY,
+                        color = TextColor.SECONDARY,
+                    )
                 }
             }
         }
@@ -627,6 +655,85 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                 }
             }.onFailure { error, _ ->
                 Log.e(TAG, "showReadyScreen failed: ${error.description}")
+            }
+        }
+    }
+
+    // Figma node 199:2680 — Shown immediately when the user presses the capture button.
+    // Same row layout as ready screen, but uses CameraColor.png (brand gradient camera graphic).
+    private fun showCapturingScreen() {
+        val currentDisplay = display ?: return
+        viewModelScope.launch(Dispatchers.IO) {
+            currentDisplay.sendContent {
+                flexBox(direction = Direction.ROW, gap = 32) {
+                    image(uri = IMG_GUIDELINE, sizePreset = ImageSize.FILL)
+                    flexBox(
+                        direction = Direction.COLUMN,
+                        gap = 32,
+                        alignment = Alignment.CENTER,
+                        crossAlignment = Alignment.CENTER,
+                        flexGrow = 1f,
+                    ) {
+                        image(uri = IMG_CAMERA_COLOR, sizePreset = ImageSize.FILL)
+                        text(
+                            "왼쪽에 물체를 배치해주세요.",
+                            style = TextStyle.BODY,
+                            color = TextColor.SECONDARY,
+                        )
+                    }
+                }
+            }.onFailure { error, _ ->
+                Log.e(TAG, "showCapturingScreen failed: ${error.description}")
+            }
+        }
+    }
+
+    // Figma node 199:2863 — Shown when the photo capture finishes (~2s after button press).
+    // Guideline strip removed; camera graphic centred on the full 600×600 canvas.
+    private fun showCaptureCompleteScreen() {
+        val currentDisplay = display ?: return
+        viewModelScope.launch(Dispatchers.IO) {
+            currentDisplay.sendContent {
+                flexBox(
+                    direction = Direction.COLUMN,
+                    gap = 32,
+                    alignment = Alignment.CENTER,
+                    crossAlignment = Alignment.CENTER,
+                ) {
+                    image(uri = IMG_CAMERA_COLOR, sizePreset = ImageSize.FILL)
+                    text(
+                        "사진 촬영이 완료되었습니다!",
+                        style = TextStyle.BODY,
+                        color = TextColor.SECONDARY,
+                    )
+                }
+            }.onFailure { error, _ ->
+                Log.e(TAG, "showCaptureCompleteScreen failed: ${error.description}")
+            }
+        }
+    }
+
+    // Figma node 199:3013 — Shown when product analysis finishes successfully.
+    // Briefly displayed (~1.5s) before the full result screen.
+    private fun showSearchCompleteScreen() {
+        val currentDisplay = display ?: return
+        viewModelScope.launch(Dispatchers.IO) {
+            currentDisplay.sendContent {
+                flexBox(
+                    direction = Direction.COLUMN,
+                    gap = 32,
+                    alignment = Alignment.CENTER,
+                    crossAlignment = Alignment.CENTER,
+                ) {
+                    image(uri = IMG_SEARCH_COLOR, sizePreset = ImageSize.FILL)
+                    text(
+                        "검색이 완료되었습니다!",
+                        style = TextStyle.BODY,
+                        color = TextColor.SECONDARY,
+                    )
+                }
+            }.onFailure { error, _ ->
+                Log.e(TAG, "showSearchCompleteScreen failed: ${error.description}")
             }
         }
     }

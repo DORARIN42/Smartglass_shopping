@@ -5,6 +5,7 @@
 <title>Shoply — 글라스 디스플레이 600×600</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
 <style>
 /* ============================================================
    Glasses display mockup — 600×600
@@ -23,11 +24,11 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 20px;
+  justify-content: flex-start;
+  gap: 12px;
   background: #0e0e0e;
   font-family: 'Inter', sans-serif;
-  padding: 40px 20px;
+  padding: 16px 0 0;
 }
 
 /* ── Tab bar ────────────────────────────────────────────── */
@@ -56,26 +57,14 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
-}
-
-.meta-label {
-  color: #444;
-  font-size: 11px;
-  letter-spacing: 0.08em;
 }
 
 /* ── 600×600 display viewport ───────────────────────────── */
 .display {
   width: 600px;
   height: 600px;
-  border-radius: 20px;
   overflow: hidden;
   position: relative;
-  box-shadow:
-    0 0 0 1px #2a2a2a,
-    0 0 0 3px #111,
-    0 32px 80px rgba(0,0,0,.9);
 }
 
 /* Background: simulates looking through the AR glasses lens */
@@ -191,13 +180,16 @@ body {
 <body>
 
 <div class="tabs">
-  <button class="tab active" onclick="show('splash',   this)">스플래시 (199:2768)</button>
-  <button class="tab"        onclick="show('ready',    this)">준비 완료 (199:2667)</button>
-  <button class="tab"        onclick="show('loading',  this)">분석 중</button>
-  <button class="tab"        onclick="show('matched',  this)">결과 · 매칭</button>
-  <button class="tab"        onclick="show('uncertain',this)">결과 · 불확실</button>
-  <button class="tab"        onclick="show('retry',    this)">재촬영 요청</button>
-  <button class="tab"        onclick="show('error',    this)">오류</button>
+  <button class="tab active" onclick="show('splash',    this)">스플래시 (199:2768)</button>
+  <button class="tab"        onclick="show('ready',     this)">준비 완료 (199:2667)</button>
+  <button class="tab"        onclick="show('capturing', this)">촬영 중 (199:2680)</button>
+  <button class="tab"        onclick="show('captured',  this)">촬영 완료 (199:2863)</button>
+  <button class="tab"        onclick="show('loading',   this)">검색 중 (199:3562)</button>
+  <button class="tab"        onclick="show('searched',  this)">검색 완료 (199:3013)</button>
+  <button class="tab"        onclick="show('matched',   this)">결과 · 매칭</button>
+  <button class="tab"        onclick="show('uncertain', this)">결과 · 불확실</button>
+  <button class="tab"        onclick="show('retry',     this)">재촬영 요청</button>
+  <button class="tab"        onclick="show('error',     this)">오류</button>
 </div>
 
 <div class="wrapper">
@@ -235,26 +227,65 @@ body {
         </div>
       </div>
 
-      <!-- ② displayLoading() ──────────────────────────────
-           flexBox(col, gap=8, padding=24, CARD) {
-             flexBox(row, gap=8, crossAlign=CENTER) { icon(CIRCLE_8_RAYS_LARGE) · text(HEADING) }
-             text("잠시만 기다려주세요", BODY, SECONDARY)
+      <!-- ③ showCapturingScreen() — Figma 199:2680 ──────────
+           capturePhoto() 호출 즉시 — 카메라 버튼 눌린 상태.
+           flexBox(row, gap=32) {
+             image(Guideline.png, FILL)
+             flexBox(col, gap=32, center, flexGrow=1) {
+               image(CameraColor.png, FILL)    ← 브랜드 그라디언트 카메라
+               text("왼쪽에 물체를 배치해주세요.", BODY, SECONDARY)
+             }
            }
       ──────────────────────────────────────────────────── -->
-      <div id="screen-loading" class="screen sdk-card sdk-col gap8">
-        <div class="sdk-row gap8">
-          <div class="sdk-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" class="spin">
-              <circle cx="12" cy="12" r="3.5"/>
-              <path d="M12 2v2.5M12 19.5V22M4.22 4.22l1.77 1.77M18.01 18.01l1.77 1.77M2 12h2.5M19.5 12H22M4.22 19.78l1.77-1.77M18.01 5.99l1.77-1.77"/>
-            </svg>
-          </div>
-          <span class="sdk-heading">상품 분석 중...</span>
+      <div id="screen-capturing" class="screen" style="width:100%; height:100%; flex-direction:row; gap:32px; align-items:center;">
+        <img src="../Shoply_meta_png/Guideline.png" alt="" style="width:85px; height:100%; object-fit:cover; flex-shrink:0;" />
+        <div class="sdk-col" style="flex:1; gap:32px; align-items:center; justify-content:center;">
+          <img src="../Shoply_meta_png/CameraColor.png" alt="" style="width:160px; height:160px; object-fit:contain;" />
+          <span class="sdk-body sdk-secondary">왼쪽에 물체를 배치해주세요.</span>
         </div>
-        <span class="sdk-body sdk-secondary">잠시만 기다려주세요</span>
       </div>
 
-      <!-- ③ displayResult() — MATCHED ─────────────────────
+      <!-- ④ showCaptureCompleteScreen() — Figma 199:2863 ──
+           ~2초 후 촬영 완료 — 가이드라인 없이 중앙 정렬.
+           flexBox(col, gap=32, center, center) {
+             image(CameraColor.png, FILL)
+             text("사진 촬영이 완료되었습니다!", BODY, SECONDARY)
+           }
+      ──────────────────────────────────────────────────── -->
+      <div id="screen-captured" class="screen" style="width:100%; height:100%; flex-direction:column; gap:32px; align-items:center; justify-content:center;">
+        <img src="../Shoply_meta_png/CameraColor.png" alt="" style="width:160px; height:160px; object-fit:contain;" />
+        <div style="background:rgba(255,255,255,.20); border-radius:999px; padding:12px 16px;">
+          <span class="sdk-body" style="white-space:nowrap;">사진 촬영이 완료되었습니다!</span>
+        </div>
+      </div>
+
+      <!-- ⑤ displayLoading() — Figma 199:3562 ───────────────
+           flexBox(col, gap=32, center, center) {
+             image(Loading.gif → Loading.json Lottie, FILL)   ← 150×150
+             text("상품을 검색 중입니다.", BODY, SECONDARY)
+           }
+      ──────────────────────────────────────────────────── -->
+      <div id="screen-loading" class="screen" style="width:100%; height:100%; flex-direction:column; gap:32px; align-items:center; justify-content:center;">
+        <div id="lottie-loading" style="width:150px; height:150px; flex-shrink:0;"></div>
+        <div style="background:rgba(255,255,255,.20); border-radius:999px; padding:12px 16px;">
+          <span class="sdk-body" style="white-space:nowrap;">상품을 검색 중입니다.</span>
+        </div>
+      </div>
+
+      <!-- ⑥ showSearchCompleteScreen() — Figma 199:3013 ────
+           flexBox(col, gap=32, center, center) {
+             image(search-color.png, FILL)   ← 160×160
+             text("검색이 완료되었습니다!", BODY, SECONDARY)
+           }
+      ──────────────────────────────────────────────────── -->
+      <div id="screen-searched" class="screen" style="width:100%; height:100%; flex-direction:column; gap:32px; align-items:center; justify-content:center;">
+        <img src="../Shoply_meta_png/search-color.png" alt="" style="width:160px; height:160px; object-fit:contain;" />
+        <div style="background:rgba(255,255,255,.20); border-radius:999px; padding:12px 16px;">
+          <span class="sdk-body" style="white-space:nowrap;">검색이 완료되었습니다!</span>
+        </div>
+      </div>
+
+      <!-- ⑦ displayResult() — MATCHED ─────────────────────
            flexBox(col, gap=12) {
              flexBox(padding=24, CARD) {
                image(url, sizePreset=FILL)
@@ -293,7 +324,7 @@ body {
         </div>
       </div>
 
-      <!-- ④ displayResult() — UNCERTAIN ───────────────────
+      <!-- ⑧ displayResult() — UNCERTAIN ───────────────────
            flexBox(col, gap=8, padding=24, CARD) {
              flexBox(row, gap=8, crossAlign=CENTER) { icon(I_CIRCLE, OUTLINE) · text(headline, BODY) }
              text("후보 N개 · 폰에서 선택", BODY, SECONDARY)
@@ -313,7 +344,7 @@ body {
         <span class="sdk-body sdk-secondary">후보 3개 · 폰에서 선택</span>
       </div>
 
-      <!-- ⑤ displayResult() — RETRY_REQUIRED ─────────────
+      <!-- ⑨ displayResult() — RETRY_REQUIRED ─────────────
            flexBox(col, gap=8, padding=24, CARD) {
              flexBox(row, gap=8, crossAlign=CENTER) { icon(TWO_ARROWS_CLOCKWISE, OUTLINE) · text(HEADING) }
              text(message, BODY, SECONDARY)
@@ -333,7 +364,7 @@ body {
         <span class="sdk-body sdk-secondary">상품이 잘 보이도록 밝은 곳에서 가까이 촬영해주세요.</span>
       </div>
 
-      <!-- ⑥ displayResult() — ERROR ───────────────────────
+      <!-- ⑩ displayResult() — ERROR ───────────────────────
            flexBox(col, gap=8, padding=24, CARD) {
              flexBox(row, gap=8, crossAlign=CENTER) { icon(EXCLAMATION_TRIANGLE, FILLED) · text(HEADING) }
              text(message, BODY, SECONDARY)
@@ -354,15 +385,26 @@ body {
     </div><!-- /.display-inner -->
   </div><!-- /.display -->
 
-  <p class="meta-label">SessionViewModel.kt · sendContent { flexBox { … } } 시뮬레이션</p>
 </div>
 
 <script>
+// Lottie loading animation — initialised once, plays whenever the tab is active.
+const lottieAnim = lottie.loadAnimation({
+  container: document.getElementById('lottie-loading'),
+  renderer: 'svg',
+  loop: true,
+  autoplay: false,
+  path: '../Animation/Loading.json',
+});
+
 function show(id, btn) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.getElementById('screen-' + id).classList.add('active');
   btn.classList.add('active');
+  // Play/pause Lottie based on active tab.
+  if (id === 'loading') { lottieAnim.play(); }
+  else { lottieAnim.pause(); }
 }
 </script>
 </body>
