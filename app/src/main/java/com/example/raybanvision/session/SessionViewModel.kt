@@ -520,16 +520,16 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                     }
                     flexBox(direction = Direction.ROW, gap = 16, crossAlignment = Alignment.STRETCH) {
                         shoplyPngButton(
-                            uri = assets.cameraRetake,
-                            fallbackLabel = "\uB2E4\uC2DC \uCD2C\uC601",
-                            fallbackIcon = IconName.TWO_ARROWS_CLOCKWISE,
-                            onClick = { retakePhoto() },
-                        )
-                        shoplyPngButton(
                             uri = assets.priceInfo,
                             fallbackLabel = "\uAC00\uACA9\uC815\uBCF4",
                             fallbackIcon = IconName.CART,
                             onClick = { showPriceComparison(result) },
+                        )
+                        shoplyPngButton(
+                            uri = assets.cameraRetake,
+                            fallbackLabel = "\uB2E4\uC2DC \uCD2C\uC601",
+                            fallbackIcon = IconName.TWO_ARROWS_CLOCKWISE,
+                            onClick = { retakePhoto() },
                         )
                     }
                 }
@@ -589,16 +589,16 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                     }
                     flexBox(direction = Direction.ROW, gap = 16, crossAlignment = Alignment.STRETCH) {
                         shoplyPngButton(
-                            uri = assets.cameraRetake,
-                            fallbackLabel = "\uB2E4\uC2DC \uCD2C\uC601",
-                            fallbackIcon = IconName.TWO_ARROWS_CLOCKWISE,
-                            onClick = { retakePhoto() },
-                        )
-                        shoplyPngButton(
                             uri = assets.productInfo,
                             fallbackLabel = "\uC0C1\uD488 \uC815\uBCF4",
                             fallbackIcon = IconName.I_CIRCLE,
                             onClick = { displayShoplyDetailedResult(currentDisplay, result) },
+                        )
+                        shoplyPngButton(
+                            uri = assets.cameraRetake,
+                            fallbackLabel = "\uB2E4\uC2DC \uCD2C\uC601",
+                            fallbackIcon = IconName.TWO_ARROWS_CLOCKWISE,
+                            onClick = { retakePhoto() },
                         )
                     }
                 }
@@ -644,16 +644,16 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                         }
                         flexBox(direction = Direction.ROW, gap = 16, crossAlignment = Alignment.STRETCH) {
                             shoplyPngButton(
-                                uri = assets.cameraRetake,
-                                fallbackLabel = "\uB2E4\uC2DC \uCD2C\uC601",
-                                fallbackIcon = IconName.TWO_ARROWS_CLOCKWISE,
-                                onClick = { retakePhoto() },
-                            )
-                            shoplyPngButton(
                                 uri = assets.productInfo,
                                 fallbackLabel = "\uC0C1\uD488 \uAC80\uC0C9",
                                 fallbackIcon = IconName.CART,
                                 onClick = { submitForSearch() },
+                            )
+                            shoplyPngButton(
+                                uri = assets.cameraRetake,
+                                fallbackLabel = "\uB2E4\uC2DC \uCD2C\uC601",
+                                fallbackIcon = IconName.TWO_ARROWS_CLOCKWISE,
+                                onClick = { retakePhoto() },
                             )
                         }
                     }
@@ -742,14 +742,14 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                     }
                     flexBox(direction = Direction.ROW, gap = 8) {
                         button(
-                            label = "\uC7AC\uCD2C\uC601",
-                            style = ButtonStyle.PRIMARY,
-                            onClick = { retakePhoto() },
-                        )
-                        button(
                             label = "\uBD84\uC11D",
                             style = ButtonStyle.PRIMARY,
                             onClick = { submitForSearch() },
+                        )
+                        button(
+                            label = "\uC7AC\uCD2C\uC601",
+                            style = ButtonStyle.PRIMARY,
+                            onClick = { retakePhoto() },
                         )
                     }
                 }
@@ -1830,7 +1830,7 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                 .onSuccess { Log.i(TAG, "showGlassesSavedLinkToast sendContent succeeded") }
                 .onFailure { error, _ -> Log.w(TAG, "showGlassesSavedLinkToast sendContent failed: ${error.description}") }
             if (returnResult != null) {
-                delay(3000)
+                delay(1000)
                 displayShoplyPriceComparison(returnResult)
             }
         }
