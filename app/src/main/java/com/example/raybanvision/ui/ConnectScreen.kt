@@ -1,25 +1,32 @@
 package com.example.raybanvision.ui
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.raybanvision.BuildConfig
+import com.example.raybanvision.R
+import com.example.raybanvision.ui.components.ShoplyButton
+import com.example.raybanvision.ui.components.ShoplyButtonVariant
+import com.example.raybanvision.ui.theme.Grey700
+import com.example.raybanvision.ui.theme.ShoplyDimens
+import com.example.raybanvision.ui.theme.ShoplyType
+import com.example.raybanvision.ui.theme.Yellow50
 import com.example.raybanvision.wearables.WearablesUiState
 import com.meta.wearable.dat.core.types.Device
 import com.meta.wearable.dat.core.types.DeviceCompatibility
@@ -33,100 +40,92 @@ fun ConnectScreen(
     onRegisterClick: () -> Unit,
     onDeviceSelected: (DeviceIdentifier) -> Unit,
     onFirmwareUpdateClick: () -> Unit,
+    onSavedLinksClick: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
-    Column(
-        modifier = modifier.fillMaxSize().padding(24.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
-    ) {
-        Text("RayBan Vision", style = MaterialTheme.typography.headlineMedium)
-        HorizontalDivider()
-
+    val selectedDevice = uiState.firstConnectableDisplayDevice()
+    val primaryAction = {
         when {
             uiState.registrationState == RegistrationState.UNAVAILABLE ||
-            uiState.registrationState == RegistrationState.REGISTERING -> {
-                CircularProgressIndicator()
-                Text("초기화 중...")
-            }
+                uiState.registrationState == RegistrationState.REGISTERING -> Unit
+            !uiState.isRegistered -> onRegisterClick()
+            uiState.isFirmwareUpdateRequired -> onFirmwareUpdateClick()
+            selectedDevice != null -> onDeviceSelected(selectedDevice.key)
+            else -> onRegisterClick()
+        }
+    }
 
-            !uiState.isRegistered -> {
-                Text("Meta AI 앱에서 이 앱을 등록해주세요.")
-                Button(onClick = onRegisterClick, modifier = Modifier.fillMaxWidth()) {
-                    Text("Meta AI에 등록")
-                }
-            }
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .background(Yellow50)
+            .statusBarsPadding()
+            .navigationBarsPadding()
+            .padding(horizontal = 48.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Spacer(modifier = Modifier.weight(1f))
 
-            else -> {
-                Text("디스플레이 글라스를 선택하세요", style = MaterialTheme.typography.titleMedium)
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(64.dp),
+        ) {
+            Image(
+                painter = painterResource(R.drawable.shoply_logo),
+                contentDescription = "Shoply",
+                modifier = Modifier
+                    .fillMaxWidth(0.46f)
+                    .height(134.dp),
+                contentScale = ContentScale.Fit,
+            )
+            Text(
+                text = "Shop smarter, Spend wiser",
+                style = ShoplyType.Subheading,
+                color = Grey700,
+                textAlign = TextAlign.Center,
+                maxLines = 1,
+                modifier = Modifier.fillMaxWidth(),
+            )
+        }
 
-                if (uiState.isFirmwareUpdateRequired) {
-                    Card(modifier = Modifier.fillMaxWidth()) {
-                        Column(modifier = Modifier.padding(16.dp)) {
-                            Text("글라스 펌웨어 업데이트가 필요합니다")
-                            OutlinedButton(onClick = onFirmwareUpdateClick) { Text("업데이트") }
-                        }
-                    }
-                }
+        Spacer(modifier = Modifier.weight(1.45f))
 
-                // 실제 빌드는 디스플레이 지원 글라스만 노출. debug 는 MDK 목 디바이스(카메라만
-                // 지원, 디스플레이 미지원)로 촬영을 테스트하기 위해 모든 기기를 노출한다.
-                val displayCapableDevices = uiState.devicesMetadata.entries
-                    .filter { (_, device) -> device.deviceType.isDisplayCapable || BuildConfig.DEBUG }
-
-                if (displayCapableDevices.isEmpty()) {
-                    Text(
-                        "연결된 디스플레이 글라스가 없습니다.\nBluetooth를 확인하고 글라스 전원을 켜주세요.",
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                } else {
-                    LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        items(displayCapableDevices) { (id, device) ->
-                            DeviceCard(
-                                id = id,
-                                device = device,
-                                onSelect = { onDeviceSelected(id) },
-                            )
-                        }
-                    }
-                }
-            }
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = ShoplyDimens.Space900),
+            verticalArrangement = Arrangement.spacedBy(ShoplyDimens.Space500),
+        ) {
+            ShoplyButton(
+                label = if (uiState.isFirmwareUpdateRequired) "펌웨어 업데이트" else "글래스 연동하기",
+                onClick = primaryAction,
+                modifier = Modifier.fillMaxWidth(),
+                variant = ShoplyButtonVariant.BrandSolid,
+                icon = painterResource(R.drawable.ic_glasses),
+            )
+            ShoplyButton(
+                label = "스마트폰으로 시작",
+                onClick = primaryAction,
+                modifier = Modifier.fillMaxWidth(),
+                variant = ShoplyButtonVariant.NeutralSolid,
+                icon = painterResource(R.drawable.ic_smartphone),
+            )
+            ShoplyButton(
+                label = "저장한 링크 보기",
+                onClick = onSavedLinksClick,
+                modifier = Modifier.fillMaxWidth(),
+                variant = ShoplyButtonVariant.SubtleSolid,
+                icon = painterResource(R.drawable.ic_link),
+            )
         }
     }
 }
 
-@Composable
-private fun DeviceCard(
-    id: DeviceIdentifier,
-    device: Device,
-    onSelect: () -> Unit,
-) {
-    val isConnected = device.linkState == LinkState.CONNECTED
-    val isCompatible = device.compatibility == DeviceCompatibility.COMPATIBLE
-
-    Card(modifier = Modifier.fillMaxWidth()) {
-        Row(
-            modifier = Modifier.padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
-        ) {
-            Column(modifier = Modifier.weight(1f)) {
-                Text(device.name, style = MaterialTheme.typography.bodyLarge)
-                Text(
-                    "${device.deviceType.description} · ${device.linkState.name}",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-            }
-            // debug 에서는 목 디바이스 상태 편차와 무관하게 선택 가능하도록 허용한다.
-            Button(onClick = onSelect, enabled = (isConnected && isCompatible) || BuildConfig.DEBUG) {
-                Text(
-                    when {
-                        !isCompatible -> "업데이트 필요"
-                        !isConnected -> "연결 안됨"
-                        else -> "연결"
-                    }
-                )
-            }
-        }
+private fun WearablesUiState.firstConnectableDisplayDevice(): Map.Entry<DeviceIdentifier, Device>? {
+    return devicesMetadata.entries.firstOrNull { (_, device) ->
+        val connected = device.linkState == LinkState.CONNECTED
+        val compatible = device.compatibility == DeviceCompatibility.COMPATIBLE
+        val displayCapable = device.deviceType.isDisplayCapable || BuildConfig.DEBUG
+        displayCapable && compatible && (connected || BuildConfig.DEBUG)
     }
 }

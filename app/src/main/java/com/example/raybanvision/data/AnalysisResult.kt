@@ -22,6 +22,14 @@ data class ProductCandidate(
     val isKoreanMarket: Boolean? = null,
 )
 
+data class SavedLink(
+    val productName: String,
+    val store: String,
+    val price: String,
+    val linkUrl: String,
+    val savedAt: String,
+)
+
 /**
  * 디스플레이에 표시할 분석 결과.
  * 글라스에는 요약(headline + 대표 후보 + 최저가)만, 상세는 폰에서 확인하도록 유도한다.

@@ -16,17 +16,24 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -36,18 +43,38 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import com.example.raybanvision.R
 import com.example.raybanvision.data.AnalysisResult
 import com.example.raybanvision.session.SessionUiState
+import com.example.raybanvision.ui.components.ShoplyButton
+import com.example.raybanvision.ui.components.ShoplyButtonVariant
+import com.example.raybanvision.ui.theme.Black1000
+import com.example.raybanvision.ui.theme.Grey900
+import com.example.raybanvision.ui.theme.Lime500
+import com.example.raybanvision.ui.theme.ShoplyDimens
+import com.example.raybanvision.ui.theme.ShoplyType
+import com.example.raybanvision.ui.theme.White300
+import com.example.raybanvision.ui.theme.White500
+import com.example.raybanvision.ui.theme.White700
+import com.example.raybanvision.ui.theme.White1000
+import com.example.raybanvision.ui.theme.Yellow400
 import java.io.File
 import java.net.URL
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+
+private enum class PhoneResultView {
+    ProductInfo,
+    PriceCompare,
+    SavedLinks,
+}
 
 @Composable
 fun MainScreen(
@@ -61,6 +88,8 @@ fun MainScreen(
     onDisconnect: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    var resultView by remember(uiState.searchResult) { mutableStateOf(PhoneResultView.ProductInfo) }
+
     // 검색 결과가 있으면 결과 화면 표시, 없으면 카메라 화면 표시
     if (uiState.awaitingProductConfirmation && uiState.searchResult != null) {
         ProductConfirmationScreen(
@@ -71,15 +100,37 @@ fun MainScreen(
             modifier = modifier,
         )
     } else if (uiState.searchResult != null) {
-        ResultScreen(
-            result = uiState.searchResult!!,
-            isSearching = uiState.isSearching,
-            showPriceComparison = uiState.showPriceComparison,
-            statusMessage = uiState.statusMessage,
-            onRetakeClick = onRetakeClick,
-            onPriceComparisonClick = onPriceComparisonClick,
-            modifier = modifier,
-        )
+        val result = uiState.searchResult!!
+        val capturedBitmap = uiState.pendingPhotoFile?.let { file ->
+            remember(file.absolutePath) { BitmapFactory.decodeFile(file.absolutePath) }
+        }
+        when (resultView) {
+            PhoneResultView.ProductInfo -> ProductInfoScreen(
+                result = result,
+                capturedBitmap = capturedBitmap,
+                onRetake = onRetakeClick,
+                onPriceCompare = {
+                    onPriceComparisonClick()
+                    resultView = PhoneResultView.PriceCompare
+                },
+                onBack = onRetakeClick,
+                onSavedLinks = { resultView = PhoneResultView.SavedLinks },
+            )
+
+            PhoneResultView.PriceCompare -> PriceCompareScreen(
+                result = result,
+                capturedBitmap = capturedBitmap,
+                onRetake = onRetakeClick,
+                onProductInfo = { resultView = PhoneResultView.ProductInfo },
+                onBack = { resultView = PhoneResultView.ProductInfo },
+                onSavedLinks = { resultView = PhoneResultView.SavedLinks },
+            )
+
+            PhoneResultView.SavedLinks -> SavedLinksScreen(
+                onBack = { resultView = PhoneResultView.PriceCompare },
+                onRetake = onRetakeClick,
+            )
+        }
     } else {
         CameraScreen(
             uiState = uiState,
@@ -106,62 +157,97 @@ private fun ProductConfirmationScreen(
         remember(file.absolutePath) { BitmapFactory.decodeFile(file.absolutePath) }
     }
 
-    Column(
+    Box(
         modifier = modifier
             .fillMaxSize()
-            .background(Color.Black)
-            .padding(24.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
+            .background(Black1000)
+            .statusBarsPadding()
+            .navigationBarsPadding(),
     ) {
-        Spacer(modifier = Modifier.weight(1f))
-
-        Text(
-            "해당 상품이 맞습니까?",
-            style = MaterialTheme.typography.headlineSmall,
-            color = Color.White,
-            textAlign = TextAlign.Center,
-        )
-
         capturedBitmap?.let { bitmap ->
             Image(
                 bitmap = bitmap.asImageBitmap(),
-                contentDescription = "촬영된 상품 사진",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(3f / 4f)
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(Color(0xFF151515)),
-                contentScale = ContentScale.Fit,
+                contentDescription = null,
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Crop,
+                alpha = 0.28f,
             )
         }
 
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .clip(RoundedCornerShape(10.dp))
-                .background(Color(0xFF151515))
-                .padding(18.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
+                .fillMaxSize()
+                .padding(horizontal = ShoplyDimens.Space800, vertical = ShoplyDimens.Space900),
+            verticalArrangement = Arrangement.spacedBy(ShoplyDimens.Space600),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            DetailRow("상품명", result.productName ?: result.originalProductName ?: result.headline)
-            DetailRow("브랜드", result.brand ?: result.originalBrand)
-            DetailRow("카테고리", result.category)
-        }
+            Text(
+                "상품 확인",
+                style = ShoplyType.BodyStrong,
+                color = White1000,
+                textAlign = TextAlign.Center,
+            )
 
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
-        ) {
-            OutlinedButton(onClick = onRetakeClick, modifier = Modifier.weight(1f)) {
-                Text("재촬영")
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(3f / 4f)
+                    .clip(RoundedCornerShape(ShoplyDimens.RadiusCameraFrame))
+                    .background(Grey900),
+                contentAlignment = Alignment.Center,
+            ) {
+                capturedBitmap?.let { bitmap ->
+                    Image(
+                        bitmap = bitmap.asImageBitmap(),
+                        contentDescription = "촬영된 상품 사진",
+                        modifier = Modifier.fillMaxSize(),
+                        contentScale = ContentScale.Crop,
+                    )
+                }
             }
-            Button(onClick = onAnalyzeClick, modifier = Modifier.weight(1f)) {
-                Text("분석")
-            }
-        }
 
-        Spacer(modifier = Modifier.weight(1f))
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(ShoplyDimens.RadiusCard))
+                    .background(White300)
+                    .padding(ShoplyDimens.Space500),
+                verticalArrangement = Arrangement.spacedBy(ShoplyDimens.Space200),
+            ) {
+                Text("해당 상품이 맞습니까?", style = ShoplyType.Subheading, color = White1000)
+                Text(
+                    result.productName ?: result.originalProductName ?: result.headline,
+                    style = ShoplyType.BodyBase,
+                    color = White700,
+                )
+                listOfNotNull(result.brand ?: result.originalBrand, result.category)
+                    .joinToString(" · ")
+                    .takeIf { it.isNotBlank() }
+                    ?.let { Text(it, style = ShoplyType.BodySmall, color = White500) }
+            }
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(ShoplyDimens.Space400),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                ShoplyButton(
+                    label = "다시 찍기",
+                    onClick = onRetakeClick,
+                    variant = ShoplyButtonVariant.TransparentWhite,
+                    icon = painterResource(R.drawable.ic_camera),
+                )
+                ShoplyButton(
+                    label = "상품 검색",
+                    onClick = onAnalyzeClick,
+                    modifier = Modifier.weight(1f),
+                    variant = ShoplyButtonVariant.BrandSolid,
+                    icon = painterResource(R.drawable.ic_dollar_sign),
+                )
+            }
+        } 
     }
 }
 
@@ -177,77 +263,76 @@ private fun CameraScreen(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier.fillMaxSize().padding(24.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
+        modifier = modifier
+            .fillMaxSize()
+            .background(Black1000)
+            .statusBarsPadding()
+            .navigationBarsPadding()
+            .padding(horizontal = ShoplyDimens.Space800, vertical = ShoplyDimens.Space600),
+        verticalArrangement = Arrangement.spacedBy(ShoplyDimens.Space500),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Text("RayBan Vision", style = MaterialTheme.typography.headlineMedium)
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text("Shoply", style = ShoplyType.Subheading, color = White1000)
+            CameraStatusDot(isOn = uiState.streamState?.name == "STREAMING")
+        }
 
-        // 세션/스트림/디스플레이 상태 카드
-        StatusCard(uiState)
-
-        // ── (임시) 실시간 카메라 프리뷰 / 촬영 결과 ────────────────────────
-        // 촬영한 사진이 있으면 그 사진을, 없으면 라이브 프리뷰를 보여준다.
         CameraArea(uiState = uiState, previewFrame = previewFrame)
 
-        // ── 촬영 / 재촬영·검색 ─────────────────────────────────────────────
         when {
-            // 촬영 후 결정 단계: 재촬영 or 검색
             uiState.awaitingDecision -> {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    horizontalArrangement = Arrangement.spacedBy(ShoplyDimens.Space400),
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    OutlinedButton(onClick = onRetakeClick, modifier = Modifier.weight(1f)) {
-                        Text("재촬영")
-                    }
-                    Button(onClick = onSearchClick, modifier = Modifier.weight(1f)) {
-                        Text("검색")
-                    }
+                    ShoplyButton(
+                        label = "다시 찍기",
+                        onClick = onRetakeClick,
+                        variant = ShoplyButtonVariant.TransparentWhite,
+                        icon = painterResource(R.drawable.ic_camera),
+                    )
+                    ShoplyButton(
+                        label = "상품 정보",
+                        onClick = onSearchClick,
+                        modifier = Modifier.weight(1f),
+                        variant = ShoplyButtonVariant.BrandSolid,
+                        icon = painterResource(R.drawable.ic_info),
+                    )
                 }
             }
-            // 검색 진행 중: 재촬영으로만 빠져나갈 수 있음
+
             uiState.isSearching -> {
-                OutlinedButton(onClick = onRetakeClick, modifier = Modifier.fillMaxWidth()) {
-                    Text(uiState.statusMessage ?: "검색 중...")
-                }
-            }
-            // 라이브: 촬영
-            else -> {
-                Button(
-                    onClick = onCaptureClick,
-                    enabled = uiState.canCapture,
+                ShoplyButton(
+                    label = uiState.statusMessage ?: "상품 분석 중...",
+                    onClick = onRetakeClick,
                     modifier = Modifier.fillMaxWidth(),
-                ) {
-                    Text(if (uiState.isCapturing) "촬영 중..." else "사진 촬영")
-                }
+                    variant = ShoplyButtonVariant.TransparentWhite,
+                    icon = painterResource(R.drawable.ic_camera),
+                )
+            }
+
+            else -> {
+                CameraCaptureButton(
+                    enabled = uiState.canCapture,
+                    isCapturing = uiState.isCapturing,
+                    onClick = onCaptureClick,
+                )
             }
         }
 
-        HorizontalDivider()
-
-        // ── 디스플레이 테스트 ──────────────────────────────────────────────
-        Text("디스플레이 테스트 (LLM 연동 전)", style = MaterialTheme.typography.titleSmall)
         Text(
-            "샘플 텍스트·이미지·링크를 글라스에 전송해서 표시 결과를 확인합니다.",
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            uiState.statusMessage ?: "상품을 화면 중앙에 맞춰주세요",
+            style = ShoplyType.BodySmall,
+            color = White500,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth(),
         )
-        Button(
-            onClick = onSendSampleResult,
-            enabled = uiState.isDisplayReady,
-            modifier = Modifier.fillMaxWidth(),
-        ) {
-            Text("샘플 결과 글라스에 전송")
-        }
 
-        Spacer(modifier = Modifier.weight(1f))
-
-        OutlinedButton(
-            onClick = onDisconnect,
-            modifier = Modifier.fillMaxWidth(),
-        ) {
-            Text("연결 해제")
-        }
     }
 }
 
@@ -260,9 +345,9 @@ private fun CameraArea(uiState: SessionUiState, previewFrame: Bitmap?) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .aspectRatio(3f / 4f)
-            .clip(RoundedCornerShape(16.dp))
-            .background(Color.Black),
+            .aspectRatio(518.4f / 720f)
+            .clip(RoundedCornerShape(ShoplyDimens.RadiusCameraFrame))
+            .background(Black1000),
         contentAlignment = Alignment.Center,
     ) {
         when {
@@ -272,32 +357,33 @@ private fun CameraArea(uiState: SessionUiState, previewFrame: Bitmap?) {
                     bitmap = capturedBitmap.asImageBitmap(),
                     contentDescription = "촬영된 사진",
                     modifier = Modifier.fillMaxSize(),
-                    contentScale = ContentScale.Fit,
+                    contentScale = ContentScale.Crop,
                 )
                 // 검색 중 안내 텍스트 (이미지 위 중앙)
                 if (uiState.isSearching) {
                     Text(
                         uiState.statusMessage ?: "상품 검색 중...",
-                        style = MaterialTheme.typography.titleMedium,
-                        color = Color.White,
+                        style = ShoplyType.BodyStrong,
+                        color = White1000,
                         textAlign = TextAlign.Center,
                         modifier = Modifier
                             .align(Alignment.Center)
-                            .background(Color(0xAA000000), RoundedCornerShape(8.dp))
-                            .padding(horizontal = 16.dp, vertical = 8.dp),
+                            .clip(RoundedCornerShape(ShoplyDimens.RadiusFull))
+                            .background(White300)
+                            .padding(horizontal = ShoplyDimens.Space500, vertical = ShoplyDimens.Space300),
                     )
                 } else {
                     // 재촬영/검색 결정 안내 텍스트 (하단)
                     Text(
-                        "물건 정보가 궁금하면 '검색'을 누르고,\n다시 촬영을 해야하면 '재촬영'을 눌러주세요",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = Color.White,
+                        "물건 정보가 궁금하면 상품 정보를 눌러주세요",
+                        style = ShoplyType.BodySmall,
+                        color = White700,
                         textAlign = TextAlign.Center,
                         modifier = Modifier
                             .align(Alignment.BottomCenter)
                             .fillMaxWidth()
-                            .background(Color(0xAA000000))
-                            .padding(horizontal = 12.dp, vertical = 8.dp),
+                            .background(Color(0x99000000))
+                            .padding(horizontal = ShoplyDimens.Space400, vertical = ShoplyDimens.Space300),
                     )
                 }
             }
@@ -307,50 +393,83 @@ private fun CameraArea(uiState: SessionUiState, previewFrame: Bitmap?) {
                     bitmap = previewFrame.asImageBitmap(),
                     contentDescription = "실시간 카메라 프리뷰",
                     modifier = Modifier.fillMaxSize(),
-                    contentScale = ContentScale.Fit,
+                    contentScale = ContentScale.Crop,
                 )
                 // 원형 가이드라인 + 십자가 오버레이
                 CameraGuideOverlay(modifier = Modifier.fillMaxSize())
-                // LIVE 배지 (좌상단)
-                Text(
-                    "LIVE",
-                    style = MaterialTheme.typography.labelMedium,
-                    color = Color.White,
-                    modifier = Modifier
-                        .align(Alignment.TopStart)
-                        .padding(8.dp)
-                        .background(Color(0x88CC0000), RoundedCornerShape(6.dp))
-                        .padding(horizontal = 8.dp, vertical = 4.dp),
-                )
-                // 촬영 전 안내 텍스트 (원 위)
                 Text(
                     "물건을 가운데에 두고 촬영버튼을 눌러주세요",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = Color.White,
+                    style = ShoplyType.BodySmall,
+                    color = White700,
                     textAlign = TextAlign.Center,
                     modifier = Modifier
                         .align(Alignment.TopCenter)
-                        .padding(top = 50.dp)
+                        .padding(top = ShoplyDimens.Space600)
                         .fillMaxWidth()
-                        .background(Color(0xAA000000))
-                        .padding(horizontal = 12.dp, vertical = 8.dp),
+                        .padding(horizontal = ShoplyDimens.Space400, vertical = ShoplyDimens.Space300),
                 )
             }
             else -> {
-                Text(
-                    "카메라 연결 대기 중...",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = Color.White,
-                )
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(ShoplyDimens.Space300),
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_camera),
+                        contentDescription = null,
+                        tint = White700,
+                        modifier = Modifier.size(48.dp),
+                    )
+                    Text(
+                        "카메라 연결 대기 중...",
+                        style = ShoplyType.BodyBase,
+                        color = White700,
+                    )
+                }
             }
         }
     }
+}
 
-    uiState.pendingPhotoFile?.let { file ->
+@Composable
+private fun CameraStatusDot(isOn: Boolean) {
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(ShoplyDimens.Space200),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Box(
+            modifier = Modifier
+                .size(ShoplyDimens.CameraStatusPhone)
+                .clip(RoundedCornerShape(ShoplyDimens.RadiusFull))
+                .background(if (isOn) Color(0xFF7BFF72) else White300),
+        )
         Text(
-            "저장 경로: ${file.absolutePath}",
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            text = if (isOn) "Glasses" else "Waiting",
+            style = ShoplyType.BodySmall,
+            color = White500,
+        )
+    }
+}
+
+@Composable
+private fun CameraCaptureButton(
+    enabled: Boolean,
+    isCapturing: Boolean,
+    onClick: () -> Unit,
+) {
+    Box(
+        modifier = Modifier
+            .size(96.dp)
+            .clip(RoundedCornerShape(ShoplyDimens.RadiusFull))
+            .background(if (enabled) White700 else White300)
+            .clickable(enabled = enabled, onClick = onClick),
+        contentAlignment = Alignment.Center,
+    ) {
+        Icon(
+            painter = painterResource(R.drawable.ic_camera),
+            contentDescription = if (isCapturing) "촬영 중" else "사진 촬영",
+            tint = if (enabled) Grey900 else White500,
+            modifier = Modifier.size(ShoplyDimens.IconSizeMd),
         )
     }
 }
@@ -461,8 +580,8 @@ private fun ResultScreen(
             ResultTextSection("상품 설명", result.productDescription)
             ResultListSection("스펙", result.specifications)
 
-            ResultListSection("긍정 리뷰", result.positiveReviews)
-            ResultListSection("부정 리뷰", result.negativeReviews)
+            ResultListSection("\uAE0D\uC815\uD6C4\uAE30", result.positiveReviews)
+            ResultListSection("\uBD80\uC815\uD6C4\uAE30", result.negativeReviews)
 
             if (showPriceComparison && result.candidates.isNotEmpty()) {
                 ResultSection("가격 정보") {

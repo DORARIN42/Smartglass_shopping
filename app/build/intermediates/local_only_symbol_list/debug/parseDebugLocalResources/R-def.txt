@@ -1,5 +1,27 @@
 R_DEF: Internal format may change without notice
 local
+drawable ic_back
+drawable ic_bookmark
+drawable ic_camera
+drawable ic_dollar_sign
+drawable ic_glasses
+drawable ic_info
+drawable ic_link
+drawable ic_smartphone
+drawable ic_star
+drawable ic_star_filled
+drawable shoply_logo
+drawable shoply_meta_camera_clear
+drawable shoply_meta_camera_clear_padded
+drawable shoply_meta_camera_color
+drawable shoply_meta_camera_retake
+drawable shoply_meta_guideline
+drawable shoply_meta_logo
+drawable shoply_meta_price_info
+drawable shoply_meta_product_info
+drawable shoply_meta_save_link_small
+drawable shoply_meta_search_color
+drawable shoply_meta_search_product
 string app_name
 style Theme.RayBanVision
 xml file_paths

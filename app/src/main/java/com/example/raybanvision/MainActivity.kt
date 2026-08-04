@@ -23,10 +23,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.raybanvision.data.SAMPLE_RESULT
+import com.example.raybanvision.session.SavedLinksStore
 import com.example.raybanvision.mock.MockGlassesInitializer
 import com.example.raybanvision.session.SessionViewModel
 import com.example.raybanvision.ui.ConnectScreen
 import com.example.raybanvision.ui.MainScreen
+import com.example.raybanvision.ui.SavedLinksScreen
 import com.example.raybanvision.wearables.WearablesViewModel
 import com.meta.wearable.dat.core.Wearables
 import com.meta.wearable.dat.core.types.DeviceIdentifier
@@ -79,6 +81,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        SavedLinksStore.init(this)
 
         setContent {
             MaterialTheme {
@@ -103,6 +106,13 @@ class MainActivity : ComponentActivity() {
                                     }
                                 },
                                 onFirmwareUpdateClick = { wearablesViewModel.openFirmwareUpdate(this@MainActivity) },
+                                onSavedLinksClick = { navController.navigate("saved-links") },
+                            )
+                        }
+                        composable("saved-links") {
+                            SavedLinksScreen(
+                                onBack = { navController.popBackStack() },
+                                onRetake = { navController.popBackStack("connect", inclusive = false) },
                             )
                         }
                         composable("main") {
