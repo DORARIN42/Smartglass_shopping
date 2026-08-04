@@ -1463,7 +1463,7 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                         ) {
                             icon(name = IconName.EYE, flexShrink = 0f)
                             text(
-                                "\uC67C\uCABD \uB80C\uC988\uC55E\uC5D0 \uC0C1\uD488\uBC30\uCE58",
+                                "\uD540\uCE58\uD558\uC5EC \uCD2C\uC601",
                                 style = TextStyle.BODY,
                             )
                         }
