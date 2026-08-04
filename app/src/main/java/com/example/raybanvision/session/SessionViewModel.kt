@@ -83,6 +83,11 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
         // startAnalysisMessages while(true)가 겹쳐 초당 여러 건을 쏘면 약한 BLE 링크에서
         // 디스플레이 응답 타임아웃(Failed to render display content)이 나므로, 관문에서 전송률을 캡한다.
         private const val PROGRESS_MIN_INTERVAL_MS = 1800L
+        // 첫 대기화면 재시도: 연결 직후 카메라 스트림 램프업과 겹치면 showReadyScreen
+        // sendContent가 렌더 타임아웃되는데, 그러면 화면은 보여도 onClick 바인딩이
+        // 커밋 안 돼 핀치가 안 먹는다. 성공할 때까지 짧게 재시도한다.
+        private const val READY_SCREEN_MAX_ATTEMPTS = 6
+        private const val READY_SCREEN_RETRY_DELAY_MS = 700L
         private const val PREVIEW_FRAME_INTERVAL_MS = 100L
         private const val RAW_PREVIEW_FRAME_RATE = 15
         private const val SHOPLY_META_PNG_BASE =
@@ -1447,24 +1452,37 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
         val currentDisplay = display ?: return
         val readyUri = metaPng("Camera1.png")
         viewModelScope.launch(Dispatchers.IO) {
-            currentDisplay.sendContent {
-                // \uD654\uBA74 \uC804\uCCB4(flexBox)\uB97C \uB2E8\uC77C \uD074\uB9AD \uB300\uC0C1\uC73C\uB85C \uB454\uB2E4. \uC0C1\uD638\uC791\uC6A9 \uC694\uC18C\uAC00 \uC774 \uD558\uB098\uBFD0\uC774\uB77C
-                // \uC2A4\uC640\uC774\uD504\uB85C \uD3EC\uCEE4\uC2A4\uB97C \uC62E\uAE38 \uD544\uC694 \uC5C6\uC774 \uD56D\uC0C1 \uC774 flexBox\uAC00 \uD3EC\uCEE4\uC2A4\uB418\uC5B4 \uBC14\uB85C \uD540\uCE58=\uCD2C\uC601\uB41C\uB2E4.
-                flexBox(
-                    direction = Direction.COLUMN,
-                    gap = 0,
-                    padding = 0,
-                    alignment = Alignment.CENTER,
-                    crossAlignment = Alignment.CENTER,
-                    onClick = {
-                        Log.i(TAG, "Ready capture flexBox clicked from glasses")
-                        capturePhoto()
-                    },
-                ) {
-                    image(uri = readyUri, sizePreset = ImageSize.FILL, cornerRadius = CornerRadius.NONE)
+            // \uD654\uBA74 \uC804\uCCB4(flexBox)\uB97C \uB2E8\uC77C \uD074\uB9AD \uB300\uC0C1\uC73C\uB85C \uB454\uB2E4. \uC0C1\uD638\uC791\uC6A9 \uC694\uC18C\uAC00 \uC774 \uD558\uB098\uBFD0\uC774\uB77C
+            // \uC2A4\uC640\uC774\uD504\uB85C \uD3EC\uCEE4\uC2A4\uB97C \uC62E\uAE38 \uD544\uC694 \uC5C6\uC774 \uD56D\uC0C1 \uC774 flexBox\uAC00 \uD3EC\uCEE4\uC2A4\uB418\uC5B4 \uBC14\uB85C \uD540\uCE58=\uCD2C\uC601\uB41C\uB2E4.
+            // sendContent\uAC00 \uC2E4\uD328(\uB80C\uB354 \uD0C0\uC784\uC544\uC6C3)\uD558\uBA74 onClick \uBC14\uC778\uB529\uC774 \uCEE4\uBC0B\uB418\uC9C0 \uC54A\uC544 \uD540\uCE58\uAC00 \uC548 \uBA39\uC73C\uBBC0\uB85C,
+            // \uC131\uACF5\uD560 \uB54C\uAE4C\uC9C0 \uC9E7\uAC8C \uC7AC\uC2DC\uB3C4\uD55C\uB2E4(\uCCAB \uB300\uAE30\uD654\uBA74\uC774 \uC2A4\uD2B8\uB9BC \uB7A8\uD504\uC5C5\uACFC \uACB9\uCCD0 \uC2E4\uD328\uD558\uB294 \uBB38\uC81C \uD574\uACB0).
+            repeat(READY_SCREEN_MAX_ATTEMPTS) { attempt ->
+                if (display !== currentDisplay) return@launch
+                var succeeded = false
+                currentDisplay.sendContent {
+                    flexBox(
+                        direction = Direction.COLUMN,
+                        gap = 0,
+                        padding = 0,
+                        alignment = Alignment.CENTER,
+                        crossAlignment = Alignment.CENTER,
+                        onClick = {
+                            Log.i(TAG, "Ready capture flexBox clicked from glasses")
+                            capturePhoto()
+                        },
+                    ) {
+                        image(uri = readyUri, sizePreset = ImageSize.FILL, cornerRadius = CornerRadius.NONE)
+                    }
                 }
-            }.onFailure { error, _ ->
-                Log.w(TAG, "showReadyScreen sendContent failed: ${error.description}")
+                    .onSuccess { succeeded = true }
+                    .onFailure { error, _ ->
+                        Log.w(TAG, "showReadyScreen sendContent failed (attempt ${attempt + 1}): ${error.description}")
+                    }
+                if (succeeded) {
+                    Log.i(TAG, "showReadyScreen sendContent succeeded (attempt ${attempt + 1})")
+                    return@launch
+                }
+                delay(READY_SCREEN_RETRY_DELAY_MS)
             }
         }
     }
