@@ -47,6 +47,7 @@ import com.meta.wearable.dat.display.views.Direction
 import com.meta.wearable.dat.display.views.FlexBoxBackground
 import com.meta.wearable.dat.display.views.FlexBoxScope
 import com.meta.wearable.dat.display.views.IconName
+import com.meta.wearable.dat.display.views.IconStyle
 import com.meta.wearable.dat.display.views.ImageSize
 import com.meta.wearable.dat.display.views.CornerRadius
 import com.meta.wearable.dat.display.views.TextColor
@@ -78,6 +79,10 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
         private const val CAPTURE_REVIEW_DELAY_MS = 1200L
         private const val DISPLAY_TEXT_LIMIT = 90
         private const val DISPLAY_CARD_TEXT_LIMIT = 120
+        // 진행상황 디스플레이 최소 전송 간격. 여러 폴링 루프(identify repeat(40)·continue repeat(120))와
+        // startAnalysisMessages while(true)가 겹쳐 초당 여러 건을 쏘면 약한 BLE 링크에서
+        // 디스플레이 응답 타임아웃(Failed to render display content)이 나므로, 관문에서 전송률을 캡한다.
+        private const val PROGRESS_MIN_INTERVAL_MS = 1800L
         private const val PREVIEW_FRAME_INTERVAL_MS = 100L
         private const val RAW_PREVIEW_FRAME_RATE = 15
         private const val SHOPLY_META_PNG_BASE =
@@ -126,6 +131,9 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
     private var analysisJob: kotlinx.coroutines.Job? = null
     private var currentAnalysisJobId: String? = null
     private var latestAnalysisResult: AnalysisResult? = null
+    // 진행상황 디스플레이 전송 스로틀/중복제거 상태.
+    private var lastProgressSignature: String? = null
+    private var lastProgressSentAtMs: Long = 0L
     private var pendingDisplayResult: AnalysisResult? = null
     private var pendingDisplayProductConfirmation: AnalysisResult? = null
     @Volatile
@@ -1278,6 +1286,16 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
 
     private fun displayAnalysisProgress(message: String, partial: AnalysisResult? = null) {
         val currentDisplay = display ?: return
+        // 관문 스로틀: ① 직전과 완전히 동일한 화면이면 재전송하지 않는다(중복 제거)
+        //             ② 최소 간격(PROGRESS_MIN_INTERVAL_MS) 이내면 건너뛴다(전송률 캡).
+        // 진행상황은 보조 표시이므로 중간 프레임을 일부 버려도 무방하고,
+        // 확정 화면(confirmation/result)은 이 함수를 거치지 않아 영향받지 않는다.
+        val signature = message + "|" + (partial?.let { productTitle(it) + "|" + (productMeta(it) ?: "") } ?: "")
+        val now = System.currentTimeMillis()
+        if (signature == lastProgressSignature) return
+        if (now - lastProgressSentAtMs < PROGRESS_MIN_INTERVAL_MS) return
+        lastProgressSignature = signature
+        lastProgressSentAtMs = now
         viewModelScope.launch(Dispatchers.IO) {
             currentDisplay.sendContent {
                 flexBox(
@@ -1375,6 +1393,9 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
 
     fun displayLoading() {
         val currentDisplay = display ?: return
+        // 새 분석 시작 → 진행상황 스로틀 상태 초기화(직후 첫 진행 프레임이 즉시 뜨도록).
+        lastProgressSignature = null
+        lastProgressSentAtMs = 0L
         viewModelScope.launch(Dispatchers.IO) {
             currentDisplay.sendContent {
                 flexBox(
@@ -1422,27 +1443,23 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
 
     private fun showReadyScreen() {
         val currentDisplay = display ?: return
-        val guidelineUri = shoplyLocalAssetUri(R.drawable.shoply_meta_guideline, "Guideline.png")
-            ?: shoplyPng("Guideline.png")
+        val readyUri = metaPng("Camera1.png")
         viewModelScope.launch(Dispatchers.IO) {
             currentDisplay.sendContent {
+                // \uD654\uBA74 \uC804\uCCB4(flexBox)\uB97C \uB2E8\uC77C \uD074\uB9AD \uB300\uC0C1\uC73C\uB85C \uB454\uB2E4. \uC0C1\uD638\uC791\uC6A9 \uC694\uC18C\uAC00 \uC774 \uD558\uB098\uBFD0\uC774\uB77C
+                // \uC2A4\uC640\uC774\uD504\uB85C \uD3EC\uCEE4\uC2A4\uB97C \uC62E\uAE38 \uD544\uC694 \uC5C6\uC774 \uD56D\uC0C1 \uC774 flexBox\uAC00 \uD3EC\uCEE4\uC2A4\uB418\uC5B4 \uBC14\uB85C \uD540\uCE58=\uCD2C\uC601\uB41C\uB2E4.
                 flexBox(
                     direction = Direction.COLUMN,
-                    gap = 8,
-                    padding = 8,
+                    gap = 0,
+                    padding = 0,
                     alignment = Alignment.CENTER,
                     crossAlignment = Alignment.CENTER,
+                    onClick = {
+                        Log.i(TAG, "Ready capture flexBox clicked from glasses")
+                        capturePhoto()
+                    },
                 ) {
-                    image(uri = guidelineUri, sizePreset = ImageSize.ICON, cornerRadius = CornerRadius.NONE)
-                    button(
-                        label = "\uD540\uCE58\uD558\uC5EC \uCD2C\uC601",
-                        style = ButtonStyle.PRIMARY,
-                        iconName = IconName.EYE,
-                        onClick = {
-                            Log.i(TAG, "Ready capture button clicked from glasses")
-                            capturePhoto()
-                        },
-                    )
+                    image(uri = readyUri, sizePreset = ImageSize.FILL, cornerRadius = CornerRadius.NONE)
                 }
             }.onFailure { error, _ ->
                 Log.w(TAG, "showReadyScreen sendContent failed: ${error.description}")
