@@ -25,7 +25,7 @@ import com.example.raybanvision.data.SavedLink
 import com.example.raybanvision.network.mergeWith
 import com.example.raybanvision.network.ShoppingApiClient
 import com.meta.wearable.dat.camera.Stream
-import com.meta.wearable.dat.camera.addStream
+import com.meta.wearable.dat.camera.addCamera
 import com.meta.wearable.dat.camera.types.PhotoData
 import com.meta.wearable.dat.camera.types.StreamConfiguration
 import com.meta.wearable.dat.camera.types.StreamState
@@ -823,14 +823,16 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
 
         // ??????깅렰???????곕츣?? capturePhoto ??癲ル슢????+ (?????밸븶筌믩끃異? ?????ㅻ쿋????????쇈궘?觀愿??????
         // compressVideo = false ??raw ?????밸븶??????밸븶???텣???ш끽維뽳쭩??룸챶猶??Bitmap ??????????ш끽維뽳쭩??嚥????ㅼ뒧??????????H.265 ????거??異?????怨쀫뎐????.
-        currentSession.addStream(
+        currentSession.addCamera(
             StreamConfiguration(
                 videoQuality = VideoQuality.LOW,
                 frameRate = RAW_PREVIEW_FRAME_RATE,
                 compressVideo = false,
             ),
         )
-            .onSuccess { addedStream ->
+            .onSuccess { camera ->
+                // 0.9: addCamera → Camera 반환. Stream은 camera.stream으로 획득(0.8 addStream 대체).
+                val addedStream = camera.stream
                 stream = addedStream
                 viewModelScope.launch {
                     addedStream.state.collect { state ->
