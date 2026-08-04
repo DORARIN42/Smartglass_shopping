@@ -325,13 +325,16 @@ private fun CameraScreen(
             }
         }
 
-        Text(
-            uiState.statusMessage ?: "상품을 화면 중앙에 맞춰주세요",
-            style = ShoplyType.BodySmall,
-            color = White500,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth(),
-        )
+        // 검색중에는 이 하단 텍스트를 숨긴다(검색중 표시는 스트리밍 아래 #2 하나만 남김).
+        if (!uiState.isSearching) {
+            Text(
+                uiState.statusMessage ?: "상품을 화면 중앙에 맞춰주세요",
+                style = ShoplyType.BodySmall,
+                color = White500,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth(),
+            )
+        }
 
     }
 }
@@ -359,21 +362,9 @@ private fun CameraArea(uiState: SessionUiState, previewFrame: Bitmap?) {
                     modifier = Modifier.fillMaxSize(),
                     contentScale = ContentScale.Crop,
                 )
-                // 검색 중 안내 텍스트 (이미지 위 중앙)
-                if (uiState.isSearching) {
-                    Text(
-                        uiState.statusMessage ?: "상품 검색 중...",
-                        style = ShoplyType.BodyStrong,
-                        color = White1000,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier
-                            .align(Alignment.Center)
-                            .clip(RoundedCornerShape(ShoplyDimens.RadiusFull))
-                            .background(White300)
-                            .padding(horizontal = ShoplyDimens.Space500, vertical = ShoplyDimens.Space300),
-                    )
-                } else {
-                    // 재촬영/검색 결정 안내 텍스트 (하단)
+                // 검색 중에는 이미지 위 오버레이 표시를 하지 않는다(검색중 표시는 스트리밍 아래 1개만 남김).
+                // 촬영 직후(검색 전)에만 재촬영/검색 결정 안내를 하단에 표시.
+                if (!uiState.isSearching) {
                     Text(
                         "물건 정보가 궁금하면 상품 정보를 눌러주세요",
                         style = ShoplyType.BodySmall,
