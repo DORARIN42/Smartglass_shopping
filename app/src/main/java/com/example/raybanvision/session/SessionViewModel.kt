@@ -1422,52 +1422,27 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
 
     private fun showReadyScreen() {
         val currentDisplay = display ?: return
-        val guidelineUri = shoplyPng("Guideline.png")
+        val guidelineUri = shoplyLocalAssetUri(R.drawable.shoply_meta_guideline, "Guideline.png")
+            ?: shoplyPng("Guideline.png")
         viewModelScope.launch(Dispatchers.IO) {
             currentDisplay.sendContent {
                 flexBox(
-                    direction = Direction.ROW,
-                    gap = 24,
-                    padding = 0,
-                    crossAlignment = Alignment.STRETCH,
+                    direction = Direction.COLUMN,
+                    gap = 8,
+                    padding = 8,
+                    alignment = Alignment.CENTER,
+                    crossAlignment = Alignment.CENTER,
                 ) {
-                    flexBox(
-                        direction = Direction.COLUMN,
-                        gap = 0,
-                        padding = 0,
-                        flexGrow = 0.18f,
-                        crossAlignment = Alignment.STRETCH,
-                    ) {
-                        image(uri = guidelineUri, sizePreset = ImageSize.FILL, cornerRadius = CornerRadius.NONE)
-                    }
-                    flexBox(
-                        direction = Direction.COLUMN,
-                        gap = 0,
-                        padding = 24,
-                        alignment = Alignment.CENTER,
-                        crossAlignment = Alignment.CENTER,
-                        flexGrow = 1f,
-                    ) {
-                        flexBox(
-                            direction = Direction.ROW,
-                            gap = 10,
-                            padding = 16,
-                            background = FlexBoxBackground.CARD,
-                            alignment = Alignment.CENTER,
-                            crossAlignment = Alignment.CENTER,
-                            flexShrink = 0f,
-                            onClick = {
-                                Log.i(TAG, "Ready capture card clicked from glasses")
-                                capturePhoto()
-                            },
-                        ) {
-                            icon(name = IconName.EYE, flexShrink = 0f)
-                            text(
-                                "\uD540\uCE58\uD558\uC5EC \uCD2C\uC601",
-                                style = TextStyle.BODY,
-                            )
-                        }
-                    }
+                    image(uri = guidelineUri, sizePreset = ImageSize.ICON, cornerRadius = CornerRadius.NONE)
+                    button(
+                        label = "\uD540\uCE58\uD558\uC5EC \uCD2C\uC601",
+                        style = ButtonStyle.PRIMARY,
+                        iconName = IconName.EYE,
+                        onClick = {
+                            Log.i(TAG, "Ready capture button clicked from glasses")
+                            capturePhoto()
+                        },
+                    )
                 }
             }.onFailure { error, _ ->
                 Log.w(TAG, "showReadyScreen sendContent failed: ${error.description}")
